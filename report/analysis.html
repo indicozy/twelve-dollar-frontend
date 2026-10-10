@@ -76,7 +76,7 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
 <header class="top wrap">
   <span class="eyebrow">Benchmark · 0.4 vCPU · 2 GB · k6</span>
   <h1>How many users can a frontend framework serve on a $12 server?</h1>
-  <p class="lede">Eighteen stacks rendered the same small feed site against the same Rust + SQLite API. Each got a 1-core-sized box (throttled to 0.4 vCPU) and the same k6 user loop. The server-rendered JS frameworks land between <span class="num" data-k="min-hydrate"></span> and <span class="num" data-k="max-hydrate"></span> users. Plain Express on the same Node runtime holds <span class="num" data-k="express"></span>.</p>
+  <p class="lede">Twenty-two stacks rendered the same small feed site against the same Rust + SQLite API. Each got a 1-core-sized box (throttled to 0.4 vCPU) and the same k6 user loop. The server-rendered JS frameworks land between <span class="num" data-k="min-hydrate"></span> and <span class="num" data-k="max-hydrate"></span> users. Plain Express on the same Node runtime holds <span class="num" data-k="express"></span>.</p>
   <div class="facts" id="facts"></div>
 </header>
 
@@ -182,6 +182,11 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
   <h2>Is it RAM? No: it's CPU</h2>
   <p>At their scores the slowest stacks used a fifth to a third of their 2 GB (Next.js about <span class="num" data-k="mem-nextjs"></span> MiB, Angular about <span class="num" data-k="mem-angular"></span> MiB) while their CPU sat at 95-100% of the vCPU. Nothing swapped (the box has no swap), nothing was killed for running out of memory, and failures came from latency, not errors. A memory-bound server shows the opposite pattern: memory near the limit, garbage collection eating CPU, then crashes or errors. Adding RAM to these servers would buy nothing; only more CPU, or a renderer that spends less of it per page, moves the number.</p>
   <p>The one place memory may play a part is the SvelteKit and Astro processes that grew to 770-860 MiB: a large, growing heap makes each garbage collection longer on a single core, which fits SvelteKit's drop from its 2-minute to its 5-minute result. That is still a CPU cost, paid in GC time.</p>
+</section>
+
+<section class="wrap" id="runtime">
+  <h2>Does the runtime matter? Next.js on Bun</h2>
+  <p>To isolate the runtime, the Next.js app was built exactly as before (same code, same Node + pnpm production build, standalone output) and only the server process was switched from Node 24 to Bun 1.4.3. It held 700 users instead of 500, and its CPU per request fell from 8.44 ms to 6.0 ms: about 1.4×. The rendering work didn't change, only how fast the runtime executes it, so the gain is real but small next to the other levers: caching Next.js gave up to 7.2×, switching framework on the same Node runtime up to 19× (Express + Nunjucks), and switching language up to 32× and beyond (Rust hit the 16,000-user cap).</p>
 </section>
 
 <section class="wrap">

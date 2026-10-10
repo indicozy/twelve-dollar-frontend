@@ -66,7 +66,7 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
 <div class="viewport"><div class="stage" id="stage">
 
 <section class="slide">
-  <span class="kicker">Benchmark · 18 stacks · 1 small server</span>
+  <span class="kicker">Benchmark · 22 stacks · 1 small server</span>
   <h1>How many users can your frontend serve on a $12 server?</h1>
   <p class="sub">Same site, same API, same tiny box. Only the frontend changes: Next.js, Remix, SvelteKit, Nuxt, Angular and friends, plus Express, Flask, Django, ASP.NET, Laravel, Spring and Rust.</p>
 </section>
@@ -118,6 +118,14 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
   <div class="legend" data-legend></div>
   <div class="bars" data-bars="nextjs,nextjs-cached,nextjs-fullcache,nextjs-smart,express"></div>
   <p class="note">A stored page costs Next.js about 0.40 ms of CPU, the same as Express rendering from scratch. What's left: every new post is a full render on first view, writes go through route handlers (5× Express), pages are 3× larger, and background regeneration and GC stall the single thread, so p99 breaks first.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Switching the runtime</span>
+  <h2>Next.js on Bun: 1.4×, not 19×</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars" data-bars="nextjs,nextjs-bun,remix,express-nunjucks"></div>
+  <p class="note">The same Next.js app and production build, with only the server switched from Node to Bun: 700 users instead of 500, and 6.0 ms of CPU per request instead of 8.44. A faster runtime trims the cost of the same work. It doesn't remove the work: switching framework (Remix 2,500, Express + Nunjucks 9,700) moves the number much further.</p>
 </section>
 
 <section class="slide">
