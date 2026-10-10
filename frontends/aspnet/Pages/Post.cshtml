@@ -1,0 +1,11 @@
+@page "/posts/{id}"
+@model PostModel
+@if (Model.Post is null)
+{
+  <partial name="_NotFound" />
+}
+else
+{
+  <a href="/" class="back">← back to feed</a>
+  <partial name="_PostCard" model="new PostCard(Model.Post, false)" />
+}

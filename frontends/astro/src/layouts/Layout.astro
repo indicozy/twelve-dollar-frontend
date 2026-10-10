@@ -1,0 +1,25 @@
+---
+import "../styles/styles.css";
+import { currentUsername } from "../lib/server/session";
+
+// The signed-in name comes from the `token` cookie, read on every request.
+const username = currentUsername(Astro.cookies);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Feed · Astro</title>
+    <meta name="description" content="SSR benchmark app: Astro frontend over a Rust + SQLite feed API" />
+  </head>
+  <body>
+    <header class="top">
+      <a href="/" class="brand">feed<span>.</span></a>
+      <span class="stack">astro</span>
+      <nav>{username ? <span class="who">@{username}</span> : <a href="/login">Sign in</a>}</nav>
+    </header>
+    <main><slot /></main>
+  </body>
+</html>

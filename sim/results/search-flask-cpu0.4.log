@@ -1,0 +1,315 @@
+== 23:28:27 building flask 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.01kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/python:3.14.8-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 160B done
+#7 DONE 0.1s
+
+#8 [web 1/8] FROM docker.io/library/python:3.14.8-slim
+#8 ...
+
+#9 [web internal] load build context
+#9 transferring context: 18.09kB done
+#9 DONE 0.3s
+
+#8 [web 1/8] FROM docker.io/library/python:3.14.8-slim
+#8 DONE 0.5s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.5s
+
+#10 [web 2/8] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 ...
+
+#11 [api internal] load .dockerignore
+#11 transferring context: 107B done
+#11 DONE 0.1s
+
+#12 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#12 DONE 0.0s
+
+#13 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#13 DONE 0.0s
+
+#14 [api internal] load build context
+#14 transferring context: 809B done
+#14 DONE 0.0s
+
+#10 [web 2/8] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 0.644 Hit:1 http://deb.debian.org/debian trixie InRelease
+#10 0.708 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#10 ...
+
+#15 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#15 CACHED
+
+#16 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#16 CACHED
+
+#17 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#17 CACHED
+
+#18 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#18 CACHED
+
+#19 [api build 2/6] WORKDIR /src
+#19 CACHED
+
+#20 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#20 CACHED
+
+#21 [api build 5/6] COPY src ./src
+#21 CACHED
+
+#22 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#22 CACHED
+
+#23 [api] exporting to image
+#23 exporting layers done
+#23 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#23 naming to docker.io/library/perf-sim-api done
+#23 DONE 0.0s
+
+#10 [web 2/8] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 0.850 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#10 0.935 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#10 ...
+
+#24 [api] resolving provenance for metadata file
+#24 DONE 0.0s
+
+#10 [web 2/8] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 1.584 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+#10 1.668 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [265 kB]
+#10 2.071 Fetched 10.0 MB in 2s (6281 kB/s)
+#10 2.071 Reading package lists...
+#10 2.414 Reading package lists...
+#10 2.740 Building dependency tree...
+#10 2.812 Reading state information...
+#10 2.904 The following additional packages will be installed:
+#10 2.904   libbpf1 libcap2-bin libcom-err2 libelf1t64 libgssapi-krb5-2 libk5crypto3
+#10 2.905   libkeyutils1 libkrb5-3 libkrb5support0 libmnl0 libtirpc-common libtirpc3t64
+#10 2.905   libxtables12
+#10 2.906 Suggested packages:
+#10 2.906   python3:any krb5-doc krb5-user
+#10 2.906 Recommended packages:
+#10 2.906   libpam-cap krb5-locales
+#10 2.955 The following NEW packages will be installed:
+#10 2.955   iproute2 libbpf1 libcap2-bin libcom-err2 libelf1t64 libgssapi-krb5-2
+#10 2.955   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libmnl0 libtirpc-common
+#10 2.955   libtirpc3t64 libxtables12
+#10 3.131 0 upgraded, 14 newly installed, 0 to remove and 1 not upgraded.
+#10 3.131 Need to get 2235 kB of archives.
+#10 3.131 After this operation, 8208 kB of additional disk space will be used.
+#10 3.131 Get:1 http://deb.debian.org/debian trixie/main amd64 libelf1t64 amd64 0.192-4 [189 kB]
+#10 3.436 Get:2 http://deb.debian.org/debian trixie/main amd64 libbpf1 amd64 1:1.5.0-3 [169 kB]
+#10 3.465 Get:3 http://deb.debian.org/debian trixie/main amd64 libmnl0 amd64 1.0.5-3 [11.9 kB]
+#10 3.466 Get:4 http://deb.debian.org/debian trixie/main amd64 libkrb5support0 amd64 1.21.3-5+deb13u1 [33.1 kB]
+#10 3.471 Get:5 http://deb.debian.org/debian trixie/main amd64 libcom-err2 amd64 1.47.2-3+b12 [25.0 kB]
+#10 3.515 Get:6 http://deb.debian.org/debian trixie/main amd64 libk5crypto3 amd64 1.21.3-5+deb13u1 [81.2 kB]
+#10 3.527 Get:7 http://deb.debian.org/debian trixie/main amd64 libkeyutils1 amd64 1.6.3-6 [9456 B]
+#10 3.528 Get:8 http://deb.debian.org/debian trixie/main amd64 libkrb5-3 amd64 1.21.3-5+deb13u1 [326 kB]
+#10 3.559 Get:9 http://deb.debian.org/debian trixie/main amd64 libgssapi-krb5-2 amd64 1.21.3-5+deb13u1 [138 kB]
+#10 3.598 Get:10 http://deb.debian.org/debian trixie/main amd64 libtirpc-common all 1.3.6+ds-1 [11.0 kB]
+#10 3.599 Get:11 http://deb.debian.org/debian trixie/main amd64 libtirpc3t64 amd64 1.3.6+ds-1 [83.3 kB]
+#10 3.606 Get:12 http://deb.debian.org/debian trixie/main amd64 libxtables12 amd64 1.8.11-2 [31.9 kB]
+#10 3.607 Get:13 http://deb.debian.org/debian trixie/main amd64 libcap2-bin amd64 1:2.75-10+deb13u1+b3 [36.5 kB]
+#10 3.687 Get:14 http://deb.debian.org/debian trixie/main amd64 iproute2 amd64 6.15.0-1 [1089 kB]
+#10 3.903 debconf: unable to initialize frontend: Dialog
+#10 3.903 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#10 3.903 debconf: falling back to frontend: Readline
+#10 3.903 debconf: unable to initialize frontend: Readline
+#10 3.903 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 14.)
+#10 3.903 debconf: falling back to frontend: Teletype
+#10 3.906 debconf: unable to initialize frontend: Teletype
+#10 3.906 debconf: (This frontend requires a controlling tty.)
+#10 3.906 debconf: falling back to frontend: Noninteractive
+#10 4.285 Preconfiguring packages ...
+#10 4.322 Fetched 2235 kB in 1s (2619 kB/s)
+#10 4.362 Selecting previously unselected package libelf1t64:amd64.
+#10 4.362 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 5660 files and directories currently installed.)
+#10 4.372 Preparing to unpack .../00-libelf1t64_0.192-4_amd64.deb ...
+#10 4.490 Unpacking libelf1t64:amd64 (0.192-4) ...
+#10 4.567 Selecting previously unselected package libbpf1:amd64.
+#10 4.568 Preparing to unpack .../01-libbpf1_1%3a1.5.0-3_amd64.deb ...
+#10 4.577 Unpacking libbpf1:amd64 (1:1.5.0-3) ...
+#10 4.653 Selecting previously unselected package libmnl0:amd64.
+#10 4.654 Preparing to unpack .../02-libmnl0_1.0.5-3_amd64.deb ...
+#10 4.663 Unpacking libmnl0:amd64 (1.0.5-3) ...
+#10 4.731 Selecting previously unselected package libkrb5support0:amd64.
+#10 4.732 Preparing to unpack .../03-libkrb5support0_1.21.3-5+deb13u1_amd64.deb ...
+#10 4.742 Unpacking libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#10 4.816 Selecting previously unselected package libcom-err2:amd64.
+#10 4.818 Preparing to unpack .../04-libcom-err2_1.47.2-3+b12_amd64.deb ...
+#10 4.828 Unpacking libcom-err2:amd64 (1.47.2-3+b12) ...
+#10 4.908 Selecting previously unselected package libk5crypto3:amd64.
+#10 4.911 Preparing to unpack .../05-libk5crypto3_1.21.3-5+deb13u1_amd64.deb ...
+#10 4.923 Unpacking libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#10 5.014 Selecting previously unselected package libkeyutils1:amd64.
+#10 5.018 Preparing to unpack .../06-libkeyutils1_1.6.3-6_amd64.deb ...
+#10 5.029 Unpacking libkeyutils1:amd64 (1.6.3-6) ...
+#10 5.127 Selecting previously unselected package libkrb5-3:amd64.
+#10 5.130 Preparing to unpack .../07-libkrb5-3_1.21.3-5+deb13u1_amd64.deb ...
+#10 5.142 Unpacking libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#10 5.279 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#10 5.283 Preparing to unpack .../08-libgssapi-krb5-2_1.21.3-5+deb13u1_amd64.deb ...
+#10 5.294 Unpacking libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#10 5.375 Selecting previously unselected package libtirpc-common.
+#10 5.376 Preparing to unpack .../09-libtirpc-common_1.3.6+ds-1_all.deb ...
+#10 5.387 Unpacking libtirpc-common (1.3.6+ds-1) ...
+#10 5.476 Selecting previously unselected package libtirpc3t64:amd64.
+#10 5.477 Preparing to unpack .../10-libtirpc3t64_1.3.6+ds-1_amd64.deb ...
+#10 5.491 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3 to /lib/x86_64-linux-gnu/libtirpc.so.3.usr-is-merged by libtirpc3t64'
+#10 5.498 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3.0.0 to /lib/x86_64-linux-gnu/libtirpc.so.3.0.0.usr-is-merged by libtirpc3t64'
+#10 5.505 Unpacking libtirpc3t64:amd64 (1.3.6+ds-1) ...
+#10 5.595 Selecting previously unselected package libxtables12:amd64.
+#10 5.599 Preparing to unpack .../11-libxtables12_1.8.11-2_amd64.deb ...
+#10 5.610 Unpacking libxtables12:amd64 (1.8.11-2) ...
+#10 5.681 Selecting previously unselected package libcap2-bin.
+#10 5.685 Preparing to unpack .../12-libcap2-bin_1%3a2.75-10+deb13u1+b3_amd64.deb ...
+#10 5.695 Unpacking libcap2-bin (1:2.75-10+deb13u1+b3) ...
+#10 5.791 Selecting previously unselected package iproute2.
+#10 5.792 Preparing to unpack .../13-iproute2_6.15.0-1_amd64.deb ...
+#10 5.878 Unpacking iproute2 (6.15.0-1) ...
+#10 6.001 Setting up libkeyutils1:amd64 (1.6.3-6) ...
+#10 6.030 Setting up libtirpc-common (1.3.6+ds-1) ...
+#10 6.068 Setting up libcom-err2:amd64 (1.47.2-3+b12) ...
+#10 6.098 Setting up libelf1t64:amd64 (0.192-4) ...
+#10 6.127 Setting up libkrb5support0:amd64 (1.21.3-5+deb13u1) ...
+#10 6.159 Setting up libcap2-bin (1:2.75-10+deb13u1+b3) ...
+#10 6.192 Setting up libmnl0:amd64 (1.0.5-3) ...
+#10 6.225 Setting up libk5crypto3:amd64 (1.21.3-5+deb13u1) ...
+#10 6.259 Setting up libxtables12:amd64 (1.8.11-2) ...
+#10 6.294 Setting up libkrb5-3:amd64 (1.21.3-5+deb13u1) ...
+#10 6.325 Setting up libbpf1:amd64 (1:1.5.0-3) ...
+#10 6.358 Setting up libgssapi-krb5-2:amd64 (1.21.3-5+deb13u1) ...
+#10 6.395 Setting up libtirpc3t64:amd64 (1.3.6+ds-1) ...
+#10 6.427 Setting up iproute2 (6.15.0-1) ...
+#10 6.506 debconf: unable to initialize frontend: Dialog
+#10 6.506 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#10 6.506 debconf: falling back to frontend: Readline
+#10 6.506 debconf: unable to initialize frontend: Readline
+#10 6.506 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+#10 6.506 debconf: falling back to frontend: Teletype
+#10 6.509 debconf: unable to initialize frontend: Teletype
+#10 6.509 debconf: (This frontend requires a controlling tty.)
+#10 6.509 debconf: falling back to frontend: Noninteractive
+#10 6.618 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#10 DONE 6.9s
+
+#25 [web 3/8] WORKDIR /app
+#25 DONE 0.2s
+
+#26 [web 4/8] COPY requirements.txt ./
+#26 DONE 0.2s
+
+#27 [web 5/8] RUN pip install --no-cache-dir -r requirements.txt
+#27 1.535 Collecting Flask==3.1.3 (from -r requirements.txt (line 2))
+#27 1.877   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+#27 1.989 Collecting Jinja2==3.1.6 (from -r requirements.txt (line 3))
+#27 2.066   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+#27 2.180 Collecting gunicorn==26.2.0 (from -r requirements.txt (line 4))
+#27 2.272   Downloading gunicorn-26.2.0-py3-none-any.whl.metadata (5.5 kB)
+#27 2.410 Collecting requests==2.34.2 (from -r requirements.txt (line 5))
+#27 2.516   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+#27 2.610 Collecting blinker==1.9.0 (from -r requirements.txt (line 7))
+#27 2.694   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+#27 2.798 Collecting certifi==2026.7.22 (from -r requirements.txt (line 8))
+#27 2.887   Downloading certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+#27 3.204 Collecting charset-normalizer==3.5.2 (from -r requirements.txt (line 9))
+#27 3.283   Downloading charset_normalizer-3.5.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+#27 3.511 Collecting click==8.5.0 (from -r requirements.txt (line 10))
+#27 3.594   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#27 3.689 Collecting idna==3.20 (from -r requirements.txt (line 11))
+#27 3.770   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#27 3.873 Collecting itsdangerous==2.2.0 (from -r requirements.txt (line 12))
+#27 3.957   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+#27 4.098 Collecting MarkupSafe==3.0.4 (from -r requirements.txt (line 13))
+#27 4.176   Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+#27 4.293 Collecting urllib3==2.8.0 (from -r requirements.txt (line 14))
+#27 4.371   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+#27 4.503 Collecting Werkzeug==3.1.9 (from -r requirements.txt (line 15))
+#27 4.585   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+#27 4.688 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+#27 4.850 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+#27 4.954 Downloading gunicorn-26.2.0-py3-none-any.whl (228 kB)
+#27 5.062 Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+#27 5.146 Downloading charset_normalizer-3.5.2-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (255 kB)
+#27 5.241 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#27 5.347 Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+#27 5.431 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+#27 5.511 Downloading certifi-2026.7.22-py3-none-any.whl (136 kB)
+#27 5.597 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#27 5.687 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+#27 5.766 Downloading markupsafe-3.0.4-cp314-cp314-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (23 kB)
+#27 5.848 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+#27 5.949 Installing collected packages: urllib3, MarkupSafe, itsdangerous, idna, gunicorn, click, charset-normalizer, certifi, blinker, Werkzeug, requests, Jinja2, Flask
+#27 6.569 
+#27 6.570 Successfully installed Flask-3.1.3 Jinja2-3.1.6 MarkupSafe-3.0.4 Werkzeug-3.1.9 blinker-1.9.0 certifi-2026.7.22 charset-normalizer-3.5.2 click-8.5.0 gunicorn-26.2.0 idna-3.20 itsdangerous-2.2.0 requests-2.34.2 urllib3-2.8.0
+#27 6.570 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#27 DONE 6.8s
+
+#28 [web 6/8] COPY app.py gunicorn.conf.py ./
+#28 DONE 0.2s
+
+#29 [web 7/8] COPY templates ./templates
+#29 DONE 0.2s
+
+#30 [web 8/8] COPY static ./static
+#30 DONE 0.3s
+
+#31 [web] exporting to image
+#31 exporting layers
+#31 exporting layers 0.3s done
+#31 writing image sha256:50f43cb934eb2ba06b7b046dd3e2fb01e2a8e1d375528d4162d557aad63ec804 done
+#31 naming to docker.io/library/perf-sim-web 0.0s done
+#31 DONE 0.4s
+
+#32 [web] resolving provenance for metadata file
+#32 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 235 req/s saturated on / -> start at about 1915 users
+== search (start 1900, step 100, cap 16000)
+PASS  1900 users 2m  157 req/s  med 16ms  p95 77ms  p99 110ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 111 MiB avg / 120 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 39 MiB avg / 40 MiB peak
+PASS  2400 users 2m  198 req/s  med 24ms  p95 246ms  p99 362ms  errors 0%  |  web cpu 37% under load (94% of its vCPU), peak 41%, mem 111 MiB avg / 121 MiB peak  |  api cpu 2% under load (6% of its vCPU), peak 4%, mem 39 MiB avg / 40 MiB peak
+FAIL  3000 users 2m  237 req/s  med 380ms  p95 1171ms  p99 1355ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 40%, mem 114 MiB avg / 122 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 5%, mem 40 MiB avg / 45 MiB peak
+FAIL  2700 users 2m  220 req/s  med 57ms  p95 575ms  p99 764ms  errors 0%  |  web cpu 38% under load (96% of its vCPU), peak 42%, mem 112 MiB avg / 123 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 5%, mem 40 MiB avg / 43 MiB peak
+PASS  2500 users 2m  206 req/s  med 34ms  p95 340ms  p99 511ms  errors 0%  |  web cpu 38% under load (95% of its vCPU), peak 42%, mem 114 MiB avg / 122 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 5%, mem 44 MiB avg / 45 MiB peak
+PASS  2600 users 2m  215 req/s  med 1ms  p95 214ms  p99 358ms  errors 0%  |  web cpu 35% under load (88% of its vCPU), peak 41%, mem 115 MiB avg / 124 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 40 MiB avg / 41 MiB peak
+== confirm (5-minute holds, starting at 2600)
+PASS  2600 users 5m  241 req/s  med 1ms  p95 279ms  p99 458ms  errors 0%  |  web cpu 34% under load (84% of its vCPU), peak 42%, mem 116 MiB avg / 130 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 26 MiB avg / 28 MiB peak
+SCORE flask-cpu0.4: 2600 users
+== 00:00:30 flask search exit 0

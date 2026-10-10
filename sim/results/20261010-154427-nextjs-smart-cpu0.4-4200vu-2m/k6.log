@@ -1,0 +1,62 @@
+ Container perf-sim-k6-run-c72c43767a4a Creating 
+ Container perf-sim-k6-run-c72c43767a4a Created 
+time="2026-10-10T10:44:44Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500000/like\": EOF"
+time="2026-10-10T10:45:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500010/like\": read tcp 192.168.32.4:63770->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:45:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500004/like\": read tcp 192.168.32.4:1156->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:45:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500005/like\": read tcp 192.168.32.4:12764->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500211/like\": read tcp 192.168.32.4:52396->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500227/like\": read tcp 192.168.32.4:55090->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:30Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500283/like\": read tcp 192.168.32.4:48468->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:32Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500272/like\": read tcp 192.168.32.4:9628->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:32Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500268/like\": read tcp 192.168.32.4:23710->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:33Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:15500->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:59268->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:46:48Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500334/like\": read tcp 192.168.32.4:41850->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:47:19Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:21340->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:47:20Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500433/like\": read tcp 192.168.32.4:22956->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:47:33Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500519/like\": read tcp 192.168.32.4:56780->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=280.49ms
+    ✓ 'p(99)<1000' p(99)=992.77ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 146693 666.79839/s
+    checks_succeeded...: 99.98% 146678 out of 146693
+    checks_failed......: 0.01%  15 out of 146693
+
+    ✓ feed page 200 with 20 posts
+    ✓ live likes (feed) 200
+    ✓ post page 200
+    ✓ live likes (post) 200
+    ✗ like 200/201
+      ↳  99% — ✓ 5331 / ✗ 12
+    ✗ create 201
+      ↳  99% — ✓ 707 / ✗ 3
+
+    HTTP
+    http_req_duration..............: avg=47.84ms med=468.37µs p(95)=280.49ms p(99)=992.77ms max=1.51s 
+      { expected_response:true }...: avg=47.84ms med=468.24µs p(95)=280.52ms p(99)=992.78ms max=1.51s 
+    http_req_failed................: 0.01%  15 out of 146693
+    http_reqs......................: 146693 666.79839/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.92s  med=20.89s   p(95)=26.82s   p(99)=28.9s    max=33.57s
+    iterations.....................: 33013  150.061797/s
+    vus............................: 14     min=14           max=4200
+    vus_max........................: 4200   min=4200         max=4200
+
+    NETWORK
+    data_received..................: 1.8 GB 8.1 MB/s
+    data_sent......................: 12 MB  55 kB/s
+
+
+

@@ -1,0 +1,24 @@
+{
+  "name": "nuxt-feed",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "start": "node .output/server/index.mjs",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "nuxt": "4.6.0",
+    "vue": "3.5.43",
+    "vue-router": "5.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.1",
+    "rolldown": "1.2.13",
+    "typescript": "6.0.3",
+    "vue-tsc": "3.3.12"
+  },
+  "packageManager": "pnpm@10.8.0"
+}

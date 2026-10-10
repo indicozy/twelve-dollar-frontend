@@ -1,0 +1,497 @@
+== 00:56:27 building laravel 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 899B done
+#2 DONE 0.2s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 ...
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load build definition from Dockerfile
+#5 transferring dockerfile: 2.37kB done
+#5 DONE 0.2s
+
+#6 [web internal] load metadata for docker.io/library/php:8.5.11-fpm-trixie
+#6 DONE 0.0s
+
+#7 [web internal] load metadata for docker.io/library/composer:2.10.3
+#7 DONE 0.0s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 254B done
+#8 DONE 0.2s
+
+#9 [web vendor 1/6] FROM docker.io/library/composer:2.10.3
+#9 ...
+
+#10 [web internal] load build context
+#10 transferring context: 318.45kB done
+#10 DONE 0.4s
+
+#11 [web stage-1  1/10] FROM docker.io/library/php:8.5.11-fpm-trixie
+#11 DONE 2.0s
+
+#9 [web vendor 1/6] FROM docker.io/library/composer:2.10.3
+#9 DONE 2.7s
+
+#12 [web stage-1  2/10] RUN apt-get update  && apt-get install -y --no-install-recommends nginx iproute2 curl  && rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled /etc/nginx/conf.d  && mkdir -p /run/php
+#12 0.601 Hit:1 http://deb.debian.org/debian trixie InRelease
+#12 0.670 Get:2 http://deb.debian.org/debian trixie-updates InRelease [47.3 kB]
+#12 0.825 Get:3 http://deb.debian.org/debian-security trixie-security InRelease [43.4 kB]
+#12 0.919 Get:4 http://deb.debian.org/debian trixie/main amd64 Packages [9678 kB]
+#12 ...
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 DONE 3.2s
+
+#13 [web vendor 2/6] WORKDIR /app
+#13 DONE 0.2s
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.3s
+
+#15 [web vendor 3/6] COPY composer.json composer.lock ./
+#15 ...
+
+#16 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#16 DONE 0.0s
+
+#17 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#17 DONE 0.0s
+
+#15 [web vendor 3/6] COPY composer.json composer.lock ./
+#15 DONE 0.5s
+
+#18 [web vendor 4/6] RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-autoloader
+#18 ...
+
+#19 [api internal] load build context
+#19 transferring context: 42.43kB done
+#19 DONE 0.3s
+
+#20 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#20 CACHED
+
+#21 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#21 CACHED
+
+#22 [api build 5/6] COPY src ./src
+#22 CACHED
+
+#23 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#23 CACHED
+
+#24 [api build 2/6] WORKDIR /src
+#24 CACHED
+
+#25 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#25 CACHED
+
+#26 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#26 CACHED
+
+#27 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#27 CACHED
+
+#28 [api] exporting to image
+#28 exporting layers done
+#28 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 0.0s done
+#28 naming to docker.io/library/perf-sim-api done
+#28 DONE 0.0s
+
+#12 [web stage-1  2/10] RUN apt-get update  && apt-get install -y --no-install-recommends nginx iproute2 curl  && rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled /etc/nginx/conf.d  && mkdir -p /run/php
+#12 1.732 Get:5 http://deb.debian.org/debian trixie-updates/main amd64 Packages [4412 B]
+#12 1.807 Get:6 http://deb.debian.org/debian-security trixie-security/main amd64 Packages [265 kB]
+#12 ...
+
+#29 [api] resolving provenance for metadata file
+#29 DONE 0.0s
+
+#12 [web stage-1  2/10] RUN apt-get update  && apt-get install -y --no-install-recommends nginx iproute2 curl  && rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled /etc/nginx/conf.d  && mkdir -p /run/php
+#12 2.250 Fetched 10.0 MB in 2s (5522 kB/s)
+#12 2.250 Reading package lists...
+#12 2.565 Reading package lists...
+#12 2.892 Building dependency tree...
+#12 2.971 Reading state information...
+#12 3.068 curl is already the newest version (8.14.1-2+deb13u5).
+#12 3.068 The following additional packages will be installed:
+#12 3.068   libbpf1 libcap2-bin libelf1t64 libmnl0 libtirpc-common libtirpc3t64
+#12 3.069   libxtables12 nginx-common
+#12 3.069 Suggested packages:
+#12 3.069   python3:any fcgiwrap nginx-doc ssl-cert
+#12 3.069 Recommended packages:
+#12 3.069   libpam-cap
+#12 3.101 The following NEW packages will be installed:
+#12 3.102   iproute2 libbpf1 libcap2-bin libelf1t64 libmnl0 libtirpc-common libtirpc3t64
+#12 3.102   libxtables12 nginx nginx-common
+#12 3.286 0 upgraded, 10 newly installed, 0 to remove and 2 not upgraded.
+#12 3.286 Need to get 2347 kB of archives.
+#12 3.286 After this operation, 8050 kB of additional disk space will be used.
+#12 3.286 Get:1 http://deb.debian.org/debian trixie/main amd64 libelf1t64 amd64 0.192-4 [189 kB]
+#12 3.577 Get:2 http://deb.debian.org/debian trixie/main amd64 libbpf1 amd64 1:1.5.0-3 [169 kB]
+#12 3.608 Get:3 http://deb.debian.org/debian trixie/main amd64 libmnl0 amd64 1.0.5-3 [11.9 kB]
+#12 3.611 Get:4 http://deb.debian.org/debian trixie/main amd64 libtirpc-common all 1.3.6+ds-1 [11.0 kB]
+#12 3.611 Get:5 http://deb.debian.org/debian trixie/main amd64 libtirpc3t64 amd64 1.3.6+ds-1 [83.3 kB]
+#12 3.669 Get:6 http://deb.debian.org/debian trixie/main amd64 libxtables12 amd64 1.8.11-2 [31.9 kB]
+#12 3.674 Get:7 http://deb.debian.org/debian trixie/main amd64 libcap2-bin amd64 1:2.75-10+deb13u1+b3 [36.5 kB]
+#12 3.765 Get:8 http://deb.debian.org/debian trixie/main amd64 iproute2 amd64 6.15.0-1 [1089 kB]
+#12 3.877 Get:9 http://deb.debian.org/debian-security trixie-security/main amd64 nginx-common all 1.26.3-3+deb13u9 [112 kB]
+#12 3.882 Get:10 http://deb.debian.org/debian-security trixie-security/main amd64 nginx amd64 1.26.3-3+deb13u9 [613 kB]
+#12 4.027 debconf: unable to initialize frontend: Dialog
+#12 4.027 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#12 4.027 debconf: falling back to frontend: Readline
+#12 4.031 debconf: unable to initialize frontend: Readline
+#12 4.031 debconf: (This frontend requires a controlling tty.)
+#12 4.031 debconf: falling back to frontend: Teletype
+#12 4.033 debconf: unable to initialize frontend: Teletype
+#12 4.033 debconf: (This frontend requires a controlling tty.)
+#12 4.033 debconf: falling back to frontend: Noninteractive
+#12 4.349 Preconfiguring packages ...
+#12 4.396 Fetched 2347 kB in 1s (2842 kB/s)
+#12 4.438 Selecting previously unselected package libelf1t64:amd64.
+#12 4.438 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 14660 files and directories currently installed.)
+#12 4.466 Preparing to unpack .../0-libelf1t64_0.192-4_amd64.deb ...
+#12 4.517 Unpacking libelf1t64:amd64 (0.192-4) ...
+#12 4.625 Selecting previously unselected package libbpf1:amd64.
+#12 4.630 Preparing to unpack .../1-libbpf1_1%3a1.5.0-3_amd64.deb ...
+#12 4.641 Unpacking libbpf1:amd64 (1:1.5.0-3) ...
+#12 4.736 Selecting previously unselected package libmnl0:amd64.
+#12 4.742 Preparing to unpack .../2-libmnl0_1.0.5-3_amd64.deb ...
+#12 4.753 Unpacking libmnl0:amd64 (1.0.5-3) ...
+#12 4.833 Selecting previously unselected package libtirpc-common.
+#12 4.839 Preparing to unpack .../3-libtirpc-common_1.3.6+ds-1_all.deb ...
+#12 4.850 Unpacking libtirpc-common (1.3.6+ds-1) ...
+#12 4.979 Selecting previously unselected package libtirpc3t64:amd64.
+#12 4.986 Preparing to unpack .../4-libtirpc3t64_1.3.6+ds-1_amd64.deb ...
+#12 5.010 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3 to /lib/x86_64-linux-gnu/libtirpc.so.3.usr-is-merged by libtirpc3t64'
+#12 5.028 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3.0.0 to /lib/x86_64-linux-gnu/libtirpc.so.3.0.0.usr-is-merged by libtirpc3t64'
+#12 5.038 Unpacking libtirpc3t64:amd64 (1.3.6+ds-1) ...
+#12 5.160 Selecting previously unselected package libxtables12:amd64.
+#12 5.166 Preparing to unpack .../5-libxtables12_1.8.11-2_amd64.deb ...
+#12 5.177 Unpacking libxtables12:amd64 (1.8.11-2) ...
+#12 5.259 Selecting previously unselected package libcap2-bin.
+#12 5.265 Preparing to unpack .../6-libcap2-bin_1%3a2.75-10+deb13u1+b3_amd64.deb ...
+#12 5.275 Unpacking libcap2-bin (1:2.75-10+deb13u1+b3) ...
+#12 5.387 Selecting previously unselected package iproute2.
+#12 5.393 Preparing to unpack .../7-iproute2_6.15.0-1_amd64.deb ...
+#12 5.456 Unpacking iproute2 (6.15.0-1) ...
+#12 5.574 Selecting previously unselected package nginx-common.
+#12 5.576 Preparing to unpack .../8-nginx-common_1.26.3-3+deb13u9_all.deb ...
+#12 5.587 Unpacking nginx-common (1.26.3-3+deb13u9) ...
+#12 5.661 Selecting previously unselected package nginx.
+#12 5.663 Preparing to unpack .../9-nginx_1.26.3-3+deb13u9_amd64.deb ...
+#12 5.674 Unpacking nginx (1.26.3-3+deb13u9) ...
+#12 5.788 Setting up libtirpc-common (1.3.6+ds-1) ...
+#12 5.830 Setting up nginx-common (1.26.3-3+deb13u9) ...
+#12 6.088 debconf: unable to initialize frontend: Dialog
+#12 6.088 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#12 6.088 debconf: falling back to frontend: Readline
+#12 6.092 debconf: unable to initialize frontend: Readline
+#12 6.092 debconf: (This frontend requires a controlling tty.)
+#12 6.092 debconf: falling back to frontend: Teletype
+#12 6.094 debconf: unable to initialize frontend: Teletype
+#12 6.094 debconf: (This frontend requires a controlling tty.)
+#12 6.094 debconf: falling back to frontend: Noninteractive
+#12 6.211 Setting up libelf1t64:amd64 (0.192-4) ...
+#12 6.243 Setting up libcap2-bin (1:2.75-10+deb13u1+b3) ...
+#12 6.278 Setting up libmnl0:amd64 (1.0.5-3) ...
+#12 6.311 Setting up libxtables12:amd64 (1.8.11-2) ...
+#12 6.345 Setting up libbpf1:amd64 (1:1.5.0-3) ...
+#12 6.368 Setting up libtirpc3t64:amd64 (1.3.6+ds-1) ...
+#12 6.387 Setting up iproute2 (6.15.0-1) ...
+#12 6.438 debconf: unable to initialize frontend: Dialog
+#12 6.438 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#12 6.438 debconf: falling back to frontend: Readline
+#12 6.442 debconf: unable to initialize frontend: Readline
+#12 6.442 debconf: (This frontend requires a controlling tty.)
+#12 6.442 debconf: falling back to frontend: Teletype
+#12 6.444 debconf: unable to initialize frontend: Teletype
+#12 6.444 debconf: (This frontend requires a controlling tty.)
+#12 6.444 debconf: falling back to frontend: Noninteractive
+#12 6.488 Setting up nginx (1.26.3-3+deb13u9) ...
+#12 6.513 invoke-rc.d: could not determine current runlevel
+#12 6.515 invoke-rc.d: policy-rc.d denied execution of start.
+#12 6.520 Processing triggers for libc-bin (2.41-12+deb13u4) ...
+#12 DONE 6.7s
+
+#18 [web vendor 4/6] RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-autoloader
+#18 0.764 Installing dependencies from lock file
+#18 0.766 Verifying lock file contents can be installed on current platform.
+#18 1.250 Package operations: 76 installs, 0 updates, 0 removals
+#18 1.250   - Downloading doctrine/inflector (2.1.0)
+#18 1.251   - Downloading doctrine/lexer (3.0.3)
+#18 1.251   - Downloading dragonmantank/cron-expression (v3.6.0)
+#18 1.251   - Downloading symfony/polyfill-mbstring (v1.43.0)
+#18 1.251   - Downloading symfony/deprecation-contracts (v3.7.1)
+#18 1.251   - Downloading symfony/http-foundation (v8.1.8)
+#18 1.251   - Downloading fruitcake/php-cors (v1.4.0)
+#18 1.251   - Downloading symfony/polyfill-php82 (v1.43.0)
+#18 1.251   - Downloading symfony/polyfill-php80 (v1.43.0)
+#18 1.252   - Downloading psr/http-message (2.0)
+#18 1.252   - Downloading psr/http-factory (1.1.0)
+#18 1.252   - Downloading psr/http-client (1.0.3)
+#18 1.252   - Downloading guzzlehttp/psr7 (3.1.0)
+#18 1.252   - Downloading guzzlehttp/promises (3.0.2)
+#18 1.252   - Downloading guzzlehttp/guzzle (8.2.0)
+#18 1.252   - Downloading guzzlehttp/uri-template (v2.0.1)
+#18 1.252   - Downloading symfony/polyfill-intl-normalizer (v1.43.0)
+#18 1.252   - Downloading symfony/polyfill-intl-grapheme (v1.43.0)
+#18 1.252   - Downloading symfony/polyfill-ctype (v1.37.0)
+#18 1.252   - Downloading symfony/string (v8.1.7)
+#18 1.253   - Downloading psr/container (2.0.2)
+#18 1.253   - Downloading symfony/service-contracts (v3.7.3)
+#18 1.253   - Downloading symfony/polyfill-php85 (v1.43.0)
+#18 1.253   - Downloading symfony/console (v8.1.8)
+#18 1.253   - Downloading laravel/prompts (v0.3.25)
+#18 1.253   - Downloading laravel/serializable-closure (v2.1.0)
+#18 1.253   - Downloading symfony/var-dumper (v8.1.7)
+#18 1.253   - Downloading nikic/php-parser (v5.9.0)
+#18 1.253   - Downloading psy/psysh (v0.12.24)
+#18 1.253   - Downloading voku/portable-ascii (2.1.1)
+#18 1.253   - Downloading phpoption/phpoption (1.10.0)
+#18 1.253   - Downloading graham-campbell/result-type (v1.2.0)
+#18 1.253   - Downloading vlucas/phpdotenv (v5.7.0)
+#18 1.253   - Downloading symfony/css-selector (v8.1.6)
+#18 1.254   - Downloading tijsverkoyen/css-to-inline-styles (v2.4.0)
+#18 1.254   - Downloading symfony/polyfill-uuid (v1.43.0)
+#18 1.254   - Downloading symfony/uid (v8.1.8)
+#18 1.254   - Downloading symfony/routing (v8.1.8)
+#18 1.254   - Downloading symfony/process (v8.1.7)
+#18 1.254   - Downloading symfony/polyfill-php86 (v1.43.0)
+#18 1.254   - Downloading symfony/polyfill-php84 (v1.43.0)
+#18 1.254   - Downloading symfony/polyfill-intl-idn (v1.43.0)
+#18 1.254   - Downloading symfony/mime (v8.1.7)
+#18 1.254   - Downloading psr/event-dispatcher (1.0.0)
+#18 1.254   - Downloading symfony/event-dispatcher-contracts (v3.7.1)
+#18 1.254   - Downloading symfony/event-dispatcher (v8.1.5)
+#18 1.254   - Downloading psr/log (3.0.2)
+#18 1.254   - Downloading egulias/email-validator (4.0.4)
+#18 1.254   - Downloading symfony/mailer (v8.1.7)
+#18 1.254   - Downloading symfony/error-handler (v8.1.8)
+#18 1.255   - Downloading symfony/http-kernel (v8.1.8)
+#18 1.255   - Downloading symfony/finder (v8.1.8)
+#18 1.255   - Downloading ramsey/collection (2.1.1)
+#18 1.255   - Downloading brick/math (1.0.0)
+#18 1.255   - Downloading ramsey/uuid (4.9.4)
+#18 1.255   - Downloading psr/simple-cache (3.0.0)
+#18 1.255   - Downloading nunomaduro/termwind (v2.4.0)
+#18 1.255   - Downloading symfony/translation-contracts (v3.7.1)
+#18 1.255   - Downloading symfony/translation (v8.1.5)
+#18 1.255   - Downloading psr/clock (1.0.0)
+#18 1.255   - Downloading symfony/clock (v8.1.0)
+#18 1.255   - Downloading carbonphp/carbon-doctrine-types (3.2.1)
+#18 1.255   - Downloading nesbot/carbon (3.14.2)
+#18 1.255   - Downloading monolog/monolog (3.12.1)
+#18 1.255   - Downloading league/uri-interfaces (7.8.1)
+#18 1.256   - Downloading league/uri (7.8.1)
+#18 1.256   - Downloading league/mime-type-detection (1.17.0)
+#18 1.256   - Downloading league/flysystem-local (3.35.3)
+#18 1.256   - Downloading league/flysystem (3.36.0)
+#18 1.256   - Downloading nette/utils (v4.1.5)
+#18 1.256   - Downloading nette/schema (v1.3.6)
+#18 1.256   - Downloading dflydev/dot-access-data (v3.0.3)
+#18 1.256   - Downloading league/config (v1.2.0)
+#18 1.256   - Downloading league/commonmark (2.10.3)
+#18 1.256   - Downloading laravel/framework (v13.35.0)
+#18 1.256   - Downloading laravel/tinker (v3.0.2)
+#18 1.266   0/76 [>---------------------------]   0%
+#18 2.216  12/76 [====>-----------------------]  15%
+#18 2.658  22/76 [========>-------------------]  28%
+#18 2.772  25/76 [=========>------------------]  32%
+#18 3.135  37/76 [=============>--------------]  48%
+#18 3.244  38/76 [==============>-------------]  50%
+#18 3.463  48/76 [=================>----------]  63%
+#18 3.665  54/76 [===================>--------]  71%
+#18 3.879  62/76 [======================>-----]  81%
+#18 4.084  69/76 [=========================>--]  90%
+#18 4.796  76/76 [============================] 100%
+#18 4.797   - Installing doctrine/inflector (2.1.0): Extracting archive
+#18 4.802   - Installing doctrine/lexer (3.0.3): Extracting archive
+#18 4.802   - Installing dragonmantank/cron-expression (v3.6.0): Extracting archive
+#18 4.803   - Installing symfony/polyfill-mbstring (v1.43.0): Extracting archive
+#18 4.803   - Installing symfony/deprecation-contracts (v3.7.1): Extracting archive
+#18 4.803   - Installing symfony/http-foundation (v8.1.8): Extracting archive
+#18 4.805   - Installing fruitcake/php-cors (v1.4.0): Extracting archive
+#18 4.807   - Installing symfony/polyfill-php82 (v1.43.0): Extracting archive
+#18 4.808   - Installing symfony/polyfill-php80 (v1.43.0): Extracting archive
+#18 4.810   - Installing psr/http-message (2.0): Extracting archive
+#18 4.811   - Installing psr/http-factory (1.1.0): Extracting archive
+#18 4.811   - Installing psr/http-client (1.0.3): Extracting archive
+#18 4.811   - Installing guzzlehttp/psr7 (3.1.0): Extracting archive
+#18 4.811   - Installing guzzlehttp/promises (3.0.2): Extracting archive
+#18 4.811   - Installing guzzlehttp/guzzle (8.2.0): Extracting archive
+#18 4.812   - Installing guzzlehttp/uri-template (v2.0.1): Extracting archive
+#18 4.812   - Installing symfony/polyfill-intl-normalizer (v1.43.0): Extracting archive
+#18 4.812   - Installing symfony/polyfill-intl-grapheme (v1.43.0): Extracting archive
+#18 4.812   - Installing symfony/polyfill-ctype (v1.37.0): Extracting archive
+#18 4.812   - Installing symfony/string (v8.1.7): Extracting archive
+#18 4.812   - Installing psr/container (2.0.2): Extracting archive
+#18 4.812   - Installing symfony/service-contracts (v3.7.3): Extracting archive
+#18 4.812   - Installing symfony/polyfill-php85 (v1.43.0): Extracting archive
+#18 4.813   - Installing symfony/console (v8.1.8): Extracting archive
+#18 4.813   - Installing laravel/prompts (v0.3.25): Extracting archive
+#18 4.813   - Installing laravel/serializable-closure (v2.1.0): Extracting archive
+#18 4.813   - Installing symfony/var-dumper (v8.1.7): Extracting archive
+#18 4.813   - Installing nikic/php-parser (v5.9.0): Extracting archive
+#18 4.813   - Installing psy/psysh (v0.12.24): Extracting archive
+#18 4.813   - Installing voku/portable-ascii (2.1.1): Extracting archive
+#18 4.813   - Installing phpoption/phpoption (1.10.0): Extracting archive
+#18 4.813   - Installing graham-campbell/result-type (v1.2.0): Extracting archive
+#18 4.814   - Installing vlucas/phpdotenv (v5.7.0): Extracting archive
+#18 4.814   - Installing symfony/css-selector (v8.1.6): Extracting archive
+#18 4.814   - Installing tijsverkoyen/css-to-inline-styles (v2.4.0): Extracting archive
+#18 4.814   - Installing symfony/polyfill-uuid (v1.43.0): Extracting archive
+#18 4.814   - Installing symfony/uid (v8.1.8): Extracting archive
+#18 4.814   - Installing symfony/routing (v8.1.8): Extracting archive
+#18 4.815   - Installing symfony/process (v8.1.7): Extracting archive
+#18 4.815   - Installing symfony/polyfill-php86 (v1.43.0): Extracting archive
+#18 4.815   - Installing symfony/polyfill-php84 (v1.43.0): Extracting archive
+#18 4.816   - Installing symfony/polyfill-intl-idn (v1.43.0): Extracting archive
+#18 4.816   - Installing symfony/mime (v8.1.7): Extracting archive
+#18 4.816   - Installing psr/event-dispatcher (1.0.0): Extracting archive
+#18 4.817   - Installing symfony/event-dispatcher-contracts (v3.7.1): Extracting archive
+#18 4.817   - Installing symfony/event-dispatcher (v8.1.5): Extracting archive
+#18 4.817   - Installing psr/log (3.0.2): Extracting archive
+#18 4.818   - Installing egulias/email-validator (4.0.4): Extracting archive
+#18 4.818   - Installing symfony/mailer (v8.1.7): Extracting archive
+#18 4.818   - Installing symfony/error-handler (v8.1.8): Extracting archive
+#18 4.819   - Installing symfony/http-kernel (v8.1.8): Extracting archive
+#18 4.819   - Installing symfony/finder (v8.1.8): Extracting archive
+#18 4.820   - Installing ramsey/collection (2.1.1): Extracting archive
+#18 4.820   - Installing brick/math (1.0.0): Extracting archive
+#18 4.820   - Installing ramsey/uuid (4.9.4): Extracting archive
+#18 4.820   - Installing psr/simple-cache (3.0.0): Extracting archive
+#18 4.821   - Installing nunomaduro/termwind (v2.4.0): Extracting archive
+#18 4.821   - Installing symfony/translation-contracts (v3.7.1): Extracting archive
+#18 4.821   - Installing symfony/translation (v8.1.5): Extracting archive
+#18 4.821   - Installing psr/clock (1.0.0): Extracting archive
+#18 4.822   - Installing symfony/clock (v8.1.0): Extracting archive
+#18 4.822   - Installing carbonphp/carbon-doctrine-types (3.2.1): Extracting archive
+#18 4.822   - Installing nesbot/carbon (3.14.2): Extracting archive
+#18 4.823   - Installing monolog/monolog (3.12.1): Extracting archive
+#18 4.823   - Installing league/uri-interfaces (7.8.1): Extracting archive
+#18 4.823   - Installing league/uri (7.8.1): Extracting archive
+#18 4.824   - Installing league/mime-type-detection (1.17.0): Extracting archive
+#18 4.824   - Installing league/flysystem-local (3.35.3): Extracting archive
+#18 4.824   - Installing league/flysystem (3.36.0): Extracting archive
+#18 4.824   - Installing nette/utils (v4.1.5): Extracting archive
+#18 4.825   - Installing nette/schema (v1.3.6): Extracting archive
+#18 4.825   - Installing dflydev/dot-access-data (v3.0.3): Extracting archive
+#18 4.825   - Installing league/config (v1.2.0): Extracting archive
+#18 4.825   - Installing league/commonmark (2.10.3): Extracting archive
+#18 4.825   - Installing laravel/framework (v13.35.0): Extracting archive
+#18 4.826   - Installing laravel/tinker (v3.0.2): Extracting archive
+#18 4.831   0/76 [>---------------------------]   0%
+#18 4.946  50/76 [==================>---------]  65%
+#18 5.046  75/76 [===========================>]  98%
+#18 5.118  76/76 [============================] 100%
+#18 ...
+
+#30 [web stage-1  3/10] RUN mv "/usr/local/etc/php/php.ini-production" "/usr/local/etc/php/php.ini" && rm -f /usr/local/etc/php-fpm.d/*.conf
+#30 DONE 0.4s
+
+#18 [web vendor 4/6] RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-autoloader
+#18 5.606 54 packages you are using are looking for funding.
+#18 5.606 Use the `composer fund` command to find out more!
+#18 DONE 5.7s
+
+#31 [web vendor 5/6] COPY . .
+#31 ...
+
+#32 [web stage-1  4/10] COPY docker/php/zz-production.ini /usr/local/etc/php/conf.d/zz-production.ini
+#32 DONE 0.3s
+
+#31 [web vendor 5/6] COPY . .
+#31 DONE 0.4s
+
+#33 [web stage-1  5/10] COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+#33 DONE 0.3s
+
+#34 [web vendor 6/6] RUN composer dump-autoload --no-dev --optimize
+#34 ...
+
+#35 [web stage-1  6/10] COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+#35 DONE 0.2s
+
+#34 [web vendor 6/6] RUN composer dump-autoload --no-dev --optimize
+#34 0.563 Generating optimized autoload files
+#34 ...
+
+#36 [web stage-1  7/10] COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+#36 DONE 0.2s
+
+#37 [web stage-1  8/10] WORKDIR /var/www/html
+#37 DONE 0.2s
+
+#34 [web vendor 6/6] RUN composer dump-autoload --no-dev --optimize
+#34 0.988 > Illuminate\Foundation\ComposerScripts::postAutoloadDump
+#34 0.995 > @php artisan package:discover --ansi
+#34 1.071 
+#34 1.071   [37;44m INFO [39;49m Discovering packages.  
+#34 1.071 
+#34 1.073   laravel/tinker [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#34 1.073   nesbot/carbon [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#34 1.073   nunomaduro/termwind [90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m[90m.[39m [32;1mDONE[39;22m
+#34 1.074 
+#34 1.077 Generated optimized autoload files containing 4770 classes
+#34 DONE 1.1s
+
+#38 [web stage-1  9/10] COPY --from=vendor /app /var/www/html
+#38 DONE 0.6s
+
+#39 [web stage-1 10/10] RUN php artisan route:cache && php artisan view:cache && php artisan event:cache  && chown -R www-data:www-data storage bootstrap/cache
+#39 0.489 
+#39 0.489    INFO  Routes cached successfully.  
+#39 0.489 
+#39 0.570 
+#39 0.570 
+#39 0.570    INFO  Blade templates cached successfully.  
+#39 0.570 
+#39 0.649 
+#39 0.649    INFO  Events cached successfully.  
+#39 0.649 
+#39 DONE 0.7s
+
+#40 [web] exporting to image
+#40 exporting layers
+#40 exporting layers 0.6s done
+#40 writing image sha256:9927013324e2c53ef14e3a73c0866dbf50c4b38ca751ca0740f3d90d445b956d done
+#40 naming to docker.io/library/perf-sim-web 0.0s done
+#40 DONE 0.7s
+
+#41 [web] resolving provenance for metadata file
+#41 DONE 0.0s
+ Image perf-sim-web Built 
+ Image perf-sim-api Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 91 req/s saturated on / -> start at about 741 users
+== search (start 700, step 100, cap 16000)
+PASS  700 users 2m  58 req/s  med 25ms  p95 208ms  p99 392ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 77 MiB avg / 86 MiB peak  |  api cpu 1% under load (3% of its vCPU), peak 4%, mem 33 MiB avg / 33 MiB peak
+FAIL  900 users 2m  71 req/s  med 557ms  p95 1345ms  p99 1550ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 82 MiB avg / 92 MiB peak  |  api cpu 2% under load (6% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+FAIL  800 users 2m  65 req/s  med 82ms  p95 665ms  p99 832ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 80 MiB avg / 88 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 35 MiB peak
+== confirm (5-minute holds, starting at 700)
+FAIL  700 users 5m  64 req/s  med 53ms  p95 637ms  p99 1567ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 86 MiB avg / 102 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 33 MiB avg / 35 MiB peak
+PASS  500 users 5m  46 req/s  med 13ms  p95 71ms  p99 157ms  errors 0%  |  web cpu 36% under load (91% of its vCPU), peak 42%, mem 80 MiB avg / 91 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+PASS  600 users 5m  55 req/s  med 18ms  p95 151ms  p99 375ms  errors 0%  |  web cpu 39% under load (97% of its vCPU), peak 41%, mem 83 MiB avg / 97 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+SCORE laravel-cpu0.4: 600 users
+== 01:30:21 laravel search exit 0

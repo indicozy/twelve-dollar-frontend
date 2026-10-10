@@ -1,0 +1,47 @@
+ Container perf-sim-k6-run-0eaf7cebff32 Creating 
+ Container perf-sim-k6-run-0eaf7cebff32 Created 
+time="2026-10-09T11:17:28Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499992/like\": read tcp 192.168.32.4:55434->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T11:19:16Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500099/like\": read tcp 192.168.32.4:56812->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T11:19:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500110/like\": read tcp 192.168.32.4:39826->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=75.99ms
+    ✓ 'p(99)<1000' p(99)=171.58ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 18192  82.689518/s
+    checks_succeeded...: 99.98% 18189 out of 18192
+    checks_failed......: 0.01%  3 out of 18192
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 1238 / ✗ 3
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=16.86ms med=6.16ms p(95)=75.99ms p(99)=171.58ms max=448.36ms
+      { expected_response:true }...: avg=16.85ms med=6.16ms p(95)=75.99ms p(99)=171.6ms  max=448.36ms
+    http_req_failed................: 0.01%  3 out of 18192
+    http_reqs......................: 18192  82.689518/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.9s   med=20.85s p(95)=26.72s  p(99)=28.61s   max=32.79s  
+    iterations.....................: 7848   35.672127/s
+    vus............................: 1      min=1          max=1000
+    vus_max........................: 1000   min=1000       max=1000
+
+    NETWORK
+    data_received..................: 154 MB 701 kB/s
+    data_sent......................: 1.7 MB 7.6 kB/s
+
+
+

@@ -1,0 +1,4 @@
+ Container perf-sim-k6-run-52c57989e1a1 Creating 
+ Container perf-sim-k6-run-52c57989e1a1 Created 
+time="2026-10-10T10:17:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500075/like\": read tcp 192.168.32.4:4874->192.168.32.3:3000: read: connection reset by peer"
+

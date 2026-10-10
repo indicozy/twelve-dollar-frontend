@@ -1,0 +1,26 @@
+{
+  "name": "perf-video",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.8.0",
+  "scripts": {
+    "data": "cp ../report/data.json src/data.json",
+    "studio": "pnpm data && remotion studio",
+    "render": "pnpm data && remotion render Full out/full.mp4",
+    "still": "remotion still"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.534",
+    "@remotion/google-fonts": "4.0.534",
+    "@remotion/transitions": "4.0.534",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "remotion": "4.0.534",
+    "roughjs": "4.6.6",
+    "simple-icons": "16.34.0"
+  },
+  "devDependencies": {
+    "@types/react": "19.2.2",
+    "typescript": "5.9.3"
+  }
+}

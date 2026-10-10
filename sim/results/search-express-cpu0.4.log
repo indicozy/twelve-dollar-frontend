@@ -1,0 +1,187 @@
+== 22:06:38 building express 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.04kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 159B done
+#7 DONE 0.1s
+
+#8 [web  1/10] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web  2/10] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [web  3/10] WORKDIR /app
+#10 CACHED
+
+#11 [web internal] load build context
+#11 transferring context: 35.70kB done
+#11 DONE 0.2s
+
+#12 [web  4/10] RUN corepack enable
+#12 DONE 0.5s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#13 [web  5/10] COPY package.json pnpm-lock.yaml .npmrc ./
+#13 DONE 0.3s
+
+#14 [web  6/10] RUN pnpm install --prod --frozen-lockfile && rm -rf /root/.cache /root/.local/share/pnpm/store
+#14 0.380 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#14 ...
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.6s
+
+#15 [api internal] load .dockerignore
+#15 transferring context: 107B done
+#15 DONE 0.0s
+
+#16 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#16 DONE 0.0s
+
+#17 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#17 DONE 0.0s
+
+#18 [api internal] load build context
+#18 transferring context: 809B done
+#18 DONE 0.1s
+
+#14 [web  6/10] RUN pnpm install --prod --frozen-lockfile && rm -rf /root/.cache /root/.local/share/pnpm/store
+#14 ...
+
+#19 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#19 CACHED
+
+#20 [api build 2/6] WORKDIR /src
+#20 CACHED
+
+#21 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#21 CACHED
+
+#22 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#22 CACHED
+
+#23 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#23 CACHED
+
+#24 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#24 CACHED
+
+#25 [api build 5/6] COPY src ./src
+#25 CACHED
+
+#26 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#26 CACHED
+
+#27 [api] exporting to image
+#27 exporting layers done
+#27 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#27 naming to docker.io/library/perf-sim-api done
+#27 DONE 0.0s
+
+#28 [api] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#14 [web  6/10] RUN pnpm install --prod --frozen-lockfile && rm -rf /root/.cache /root/.local/share/pnpm/store
+#14 1.348 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#14 1.348 (Use `node --trace-deprecation ...` to show where the warning was created)
+#14 1.360 Lockfile is up to date, resolution step is skipped
+#14 1.364 Progress: resolved 1, reused 0, downloaded 0, added 0
+#14 1.373 Packages: +66
+#14 1.373 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#14 1.548 
+#14 1.548    ╭───────────────────────────────────────────────╮
+#14 1.548    │                                               │
+#14 1.548    │      Update available! 10.8.0 → 12.10.1.      │
+#14 1.548    │     Changelog: https://pnpm.io/v/12.10.1      │
+#14 1.548    │   To update, run: corepack use pnpm@12.10.1   │
+#14 1.548    │                                               │
+#14 1.548    ╰───────────────────────────────────────────────╯
+#14 1.548 
+#14 1.607 Progress: resolved 66, reused 0, downloaded 66, added 66, done
+#14 1.649 
+#14 1.649 dependencies:
+#14 1.649 + ejs 7.0.1
+#14 1.649 + express 5.3.0
+#14 1.649 
+#14 1.649 devDependencies: skipped
+#14 1.649 
+#14 1.671 Done in 531ms using pnpm v10.8.0
+#14 DONE 1.9s
+
+#29 [web  7/10] COPY server.js ./
+#29 DONE 0.2s
+
+#30 [web  8/10] COPY lib ./lib
+#30 DONE 0.2s
+
+#31 [web  9/10] COPY views ./views
+#31 DONE 0.2s
+
+#32 [web 10/10] COPY public ./public
+#32 DONE 0.2s
+
+#33 [web] exporting to image
+#33 exporting layers 0.4s done
+#33 writing image sha256:13bb1f01d40011681a0b8a1137d5daad2eb3b890036693a4b7cd7f82e5c9fbc6 done
+#33 naming to docker.io/library/perf-sim-web 0.0s done
+#33 DONE 0.4s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 579 req/s saturated on / -> start at about 4720 users
+== search (start 4700, step 100, cap 16000)
+PASS  4700 users 2m  390 req/s  med 1ms  p95 70ms  p99 149ms  errors 0.01%  |  web cpu 37% under load (92% of its vCPU), peak 41%, mem 289 MiB avg / 298 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 7%, mem 30 MiB avg / 44 MiB peak
+PASS  5900 users 2m  489 req/s  med 3ms  p95 123ms  p99 202ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 300 MiB avg / 319 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 7%, mem 48 MiB avg / 51 MiB peak
+PASS  7400 users 2m  611 req/s  med 19ms  p95 231ms  p99 356ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 330 MiB avg / 346 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 6%, mem 38 MiB avg / 40 MiB peak
+FAIL  9300 users 2m  693 req/s  med 236ms  p95 1432ms  p99 4067ms  errors 0.1%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 342 MiB avg / 367 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 59 MiB peak
+FAIL  8300 users 2m  671 req/s  med 93ms  p95 800ms  p99 935ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 342 MiB avg / 357 MiB peak  |  api cpu 5% under load (11% of its vCPU), peak 7%, mem 59 MiB avg / 61 MiB peak
+PASS  7800 users 2m  643 req/s  med 39ms  p95 385ms  p99 526ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 333 MiB avg / 350 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 6%, mem 55 MiB avg / 57 MiB peak
+PASS  8000 users 2m  656 req/s  med 50ms  p95 479ms  p99 782ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 337 MiB avg / 358 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 8%, mem 60 MiB avg / 63 MiB peak
+FAIL  8100 users 2m  663 req/s  med 50ms  p95 577ms  p99 848ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 347 MiB avg / 364 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 56 MiB avg / 58 MiB peak
+== confirm (5-minute holds, starting at 8000)
+FAIL  8000 users 5m  737 req/s  med 44ms  p95 551ms  p99 771ms  errors 0.01%  |  web cpu 38% under load (96% of its vCPU), peak 41%, mem 346 MiB avg / 372 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 60 MiB peak
+PASS  6000 users 5m  559 req/s  med 5ms  p95 141ms  p99 226ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 312 MiB avg / 331 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 8%, mem 50 MiB avg / 54 MiB peak
+PASS  7000 users 5m  649 req/s  med 21ms  p95 239ms  p99 322ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 327 MiB avg / 350 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 7%, mem 56 MiB avg / 59 MiB peak
+PASS  7500 users 5m  695 req/s  med 28ms  p95 275ms  p99 398ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 342 MiB avg / 365 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 60 MiB peak
+PASS  7700 users 5m  712 req/s  med 40ms  p95 339ms  p99 474ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 349 MiB avg / 366 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 60 MiB peak
+PASS  7800 users 5m  723 req/s  med 19ms  p95 277ms  p99 396ms  errors 0.01%  |  web cpu 39% under load (97% of its vCPU), peak 41%, mem 340 MiB avg / 363 MiB peak  |  api cpu 5% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 60 MiB peak
+PASS  7900 users 5m  733 req/s  med 19ms  p95 251ms  p99 373ms  errors 0.01%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 343 MiB avg / 364 MiB peak  |  api cpu 5% under load (11% of its vCPU), peak 6%, mem 59 MiB avg / 62 MiB peak
+SCORE express-cpu0.4: 7900 users
+== 23:28:27 express search exit 0

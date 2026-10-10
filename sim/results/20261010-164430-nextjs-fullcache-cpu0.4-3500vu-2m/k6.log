@@ -1,0 +1,58 @@
+ Container perf-sim-k6-run-dd9e6683c8af Creating 
+ Container perf-sim-k6-run-dd9e6683c8af Created 
+time="2026-10-10T11:45:03Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499988/like\": read tcp 192.168.32.4:33900->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:05Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499983/like\": read tcp 192.168.32.4:5808->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:14Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500010/like\": read tcp 192.168.32.4:13636->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500000/like\": read tcp 192.168.32.4:15826->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500010/like\": read tcp 192.168.32.4:16064->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:33Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500017/like\": read tcp 192.168.32.4:7404->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:45:45Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500078/like\": read tcp 192.168.32.4:57730->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:46:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500182/like\": read tcp 192.168.32.4:37866->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:46:34Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500191/like\": read tcp 192.168.32.4:47552->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:46:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500296/like\": read tcp 192.168.32.4:17726->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:46:57Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500296/like\": read tcp 192.168.32.4:37110->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:47:08Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500299/like\": read tcp 192.168.32.4:54270->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:47:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500401/like\": read tcp 192.168.32.4:8208->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T11:47:23Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500412/like\": read tcp 192.168.32.4:5654->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=96.15ms
+    ✓ 'p(99)<1000' p(99)=630.1ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.02%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 63849  290.214848/s
+    checks_succeeded...: 99.97% 63835 out of 63849
+    checks_failed......: 0.02%  14 out of 63849
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ create 201
+    ✗ like 200/201
+      ↳  99% — ✓ 4346 / ✗ 14
+
+    HTTP
+    http_req_duration..............: avg=26.36ms med=1.4ms  p(95)=96.15ms p(99)=630.1ms  max=1.22s
+      { expected_response:true }...: avg=26.36ms med=1.4ms  p(95)=96.23ms p(99)=630.18ms max=1.22s
+    http_req_failed................: 0.02%  14 out of 63849
+    http_reqs......................: 63849  290.214848/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.81s  med=20.75s p(95)=26.73s  p(99)=28.82s   max=33.6s
+    iterations.....................: 27676  125.796584/s
+    vus............................: 9      min=9           max=3500
+    vus_max........................: 3500   min=3500        max=3500
+
+    NETWORK
+    data_received..................: 1.4 GB 6.2 MB/s
+    data_sent......................: 5.9 MB 27 kB/s
+
+
+

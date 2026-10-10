@@ -1,0 +1,51 @@
+ Container perf-sim-k6-run-6050bb5f2e52 Creating 
+ Container perf-sim-k6-run-6050bb5f2e52 Created 
+time="2026-10-09T14:02:16Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:24776->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T14:02:32Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500078/like\": read tcp 192.168.32.4:49858->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T14:02:34Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500070/like\": read tcp 192.168.32.4:46560->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T14:02:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500076/like\": read tcp 192.168.32.4:49772->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T14:02:57Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500105/like\": read tcp 192.168.32.4:10746->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T14:03:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500171/like\": read tcp 192.168.32.4:5850->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=257.16ms
+    ✓ 'p(99)<1000' p(99)=511.11ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 32841  149.286959/s
+    checks_succeeded...: 99.98% 32835 out of 32841
+    checks_failed......: 0.01%  6 out of 32841
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 2284 / ✗ 5
+    ✗ create 201
+      ↳  99% — ✓ 295 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=46.62ms med=8.79ms p(95)=257.16ms p(99)=511.11ms max=763.9ms
+      { expected_response:true }...: avg=46.62ms med=8.79ms p(95)=257.02ms p(99)=511.15ms max=763.9ms
+    http_req_failed................: 0.01%  6 out of 32841
+    http_reqs......................: 32841  149.286959/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.85s  med=20.84s p(95)=26.79s   p(99)=28.82s   max=33.65s 
+    iterations.....................: 14208  64.586009/s
+    vus............................: 2      min=2          max=1800
+    vus_max........................: 1800   min=1800       max=1800
+
+    NETWORK
+    data_received..................: 274 MB 1.2 MB/s
+    data_sent......................: 3.0 MB 14 kB/s
+
+
+

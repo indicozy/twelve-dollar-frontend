@@ -1,0 +1,116 @@
+ Container perf-sim-k6-run-1cae7351aadd Creating 
+ Container perf-sim-k6-run-1cae7351aadd Created 
+time="2026-10-09T12:39:31Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500015/like\": read tcp 192.168.32.4:28212->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:39:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500023/like\": read tcp 192.168.32.4:35096->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:39:51Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500053/like\": read tcp 192.168.32.4:1170->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:00Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500064/like\": read tcp 192.168.32.4:14394->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500127/like\": read tcp 192.168.32.4:39606->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500059\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500047\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500048\": dial: i/o timeout"
+time="2026-10-09T12:40:20Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500125/like\": read tcp 192.168.32.4:44262->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:23Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500143/like\": read tcp 192.168.32.4:6878->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:25Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:12012->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:40:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500144/like\": read tcp 192.168.32.4:16776->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500136/like\": read tcp 192.168.32.4:19008->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:40:36Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:20174->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:03Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500290/like\": read tcp 192.168.32.4:15090->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:03Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500265/like\": read tcp 192.168.32.4:21036->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:05Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500304/like\": read tcp 192.168.32.4:17526->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:11Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500316/like\": read tcp 192.168.32.4:32386->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:26Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500362/like\": read tcp 192.168.32.4:40554->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:31Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500376/like\": read tcp 192.168.32.4:1370->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:31Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500378/like\": read tcp 192.168.32.4:64196->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500381/like\": read tcp 192.168.32.4:10718->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:44Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500408/like\": read tcp 192.168.32.4:54352->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:47Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500432/like\": read tcp 192.168.32.4:63716->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:47Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500418/like\": read tcp 192.168.32.4:61346->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:41:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500431/like\": read tcp 192.168.32.4:21654->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:13Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500506/like\": read tcp 192.168.32.4:15762->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:13Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500497/like\": read tcp 192.168.32.4:17526->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:19Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500500/like\": read tcp 192.168.32.4:36408->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:25Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500529/like\": read tcp 192.168.32.4:37766->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500564/like\": read tcp 192.168.32.4:26438->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500564/like\": read tcp 192.168.32.4:26204->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:41Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500563/like\": read tcp 192.168.32.4:31492->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:55Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500603/like\": read tcp 192.168.32.4:50590->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:42:59Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500624/like\": read tcp 192.168.32.4:60170->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:01Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500641/like\": read tcp 192.168.32.4:55542->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:01Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500635/like\": read tcp 192.168.32.4:53542->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500690/like\": read tcp 192.168.32.4:62770->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500685/like\": read tcp 192.168.32.4:37684->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500721/like\": read tcp 192.168.32.4:60314->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500766/like\": read tcp 192.168.32.4:11070->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:47Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500783/like\": read tcp 192.168.32.4:19834->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:54Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500815/like\": read tcp 192.168.32.4:6754->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:43:58Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500818/like\": read tcp 192.168.32.4:24144->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:08Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:10940->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500889/like\": read tcp 192.168.32.4:27434->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500902/like\": read tcp 192.168.32.4:3240->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500907/like\": read tcp 192.168.32.4:65052->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:31Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500925/like\": read tcp 192.168.32.4:11700->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:44:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500947/like\": read tcp 192.168.32.4:22536->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:45:07Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/501043/like\": read tcp 192.168.32.4:21456->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=2.84s
+    ✗ 'p(99)<1000' p(99)=3.49s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.05%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 119681 299.203341/s
+    checks_succeeded...: 99.94% 119614 out of 119681
+    checks_failed......: 0.05%  67 out of 119681
+
+    ✗ feed page 200 with 20 posts
+      ↳  99% — ✓ 55054 / ✗ 16
+    ✗ post page 200
+      ↳  99% — ✓ 55051 / ✗ 3
+    ✗ like 200/201
+      ↳  99% — ✓ 8396 / ✗ 45
+    ✗ create 201
+      ↳  99% — ✓ 1113 / ✗ 3
+
+    HTTP
+    http_req_duration..............: avg=812.74ms med=129.32ms p(95)=2.84s  p(99)=3.49s  max=52.74s
+      { expected_response:true }...: avg=813.15ms med=129.75ms p(95)=2.84s  p(99)=3.49s  max=52.74s
+    http_req_failed................: 0.05%  67 out of 119681
+    http_reqs......................: 119681 299.203341/s
+
+    EXECUTION
+    iteration_duration.............: avg=22.63s   med=22.45s   p(95)=29.63s p(99)=33.87s max=1m26s 
+    iterations.....................: 53228  133.070374/s
+    vus............................: 13     min=13           max=3500
+    vus_max........................: 3500   min=3500         max=3500
+
+    NETWORK
+    data_received..................: 1.1 GB 2.7 MB/s
+    data_sent......................: 11 MB  28 kB/s
+
+
+
+time="2026-10-09T12:45:34Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

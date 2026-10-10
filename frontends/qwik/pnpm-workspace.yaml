@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - esbuild
+# sharp comes with qwik-city's image plugin (vite-imagetools); this app has no images.
+ignoredBuiltDependencies:
+  - sharp

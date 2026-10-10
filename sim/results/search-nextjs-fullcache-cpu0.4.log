@@ -1,0 +1,234 @@
+== 16:27:15 building nextjs-fullcache
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.04kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 899B done
+#2 DONE 0.2s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.18kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context:
+#6 transferring context: 131B done
+#6 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 63.26kB done
+#9 DONE 0.1s
+
+#10 [web build 2/7] WORKDIR /app
+#10 CACHED
+
+#11 [web build 3/7] RUN corepack enable
+#11 CACHED
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.3s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.3s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 0.447 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#13 ...
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.1s
+
+#15 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#15 DONE 0.0s
+
+#16 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#16 DONE 0.0s
+
+#17 [api internal] load build context
+#17 transferring context: 809B done
+#17 DONE 0.1s
+
+#18 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#18 CACHED
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 CACHED
+
+#20 [api build 5/6] COPY src ./src
+#20 CACHED
+
+#21 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#21 CACHED
+
+#22 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#22 CACHED
+
+#23 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#23 CACHED
+
+#24 [api build 2/6] WORKDIR /src
+#24 CACHED
+
+#25 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#26 naming to docker.io/library/perf-sim-api done
+#26 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 1.430 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#13 1.430 (Use `node --trace-deprecation ...` to show where the warning was created)
+#13 1.441 Lockfile is up to date, resolution step is skipped
+#13 1.447 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 1.454 Packages: +32
+#13 1.454 ++++++++++++++++++++++++++++++++
+#13 2.402 
+#13 2.402    ╭───────────────────────────────────────────────╮
+#13 2.402    │                                               │
+#13 2.402    │      Update available! 10.8.0 → 12.10.1.      │
+#13 2.402    │     Changelog: https://pnpm.io/v/12.10.1      │
+#13 2.402    │   To update, run: corepack use pnpm@12.10.1   │
+#13 2.402    │                                               │
+#13 2.402    ╰───────────────────────────────────────────────╯
+#13 2.402 
+#13 2.449 Progress: resolved 32, reused 0, downloaded 24, added 24
+#13 3.449 Progress: resolved 32, reused 0, downloaded 27, added 27
+#13 4.974 Progress: resolved 32, reused 0, downloaded 28, added 27
+#13 5.976 Progress: resolved 32, reused 0, downloaded 29, added 29
+#13 6.976 Progress: resolved 32, reused 0, downloaded 30, added 30
+#13 8.165 Progress: resolved 32, reused 0, downloaded 31, added 30
+#13 8.598 Progress: resolved 32, reused 0, downloaded 32, added 32, done
+#13 8.628 
+#13 8.628 dependencies:
+#13 8.628 + next 16.4.0
+#13 8.628 + react 19.3.0
+#13 8.628 + react-dom 19.3.0
+#13 8.628 + server-only 0.0.1
+#13 8.628 
+#13 8.628 devDependencies:
+#13 8.628 + @types/node 20.19.43
+#13 8.628 + @types/react 19.3.0
+#13 8.628 + @types/react-dom 19.3.0
+#13 8.628 + typescript 5.9.3
+#13 8.628 
+#13 8.646 Done in 7.4s using pnpm v10.8.0
+#13 DONE 9.1s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.536 
+#29 0.536 > nextjs-fullcache@0.1.0 build /app
+#29 0.536 > next build
+#29 0.536 
+#29 0.781 ▲ Next.js 16.4.0 (Turbopack)
+#29 0.824 ✓ Running next.config.ts took 42ms
+#29 0.831 - Cache Components enabled
+#29 0.831 - Partial Prefetching enabled
+#29 0.831 
+#29 0.843   Creating an optimized production build ...
+#29 2.318 ✓ Compiled successfully in 1472ms
+#29 2.324   Running TypeScript ...
+#29 3.275   Finished TypeScript in 953ms ...
+#29 3.276   Collecting page data using 9 workers ...
+#29 3.790   Generating static pages using 9 workers (0/9) ...
+#29 4.119   Generating static pages using 9 workers (2/9) 
+#29 4.186   Generating static pages using 9 workers (4/9) 
+#29 4.193   Generating static pages using 9 workers (6/9) 
+#29 4.311 ✓ Generating static pages using 9 workers (9/9) in 522ms
+#29 4.315   Finalizing page optimization ...
+#29 4.370 
+#29 4.372 Route (app)
+#29 4.372 ┌ ○ /_not-found
+#29 4.372 ├ ƒ /api/posts
+#29 4.372 ├ ƒ /api/posts/[id]/like
+#29 4.372 ├   /feed/[v]
+#29 4.372 │ ├ ◐ /feed/[v]
+#29 4.372 │ └ ○ /feed/_build
+#29 4.372 ├ ○ /login
+#29 4.372 └   /posts/[id]
+#29 4.372   ├ ◐ /posts/[id]
+#29 4.372   └ ○ /posts/0
+#29 4.372 
+#29 4.372 
+#29 4.372 ○  (Static)             prerendered as static content
+#29 4.372 ◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+#29 4.372 ƒ  (Dynamic)            server-rendered on demand
+#29 4.372 
+#29 DONE 4.6s
+
+#30 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/6] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#32 DONE 0.3s
+
+#33 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#33 DONE 0.3s
+
+#34 [web stage-1 6/6] COPY --from=build /app/public ./public
+#34 DONE 0.2s
+
+#35 [web] exporting to image
+#35 exporting layers
+#35 exporting layers 0.6s done
+#35 writing image sha256:acca605acff672a232372de3e6a5a9fdde44bb6f60b344e5b91485b4e0959fb8 done
+#35 naming to docker.io/library/perf-sim-web 0.0s done
+#35 DONE 0.6s
+
+#36 [web] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 511 req/s saturated on / -> start at about 4165 users
+== search (start 4100, step 100, cap 16000)
+FAIL  4100 users 2m  338 req/s  med 4ms  p95 360ms  p99 1079ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 423 MiB avg / 453 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 42 MiB avg / 46 MiB peak
+PASS  3200 users 2m  265 req/s  med 2ms  p95 159ms  p99 825ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 418 MiB avg / 448 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 41 MiB avg / 45 MiB peak
+FAIL  3600 users 2m  297 req/s  med 4ms  p95 354ms  p99 1138ms  errors 0.01%  |  web cpu 39% under load (97% of its vCPU), peak 43%, mem 415 MiB avg / 444 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 42 MiB avg / 46 MiB peak
+PASS  3400 users 2m  281 req/s  med 2ms  p95 185ms  p99 844ms  errors 0.01%  |  web cpu 35% under load (87% of its vCPU), peak 42%, mem 414 MiB avg / 440 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 41 MiB avg / 45 MiB peak
+PASS  3500 users 2m  290 req/s  med 1ms  p95 96ms  p99 630ms  errors 0.02%  |  web cpu 37% under load (93% of its vCPU), peak 41%, mem 410 MiB avg / 438 MiB peak  |  api cpu 1% under load (4% of its vCPU), peak 4%, mem 45 MiB avg / 49 MiB peak
+== confirm (5-minute holds, starting at 3500)
+PASS  3500 users 5m  326 req/s  med 1ms  p95 67ms  p99 386ms  errors 0.01%  |  web cpu 32% under load (79% of its vCPU), peak 42%, mem 418 MiB avg / 444 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 44 MiB avg / 46 MiB peak
+SCORE nextjs-fullcache-cpu0.4: 3500 users
+== 16:55:09 nextjs-fullcache search exit 0

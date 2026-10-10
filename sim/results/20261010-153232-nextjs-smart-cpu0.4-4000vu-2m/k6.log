@@ -1,0 +1,55 @@
+ Container perf-sim-k6-run-01c0eece23a5 Creating 
+ Container perf-sim-k6-run-01c0eece23a5 Created 
+time="2026-10-10T10:33:08Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499988/like\": read tcp 192.168.32.4:25152->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500007/like\": read tcp 192.168.32.4:22442->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500035/like\": read tcp 192.168.32.4:30766->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500040/like\": read tcp 192.168.32.4:32552->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:46Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500083/like\": read tcp 192.168.32.4:40254->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500090/like\": read tcp 192.168.32.4:33414->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:33:56Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500087/like\": read tcp 192.168.32.4:41546->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:34:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500297/like\": read tcp 192.168.32.4:35826->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:35:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500475/like\": read tcp 192.168.32.4:50328->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=62.79ms
+    ✓ 'p(99)<1000' p(99)=482.58ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 140455 638.415864/s
+    checks_succeeded...: 99.99% 140446 out of 140455
+    checks_failed......: 0.00%  9 out of 140455
+
+    ✓ feed page 200 with 20 posts
+    ✓ live likes (feed) 200
+    ✓ post page 200
+    ✓ live likes (post) 200
+    ✗ like 200/201
+      ↳  99% — ✓ 5071 / ✗ 9
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=16.78ms med=350.79µs p(95)=62.79ms p(99)=482.58ms max=1.27s 
+      { expected_response:true }...: avg=16.78ms med=350.75µs p(95)=62.8ms  p(99)=482.59ms max=1.27s 
+    http_req_failed................: 0.00%  9 out of 140455
+    http_reqs......................: 140455 638.415864/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.8s   med=20.77s   p(95)=26.66s  p(99)=28.73s   max=33.97s
+    iterations.....................: 31599  143.628229/s
+    vus............................: 12     min=12          max=4000
+    vus_max........................: 4000   min=4000        max=4000
+
+    NETWORK
+    data_received..................: 1.7 GB 7.7 MB/s
+    data_sent......................: 12 MB  53 kB/s
+
+
+

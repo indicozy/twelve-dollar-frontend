@@ -1,0 +1,6 @@
+@page "/404"
+@{
+    // Unknown paths land here through app.MapFallbackToPage (Program.cs); rendered on demand with status 404.
+    HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+}
+<partial name="_NotFound" />

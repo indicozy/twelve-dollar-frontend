@@ -1,0 +1,48 @@
+ Container perf-sim-k6-run-347b6d68196c Creating 
+ Container perf-sim-k6-run-347b6d68196c Created 
+time="2026-10-09T09:04:08Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500009/like\": read tcp 192.168.32.4:47262->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:04:12Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500010/like\": read tcp 192.168.32.4:47580->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:04:15Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500005/like\": read tcp 192.168.32.4:47750->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:05:11Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500040/like\": read tcp 192.168.32.4:44326->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=387.36ms
+    ✓ 'p(99)<1000' p(99)=678.93ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.04%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9094   41.335943/s
+    checks_succeeded...: 99.95% 9090 out of 9094
+    checks_failed......: 0.04%  4 out of 9094
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 620 / ✗ 4
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=96ms    med=29.79ms p(95)=387.36ms p(99)=678.93ms max=1.5s  
+      { expected_response:true }...: avg=96.02ms med=29.78ms p(95)=387.57ms p(99)=679.03ms max=1.5s  
+    http_req_failed................: 0.04%  4 out of 9094
+    http_reqs......................: 9094   41.335943/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.91s  med=20.82s  p(95)=26.78s   p(99)=29.1s    max=33.75s
+    iterations.....................: 3928   17.854364/s
+    vus............................: 1      min=1         max=500
+    vus_max........................: 500    min=500       max=500
+
+    NETWORK
+    data_received..................: 259 MB 1.2 MB/s
+    data_sent......................: 842 kB 3.8 kB/s
+
+
+

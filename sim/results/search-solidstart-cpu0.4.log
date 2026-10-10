@@ -1,0 +1,250 @@
+== 19:28:41 building solidstart 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#3 DONE 0.0s
+
+#4 [web internal] load build definition from Dockerfile
+#4 transferring dockerfile: 1.06kB done
+#4 DONE 0.2s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 147B done
+#7 DONE 0.2s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 0.4s
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web build 2/7] WORKDIR /app
+#9 CACHED
+
+#10 [web build 3/7] RUN corepack enable
+#10 CACHED
+
+#11 [api internal] load .dockerignore
+#11 transferring context: 107B done
+#11 DONE 0.1s
+
+#12 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#12 DONE 0.0s
+
+#13 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#13 DONE 0.0s
+
+#14 [api internal] load build context
+#14 transferring context: 809B done
+#14 DONE 0.2s
+
+#15 [web internal] load build context
+#15 transferring context: 100.08kB 0.0s done
+#15 DONE 0.3s
+
+#16 [api build 2/6] WORKDIR /src
+#16 CACHED
+
+#17 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#17 CACHED
+
+#18 [api build 5/6] COPY src ./src
+#18 CACHED
+
+#19 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#19 CACHED
+
+#20 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#20 CACHED
+
+#21 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#21 CACHED
+
+#22 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#22 CACHED
+
+#23 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#23 CACHED
+
+#24 [api] exporting to image
+#24 exporting layers done
+#24 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#24 naming to docker.io/library/perf-sim-api 0.0s done
+#24 DONE 0.1s
+
+#25 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+#25 DONE 0.4s
+
+#26 [api] resolving provenance for metadata file
+#26 DONE 0.0s
+
+#27 [web build 5/7] RUN pnpm install --frozen-lockfile
+#27 0.420 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#27 0.983 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#27 0.983 (Use `node --trace-deprecation ...` to show where the warning was created)
+#27 0.996 Lockfile is up to date, resolution step is skipped
+#27 1.007 Progress: resolved 1, reused 0, downloaded 0, added 0
+#27 1.022 Packages: +178
+#27 1.022 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#27 1.157 
+#27 1.157    ╭───────────────────────────────────────────────╮
+#27 1.157    │                                               │
+#27 1.157    │      Update available! 10.8.0 → 12.10.1.      │
+#27 1.157    │     Changelog: https://pnpm.io/v/12.10.1      │
+#27 1.157    │   To update, run: corepack use pnpm@12.10.1   │
+#27 1.157    │                                               │
+#27 1.157    ╰───────────────────────────────────────────────╯
+#27 1.157 
+#27 2.008 Progress: resolved 178, reused 0, downloaded 145, added 144
+#27 3.008 Progress: resolved 178, reused 0, downloaded 174, added 174
+#27 3.727 Progress: resolved 178, reused 0, downloaded 178, added 178, done
+#27 3.796 
+#27 3.796 dependencies:
+#27 3.796 + @solidjs/router 1.0.0
+#27 3.796 + @solidjs/start 2.0.6
+#27 3.796 + solid-js 1.9.17
+#27 3.796 
+#27 3.796 devDependencies:
+#27 3.796 + @types/node 24.19.1
+#27 3.796 + nitro 3.0.260903-beta
+#27 3.796 + typescript 7.0.2
+#27 3.796 + vite 8.3.4
+#27 3.796 
+#27 3.808 Done in 3s using pnpm v10.8.0
+#27 DONE 4.4s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.523 
+#29 0.523 > solidstart@ build /app
+#29 0.523 > vite build
+#29 0.523 
+#29 0.924 vite v8.3.4 building client environment for production...
+#29 0.931 transforming...
+#29 1.470 ✓ 112 modules transformed.
+#29 1.499 rendering chunks...
+#29 1.523 computing gzip size...
+#29 1.526 .output/public/.vite/manifest.json                        3.17 kB │ gzip:  0.58 kB
+#29 1.526 .output/public/_build/assets/entry-client-CUdJqW-L.css   20.14 kB │ gzip:  4.24 kB
+#29 1.526 .output/public/_build/assets/HttpStatusCode-B-IXHum6.js   0.05 kB │ gzip:  0.07 kB
+#29 1.526 .output/public/_build/assets/_...404_-CjFCF1lq.js         0.07 kB │ gzip:  0.08 kB
+#29 1.526 .output/public/_build/assets/actions-BjJYINc0.js          0.18 kB │ gzip:  0.15 kB
+#29 1.526 .output/public/_build/assets/login-BlrK7Ixx.js            0.52 kB │ gzip:  0.36 kB
+#29 1.526 .output/public/_build/assets/_id_-BsgXsCFz.js             0.54 kB │ gzip:  0.35 kB
+#29 1.526 .output/public/_build/assets/NotFound-DdlCyJO5.js         0.71 kB │ gzip:  0.48 kB
+#29 1.526 .output/public/_build/assets/queries-BFesaHR9.js          0.88 kB │ gzip:  0.47 kB
+#29 1.526 .output/public/_build/assets/index-DxJS5A1p.js            1.08 kB │ gzip:  0.64 kB
+#29 1.526 .output/public/_build/assets/PostCard-DmEfkAXm.js         1.47 kB │ gzip:  0.73 kB
+#29 1.526 .output/public/_build/assets/entry-client-FXQZe9xd.js    15.72 kB │ gzip:  6.03 kB
+#29 1.526 .output/public/_build/assets/web-DCeOJoWG.js             18.99 kB │ gzip:  7.54 kB
+#29 1.526 .output/public/_build/assets/client-l3HY3GVu.js          52.06 kB │ gzip: 16.50 kB
+#29 1.526 
+#29 1.526 ✓ built in 602ms
+#29 1.526 vite v8.3.4 building ssr environment for production...
+#29 1.531 transforming...
+#29 2.872 ✓ 140 modules transformed.
+#29 2.920 rendering chunks...
+#29 2.932 computing gzip size...
+#29 2.935 node_modules/.nitro/vite/services/ssr/.vite/manifest.json                   2.73 kB │ gzip:  0.50 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/index-CUdJqW-L.css     20.14 kB │ gzip:  4.24 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/like-CfNWYXg3.js        0.31 kB │ gzip:  0.23 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/_...404_-CPxE6xPz.js    0.34 kB │ gzip:  0.19 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/NotFound-Cneqmtd2.js    0.45 kB │ gzip:  0.32 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/index-BQMH4ykS.js       0.50 kB │ gzip:  0.31 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/login-Cq6YmEIf.js       0.84 kB │ gzip:  0.49 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/_id_-C4XBO_tl.js        1.07 kB │ gzip:  0.52 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/PostCard-CjW7YQtw.js    1.44 kB │ gzip:  0.63 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/_build/assets/index-iEfYmfJQ.js       1.64 kB │ gzip:  0.79 kB
+#29 2.935 node_modules/.nitro/vite/services/ssr/index.js                            262.26 kB │ gzip: 67.38 kB
+#29 2.935 
+#29 2.935 ✓ built in 1.41s
+#29 2.935 
+#29 2.941 [nitro] ◐ Building [Nitro] (preset: node-server, compatibility: 2026-10-09)
+#29 2.942 [nitro] ✔ Generated public .output/public
+#29 2.942 vite v8.3.4 building nitro environment for production...
+#29 2.944 `output.codeSplitting.groups[0].name` is a function. Set `output.codeSplitting.groups[0].debugName` so the bundler timing report can identify this group.
+#29 2.947 transforming...
+#29 3.301 ✓ 68 modules transformed.
+#29 3.318 rendering chunks...
+#29 3.338 computing gzip size...
+#29 3.342 .output/server/_ssr/like-CfNWYXg3.mjs        0.32 kB │ gzip:  0.25 kB
+#29 3.342 .output/server/_...404_-CPxE6xPz.mjs         0.36 kB │ gzip:  0.24 kB
+#29 3.342 .output/server/_ssr/NotFound-Cneqmtd2.mjs    0.49 kB │ gzip:  0.35 kB
+#29 3.342 .output/server/_ssr/index-BQMH4ykS.mjs       0.51 kB │ gzip:  0.33 kB
+#29 3.342 .output/server/_ssr/login-Cq6YmEIf.mjs       0.86 kB │ gzip:  0.53 kB
+#29 3.342 .output/server/_chunks/ssr-renderer.mjs      1.04 kB │ gzip:  0.51 kB
+#29 3.342 .output/server/_id_-C4XBO_tl.mjs             1.07 kB │ gzip:  0.56 kB
+#29 3.342 .output/server/_libs/hookable.mjs            1.20 kB │ gzip:  0.53 kB
+#29 3.342 .output/server/_ssr/PostCard-CjW7YQtw.mjs    1.50 kB │ gzip:  0.66 kB
+#29 3.342 .output/server/_ssr/index-iEfYmfJQ.mjs       1.64 kB │ gzip:  0.83 kB
+#29 3.342 .output/server/_libs/ufo.mjs                 2.19 kB │ gzip:  0.71 kB
+#29 3.342 .output/server/index.mjs                    13.33 kB │ gzip:  4.21 kB
+#29 3.342 .output/server/_libs/seroval-plugins.mjs    15.50 kB │ gzip:  2.76 kB
+#29 3.342 .output/server/_libs/solid-js.mjs           33.50 kB │ gzip:  9.43 kB
+#29 3.342 .output/server/_libs/seroval.mjs            68.00 kB │ gzip: 14.79 kB
+#29 3.342 .output/server/_libs/h3+rou3+srvx.mjs       72.36 kB │ gzip: 18.87 kB
+#29 3.342 .output/server/_ssr/ssr.mjs                241.58 kB │ gzip: 62.38 kB
+#29 3.342 
+#29 3.342 ✓ built in 399ms
+#29 3.343 ℹ Generated .output/nitro.json
+#29 3.343 
+#29 3.343 [nitro] ✔ You can preview this build using npx vite preview
+#29 DONE 3.5s
+
+#30 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/4] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/4] COPY --from=build /app/.output ./.output
+#32 DONE 0.2s
+
+#33 [web] exporting to image
+#33 exporting layers 0.1s done
+#33 writing image sha256:663bdeabf06938b68606bc68ae0df3205fee5d04de692c0d04fa28dddc25d355 done
+#33 naming to docker.io/library/perf-sim-web 0.0s done
+#33 DONE 0.2s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 370 req/s saturated on / -> start at about 3016 users
+== search (start 3000, step 100, cap 16000)
+PASS  3000 users 2m  247 req/s  med 17ms  p95 212ms  p99 377ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 307 MiB avg / 327 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 6%, mem 42 MiB avg / 47 MiB peak
+FAIL  3800 users 2m  312 req/s  med 36ms  p95 374ms  p99 1206ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 334 MiB avg / 352 MiB peak  |  api cpu 3% under load (6% of its vCPU), peak 6%, mem 44 MiB avg / 48 MiB peak
+FAIL  3400 users 2m  280 req/s  med 18ms  p95 365ms  p99 1072ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 317 MiB avg / 323 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 8%, mem 43 MiB avg / 47 MiB peak
+PASS  3200 users 2m  264 req/s  med 13ms  p95 232ms  p99 736ms  errors 0.02%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 309 MiB avg / 323 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 42 MiB avg / 47 MiB peak
+PASS  3300 users 2m  272 req/s  med 21ms  p95 290ms  p99 677ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 313 MiB avg / 329 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 43 MiB avg / 47 MiB peak
+== confirm (5-minute holds, starting at 3300)
+PASS  3300 users 5m  306 req/s  med 22ms  p95 269ms  p99 531ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 315 MiB avg / 335 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 45 MiB avg / 49 MiB peak
+SCORE solidstart-cpu0.4: 3300 users
+== 19:56:44 solidstart search exit 0

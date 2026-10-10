@@ -1,0 +1,49 @@
+ Container perf-sim-k6-run-b30a8cec6544 Creating 
+ Container perf-sim-k6-run-b30a8cec6544 Created 
+time="2026-10-09T09:51:12Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500010/like\": read tcp 192.168.32.4:52412->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:53:13Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500077/like\": read tcp 192.168.32.4:50050->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:53:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500106/like\": read tcp 192.168.32.4:57022->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=948.94ms
+    ✗ 'p(99)<1000' p(99)=1.24s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 15918  72.375871/s
+    checks_succeeded...: 99.98% 15915 out of 15918
+    checks_failed......: 0.01%  3 out of 15918
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 1078 / ✗ 3
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=278.96ms med=88.85ms p(95)=948.94ms p(99)=1.24s  max=1.79s 
+      { expected_response:true }...: avg=279.01ms med=88.86ms p(95)=949.04ms p(99)=1.24s  max=1.79s 
+    http_req_failed................: 0.01%  3 out of 15918
+    http_reqs......................: 15918  72.375871/s
+
+    EXECUTION
+    iteration_duration.............: avg=21.49s   med=21.48s  p(95)=27.32s   p(99)=29.58s max=35.04s
+    iterations.....................: 6874   31.254664/s
+    vus............................: 16     min=15         max=900
+    vus_max........................: 900    min=900        max=900
+
+    NETWORK
+    data_received..................: 401 MB 1.8 MB/s
+    data_sent......................: 1.5 MB 6.6 kB/s
+
+
+
+time="2026-10-09T09:53:59Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

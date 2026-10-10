@@ -1,0 +1,48 @@
+ Container perf-sim-k6-run-abc8cb1ca126 Creating 
+ Container perf-sim-k6-run-abc8cb1ca126 Created 
+time="2026-10-09T08:29:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500121/like\": read tcp 192.168.32.4:42138->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T08:30:36Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500317/like\": read tcp 192.168.32.4:41624->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T08:30:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500330/like\": read tcp 192.168.32.4:51912->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T08:30:46Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500355/like\": read tcp 192.168.32.4:58900->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=247.08ms
+    ✓ 'p(99)<1000' p(99)=454.01ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 45499  206.806726/s
+    checks_succeeded...: 99.99% 45495 out of 45499
+    checks_failed......: 0.00%  4 out of 45499
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 3119 / ✗ 4
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=65.85ms med=32.24ms p(95)=247.08ms p(99)=454.01ms max=687.92ms
+      { expected_response:true }...: avg=65.86ms med=32.24ms p(95)=247.08ms p(99)=454.01ms max=687.92ms
+    http_req_failed................: 0.00%  4 out of 45499
+    http_reqs......................: 45499  206.806726/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.89s  med=20.83s  p(95)=26.74s   p(99)=28.8s    max=33.34s  
+    iterations.....................: 19676  89.433375/s
+    vus............................: 5      min=5          max=2500
+    vus_max........................: 2500   min=2500       max=2500
+
+    NETWORK
+    data_received..................: 1.3 GB 5.9 MB/s
+    data_sent......................: 4.2 MB 19 kB/s
+
+
+

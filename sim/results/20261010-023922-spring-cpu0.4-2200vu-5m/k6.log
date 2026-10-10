@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-e1824d312bdc Creating 
+ Container perf-sim-k6-run-e1824d312bdc Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=40.06ms
+    ✓ 'p(99)<1000' p(99)=69.95ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 82174   205.440141/s
+    checks_succeeded...: 100.00% 82174 out of 82174
+    checks_failed......: 0.00%   0 out of 82174
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=7.61ms med=2.9ms  p(95)=40.06ms p(99)=69.95ms max=717.38ms
+      { expected_response:true }...: avg=7.61ms med=2.9ms  p(95)=40.06ms p(99)=69.95ms max=717.38ms
+    http_req_failed................: 0.00%  0 out of 82174
+    http_reqs......................: 82174  205.440141/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.62s med=20.61s p(95)=26.33s  p(99)=28.14s  max=33.08s  
+    iterations.....................: 36741  91.854799/s
+    vus............................: 3      min=3          max=2200
+    vus_max........................: 2200   min=2200       max=2200
+
+    NETWORK
+    data_received..................: 453 MB 1.1 MB/s
+    data_sent......................: 7.6 MB 19 kB/s
+
+
+

@@ -1,0 +1,54 @@
+ Container perf-sim-k6-run-045ba47b62c5 Creating 
+ Container perf-sim-k6-run-045ba47b62c5 Created 
+time="2026-10-09T09:35:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500035/like\": read tcp 192.168.32.4:52904->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:35:56Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500032/like\": read tcp 192.168.32.4:54322->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:36:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500063/like\": read tcp 192.168.32.4:56778->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:36:34Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500054/like\": read tcp 192.168.32.4:52032->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:36:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500076/like\": read tcp 192.168.32.4:41996->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:37:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:58562->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T09:37:36Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500126/like\": read tcp 192.168.32.4:50660->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=2.56s
+    ✗ 'p(99)<1000' p(99)=2.95s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.04%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 17035  77.441804/s
+    checks_succeeded...: 99.95% 17028 out of 17035
+    checks_failed......: 0.04%  7 out of 17035
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 1143 / ✗ 6
+    ✗ create 201
+      ↳  99% — ✓ 161 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=695.99ms med=276.11ms p(95)=2.56s  p(99)=2.95s  max=3.3s  
+      { expected_response:true }...: avg=696.27ms med=276.85ms p(95)=2.56s  p(99)=2.95s  max=3.3s  
+    http_req_failed................: 0.04%  7 out of 17035
+    http_reqs......................: 17035  77.441804/s
+
+    EXECUTION
+    iteration_duration.............: avg=22.38s   med=22.29s   p(95)=28.96s p(99)=31.57s max=37.82s
+    iterations.....................: 7330   33.322479/s
+    vus............................: 1      min=1          max=1000
+    vus_max........................: 1000   min=1000       max=1000
+
+    NETWORK
+    data_received..................: 429 MB 1.9 MB/s
+    data_sent......................: 1.6 MB 7.1 kB/s
+
+
+
+time="2026-10-09T09:38:06Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

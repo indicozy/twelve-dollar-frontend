@@ -1,0 +1,67 @@
+ Container perf-sim-k6-run-793da1cbf0f6 Creating 
+ Container perf-sim-k6-run-793da1cbf0f6 Created 
+time="2026-10-10T10:37:00Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499991/like\": read tcp 192.168.32.4:1804->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500005/like\": read tcp 192.168.32.4:24244->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500007/like\": read tcp 192.168.32.4:3146->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:34Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500062/like\": read tcp 192.168.32.4:57994->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500051/like\": read tcp 192.168.32.4:47804->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500045/like\": read tcp 192.168.32.4:5762->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:37:57Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500162/like\": read tcp 192.168.32.4:31598->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:00Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500154/like\": read tcp 192.168.32.4:36118->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:05Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500154/like\": read tcp 192.168.32.4:31984->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:20Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500219/like\": read tcp 192.168.32.4:16134->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500228/like\": read tcp 192.168.32.4:27296->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500293/like\": read tcp 192.168.32.4:7064->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:36Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500303/like\": read tcp 192.168.32.4:9964->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:49Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500374/like\": read tcp 192.168.32.4:60084->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:49Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500370/like\": read tcp 192.168.32.4:39882->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:38:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500377/like\": read tcp 192.168.32.4:43526->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:39:28Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500572/like\": read tcp 192.168.32.4:2414->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:39:30Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500572/like\": read tcp 192.168.32.4:45838->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-10T10:39:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500560/like\": read tcp 192.168.32.4:47650->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=1.01s
+    ✗ 'p(99)<1000' p(99)=1.72s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 171137 777.879084/s
+    checks_succeeded...: 99.98% 171118 out of 171137
+    checks_failed......: 0.01%  19 out of 171137
+
+    ✓ feed page 200 with 20 posts
+    ✓ live likes (feed) 200
+    ✓ post page 200
+    ✓ live likes (post) 200
+    ✗ like 200/201
+      ↳  99% — ✓ 6190 / ✗ 19
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=137.88ms med=522.11µs p(95)=1.01s  p(99)=1.72s  max=2.42s 
+      { expected_response:true }...: avg=137.9ms  med=521.83µs p(95)=1.01s  p(99)=1.72s  max=2.42s 
+    http_req_failed................: 0.01%  19 out of 171137
+    http_reqs......................: 171137 777.879084/s
+
+    EXECUTION
+    iteration_duration.............: avg=21.36s   med=21.31s   p(95)=27.52s p(99)=29.81s max=35.14s
+    iterations.....................: 38429  174.673597/s
+    vus............................: 22     min=22           max=5000
+    vus_max........................: 5000   min=5000         max=5000
+
+    NETWORK
+    data_received..................: 2.1 GB 9.4 MB/s
+    data_sent......................: 14 MB  64 kB/s
+
+
+
+time="2026-10-10T10:40:11Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

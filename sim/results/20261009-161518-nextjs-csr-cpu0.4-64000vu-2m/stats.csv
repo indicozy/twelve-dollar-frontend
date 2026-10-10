@@ -1,0 +1,19 @@
+time,container,cpu,mem
+1791544518,perf-sim-api-1,2.10%,8.289MiB / 2GiB
+1791544518,perf-sim-web-1,0.00%,11.11MiB / 2GiB
+1791544522,perf-sim-api-1,8.04%,24.7MiB / 2GiB
+1791544522,perf-sim-web-1,21.30%,22.29MiB / 2GiB
+1791544526,perf-sim-api-1,8.66%,26.95MiB / 2GiB
+1791544526,perf-sim-web-1,35.96%,79.52MiB / 2GiB
+1791544530,perf-sim-api-1,13.66%,32.04MiB / 2GiB
+1791544530,perf-sim-web-1,40.19%,78.73MiB / 2GiB
+1791544534,perf-sim-api-1,8.38%,46.62MiB / 2GiB
+1791544534,perf-sim-web-1,40.48%,80.21MiB / 2GiB
+1791544538,perf-sim-api-1,3.84%,22.95MiB / 2GiB
+1791544538,perf-sim-web-1,40.74%,304.5MiB / 2GiB
+1791544542,perf-sim-api-1,10.03%,36.15MiB / 2GiB
+1791544542,perf-sim-web-1,38.65%,99.02MiB / 2GiB
+1791544546,perf-sim-api-1,10.27%,33.18MiB / 2GiB
+1791544546,perf-sim-web-1,35.94%,152MiB / 2GiB
+1791544549,perf-sim-api-1,4.33%,36.83MiB / 2GiB
+1791544549,perf-sim-web-1,36.94%,217.6MiB / 2GiB

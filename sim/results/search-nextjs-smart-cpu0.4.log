@@ -1,0 +1,444 @@
+== 15:17:48 building nextjs-smart (API rebuilt with CORS)
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.38kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 131B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 63.84kB done
+#9 DONE 0.1s
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 CACHED
+
+#10 [web build 2/7] WORKDIR /app
+#10 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#11 [web build 3/7] RUN corepack enable
+#11 DONE 0.3s
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 ...
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.1s
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.4s
+
+#13 [api internal] load .dockerignore
+#13 transferring context: 107B done
+#13 DONE 0.1s
+
+#14 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#14 DONE 0.0s
+
+#15 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#15 DONE 0.0s
+
+#16 [api internal] load build context
+#16 transferring context: 8.60kB done
+#16 DONE 0.1s
+
+#17 [api build 2/6] WORKDIR /src
+#17 CACHED
+
+#18 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#18 DONE 0.2s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 0.544     Updating crates.io index
+#19 ...
+
+#20 [web build 5/7] RUN pnpm install --frozen-lockfile
+#20 0.369 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#20 1.240 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#20 1.240 (Use `node --trace-deprecation ...` to show where the warning was created)
+#20 1.252 Lockfile is up to date, resolution step is skipped
+#20 1.259 Progress: resolved 1, reused 0, downloaded 0, added 0
+#20 1.267 Packages: +32
+#20 1.267 ++++++++++++++++++++++++++++++++
+#20 1.826 
+#20 1.826    ╭───────────────────────────────────────────────╮
+#20 1.826    │                                               │
+#20 1.826    │      Update available! 10.8.0 → 12.10.1.      │
+#20 1.826    │     Changelog: https://pnpm.io/v/12.10.1      │
+#20 1.826    │   To update, run: corepack use pnpm@12.10.1   │
+#20 1.826    │                                               │
+#20 1.826    ╰───────────────────────────────────────────────╯
+#20 1.826 
+#20 2.258 Progress: resolved 32, reused 0, downloaded 27, added 26
+#20 3.258 Progress: resolved 32, reused 0, downloaded 27, added 27
+#20 5.103 Progress: resolved 32, reused 0, downloaded 28, added 27
+#20 6.103 Progress: resolved 32, reused 0, downloaded 29, added 29
+#20 7.539 Progress: resolved 32, reused 0, downloaded 30, added 29
+#20 8.203 Progress: resolved 32, reused 0, downloaded 32, added 32, done
+#20 8.236 
+#20 8.236 dependencies:
+#20 8.236 + next 16.4.0
+#20 8.236 + react 19.3.0
+#20 8.236 + react-dom 19.3.0
+#20 8.236 + server-only 0.0.1
+#20 8.236 
+#20 8.236 devDependencies:
+#20 8.236 + @types/node 20.19.43
+#20 8.236 + @types/react 19.3.0
+#20 8.236 + @types/react-dom 19.3.0
+#20 8.236 + typescript 5.9.3
+#20 8.236 
+#20 8.261 Done in 7.2s using pnpm v10.8.0
+#20 DONE 8.7s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 ...
+
+#21 [web build 6/7] COPY . .
+#21 DONE 0.2s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 ...
+
+#22 [web build 7/7] RUN NEXT_PUBLIC_API_URL=http://localhost:4000 pnpm build
+#22 0.452 
+#22 0.452 > nextjs-smart@0.1.0 build /app
+#22 0.452 > next build
+#22 0.452 
+#22 0.715 ▲ Next.js 16.4.0 (Turbopack)
+#22 0.757 ✓ Running next.config.ts took 42ms
+#22 0.764 - Cache Components enabled
+#22 0.764 - Partial Prefetching enabled
+#22 0.764 
+#22 0.777   Creating an optimized production build ...
+#22 2.206 ✓ Compiled successfully in 1427ms
+#22 2.208   Running TypeScript ...
+#22 3.184   Finished TypeScript in 976ms ...
+#22 3.185   Collecting page data using 9 workers ...
+#22 3.718   Generating static pages using 9 workers (0/9) ...
+#22 4.047   Generating static pages using 9 workers (2/9) 
+#22 4.112   Generating static pages using 9 workers (4/9) 
+#22 4.112   Generating static pages using 9 workers (6/9) 
+#22 4.238 ✓ Generating static pages using 9 workers (9/9) in 520ms
+#22 4.241   Finalizing page optimization ...
+#22 4.300 
+#22 4.301 Route (app)
+#22 4.301 ┌ ○ /_not-found
+#22 4.301 ├ ƒ /api/posts
+#22 4.301 ├ ƒ /api/posts/[id]/like
+#22 4.301 ├   /feed/[v]
+#22 4.301 │ ├ ◐ /feed/[v]
+#22 4.301 │ └ ○ /feed/_build
+#22 4.301 ├ ○ /login
+#22 4.301 └   /posts/[id]
+#22 4.301   ├ ◐ /posts/[id]
+#22 4.301   └ ○ /posts/0
+#22 4.301 
+#22 4.301 
+#22 4.301 ○  (Static)             prerendered as static content
+#22 4.301 ◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+#22 4.301 ƒ  (Dynamic)            server-rendered on demand
+#22 4.301 
+#22 DONE 4.5s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 ...
+
+#23 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#23 CACHED
+
+#24 [web stage-1 3/6] WORKDIR /app
+#24 CACHED
+
+#25 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#25 DONE 0.3s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 ...
+
+#26 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#26 DONE 0.2s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 ...
+
+#27 [web stage-1 6/6] COPY --from=build /app/public ./public
+#27 DONE 0.2s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 14.01  Downloading crates ...
+#19 ...
+
+#28 [web] exporting to image
+#28 exporting layers 0.3s done
+#28 writing image sha256:a2b9782cc7425fb591b464fc9cc4ea4682f2cd237387fa74703989dd7a5c8171 done
+#28 naming to docker.io/library/perf-sim-web 0.0s done
+#28 DONE 0.4s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 14.42   Downloaded atomic-waker v1.1.2
+#19 14.43   Downloaded cfg-if v1.0.5
+#19 14.59   Downloaded crypto-common v0.1.7
+#19 ...
+
+#29 [web] resolving provenance for metadata file
+#29 DONE 0.0s
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 14.61   Downloaded tokio-macros v2.5.0
+#19 14.65   Downloaded block-buffer v0.10.4
+#19 14.66   Downloaded version_check v0.9.5
+#19 14.66   Downloaded pin-utils v0.1.1
+#19 14.67   Downloaded generic-array v0.14.7
+#19 14.68   Downloaded futures-core v0.3.34
+#19 14.71   Downloaded http-body v1.1.0
+#19 14.72   Downloaded subtle v2.6.1
+#19 14.72   Downloaded fallible-streaming-iterator v0.1.9
+#19 14.73   Downloaded httpdate v1.0.3
+#19 14.73   Downloaded mimalloc v0.1.52
+#19 14.74   Downloaded cpufeatures v0.2.17
+#19 14.74   Downloaded pkg-config v0.3.34
+#19 14.74   Downloaded http-body-util v0.1.3
+#19 14.75   Downloaded find-msvc-tools v0.1.14
+#19 14.75   Downloaded quote v1.0.47
+#19 14.76   Downloaded itoa v1.0.18
+#19 14.79   Downloaded shlex v2.0.1
+#19 14.79   Downloaded zmij v1.0.23
+#19 14.79   Downloaded fallible-iterator v0.3.0
+#19 14.79   Downloaded digest v0.10.7
+#19 14.80   Downloaded sha2 v0.10.9
+#19 14.80   Downloaded hashlink v0.10.0
+#19 14.80   Downloaded httparse v1.10.1
+#19 14.81   Downloaded foldhash v0.1.5
+#19 14.82   Downloaded smallvec v1.16.2
+#19 14.82   Downloaded futures-channel v0.3.34
+#19 14.82   Downloaded crossbeam-utils v0.8.23
+#19 14.82   Downloaded pin-project-lite v0.2.17
+#19 14.83   Downloaded bytes v1.12.1
+#19 14.84   Downloaded bitflags v2.13.2
+#19 14.84   Downloaded hmac v0.12.1
+#19 14.84   Downloaded unicode-ident v1.0.26
+#19 14.87   Downloaded base64 v0.22.1
+#19 14.87   Downloaded serde_core v1.0.229
+#19 14.87   Downloaded proc-macro2 v1.0.107
+#19 14.87   Downloaded cc v1.6.0
+#19 14.88   Downloaded crossbeam-channel v0.5.17
+#19 14.88   Downloaded socket2 v0.6.5
+#19 14.89   Downloaded memchr v2.8.3
+#19 14.89   Downloaded mio v1.2.4
+#19 14.90   Downloaded typenum v1.20.1
+#19 14.90   Downloaded http v1.5.0
+#19 14.90   Downloaded hyper-util v0.1.17
+#19 14.91   Downloaded rusqlite v0.37.0
+#19 14.91   Downloaded hashbrown v0.15.5
+#19 15.00   Downloaded serde_json v1.0.151
+#19 15.01   Downloaded hyper v1.7.0
+#19 15.01   Downloaded vcpkg v0.2.15
+#19 15.04   Downloaded syn v2.0.119
+#19 15.05   Downloaded libmimalloc-sys v0.1.49
+#19 15.07   Downloaded tokio v1.47.1
+#19 15.10   Downloaded libc v0.2.190
+#19 15.20   Downloaded libsqlite3-sys v0.35.0
+#19 15.28    Compiling find-msvc-tools v0.1.14
+#19 15.28    Compiling shlex v2.0.1
+#19 15.28    Compiling proc-macro2 v1.0.107
+#19 15.28    Compiling version_check v0.9.5
+#19 15.28    Compiling libc v0.2.190
+#19 15.28    Compiling quote v1.0.47
+#19 15.28    Compiling unicode-ident v1.0.26
+#19 15.28    Compiling typenum v1.20.1
+#19 15.28    Compiling itoa v1.0.18
+#19 15.28    Compiling bytes v1.12.1
+#19 15.28    Compiling pin-project-lite v0.2.17
+#19 15.28    Compiling futures-core v0.3.34
+#19 15.28    Compiling httparse v1.10.1
+#19 15.28    Compiling pkg-config v0.3.34
+#19 15.28    Compiling vcpkg v0.2.15
+#19 15.28    Compiling smallvec v1.16.2
+#19 15.28    Compiling serde_core v1.0.229
+#19 15.28    Compiling crossbeam-utils v0.8.23
+#19 15.28    Compiling zmij v1.0.23
+#19 15.28    Compiling foldhash v0.1.5
+#19 15.40    Compiling subtle v2.6.1
+#19 15.44    Compiling futures-channel v0.3.34
+#19 15.46    Compiling cc v1.6.0
+#19 15.48    Compiling hashbrown v0.15.5
+#19 15.49    Compiling httpdate v1.0.3
+#19 15.50    Compiling atomic-waker v1.1.2
+#19 15.54    Compiling pin-utils v0.1.1
+#19 15.54    Compiling serde_json v1.0.151
+#19 15.57    Compiling cpufeatures v0.2.17
+#19 15.60    Compiling fallible-streaming-iterator v0.1.9
+#19 15.62    Compiling fallible-iterator v0.3.0
+#19 15.63    Compiling cfg-if v1.0.5
+#19 15.63    Compiling memchr v2.8.3
+#19 15.66    Compiling generic-array v0.14.7
+#19 15.68    Compiling bitflags v2.13.2
+#19 15.70    Compiling base64 v0.22.1
+#19 15.96    Compiling http v1.5.0
+#19 16.00    Compiling crossbeam-channel v0.5.17
+#19 16.09    Compiling hashlink v0.10.0
+#19 16.19    Compiling syn v2.0.119
+#19 16.28    Compiling block-buffer v0.10.4
+#19 16.28    Compiling crypto-common v0.1.7
+#19 16.33    Compiling digest v0.10.7
+#19 16.41    Compiling libsqlite3-sys v0.35.0
+#19 16.41    Compiling libmimalloc-sys v0.1.49
+#19 16.43    Compiling hmac v0.12.1
+#19 16.43    Compiling sha2 v0.10.9
+#19 16.46    Compiling mio v1.2.4
+#19 16.46    Compiling socket2 v0.6.5
+#19 16.50    Compiling http-body v1.1.0
+#19 16.55    Compiling http-body-util v0.1.3
+#19 17.54    Compiling tokio-macros v2.5.0
+#19 17.69    Compiling tokio v1.47.1
+#19 18.79    Compiling mimalloc v0.1.52
+#19 18.94    Compiling hyper v1.7.0
+#19 19.32    Compiling hyper-util v0.1.17
+#19 44.21    Compiling rusqlite v0.37.0
+#19 44.96    Compiling feed-server v0.1.0 (/src)
+#19 46.85     Finished `release` profile [optimized] target(s) in 46.46s
+#19 DONE 46.9s
+
+#30 [api build 5/6] COPY src ./src
+#30 DONE 0.2s
+
+#31 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#31 0.540    Compiling find-msvc-tools v0.1.14
+#31 0.540    Compiling shlex v2.0.1
+#31 0.540    Compiling proc-macro2 v1.0.107
+#31 0.540    Compiling version_check v0.9.5
+#31 0.540    Compiling unicode-ident v1.0.26
+#31 0.540    Compiling quote v1.0.47
+#31 0.540    Compiling libc v0.2.190
+#31 0.541    Compiling typenum v1.20.1
+#31 0.541    Compiling itoa v1.0.18
+#31 0.542    Compiling bytes v1.12.1
+#31 0.543    Compiling vcpkg v0.2.15
+#31 0.543    Compiling futures-core v0.3.34
+#31 0.543    Compiling httparse v1.10.1
+#31 0.544    Compiling pin-project-lite v0.2.17
+#31 0.544    Compiling pkg-config v0.3.34
+#31 0.544    Compiling zmij v1.0.23
+#31 0.544    Compiling crossbeam-utils v0.8.23
+#31 0.545    Compiling foldhash v0.1.5
+#31 0.547    Compiling smallvec v1.16.2
+#31 0.548    Compiling subtle v2.6.1
+#31 0.624    Compiling serde_core v1.0.229
+#31 0.653    Compiling futures-channel v0.3.34
+#31 0.660    Compiling pin-utils v0.1.1
+#31 0.714    Compiling cc v1.6.0
+#31 0.714    Compiling hashbrown v0.15.5
+#31 0.735    Compiling serde_json v1.0.151
+#31 0.736    Compiling atomic-waker v1.1.2
+#31 0.780    Compiling httpdate v1.0.3
+#31 0.792    Compiling bitflags v2.13.2
+#31 0.795    Compiling fallible-streaming-iterator v0.1.9
+#31 0.836    Compiling cpufeatures v0.2.17
+#31 0.858    Compiling memchr v2.8.3
+#31 0.912    Compiling generic-array v0.14.7
+#31 0.912    Compiling fallible-iterator v0.3.0
+#31 0.914    Compiling cfg-if v1.0.5
+#31 0.918    Compiling base64 v0.22.1
+#31 1.164    Compiling http v1.5.0
+#31 1.211    Compiling crossbeam-channel v0.5.17
+#31 1.391    Compiling hashlink v0.10.0
+#31 1.465    Compiling syn v2.0.119
+#31 1.672    Compiling block-buffer v0.10.4
+#31 1.672    Compiling crypto-common v0.1.7
+#31 1.706    Compiling libmimalloc-sys v0.1.49
+#31 1.706    Compiling libsqlite3-sys v0.35.0
+#31 1.725    Compiling digest v0.10.7
+#31 1.822    Compiling http-body v1.1.0
+#31 1.846    Compiling hmac v0.12.1
+#31 1.846    Compiling sha2 v0.10.9
+#31 1.856    Compiling socket2 v0.6.5
+#31 1.856    Compiling mio v1.2.4
+#31 1.881    Compiling http-body-util v0.1.3
+#31 3.127    Compiling tokio-macros v2.5.0
+#31 3.296    Compiling tokio v1.47.1
+#31 4.203    Compiling mimalloc v0.1.52
+#31 4.604    Compiling hyper v1.7.0
+#31 5.016    Compiling hyper-util v0.1.17
+#31 30.97    Compiling rusqlite v0.37.0
+#31 31.70    Compiling feed-server v0.1.0 (/src)
+#31 38.07     Finished `release` profile [optimized] target(s) in 37.56s
+#31 DONE 38.2s
+
+#32 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#32 CACHED
+
+#33 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#33 DONE 0.2s
+
+#34 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#34 DONE 0.2s
+
+#35 [api] exporting to image
+#35 exporting layers 0.1s done
+#35 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#35 naming to docker.io/library/perf-sim-api 0.0s done
+#35 DONE 0.2s
+
+#36 [api] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Recreate 
+ Container perf-sim-api-1 Recreated 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Starting 
+ Container perf-sim-api-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 492 req/s saturated on / -> start at about 2005 users
+== search (start 2000, step 100, cap 16000)
+PASS  2000 users 2m  319 req/s  med 0ms  p95 46ms  p99 409ms  errors 0%  |  web cpu 37% under load (93% of its vCPU), peak 41%, mem 388 MiB avg / 425 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 87 MiB avg / 88 MiB peak
+PASS  2500 users 2m  398 req/s  med 0ms  p95 63ms  p99 527ms  errors 0%  |  web cpu 39% under load (99% of its vCPU), peak 42%, mem 409 MiB avg / 444 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 99 MiB avg / 100 MiB peak
+PASS  3200 users 2m  507 req/s  med 0ms  p95 145ms  p99 757ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 411 MiB avg / 451 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 116 MiB avg / 121 MiB peak
+PASS  4000 users 2m  638 req/s  med 0ms  p95 62ms  p99 482ms  errors 0%  |  web cpu 31% under load (77% of its vCPU), peak 42%, mem 437 MiB avg / 464 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 8%, mem 138 MiB avg / 142 MiB peak
+FAIL  5000 users 2m  777 req/s  med 0ms  p95 1019ms  p99 1729ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 448 MiB avg / 484 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 7%, mem 170 MiB avg / 173 MiB peak
+FAIL  4500 users 2m  709 req/s  med 0ms  p95 602ms  p99 1289ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 446 MiB avg / 475 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 148 MiB avg / 152 MiB peak
+PASS  4200 users 2m  666 req/s  med 0ms  p95 280ms  p99 992ms  errors 0.01%  |  web cpu 39% under load (97% of its vCPU), peak 42%, mem 440 MiB avg / 471 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 125 MiB avg / 129 MiB peak
+FAIL  4300 users 2m  679 req/s  med 0ms  p95 482ms  p99 1289ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 451 MiB avg / 477 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 6%, mem 146 MiB avg / 150 MiB peak
+== confirm (5-minute holds, starting at 4200)
+FAIL  4200 users 5m  745 req/s  med 0ms  p95 368ms  p99 1057ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 467 MiB avg / 517 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 145 MiB avg / 148 MiB peak
+PASS  3100 users 5m  552 req/s  med 0ms  p95 108ms  p99 674ms  errors 0%  |  web cpu 39% under load (99% of its vCPU), peak 42%, mem 442 MiB avg / 498 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 117 MiB avg / 119 MiB peak
+PASS  3600 users 5m  641 req/s  med 0ms  p95 158ms  p99 697ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 454 MiB avg / 502 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 129 MiB avg / 132 MiB peak
+FAIL  3900 users 5m  692 req/s  med 0ms  p95 345ms  p99 1047ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 465 MiB avg / 501 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 8%, mem 137 MiB avg / 140 MiB peak
+FAIL  3700 users 5m  657 req/s  med 0ms  p95 278ms  p99 1045ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 448 MiB avg / 514 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 8%, mem 132 MiB avg / 136 MiB peak
+SCORE nextjs-smart-cpu0.4: 3600 users
+== 16:27:03 nextjs-smart search exit 0

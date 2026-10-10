@@ -1,0 +1,52 @@
+ Container perf-sim-k6-run-2a3c6c7a6728 Creating 
+ Container perf-sim-k6-run-2a3c6c7a6728 Created 
+time="2026-10-09T15:47:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499998/like\": read tcp 192.168.32.4:5602->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:47:59Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500037/like\": read tcp 192.168.32.4:57006->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:48:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500083/like\": read tcp 192.168.32.4:18702->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:48:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500094/like\": read tcp 192.168.32.4:19538->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:48:40Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:33702->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=1.52s
+    ✗ 'p(99)<1000' p(99)=2.71s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 49381  224.478252/s
+    checks_succeeded...: 99.98% 49376 out of 49381
+    checks_failed......: 0.01%  5 out of 49381
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 3350 / ✗ 4
+    ✗ create 201
+      ↳  99% — ✓ 502 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=336.22ms med=85.79ms p(95)=1.52s  p(99)=2.71s  max=3.11s 
+      { expected_response:true }...: avg=336.24ms med=85.81ms p(95)=1.52s  p(99)=2.71s  max=3.11s 
+    http_req_failed................: 0.01%  5 out of 49381
+    http_reqs......................: 49381  224.478252/s
+
+    EXECUTION
+    iteration_duration.............: avg=21.55s   med=21.53s  p(95)=27.71s p(99)=30.13s max=36.95s
+    iterations.....................: 21378  97.181023/s
+    vus............................: 5      min=5          max=2800
+    vus_max........................: 2800   min=2800       max=2800
+
+    NETWORK
+    data_received..................: 564 MB 2.6 MB/s
+    data_sent......................: 4.6 MB 21 kB/s
+
+
+
+time="2026-10-09T15:50:42Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

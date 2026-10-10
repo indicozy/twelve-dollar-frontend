@@ -1,0 +1,50 @@
+ Container perf-sim-k6-run-af35d9d8eedb Creating 
+ Container perf-sim-k6-run-af35d9d8eedb Created 
+time="2026-10-09T15:07:29Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500019/like\": read tcp 192.168.32.4:25946->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:09:06Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500161/like\": read tcp 192.168.32.4:60980->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:09:11Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500149/like\": read tcp 192.168.32.4:5156->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:09:16Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:11256->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:09:40Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500207/like\": read tcp 192.168.32.4:42926->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=168.72ms
+    ✓ 'p(99)<1000' p(99)=273.08ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 27373  124.432137/s
+    checks_succeeded...: 99.98% 27368 out of 27373
+    checks_failed......: 0.01%  5 out of 27373
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 1910 / ✗ 4
+    ✗ create 201
+      ↳  99% — ✓ 248 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=36.15ms med=10.99ms p(95)=168.72ms p(99)=273.08ms max=482.51ms
+      { expected_response:true }...: avg=36.16ms med=10.99ms p(95)=168.75ms p(99)=273.08ms max=482.51ms
+    http_req_failed................: 0.01%  5 out of 27373
+    http_reqs......................: 27373  124.432137/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.83s  med=20.83s  p(95)=26.73s   p(99)=28.73s   max=33.44s  
+    iterations.....................: 11837  53.808615/s
+    vus............................: 1      min=1          max=1500
+    vus_max........................: 1500   min=1500       max=1500
+
+    NETWORK
+    data_received..................: 571 MB 2.6 MB/s
+    data_sent......................: 2.5 MB 12 kB/s
+
+
+

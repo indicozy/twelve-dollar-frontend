@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-d216df9935fe Creating 
+ Container perf-sim-k6-run-d216df9935fe Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=62.44ms
+    ✓ 'p(99)<1000' p(99)=81.93ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 43787   199.028809/s
+    checks_succeeded...: 100.00% 43787 out of 43787
+    checks_failed......: 0.00%   0 out of 43787
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=13.03ms med=3.33ms p(95)=62.44ms p(99)=81.93ms max=465.2ms
+      { expected_response:true }...: avg=13.03ms med=3.33ms p(95)=62.44ms p(99)=81.93ms max=465.2ms
+    http_req_failed................: 0.00%  0 out of 43787
+    http_reqs......................: 43787  199.028809/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.82s  med=20.78s p(95)=26.64s  p(99)=28.68s  max=33.1s  
+    iterations.....................: 18958  86.171425/s
+    vus............................: 5      min=5          max=2400
+    vus_max........................: 2400   min=2400       max=2400
+
+    NETWORK
+    data_received..................: 243 MB 1.1 MB/s
+    data_sent......................: 4.0 MB 18 kB/s
+
+
+

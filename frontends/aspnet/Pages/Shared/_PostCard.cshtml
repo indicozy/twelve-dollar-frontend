@@ -1,0 +1,23 @@
+@model PostCard
+@{ var post = Model.Post; }
+<article class="post" data-post-id="@post.Id">
+  <header>
+    <span class="author">@@@post.Author</span>
+    <time datetime="@post.CreatedAt">@Dates.Format(post.CreatedAt)</time>
+  </header>
+  <p>@post.Body</p>
+  <footer>
+    <form method="post" asp-page-handler="Like">
+      <input type="hidden" name="id" value="@post.Id">
+      <button type="submit" class="like">♥ <span>@post.LikeCount</span></button>
+    </form>
+    @if (Model.Link)
+    {
+      <a href="/posts/@post.Id">#@post.Id</a>
+    }
+    else
+    {
+      <span class="muted">#@post.Id</span>
+    }
+  </footer>
+</article>

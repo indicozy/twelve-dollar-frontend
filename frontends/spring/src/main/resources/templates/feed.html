@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: top}"></header>
+<main>
+<form method="POST" action="/actions/create" class="compose">
+<textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+<div>
+<span th:if="${error}" class="error" th:text="${error}"></span><span th:unless="${error}" class="muted">max 500 chars</span>
+<button type="submit">Post</button>
+</div>
+</form>
+<h1>Latest</h1>
+<section class="feed">
+<th:block th:each="post : ${posts}"><article th:replace="~{fragments :: post(${post}, true)}"></article>
+</th:block>
+</section>
+</main>
+</body>
+</html>

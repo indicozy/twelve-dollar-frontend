@@ -1,0 +1,54 @@
+ Container perf-sim-k6-run-554e0f841372 Creating 
+ Container perf-sim-k6-run-554e0f841372 Created 
+time="2026-10-09T12:24:03Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500046/like\": read tcp 192.168.32.4:29648->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:24:04Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:22368->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:24:15Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:12898->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:24:27Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500121/like\": read tcp 192.168.32.4:60656->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:24:56Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500180/like\": read tcp 192.168.32.4:6068->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:24:58Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500197/like\": read tcp 192.168.32.4:10728->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:25:14Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500227/like\": read tcp 192.168.32.4:9554->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:25:43Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500307/like\": read tcp 192.168.32.4:9560->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:26:16Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:33542->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=460.9ms
+    ✓ 'p(99)<1000' p(99)=857.99ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 54282  246.75634/s
+    checks_succeeded...: 99.98% 54273 out of 54282
+    checks_failed......: 0.01%  9 out of 54282
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 3620 / ✗ 6
+    ✗ create 201
+      ↳  99% — ✓ 467 / ✗ 3
+
+    HTTP
+    http_req_duration..............: avg=79.46ms med=2.49ms p(95)=460.9ms  p(99)=857.99ms max=1.1s  
+      { expected_response:true }...: avg=79.47ms med=2.49ms p(95)=460.98ms p(99)=858.05ms max=1.1s  
+    http_req_failed................: 0.01%  9 out of 54282
+    http_reqs......................: 54282  246.75634/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.95s  med=20.92s p(95)=26.79s   p(99)=28.99s   max=33.68s
+    iterations.....................: 23503  106.840467/s
+    vus............................: 5      min=5          max=3000
+    vus_max........................: 3000   min=3000       max=3000
+
+    NETWORK
+    data_received..................: 486 MB 2.2 MB/s
+    data_sent......................: 5.0 MB 23 kB/s
+
+
+

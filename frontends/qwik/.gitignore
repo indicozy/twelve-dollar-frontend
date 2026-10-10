@@ -1,0 +1,11 @@
+node_modules
+# Build output
+/dist
+/server
+/tmp
+tsconfig.tsbuildinfo
+# Env
+.env
+.env.*
+# OS
+.DS_Store

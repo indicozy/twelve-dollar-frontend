@@ -1,0 +1,6 @@
+== probe: 823 req/s saturated on / -> start at about 6709 users
+== search (start 6700, step 100, cap 16000)
+PASS  6700 users 2m  554 req/s  med 1ms  p95 85ms  p99 157ms  errors 0%  |  web cpu 36% under load (90% of its vCPU), peak 42%, mem 325 MiB avg / 343 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 54 MiB avg / 58 MiB peak
+PASS  8400 users 2m  696 req/s  med 4ms  p95 201ms  p99 333ms  errors 0.01%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 344 MiB avg / 360 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 7%, mem 60 MiB avg / 62 MiB peak
+FAIL  10500 users 2m  849 req/s  med 75ms  p95 759ms  p99 905ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 396 MiB avg / 408 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 8%, mem 59 MiB avg / 64 MiB peak
+FAIL  9400 users 2m  760 req/s  med 1ms  p95 986ms  p99 2049ms  errors 0.09%  |  web cpu 37% under load (92% of its vCPU), peak 41%, mem 362 MiB avg / 398 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 10%, mem 61 MiB avg / 65 MiB peak

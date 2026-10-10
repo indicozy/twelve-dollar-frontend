@@ -1,0 +1,49 @@
+ Container perf-sim-k6-run-bf5c2b51aa4f Creating 
+ Container perf-sim-k6-run-bf5c2b51aa4f Created 
+time="2026-10-09T15:10:53Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500000/like\": read tcp 192.168.32.4:2602->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:12:22Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500096/like\": read tcp 192.168.32.4:53748->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T15:13:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500234/like\": read tcp 192.168.32.4:28144->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=817.32ms
+    ✗ 'p(99)<1000' p(99)=1.73s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 34233  155.66908/s
+    checks_succeeded...: 99.99% 34230 out of 34233
+    checks_failed......: 0.00%  3 out of 34233
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 2367 / ✗ 3
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=151.08ms med=39.83ms p(95)=817.32ms p(99)=1.73s  max=2.09s
+      { expected_response:true }...: avg=151.09ms med=39.83ms p(95)=817.32ms p(99)=1.73s  max=2.09s
+    http_req_failed................: 0.00%  3 out of 34233
+    http_reqs......................: 34233  155.66908/s
+
+    EXECUTION
+    iteration_duration.............: avg=21.11s   med=21.13s  p(95)=26.96s   p(99)=28.98s max=33.6s
+    iterations.....................: 14783  67.223323/s
+    vus............................: 33     min=30         max=1900
+    vus_max........................: 1900   min=1900       max=1900
+
+    NETWORK
+    data_received..................: 715 MB 3.2 MB/s
+    data_sent......................: 3.2 MB 14 kB/s
+
+
+
+time="2026-10-09T15:14:16Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

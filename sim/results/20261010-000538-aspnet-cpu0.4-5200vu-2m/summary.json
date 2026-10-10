@@ -1,0 +1,146 @@
+{
+    "metrics": {
+        "http_reqs": {
+            "count": 94165,
+            "rate": 428.0138961534473
+        },
+        "data_received": {
+            "count": 805354613,
+            "rate": 3660627.2574234772
+        },
+        "http_req_duration": {
+            "avg": 94.34421778975172,
+            "med": 2.066114,
+            "p(95)": 793.2025032,
+            "p(99)": 1331.83938528,
+            "max": 1584.965677,
+            "thresholds": {
+                "p(99)<1000": true,
+                "p(95)<500": true
+            }
+        },
+        "data_sent": {
+            "count": 18889587,
+            "rate": 85859.98756012859
+        },
+        "http_req_blocked": {
+            "max": 15.584827,
+            "avg": 0.01834164144852118,
+            "med": 0.004714,
+            "p(95)": 0.08438640000000003,
+            "p(99)": 0.35686620000000013
+        },
+        "http_req_duration{expected_response:true}": {
+            "avg": 94.34421778975172,
+            "med": 2.066114,
+            "p(95)": 793.2025032,
+            "p(99)": 1331.83938528,
+            "max": 1584.965677
+        },
+        "http_req_sending": {
+            "avg": 0.016642368470238207,
+            "med": 0.013504,
+            "p(95)": 0.0384568,
+            "p(99)": 0.06304008000000001,
+            "max": 1.283786
+        },
+        "checks": {
+            "passes": 94165,
+            "fails": 0,
+            "value": 1
+        },
+        "vus": {
+            "value": 18,
+            "min": 18,
+            "max": 5200
+        },
+        "http_req_failed": {
+            "passes": 0,
+            "fails": 94165,
+            "thresholds": {
+                "rate<0.01": false
+            },
+            "value": 0
+        },
+        "http_req_receiving": {
+            "max": 84.79775,
+            "avg": 0.05219983908033765,
+            "med": 0.038795,
+            "p(95)": 0.11782500000000004,
+            "p(99)": 0.16944680000000006
+        },
+        "http_req_tls_handshaking": {
+            "avg": 0,
+            "med": 0,
+            "p(95)": 0,
+            "p(99)": 0,
+            "max": 0
+        },
+        "iteration_duration": {
+            "p(99)": 29183.824049430015,
+            "max": 35006.415488,
+            "avg": 20980.656273863697,
+            "med": 20934.639292499996,
+            "p(95)": 26934.849925699993
+        },
+        "vus_max": {
+            "value": 5200,
+            "min": 5200,
+            "max": 5200
+        },
+        "http_req_waiting": {
+            "avg": 94.27537558220162,
+            "med": 1.983282,
+            "p(95)": 793.1206126000001,
+            "p(99)": 1331.70294848,
+            "max": 1584.941526
+        },
+        "http_req_connecting": {
+            "avg": 0.009674051409759458,
+            "med": 0,
+            "p(95)": 0.05953860000000008,
+            "p(99)": 0.25133672000000007,
+            "max": 15.538704
+        },
+        "iterations": {
+            "count": 40800,
+            "rate": 185.4507190894775
+        }
+    },
+    "root_group": {
+        "checks": {
+            "feed page 200 with 20 posts": {
+                "fails": 0,
+                "name": "feed page 200 with 20 posts",
+                "path": "::feed page 200 with 20 posts",
+                "id": "a226a6e809dc7e274cd1ebc793744266",
+                "passes": 43414
+            },
+            "post page 200": {
+                "id": "0e7ae176f5a9850498965e3fffb87668",
+                "passes": 43414,
+                "fails": 0,
+                "name": "post page 200",
+                "path": "::post page 200"
+            },
+            "create 201": {
+                "path": "::create 201",
+                "id": "156654209db568811cc0f7da2d599478",
+                "passes": 908,
+                "fails": 0,
+                "name": "create 201"
+            },
+            "like 200/201": {
+                "path": "::like 200/201",
+                "id": "d08d63a4981c57ae85942223195c7710",
+                "passes": 6429,
+                "fails": 0,
+                "name": "like 200/201"
+            }
+        },
+        "name": "",
+        "path": "",
+        "id": "d41d8cd98f00b204e9800998ecf8427e",
+        "groups": {}
+    }
+}

@@ -1,0 +1,170 @@
+ Container perf-sim-k6-run-3b7139b63886 Creating 
+ Container perf-sim-k6-run-3b7139b63886 Created 
+time="2026-10-09T12:31:30Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:33172->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:34Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500016/like\": read tcp 192.168.32.4:41012->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:40Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500018/like\": read tcp 192.168.32.4:29788->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:47Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500047/like\": read tcp 192.168.32.4:37560->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:48Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:38472->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:53Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500032/like\": read tcp 192.168.32.4:25832->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:31:53Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500045/like\": read tcp 192.168.32.4:26050->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:32:00Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500045/like\": read tcp 192.168.32.4:34882->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:32:19Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:7648->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:21Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500050\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500046\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:23Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500036/like\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500061\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500050\": dial: i/o timeout"
+time="2026-10-09T12:32:27Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:30Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:30Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:31Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500058\": dial: i/o timeout"
+time="2026-10-09T12:32:32Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:32Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500053/like\": dial: i/o timeout"
+time="2026-10-09T12:32:32Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:32Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500068\": dial: i/o timeout"
+time="2026-10-09T12:32:33Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:33Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:32:37Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500166/like\": read tcp 192.168.32.4:61446->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:32:51Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:52Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:53Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:55Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:55Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500045\": request timeout"
+time="2026-10-09T12:32:55Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:55Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:55Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:58Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:58Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:59Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500227/like\": read tcp 192.168.32.4:6064->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:32:59Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:59Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:32:59Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500036/like\": request timeout"
+time="2026-10-09T12:33:01Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:01Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:01Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:01Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:01Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:04Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:04Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:05Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:07Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500258/like\": read tcp 192.168.32.4:64330->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:07Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500261/like\": read tcp 192.168.32.4:65216->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:08Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:09Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:09Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500149/like\": dial: i/o timeout"
+time="2026-10-09T12:33:13Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500269/like\": read tcp 192.168.32.4:51558->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500285/like\": read tcp 192.168.32.4:55382->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:22Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:24Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:24Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:42742->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:25Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:26Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": request timeout"
+time="2026-10-09T12:33:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500251\": dial: i/o timeout"
+time="2026-10-09T12:33:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/\": dial: i/o timeout"
+time="2026-10-09T12:33:28Z" level=warning msg="Request Failed" error="Get \"http://web:3000/posts/500255\": dial: i/o timeout"
+time="2026-10-09T12:33:33Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500322/like\": read tcp 192.168.32.4:55996->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500311/like\": read tcp 192.168.32.4:1326->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:35Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500332/like\": read tcp 192.168.32.4:58740->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:43Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500357/like\": read tcp 192.168.32.4:56890->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500387/like\": read tcp 192.168.32.4:7842->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-09T12:33:52Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500391/like\": read tcp 192.168.32.4:5798->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=3.36s
+    ✗ 'p(99)<1000' p(99)=5.87s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.21%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 56299  255.898456/s
+    checks_succeeded...: 99.78% 56178 out of 56299
+    checks_failed......: 0.21%  121 out of 56299
+
+    ✗ feed page 200 with 20 posts
+      ↳  99% — ✓ 25955 / ✗ 86
+    ✗ post page 200
+      ↳  99% — ✓ 25939 / ✗ 9
+    ✗ like 200/201
+      ↳  99% — ✓ 3780 / ✗ 22
+    ✗ create 201
+      ↳  99% — ✓ 504 / ✗ 4
+
+    HTTP
+    http_req_duration..............: avg=1.5s   med=798.99ms p(95)=3.36s  p(99)=5.87s max=58.95s
+      { expected_response:true }...: avg=1.48s  med=804.99ms p(95)=3.35s  p(99)=5.82s max=55.76s
+    http_req_failed................: 0.21%  121 out of 56299
+    http_reqs......................: 56299  255.898456/s
+
+    EXECUTION
+    iteration_duration.............: avg=25.12s med=24.57s   p(95)=34.11s p(99)=42s   max=1m29s 
+    iterations.....................: 24027  109.211038/s
+    vus............................: 13     min=13           max=3700
+    vus_max........................: 3700   min=3700         max=3700
+
+    NETWORK
+    data_received..................: 502 MB 2.3 MB/s
+    data_sent......................: 5.2 MB 24 kB/s
+
+
+
+time="2026-10-09T12:34:37Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

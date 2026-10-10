@@ -1,0 +1,241 @@
+== 21:37:34 building angular 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.24kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 150B done
+#7 DONE 0.2s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web build 2/7] WORKDIR /app
+#9 CACHED
+
+#10 [web internal] load build context
+#10 transferring context: 191.43kB 0.0s done
+#10 DONE 0.2s
+
+#11 [web build 3/7] RUN corepack enable
+#11 DONE 0.4s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.4s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 ...
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.6s
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.1s
+
+#15 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#15 DONE 0.0s
+
+#16 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#16 DONE 0.0s
+
+#17 [api internal] load build context
+#17 transferring context: 809B done
+#17 DONE 0.1s
+
+#18 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#18 CACHED
+
+#19 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#19 CACHED
+
+#20 [api build 5/6] COPY src ./src
+#20 CACHED
+
+#21 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#21 CACHED
+
+#22 [api build 2/6] WORKDIR /src
+#22 CACHED
+
+#23 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#23 CACHED
+
+#24 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#24 CACHED
+
+#25 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#26 naming to docker.io/library/perf-sim-api done
+#26 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 0.413 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#13 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 1.330 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#13 1.330 (Use `node --trace-deprecation ...` to show where the warning was created)
+#13 1.348 Lockfile is up to date, resolution step is skipped
+#13 1.370 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 1.397 Packages: +299
+#13 1.397 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#13 1.520 
+#13 1.520    ╭───────────────────────────────────────────────╮
+#13 1.520    │                                               │
+#13 1.520    │      Update available! 10.8.0 → 12.10.1.      │
+#13 1.520    │     Changelog: https://pnpm.io/v/12.10.1      │
+#13 1.520    │   To update, run: corepack use pnpm@12.10.1   │
+#13 1.520    │                                               │
+#13 1.520    ╰───────────────────────────────────────────────╯
+#13 1.520 
+#13 2.371 Progress: resolved 299, reused 0, downloaded 163, added 161
+#13 3.372 Progress: resolved 299, reused 0, downloaded 210, added 210
+#13 4.372 Progress: resolved 299, reused 0, downloaded 249, added 249
+#13 5.371 Progress: resolved 299, reused 0, downloaded 297, added 297
+#13 5.689 Progress: resolved 299, reused 0, downloaded 299, added 299, done
+#13 5.730 .../node_modules/@parcel/watcher install$ node scripts/build-from-source.js
+#13 5.751 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#13 5.767 .../node_modules/msgpackr-extract install$ node-gyp-build-optional-packages
+#13 5.786 .../node_modules/@parcel/watcher install: Done
+#13 5.801 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#13 5.832 .../node_modules/msgpackr-extract install: Done
+#13 5.836 .../.pnpm/lmdb@3.5.6/node_modules/lmdb install$ node-gyp-build-optional-packages
+#13 5.908 .../.pnpm/lmdb@3.5.6/node_modules/lmdb install: Done
+#13 5.963 
+#13 5.963 dependencies:
+#13 5.963 + @angular/common 22.2.2
+#13 5.963 + @angular/compiler 22.2.2
+#13 5.963 + @angular/core 22.2.2
+#13 5.963 + @angular/platform-browser 22.2.2
+#13 5.963 + @angular/platform-server 22.2.2
+#13 5.963 + @angular/router 22.2.2
+#13 5.963 + @angular/ssr 22.2.2
+#13 5.963 + express 5.2.1
+#13 5.963 + rxjs 7.8.2
+#13 5.963 + tslib 2.8.1
+#13 5.963 
+#13 5.963 devDependencies:
+#13 5.963 + @angular/build 22.2.2
+#13 5.963 + @angular/cli 22.2.2
+#13 5.963 + @angular/compiler-cli 22.2.2
+#13 5.963 + @types/express 5.0.6
+#13 5.963 + @types/node 24.19.1
+#13 5.963 + typescript 6.0.3
+#13 5.963 
+#13 5.975 Done in 4.8s using pnpm v10.8.0
+#13 DONE 6.3s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.502 
+#29 0.502 > angular-feed@0.0.0 build /app
+#29 0.502 > ng build
+#29 0.502 
+#29 0.838 ❯ Building...
+#29 3.034 ✔ Building...
+#29 3.035 Browser bundles     
+#29 3.035 Initial chunk files  | Names            |  Raw size | Estimated transfer size
+#29 3.035 main-NLXISF2T.js     | main             | 274.88 kB |                76.39 kB
+#29 3.035 styles-FPHK73FJ.css  | styles           |   3.22 kB |                 1.03 kB
+#29 3.035 
+#29 3.035                      | Initial total    | 278.10 kB |                77.42 kB
+#29 3.035 
+#29 3.035 
+#29 3.035 Server bundles      
+#29 3.035 Initial chunk files  | Names            |  Raw size
+#29 3.035 server.mjs           | server           | 919.88 kB |                        
+#29 3.035 main.server.mjs      | main.server      | 555.75 kB |                        
+#29 3.035 polyfills.server.mjs | polyfills.server | 235.58 kB |                        
+#29 3.035 chunk-C2KJ4ATU.mjs   | -                |   1.54 kB |                        
+#29 3.035 chunk-KYQQYI4M.mjs   | -                |   1.01 kB |                        
+#29 3.035 
+#29 3.035 Lazy chunk files     | Names            |  Raw size
+#29 3.035 chunk-7EY5LZPJ.mjs   | xhr2             |  12.17 kB |                        
+#29 3.035 chunk-36UQX63L.mjs   | xhr2             |  12.08 kB |                        
+#29 3.035 
+#29 3.035 Prerendered 0 static routes.
+#29 3.035 Application bundle generation complete. [2.195 seconds] - 2026-10-09T16:37:45.446Z
+#29 3.035 
+#29 3.036 Output location: /app/dist/angular
+#29 3.036 
+#29 DONE 3.4s
+
+#30 [web stage-1 2/5] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/5] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/5] COPY --from=build /app/dist ./dist
+#32 DONE 0.2s
+
+#33 [web stage-1 5/5] COPY --from=build /app/package.json ./
+#33 DONE 0.2s
+
+#34 [web] exporting to image
+#34 exporting layers 0.1s done
+#34 writing image sha256:7ecfc937988852b6da4426e8884c6fff6cd6c0cd2d6b291ecb453d0e868a27b8 done
+#34 naming to docker.io/library/perf-sim-web done
+#34 DONE 0.2s
+
+#35 [web] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 52 req/s saturated on / -> start at about 423 users
+== search (start 400, step 100, cap 16000)
+PASS  400 users 2m  33 req/s  med 13ms  p95 88ms  p99 169ms  errors 0.02%  |  web cpu 34% under load (84% of its vCPU), peak 40%, mem 309 MiB avg / 325 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 33 MiB peak
+PASS  500 users 2m  41 req/s  med 14ms  p95 126ms  p99 202ms  errors 0.02%  |  web cpu 37% under load (92% of its vCPU), peak 42%, mem 296 MiB avg / 313 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+PASS  700 users 2m  57 req/s  med 42ms  p95 292ms  p99 575ms  errors 0.03%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 326 MiB avg / 346 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 35 MiB peak
+FAIL  900 users 2m  70 req/s  med 233ms  p95 1821ms  p99 2633ms  errors 0.03%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 360 MiB avg / 378 MiB peak  |  api cpu 1% under load (4% of its vCPU), peak 3%, mem 35 MiB avg / 36 MiB peak
+FAIL  800 users 2m  65 req/s  med 88ms  p95 650ms  p99 1356ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 43%, mem 360 MiB avg / 379 MiB peak  |  api cpu 1% under load (3% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+== confirm (5-minute holds, starting at 700)
+PASS  700 users 5m  64 req/s  med 40ms  p95 290ms  p99 544ms  errors 0.02%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 368 MiB avg / 389 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 35 MiB avg / 37 MiB peak
+SCORE angular-cpu0.4: 700 users
+== 22:06:38 angular search exit 0

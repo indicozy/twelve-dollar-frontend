@@ -1,0 +1,261 @@
+<title>Frontends on a $12 Server</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a fixed 1280x720 stage scaled to fit; one idea per slide; bars and big numbers carry the data. */
+:root {
+  --bg: #eef0ee; --stage: #fbfbf9; --ink: #141518; --ink-2: #4a4c51; --ink-3: #85878c; --rule: #dcdcd7; --grid: #e9e9e5;
+  --hydrate: #2a78d6; --template: #eb6834; --static: #1baf7a; --hot: #fff1b3;
+  --font-display: "IBM Plex Sans Condensed", "Arial Narrow", system-ui, sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1011; --stage: #18191b; --ink: #f2f2ef; --ink-2: #c4c3ba; --ink-3: #8d8f94; --rule: #2d2f32; --grid: #242628;
+  --hydrate: #3987e5; --template: #d95926; --static: #199e70; --hot: #3b3418; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0f1011; --stage: #18191b; --ink: #f2f2ef; --ink-2: #c4c3ba; --ink-3: #8d8f94; --rule: #2d2f32; --grid: #242628;
+  --hydrate: #3987e5; --template: #d95926; --static: #199e70; --hot: #3b3418; color-scheme: dark }
+html, body { height: 100% }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); padding-inline: 16px; padding-block: 0; overflow: hidden }
+.viewport { height: 100%; display: grid; place-items: center }
+.stage { width: 1280px; height: 720px; background: var(--stage); position: relative; transform-origin: center; box-shadow: 0 10px 40px rgb(0 0 0 / .12); flex: none }
+.slide { position: absolute; inset: 0; padding: 56px 80px 60px; display: none; flex-direction: column; gap: 20px; overflow: hidden }
+.slide.on { display: flex }
+.kicker { font: 500 15px/1 var(--font-data); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3) }
+h1, h2 { font-family: var(--font-display); margin: 0; line-height: 1.04; text-wrap: balance }
+h1 { font-size: 74px; font-weight: 700; letter-spacing: -.01em }
+h2 { font-size: 50px; font-weight: 700 }
+.sub { font-size: 26px; line-height: 1.4; color: var(--ink-2); max-width: 30em }
+p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-width: 54em }
+.num { font-family: var(--font-data); font-variant-numeric: tabular-nums }
+.big { font: 600 120px/1 var(--font-data); letter-spacing: -.03em }
+.row { display: flex; gap: 28px; align-items: stretch; min-width: 0 }
+.box { border: 2px solid var(--ink); padding: 18px 22px; background: var(--stage); min-width: 0 }
+.box h3 { margin: 0 0 6px; font: 700 26px/1.1 var(--font-display) }
+.box p { margin: 0; font-size: 18px; color: var(--ink-2); line-height: 1.45 }
+.arrow { align-self: center; font: 600 34px/1 var(--font-data); color: var(--ink-3) }
+.bars { display: grid; gap: 7px; flex: 1; min-height: 0 }
+.bar { display: grid; grid-template-columns: 250px 1fr; align-items: center; gap: 14px; font-size: 19px }
+.bar .name { text-align: right; color: var(--ink) }
+.bar .track { position: relative; height: 26px }
+.bar .fill { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 0 4px 4px 0; min-width: 3px }
+.bar .val { position: absolute; top: 50%; transform: translateY(-50%); font: 500 17px var(--font-data); color: var(--ink); white-space: nowrap }
+.bar.hl .name { font-weight: 600 }
+.bars.dense { gap: 3px; flex: none } .bars.dense .bar { font-size: 15px } .bars.dense .track { height: 18px } .bars.dense .val { font-size: 14px }
+.legend { display: flex; gap: 26px; font-size: 16px; color: var(--ink-2) }
+.legend i { display: inline-block; width: 13px; height: 13px; border-radius: 2px; margin-right: 8px; vertical-align: -1px }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px }
+.steps .box { border-width: 1.5px }
+.steps b { font: 600 15px var(--font-data); color: var(--ink-3); letter-spacing: .06em }
+.path { display: flex; flex-wrap: wrap; gap: 8px; font: 500 17px var(--font-data) }
+.path span { padding: 7px 10px; border: 1.5px solid var(--rule) }
+.path .ok { border-color: var(--static) } .path .no { border-color: var(--template); text-decoration: line-through; text-decoration-thickness: 1.5px }
+.path .hold { font-weight: 600 }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 40px }
+.cols h3 { margin: 0; font: 700 24px/1.15 var(--font-display) }
+.cols p { margin: 6px 0 0; font-size: 18px; line-height: 1.45; color: var(--ink-2) }
+.hot { background: var(--hot); padding: 2px 6px }
+.foot { position: absolute; left: 80px; right: 80px; bottom: 26px; display: flex; justify-content: space-between; font: 400 13px var(--font-data); color: var(--ink-3) }
+.nav { position: fixed; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; z-index: 5 }
+.nav button { font: 500 14px var(--font-data); background: var(--stage); color: var(--ink); border: 1px solid var(--rule); padding: 8px 12px; cursor: pointer }
+.nav button:focus-visible { outline: 2px solid var(--hydrate) }
+</style>
+
+<div class="viewport"><div class="stage" id="stage">
+
+<section class="slide">
+  <span class="kicker">Benchmark · 18 stacks · 1 small server</span>
+  <h1>How many users can your frontend serve on a $12 server?</h1>
+  <p class="sub">Same site, same API, same tiny box. Only the frontend changes: Next.js, Remix, SvelteKit, Nuxt, Angular and friends, plus Express, Flask, Django, ASP.NET, Laravel, Spring and Rust.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">The setup</span>
+  <h2>Two $12-sized servers and a load generator</h2>
+  <div class="row" style="margin-top:20px">
+    <div class="box" style="flex:1"><h3>k6</h3><p>Simulated users on separate cores. Thousands of browsing sessions at once.</p></div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.3;border-color:var(--hydrate)"><h3>Frontend server</h3><p>The thing we test. Renders HTML for every page view. <b class="num">0.4 vCPU · 2 GB · no swap</b></p></div>
+    <div class="arrow">→</div>
+    <div class="box" style="flex:1.3"><h3>API: Rust + SQLite</h3><p>50k users, 500k posts, 2M likes. Answers a feed in ~1 ms. <b class="num">0.4 vCPU · 2 GB</b></p></div>
+  </div>
+  <p class="note">Each server is a Docker container pinned to its own physical core and throttled to 0.4 vCPU, closer to a shared $12 droplet than a full desktop core. Every run starts with a fresh database and a fresh frontend container.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">What is one user?</span>
+  <h2>One user ≈ 0.09 page requests a second</h2>
+  <div class="steps" style="margin-top:12px">
+    <div class="box"><b>1</b><h3>Open the feed</h3><p>20 newest posts, rendered on the server</p></div>
+    <div class="box"><b>2</b><h3>Read for 3-7 s</h3><p>then open one post</p></div>
+    <div class="box"><b>3</b><h3>Read for 3-8 s</h3><p>like it 15% of the time, post 2%</p></div>
+    <div class="box"><b>4</b><h3>Idle 5-15 s</h3><p>then start again</p></div>
+  </div>
+  <p class="note">So 1,000 users ≈ 90 page renders a second. A run passes when <b>p95 &lt; 500 ms, p99 &lt; 1 s and errors &lt; 1%</b>.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Finding the limit</span>
+  <h2>Probe, bisect, then hold for 5 minutes</h2>
+  <p class="note">A 20-second throughput probe guesses a start. 2-minute runs jump ±25% to bracket the limit and bisect it down to 100 users. The score is the most users that pass a <b>5-minute hold</b>. Express, in order:</p>
+  <div class="path" id="path-express"></div>
+  <p class="note">Struck through = failed. Bold = a 5-minute hold. Note 8,000 passed for 2 minutes but not for 5: sustained load is harder.</p>
+</section>
+
+<section class="slide" data-chart="react">
+  <span class="kicker">Results · the React family</span>
+  <h2 id="react-title">Same React, very different results</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars" data-bars="nextjs,nextjs-cached,remix,tanstack-start"></div>
+  <p class="note">Next.js App Router renders React Server Components to a serialized tree, renders that to HTML, and inlines the tree in the page. Remix and TanStack Start render the same components in one pass.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Caching Next.js</span>
+  <h2>Caching buys 7×, then hits a wall</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars" data-bars="nextjs,nextjs-cached,nextjs-fullcache,nextjs-smart,express"></div>
+  <p class="note">A stored page costs Next.js about 0.40 ms of CPU, the same as Express rendering from scratch. What's left: every new post is a full render on first view, writes go through route handlers (5× Express), pages are 3× larger, and background regeneration and GC stall the single thread, so p99 breaks first.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Results · other JS frameworks</span>
+  <h2>Compiled string renderers lead</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars" data-bars="angular,qwik,nuxt,astro,sveltekit,solidstart"></div>
+  <p class="note">Angular builds a server-side DOM per request. Qwik serializes component state for resumability. Solid and Svelte compile components to string building.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">The baseline</span>
+  <h2>Plain Express + EJS on the same Node</h2>
+  <div class="row" style="align-items:flex-end;gap:60px">
+    <div><div class="big" style="color:var(--template)" data-v="express:users"></div><p class="note">users held for 5 minutes</p></div>
+    <div><div class="big" data-v="ratio:express/nextjs"></div><p class="note">more than Next.js, same runtime</p></div>
+  </div>
+  <p class="note">No component tree, no hydration data, no streaming: a template compiled to a JS function, then string concatenation. Everything a framework spends above this is the framework.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Results · other languages</span>
+  <h2>Server templates in other languages</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars" data-bars="flask,django,laravel,spring,aspnet,rust-axum"></div>
+  <p class="note">These render HTML and stop: no data for hydration, zero JS. Rust hit the 16,000 cap at 45% CPU. Laravel boots the framework per request under PHP-FPM; Django pays for middleware that Flask skips; Flask is capped by 3 blocking workers.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Leaderboard</span>
+  <h2>Users held for 5 minutes, 0.4 vCPU</h2>
+  <div class="legend" data-legend></div>
+  <div class="bars dense" data-bars="all"></div>
+</section>
+
+<section class="slide">
+  <span class="kicker">Why</span>
+  <h2>Every server ran out of CPU, not memory</h2>
+  <div class="bars dense" data-bars="all" data-key="cpu_ms_per_req"></div>
+  <p class="note">CPU milliseconds per request at the score. At every server-rendered limit the API used 3-14% of its CPU while the frontend box sat at 95-100%. Score ≈ CPU budget ÷ CPU per request.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">Why · where the CPU goes</span>
+  <h2>What each request pays for</h2>
+  <div class="cols">
+    <div><h3>Two renders + a payload</h3><p>Next.js: RSC tree, then HTML from the tree, then a ~28 KB inlined payload, then gzip. 46 KB feed page.</p></div>
+    <div><h3>A DOM on the server</h3><p>Angular builds and serializes a document per request, plus hydration annotations and a transfer cache.</p></div>
+    <div><h3>State serialization</h3><p>Qwik writes ~12 KB of component state for resumability; Nuxt, Remix, TanStack and Solid embed 4-7 KB of data.</p></div>
+    <div><h3>Strings</h3><p>Solid, Svelte, EJS, Askama, Razor: compiled templates that append strings. The cheapest way to make HTML.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="kicker">Sustained load</span>
+  <h2>2 minutes isn't 5 minutes</h2>
+  <div class="row" style="gap:60px;align-items:flex-end">
+    <div><div class="big num" data-v="sveltekit:best_2m"></div><p class="note">SvelteKit users passing a 2-minute run</p></div>
+    <div class="arrow" style="font-size:60px">→</div>
+    <div><div class="big num" style="color:var(--template)" data-v="sveltekit:users"></div><p class="note">users it held for 5 minutes</p></div>
+  </div>
+  <p class="note">Its memory grew to <span class="num" data-v="sveltekit:web_mem_peak"></span> MiB (Express: <span class="num" data-v="express:web_mem_peak"></span>). A large, growing heap means longer garbage collection on one core, which hits p99 first. That's why the video's rule of a 5-minute confirmation matters.</p>
+</section>
+
+<section class="slide">
+  <span class="kicker">The other option</span>
+  <h2>Don't render on the server at all</h2>
+  <div class="row" style="gap:60px;align-items:flex-end">
+    <div><div class="big num" style="color:var(--static)">16,000</div><p class="note">users at the cap we set (real limit higher)</p></div>
+    <div style="flex:1;min-width:0"><p class="note">Next.js as a static export behind nginx: the server sends 7 KB shells and JSON, the browser renders. Both boxes stayed far below their budget.</p><p class="note" style="margin-top:12px">The cost moves to every visitor's device, first paint waits for JS, and crawlers see an empty shell.</p></div>
+  </div>
+</section>
+
+<section class="slide">
+  <span class="kicker">Takeaways</span>
+  <h2>What to take from this</h2>
+  <div class="cols">
+    <div><h3>The renderer is the bottleneck</h3><p>With a fast API, the frontend's HTML renderer decides how many users a box can serve. Caching Next.js lifts it from <span class="num" data-v="nextjs:users"></span> to <span class="num" data-v="nextjs-smart:users"></span>, still under half of Express.</p></div>
+    <div><h3>Framework choice is 6× on the same Node</h3><p>From <span class="num" data-v="nextjs:users"></span> (Next.js) to <span class="num" data-v="solidstart:users"></span> (SolidStart), and <span class="num" data-v="express:users"></span> with no framework.</p></div>
+    <div><h3>Defaults matter</h3><p>RSC payloads, gzip in Node, per-request logging, CSRF tokens, sync workers: each shows up in the score.</p></div>
+    <div><h3>Add CPU, not RAM</h3><p>Every server-rendered stack hit 95-100% CPU with most of its 2 GB unused.</p></div>
+  </div>
+</section>
+
+<div class="foot"><span id="foot-l">Frontends on a $12 server</span><span id="foot-r"></span></div>
+</div></div>
+<div class="nav"><button id="prev" type="button" aria-label="Previous slide">←</button><button id="next" type="button" aria-label="Next slide">→</button></div>
+
+<script>
+const DATA = /*__DATA__*/null;
+const V = DATA.variants, byId = Object.fromEntries(V.map(v => [v.id, v]));
+const fmt = n => n == null ? "–" : Math.round(n).toLocaleString("en-US");
+const G = { hydrate: "SSR + hydration", template: "Server templates", static: "Static + API" };
+
+document.querySelectorAll("[data-legend]").forEach(el => el.innerHTML = Object.entries(G).map(([k, t]) => `<span><i style="background:var(--${k})"></i>${t}</span>`).join(""));
+
+document.querySelectorAll("[data-v]").forEach(el => {
+  const [a, b] = el.dataset.v.split(":");
+  if (a === "ratio") { const [x, y] = b.split("/"); const r = byId[x]?.users / byId[y]?.users; el.textContent = isFinite(r) ? Math.round(r) + "×" : "–"; return; }
+  el.textContent = byId[a]?.status === "done" ? fmt(byId[a][b]) : "–";
+});
+
+document.querySelectorAll("[data-bars]").forEach(el => {
+  const key = el.dataset.key || "users";
+  const ids = el.dataset.bars === "all" ? V.map(v => v.id) : el.dataset.bars.split(",");
+  const items = ids.map(id => byId[id]).filter(Boolean);
+  const done = items.filter(v => v.status === "done" && v[key] != null).sort((a, b) => b[key] - a[key]);
+  const pending = items.filter(v => v.status !== "done");
+  const max = Math.max(...(el.dataset.bars === "all" ? done : V.filter(v => v.status === "done")).map(v => v[key]));
+  const val = v => key === "users" ? fmt(v.users) + (v.capped ? " (cap)" : "") : v[key].toFixed(2) + " ms";
+  el.innerHTML = done.map(v => {
+    const w = Math.max(0.4, v[key] / max * 86);
+    return `<div class="bar"><span class="name">${v.name}</span><span class="track"><span class="fill" style="width:${w}%;background:var(--${v.group})"></span><span class="val" style="left:calc(${w}% + 10px)">${val(v)}</span></span></div>`;
+  }).join("") + pending.map(v => `<div class="bar"><span class="name">${v.name}</span><span class="track"><span class="val" style="left:0;color:var(--ink-3)">${v.status}</span></span></div>`).join("");
+});
+
+const ex = byId.express;
+document.getElementById("path-express").innerHTML = (ex?.steps || []).map(s => `<span class="${s.ok ? "ok" : "no"} ${s.run === "5m" ? "hold" : ""}">${fmt(s.users)}${s.run === "5m" ? " · 5 min" : ""}</span>`).join("");
+
+const nx = byId.nextjs, rx = byId.remix;
+if (nx?.users && rx?.users) document.getElementById("react-title").textContent = `Same React, ${Math.round(rx.users / nx.users)}× apart`;
+
+// ---------- navigation and scaling
+const slides = [...document.querySelectorAll(".slide")];
+let i = 0;
+try { const h = parseInt(location.hash.slice(1)); if (h >= 1 && h <= slides.length) i = h - 1; } catch {}
+const show = n => { i = Math.max(0, Math.min(slides.length - 1, n)); slides.forEach((s, k) => s.classList.toggle("on", k === i)); document.getElementById("foot-r").textContent = `${i + 1} / ${slides.length}`; };
+document.getElementById("prev").onclick = () => show(i - 1);
+document.getElementById("next").onclick = () => show(i + 1);
+document.addEventListener("keydown", e => {
+  if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(i + 1); }
+  if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+  if (e.key === "Home") show(0); if (e.key === "End") show(slides.length - 1);
+});
+let x0 = null;
+document.addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
+document.addEventListener("touchend", e => { if (x0 == null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) show(i + (dx < 0 ? 1 : -1)); x0 = null; });
+const stage = document.getElementById("stage");
+const fit = () => { const s = Math.min((window.innerWidth - 32) / 1280, (window.innerHeight - 70) / 720); stage.style.transform = `scale(${Math.max(0.2, s)})`; };
+window.addEventListener("resize", fit); fit(); show(i);
+</script>

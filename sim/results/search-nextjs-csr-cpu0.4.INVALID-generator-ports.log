@@ -1,0 +1,156 @@
+== 15:00:57 building nextjs-csr
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 850B done
+#2 DONE 0.1s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 899B done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.3s
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 ...
+
+#7 [web internal] load metadata for docker.io/library/nginx:1.27.3-alpine
+#7 DONE 1.4s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 107B done
+#8 DONE 0.1s
+
+#9 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#9 DONE 0.0s
+
+#10 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#10 DONE 0.0s
+
+#11 [api internal] load build context
+#11 transferring context: 809B done
+#11 DONE 0.1s
+
+#12 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#12 CACHED
+
+#13 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#13 CACHED
+
+#14 [api build 2/6] WORKDIR /src
+#14 CACHED
+
+#15 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#15 CACHED
+
+#16 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#16 CACHED
+
+#17 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [api build 5/6] COPY src ./src
+#18 CACHED
+
+#19 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#19 CACHED
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 1.6s
+
+#20 [api] exporting to image
+#20 exporting layers done
+#20 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#20 naming to docker.io/library/perf-sim-api done
+#20 DONE 0.1s
+
+#21 [web internal] load .dockerignore
+#21 transferring context: 136B done
+#21 DONE 0.1s
+
+#22 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+#22 DONE 0.0s
+
+#23 [web stage-1 1/5] FROM docker.io/library/nginx:1.27.3-alpine@sha256:814a8e88df978ade80e584cc5b333144b9372a8e3c98872d07137dbf3b44d0e4
+#23 DONE 0.0s
+
+#24 [web internal] load build context
+#24 transferring context: 2.86kB done
+#24 DONE 0.1s
+
+#25 [web build 6/7] COPY . .
+#25 CACHED
+
+#26 [web stage-1 2/5] RUN apk add --no-cache iproute2
+#26 CACHED
+
+#27 [web build 7/7] RUN pnpm build
+#27 CACHED
+
+#28 [web build 3/7] RUN corepack enable
+#28 CACHED
+
+#29 [web build 5/7] RUN pnpm install --frozen-lockfile
+#29 CACHED
+
+#30 [web build 2/7] WORKDIR /app
+#30 CACHED
+
+#31 [web stage-1 3/5] COPY nginx/nginx.conf /etc/nginx/nginx.conf
+#31 CACHED
+
+#32 [web stage-1 4/5] COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+#32 CACHED
+
+#33 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#33 CACHED
+
+#34 [web stage-1 5/5] COPY --from=build /app/out /usr/share/nginx/html
+#34 CACHED
+
+#35 [api] resolving provenance for metadata file
+#35 DONE 0.0s
+
+#36 [web] exporting to image
+#36 exporting layers done
+#36 writing image sha256:89e35f049a18b0ffcb0154535f5e27e76c459c6fafb570aa10e1d0393e5a47fc 0.0s done
+#36 naming to docker.io/library/perf-sim-web 0.0s done
+#36 DONE 0.1s
+
+#37 [web] resolving provenance for metadata file
+#37 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== warm-up (1000 users, 2m, not scored)
+PASS  1000 users 2m  201 req/s  med 0ms  p95 1ms  p99 1ms  errors 0%  |  web-1 cpu avg 4% peak 8% mem 17.5MiB / 2GiB  api-1 cpu avg 3% peak 6% mem 33.79MiB / 2GiB  
+== search
+PASS  1000 users 2m  200 req/s  med 0ms  p95 1ms  p99 1ms  errors 0%  |  web-1 cpu avg 5% peak 8% mem 17.18MiB / 2GiB  api-1 cpu avg 3% peak 7% mem 33.51MiB / 2GiB  
+PASS  2000 users 2m  402 req/s  med 0ms  p95 1ms  p99 1ms  errors 0%  |  web-1 cpu avg 5% peak 10% mem 24.35MiB / 2GiB  api-1 cpu avg 5% peak 9% mem 39.14MiB / 2GiB  
+PASS  4000 users 2m  804 req/s  med 0ms  p95 0ms  p99 1ms  errors 0%  |  web-1 cpu avg 8% peak 16% mem 34.01MiB / 2GiB  api-1 cpu avg 6% peak 11% mem 45.59MiB / 2GiB  
+FAIL  8000 users 2m  1629 req/s  med 0ms  p95 0ms  p99 2ms  errors 2.79%  |  web-1 cpu avg 13% peak 25% mem 49.36MiB / 2GiB  api-1 cpu avg 8% peak 14% mem 57.11MiB / 2GiB  
+PASS  6000 users 2m  1205 req/s  med 0ms  p95 0ms  p99 1ms  errors 0%  |  web-1 cpu avg 11% peak 19% mem 43.07MiB / 2GiB  api-1 cpu avg 7% peak 11% mem 50.61MiB / 2GiB  
+PASS  7000 users 2m  1406 req/s  med 0ms  p95 0ms  p99 2ms  errors 0%  |  web-1 cpu avg 12% peak 22% mem 45.79MiB / 2GiB  api-1 cpu avg 8% peak 13% mem 55.76MiB / 2GiB  
+FAIL  7500 users 2m  1514 req/s  med 0ms  p95 0ms  p99 1ms  errors 1.25%  |  web-1 cpu avg 12% peak 23% mem 47.7MiB / 2GiB  api-1 cpu avg 8% peak 13% mem 56.6MiB / 2GiB  
+PASS  7200 users 2m  1447 req/s  med 0ms  p95 0ms  p99 2ms  errors 0.32%  |  web-1 cpu avg 13% peak 25% mem 45.78MiB / 2GiB  api-1 cpu avg 8% peak 14% mem 59.54MiB / 2GiB  
+PASS  7300 users 2m  1469 req/s  med 0ms  p95 1ms  p99 2ms  errors 0.63%  |  web-1 cpu avg 13% peak 24% mem 46.74MiB / 2GiB  api-1 cpu avg 8% peak 13% mem 59.46MiB / 2GiB  
+PASS  7400 users 2m  1490 req/s  med 0ms  p95 1ms  p99 2ms  errors 0.86%  |  web-1 cpu avg 13% peak 25% mem 46.65MiB / 2GiB  api-1 cpu avg 8% peak 12% mem 56.23MiB / 2GiB  
+== confirm (5m holds from 7400)

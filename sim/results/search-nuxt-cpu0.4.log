@@ -1,0 +1,279 @@
+== 16:16:03 building nuxt
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 ...
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load build definition from Dockerfile
+#5 transferring dockerfile: 1.26kB done
+#5 DONE 0.2s
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 1.2s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 DONE 1.3s
+
+#7 [api internal] load .dockerignore
+#7 transferring context: 107B done
+#7 DONE 0.1s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 140B done
+#8 DONE 0.2s
+
+#9 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#9 DONE 0.0s
+
+#10 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#10 DONE 0.0s
+
+#11 [api internal] load build context
+#11 transferring context: 809B done
+#11 DONE 0.1s
+
+#12 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+#12 DONE 0.0s
+
+#13 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#13 CACHED
+
+#14 [web build 2/7] WORKDIR /app
+#14 CACHED
+
+#15 [web stage-1 3/4] WORKDIR /app
+#15 CACHED
+
+#16 [api build 5/6] COPY src ./src
+#16 CACHED
+
+#17 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#17 CACHED
+
+#18 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#18 CACHED
+
+#19 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#19 CACHED
+
+#20 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#20 CACHED
+
+#21 [api build 2/6] WORKDIR /src
+#21 CACHED
+
+#22 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#22 CACHED
+
+#23 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#23 CACHED
+
+#24 [api] exporting to image
+#24 exporting layers done
+#24 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#24 naming to docker.io/library/perf-sim-api 0.0s done
+#24 DONE 0.1s
+
+#25 [web internal] load build context
+#25 transferring context: 256.77kB 0.0s done
+#25 DONE 0.2s
+
+#26 [web build 3/7] RUN corepack enable
+#26 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#26 [web build 3/7] RUN corepack enable
+#26 DONE 0.6s
+
+#28 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#28 DONE 0.3s
+
+#29 [web build 5/7] RUN pnpm install --frozen-lockfile --ignore-scripts
+#29 0.375 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#29 1.339 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#29 1.339 (Use `node --trace-deprecation ...` to show where the warning was created)
+#29 1.359 Lockfile is up to date, resolution step is skipped
+#29 1.381 Progress: resolved 1, reused 0, downloaded 0, added 0
+#29 1.425 Packages: +586
+#29 1.425 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#29 1.627 
+#29 1.627    ╭───────────────────────────────────────────────╮
+#29 1.627    │                                               │
+#29 1.627    │      Update available! 10.8.0 → 12.10.1.      │
+#29 1.627    │     Changelog: https://pnpm.io/v/12.10.1      │
+#29 1.627    │   To update, run: corepack use pnpm@12.10.1   │
+#29 1.627    │                                               │
+#29 1.627    ╰───────────────────────────────────────────────╯
+#29 1.627 
+#29 2.382 Progress: resolved 586, reused 0, downloaded 90, added 89
+#29 3.382 Progress: resolved 586, reused 0, downloaded 212, added 211
+#29 4.382 Progress: resolved 586, reused 0, downloaded 415, added 414
+#29 5.378 Progress: resolved 586, reused 0, downloaded 586, added 586, done
+#29 5.547 
+#29 5.547 dependencies:
+#29 5.547 + nuxt 4.6.0
+#29 5.547 + vue 3.5.43
+#29 5.547 + vue-router 5.4.0
+#29 5.547 
+#29 5.547 devDependencies:
+#29 5.547 + @types/node 24.19.1
+#29 5.547 + rolldown 1.2.13
+#29 5.547 + typescript 6.0.3
+#29 5.547 + vue-tsc 3.3.12
+#29 5.547 
+#29 5.556 Done in 4.4s using pnpm v10.8.0
+#29 DONE 5.9s
+
+#30 [web build 6/7] COPY . .
+#30 DONE 0.3s
+
+#31 [web build 7/7] RUN pnpm build
+#31 0.550 
+#31 0.550 > nuxt-feed@ build /app
+#31 0.550 > nuxt build
+#31 0.550 
+#31 0.628 Building Nuxt for production...
+#31 0.628 ● Loading Nuxt config
+#31 0.810 ● Nuxt 4.6.0 (with Nitro 2.13.4, Vite 8.3.4 and Vue 3.5.43)
+#31 0.813 ● Setting up modules
+#31 0.833 ● Preparing app
+#31 1.206 ● Nitro preset: node-server
+#31 1.210 ● Generating types
+#31 1.455 ● Bundling client
+#31 1.833 ℹ Building client...
+#31 1.844 ℹ vite v8.3.4 building client environment for production...
+#31 1.865 transforming...
+#31 2.234 ✓ 184 modules transformed.
+#31 2.269 rendering chunks...
+#31 2.307 computing gzip size...
+#31 2.309 ℹ .nuxt/dist/client/manifest.json               2.01 kB │ gzip:  0.41 kB
+#31 2.309 .nuxt/dist/client/_nuxt/entry.Rn7ydCBb.css    3.28 kB │ gzip:  1.26 kB
+#31 2.309 .nuxt/dist/client/_nuxt/CFiwLnf7.js           0.59 kB │ gzip:  0.38 kB
+#31 2.309 .nuxt/dist/client/_nuxt/BPcb4z6v.js           0.65 kB │ gzip:  0.47 kB
+#31 2.309 .nuxt/dist/client/_nuxt/BRopjwWc.js           1.33 kB │ gzip:  0.82 kB
+#31 2.309 .nuxt/dist/client/_nuxt/B9rdzmUY.js          13.58 kB │ gzip:  5.30 kB
+#31 2.309 .nuxt/dist/client/_nuxt/CzOvuX1l.js         181.83 kB │ gzip: 67.32 kB
+#31 2.309 
+#31 2.310 ℹ ✓ built in 465ms
+#31 2.310 ✔ Client built in 476ms
+#31 2.311 ● Bundling server
+#31 2.311 ℹ Building server...
+#31 2.314 ℹ vite v8.3.4 building ssr environment for production...
+#31 2.323 transforming...
+#31 2.428 ✓ 159 modules transformed.
+#31 2.437 rendering chunks...
+#31 2.452 ℹ .nuxt/dist/server/styles.mjs                            0.06 kB
+#31 2.452 .nuxt/dist/server/_nuxt/login-umhxxcvQ.js               1.19 kB │ map:   0.77 kB
+#31 2.452 .nuxt/dist/server/_nuxt/_id_-P-gcxEH1.js                2.13 kB │ map:   1.95 kB
+#31 2.452 .nuxt/dist/server/_nuxt/pages-DGhAkbaY.js               3.65 kB │ map:   4.39 kB
+#31 2.452 .nuxt/dist/server/_nuxt/multipart-parser-B1MeNM3b.js    6.29 kB │ map:  10.59 kB
+#31 2.452 .nuxt/dist/server/_nuxt/fetch-J4LmlFK2.js              29.16 kB │ map:  95.62 kB
+#31 2.452 .nuxt/dist/server/server.mjs                          120.35 kB │ map: 396.63 kB
+#31 2.452 .nuxt/dist/server/_nuxt/node-vxd8u_TU.js              142.90 kB │ map: 230.35 kB
+#31 2.452 
+#31 2.453 ℹ ✓ built in 139ms
+#31 2.455 ✔ Server built in 144ms
+#31 2.456 ● Building Nitro server
+#31 2.475 [nitro] ✔ Generated public .output/public
+#31 2.484 [nitro] ℹ Building Nuxt Nitro server (preset: node-server, compatibility date: 2026-10-01)
+#31 3.160 [plugin esbuild] .nuxt/dist/server/_nuxt/fetch-J4LmlFK2.js: [esbuild] (.nuxt/dist/server/_nuxt/fetch-J4LmlFK2.js:77:24) Big integer literals are not available in the configured target environment ("es2019") and may crash at run-time
+#31 4.107 [nitro] ✔ Nuxt Nitro server built
+#31 4.166   ├─ .output/server/chunks/_/api.mjs (1.25 kB) (574 B gzip)
+#31 4.166   ├─ .output/server/chunks/_/api.mjs.map (1.44 kB) (522 B gzip)
+#31 4.166   ├─ .output/server/chunks/_/error-template.mjs (4.38 kB) (1.71 kB gzip)
+#31 4.166   ├─ .output/server/chunks/_/error-template.mjs.map (323 B) (234 B gzip)
+#31 4.166   ├─ .output/server/chunks/_/session.mjs (1.76 kB) (848 B gzip)
+#31 4.166   ├─ .output/server/chunks/_/session.mjs.map (2.1 kB) (694 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/_id_-P-gcxEH1.mjs (2.69 kB) (1.08 kB gzip)
+#31 4.166   ├─ .output/server/chunks/build/_id_-P-gcxEH1.mjs.map (1.11 kB) (476 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/fetch-J4LmlFK2.mjs (27.3 kB) (7.54 kB gzip)
+#31 4.166   ├─ .output/server/chunks/build/fetch-J4LmlFK2.mjs.map (2.15 kB) (554 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/login-umhxxcvQ.mjs (1.67 kB) (774 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/login-umhxxcvQ.mjs.map (195 B) (145 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/multipart-parser-B1MeNM3b.mjs (7.15 kB) (2.46 kB gzip)
+#31 4.166   ├─ .output/server/chunks/build/multipart-parser-B1MeNM3b.mjs.map (247 B) (185 B gzip)
+#31 4.166   ├─ .output/server/chunks/build/pages-DGhAkbaY.mjs (4.08 kB) (1.42 kB gzip)
+#31 4.166   ├─ .output/server/chunks/build/pages-DGhAkbaY.mjs.map (1.48 kB) (579 B gzip)
+#31 4.166   ├─ .output/server/chunks/nitro/nitro.mjs (178 kB) (44.9 kB gzip)
+#31 4.166   ├─ .output/server/chunks/nitro/nitro.mjs.map (7.41 kB) (1.21 kB gzip)
+#31 4.166   ├─ .output/server/chunks/routes/actions/create.post.mjs (1.15 kB) (541 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/actions/create.post.mjs.map (885 B) (374 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/actions/like.post.mjs (906 B) (431 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/actions/like.post.mjs.map (554 B) (274 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/feed.get.mjs (490 B) (245 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/feed.get.mjs.map (171 B) (143 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/index.post.mjs (1.01 kB) (482 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/index.post.mjs.map (722 B) (338 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/posts/_id_.get.mjs (741 B) (384 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/posts/_id_.get.mjs.map (456 B) (254 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/posts/_id/like.post.mjs (814 B) (395 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/api/posts/_id/like.post.mjs.map (482 B) (255 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/login.post.mjs (1.05 kB) (519 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/login.post.mjs.map (795 B) (335 B gzip)
+#31 4.166   ├─ .output/server/chunks/routes/renderer.mjs (22.7 kB) (7.67 kB gzip)
+#31 4.166   ├─ .output/server/chunks/routes/renderer.mjs.map (3.1 kB) (410 B gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/entry.mjs (278 kB) (66.4 kB gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/entry.mjs.map (9.77 kB) (1.68 kB gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/precomputed.mjs (4.9 kB) (669 B gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/precomputed.mjs.map (3.2 kB) (378 B gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/styles.mjs (122 B) (113 B gzip)
+#31 4.166   ├─ .output/server/chunks/virtual/styles.mjs.map (126 B) (119 B gzip)
+#31 4.166   ├─ .output/server/index.mjs (440 B) (234 B gzip)
+#31 4.166   └─ .output/server/package.json (740 B) (328 B gzip)
+#31 4.166 Σ Total size: 2.38 MB (598 kB gzip)
+#31 4.166 [nitro] ✔ You can preview this build using node .output/server/index.mjs
+#31 4.166 config 185ms · modules 20ms · app 377ms · types 245ms · client 856ms · server 145ms · nitro 1.71s
+#31 4.166 ◆ ✨ Build complete in 3.53s!
+#31 DONE 4.5s
+
+#32 [web stage-1 4/4] COPY --from=build /app/.output ./.output
+#32 DONE 0.2s
+
+#33 [web] exporting to image
+#33 exporting layers
+#33 exporting layers 0.2s done
+#33 writing image sha256:d70f509821601eb1af4770124e3da2bd09dd02172f5023af90b21c6f48589b81 done
+#33 naming to docker.io/library/perf-sim-web done
+#33 DONE 0.2s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== warm-up (1000 users, 2m, not scored)
+PASS  1000 users 2m  82 req/s  med 6ms  p95 75ms  p99 171ms  errors 0.01%  |  web-1 cpu avg 33% peak 41% mem 273.9MiB / 2GiB  api-1 cpu avg 3% peak 5% mem 34.11MiB / 2GiB  
+== search
+PASS  1000 users 2m  82 req/s  med 6ms  p95 75ms  p99 140ms  errors 0.02%  |  web-1 cpu avg 32% peak 41% mem 271.1MiB / 2GiB  api-1 cpu avg 3% peak 5% mem 33.68MiB / 2GiB  
+FAIL  2000 users 2m  163 req/s  med 51ms  p95 814ms  p99 1313ms  errors 0.02%  |  web-1 cpu avg 37% peak 41% mem 291.5MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 45.23MiB / 2GiB  
+PASS  1500 users 2m  124 req/s  med 10ms  p95 161ms  p99 261ms  errors 0.03%  |  web-1 cpu avg 36% peak 42% mem 284.7MiB / 2GiB  api-1 cpu avg 3% peak 6% mem 36.32MiB / 2GiB  
+PASS  1700 users 2m  141 req/s  med 10ms  p95 171ms  p99 283ms  errors 0.01%  |  web-1 cpu avg 34% peak 42% mem 286.3MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 36.55MiB / 2GiB  
+PASS  1800 users 2m  148 req/s  med 13ms  p95 216ms  p99 414ms  errors 0.01%  |  web-1 cpu avg 36% peak 42% mem 293.4MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 40.81MiB / 2GiB  
+PASS  1900 users 2m  156 req/s  med 35ms  p95 493ms  p99 906ms  errors 0.01%  |  web-1 cpu avg 37% peak 41% mem 296.9MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 45.25MiB / 2GiB  
+== confirm (5m holds from 1900)
+PASS  1900 users 5m  175 req/s  med 35ms  p95 350ms  p99 555ms  errors 0.01%  |  web-1 cpu avg 38% peak 42% mem 302.8MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 45.11MiB / 2GiB  
+SCORE nuxt-cpu0.4: 1900 users
+== 16:51:29 nuxt search finished (old runner)

@@ -1,0 +1,571 @@
+== 03:07:49 building rust-axum 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.30kB done
+#3 DONE 0.2s
+
+#4 [web internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 3.3s
+
+#6 [api internal] load .dockerignore
+#6 transferring context: 107B done
+#6 DONE 0.2s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 148B done
+#7 DONE 0.2s
+
+#8 [web build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#8 DONE 0.0s
+
+#9 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#9 CACHED
+
+#10 [api internal] load build context
+#10 transferring context: 809B done
+#10 DONE 0.1s
+
+#11 [web internal] load build context
+#11 ...
+
+#12 [api build 5/6] COPY src ./src
+#12 CACHED
+
+#13 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#13 CACHED
+
+#14 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#14 CACHED
+
+#15 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#15 CACHED
+
+#16 [api build 2/6] WORKDIR /src
+#16 CACHED
+
+#17 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#17 CACHED
+
+#18 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#18 CACHED
+
+#19 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#19 CACHED
+
+#11 [web internal] load build context
+#11 transferring context: 58.65kB done
+#11 DONE 0.3s
+
+#20 [api] exporting to image
+#20 exporting layers done
+#20 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#20 naming to docker.io/library/perf-sim-api 0.0s done
+#20 DONE 0.1s
+
+#8 [web build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#8 resolve docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#8 resolve docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9 0.2s done
+#8 ...
+
+#21 [api] resolving provenance for metadata file
+#21 DONE 0.0s
+
+#8 [web build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#8 sha256:4f572135209e89d488fadb81d8a07309857f9b9c5280b54c85a44b71629e8cca 1.37kB / 1.37kB done
+#8 sha256:bd87f1b314f1f2fdc33693c2d57a945f5597602f63261311dbfe7debabf73393 2.94kB / 2.94kB done
+#8 sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9 7.80kB / 7.80kB done
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 0B / 28.23MB 0.1s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 0B / 281.86MB 0.1s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 2.10MB / 28.23MB 1.9s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 5.24MB / 28.23MB 2.1s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 7.34MB / 28.23MB 2.2s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 16.78MB / 28.23MB 2.8s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 18.87MB / 28.23MB 3.1s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 27.26MB / 28.23MB 3.4s
+#8 sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 28.23MB / 28.23MB 3.6s done
+#8 extracting sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 0.1s
+#8 extracting sha256:abe1fea375429ba91b23776f15f53da4ed790fa2b779b40d20f21e69bd66de5a 0.4s done
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 17.83MB / 281.86MB 4.4s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 33.55MB / 281.86MB 5.6s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 49.28MB / 281.86MB 6.2s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 66.06MB / 281.86MB 7.1s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 87.03MB / 281.86MB 8.0s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 103.81MB / 281.86MB 8.8s
+#8 ...
+
+#22 [web stage-1 2/3] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 && rm -rf /var/lib/apt/lists/*
+#22 0.624 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#22 0.893 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#22 0.989 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+#22 1.078 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+#22 1.758 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+#22 1.840 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [349 kB]
+#22 2.301 Fetched 9388 kB in 2s (5072 kB/s)
+#22 2.301 Reading package lists...
+#22 2.573 Reading package lists...
+#22 2.840 Building dependency tree...
+#22 2.895 Reading state information...
+#22 2.958 The following additional packages will be installed:
+#22 2.958   libbpf1 libbrotli1 libbsd0 libcap2-bin libcurl4 libelf1 libgssapi-krb5-2
+#22 2.958   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap-2.5-0 libmnl0
+#22 2.958   libnghttp2-14 libpsl5 librtmp1 libsasl2-2 libsasl2-modules-db libssh2-1
+#22 2.958   libssl3 libtirpc-common libtirpc3 libxtables12
+#22 2.959 Suggested packages:
+#22 2.959   iproute2-doc python3:any krb5-doc krb5-user
+#22 2.959 Recommended packages:
+#22 2.959   libatm1 libpam-cap ca-certificates krb5-locales libldap-common publicsuffix
+#22 2.959   libsasl2-modules
+#22 3.034 The following NEW packages will be installed:
+#22 3.035   curl iproute2 libbpf1 libbrotli1 libbsd0 libcap2-bin libcurl4 libelf1
+#22 3.035   libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0
+#22 3.035   libldap-2.5-0 libmnl0 libnghttp2-14 libpsl5 librtmp1 libsasl2-2
+#22 3.035   libsasl2-modules-db libssh2-1 libssl3 libtirpc-common libtirpc3 libxtables12
+#22 3.222 0 upgraded, 25 newly installed, 0 to remove and 1 not upgraded.
+#22 3.222 Need to get 5903 kB of archives.
+#22 3.222 After this operation, 17.8 MB of additional disk space will be used.
+#22 3.222 Get:1 http://deb.debian.org/debian bookworm/main amd64 libelf1 amd64 0.188-2.1 [174 kB]
+#22 3.506 Get:2 http://deb.debian.org/debian bookworm/main amd64 libbpf1 amd64 1:1.1.2-0+deb12u1 [145 kB]
+#22 3.926 Get:3 http://deb.debian.org/debian bookworm/main amd64 libbsd0 amd64 0.11.7-2 [117 kB]
+#22 4.111 Get:4 http://deb.debian.org/debian bookworm/main amd64 libmnl0 amd64 1.0.4-3 [12.5 kB]
+#22 4.116 Get:5 http://deb.debian.org/debian bookworm/main amd64 libkrb5support0 amd64 1.20.1-2+deb12u5 [33.2 kB]
+#22 4.129 Get:6 http://deb.debian.org/debian bookworm/main amd64 libk5crypto3 amd64 1.20.1-2+deb12u5 [79.7 kB]
+#22 4.177 Get:7 http://deb.debian.org/debian bookworm/main amd64 libkeyutils1 amd64 1.6.3-2 [8808 B]
+#22 4.184 Get:8 http://deb.debian.org/debian-security bookworm-security/main amd64 libssl3 amd64 3.0.22-1~deb12u1 [2039 kB]
+#22 9.524 Get:9 http://deb.debian.org/debian bookworm/main amd64 libkrb5-3 amd64 1.20.1-2+deb12u5 [332 kB]
+#22 ...
+
+#8 [web build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 119.54MB / 281.86MB 9.6s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 135.27MB / 281.86MB 10.4s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 157.29MB / 281.86MB 11.5s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 171.97MB / 281.86MB 12.2s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 186.65MB / 281.86MB 13.1s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 203.42MB / 281.86MB 13.8s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 221.25MB / 281.86MB 14.7s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 238.03MB / 281.86MB 15.5s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 253.76MB / 281.86MB 16.4s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 273.68MB / 281.86MB 17.4s
+#8 sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 281.86MB / 281.86MB 18.0s done
+#8 extracting sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 0.1s
+#8 extracting sha256:0c3a41ef4bf77ba6860bf1eb6281bdece6349b93d33e84d3f8445240f8062abf 2.0s done
+#8 DONE 20.6s
+
+#16 [web build 2/6] WORKDIR /src
+#16 DONE 0.6s
+
+#23 [web build 3/8] COPY Cargo.toml Cargo.lock ./
+#23 ...
+
+#22 [web stage-1 2/3] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 && rm -rf /var/lib/apt/lists/*
+#22 11.50 Get:10 http://deb.debian.org/debian bookworm/main amd64 libgssapi-krb5-2 amd64 1.20.1-2+deb12u5 [135 kB]
+#22 12.23 Get:11 http://deb.debian.org/debian bookworm/main amd64 libtirpc-common all 1.3.3+ds-1 [14.0 kB]
+#22 12.30 Get:12 http://deb.debian.org/debian bookworm/main amd64 libtirpc3 amd64 1.3.3+ds-1 [85.2 kB]
+#22 12.83 Get:13 http://deb.debian.org/debian bookworm/main amd64 libxtables12 amd64 1.8.9-2 [30.8 kB]
+#22 12.99 Get:14 http://deb.debian.org/debian bookworm/main amd64 libcap2-bin amd64 1:2.66-4+deb12u3+b1 [35.2 kB]
+#22 13.20 Get:15 http://deb.debian.org/debian bookworm/main amd64 iproute2 amd64 6.1.0-3 [1046 kB]
+#22 17.48 Get:16 http://deb.debian.org/debian bookworm/main amd64 libbrotli1 amd64 1.0.9-2+b6 [275 kB]
+#22 18.29 Get:17 http://deb.debian.org/debian bookworm/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg-10 [20.3 kB]
+#22 18.35 Get:18 http://deb.debian.org/debian bookworm/main amd64 libsasl2-2 amd64 2.1.28+dfsg-10 [59.7 kB]
+#22 18.50 Get:19 http://deb.debian.org/debian bookworm/main amd64 libldap-2.5-0 amd64 2.5.13+dfsg-5 [183 kB]
+#22 18.90 Get:20 http://deb.debian.org/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u3 [72.4 kB]
+#22 19.05 Get:21 http://deb.debian.org/debian bookworm/main amd64 libpsl5 amd64 0.21.2-1 [58.7 kB]
+#22 19.18 Get:22 http://deb.debian.org/debian bookworm/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2+b2 [60.8 kB]
+#22 19.29 Get:23 http://deb.debian.org/debian-security bookworm-security/main amd64 libssh2-1 amd64 1.10.0-3+deb12u1 [176 kB]
+#22 19.62 Get:24 http://deb.debian.org/debian bookworm/main amd64 libcurl4 amd64 7.88.1-10+deb12u15 [392 kB]
+#22 20.27 Get:25 http://deb.debian.org/debian bookworm/main amd64 curl amd64 7.88.1-10+deb12u15 [316 kB]
+#22 20.87 debconf: delaying package configuration, since apt-utils is not installed
+#22 20.90 Fetched 5903 kB in 18s (334 kB/s)
+#22 20.94 Selecting previously unselected package libelf1:amd64.
+#22 20.94 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6096 files and directories currently installed.)
+#22 20.96 Preparing to unpack .../00-libelf1_0.188-2.1_amd64.deb ...
+#22 21.19 Unpacking libelf1:amd64 (0.188-2.1) ...
+#22 21.38 Selecting previously unselected package libbpf1:amd64.
+#22 21.38 Preparing to unpack .../01-libbpf1_1%3a1.1.2-0+deb12u1_amd64.deb ...
+#22 21.38 Unpacking libbpf1:amd64 (1:1.1.2-0+deb12u1) ...
+#22 21.50 Selecting previously unselected package libbsd0:amd64.
+#22 21.50 Preparing to unpack .../02-libbsd0_0.11.7-2_amd64.deb ...
+#22 21.52 Unpacking libbsd0:amd64 (0.11.7-2) ...
+#22 21.67 Selecting previously unselected package libmnl0:amd64.
+#22 ...
+
+#23 [web build 3/8] COPY Cargo.toml Cargo.lock ./
+#23 DONE 0.3s
+
+#22 [web stage-1 2/3] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 && rm -rf /var/lib/apt/lists/*
+#22 21.67 Preparing to unpack .../03-libmnl0_1.0.4-3_amd64.deb ...
+#22 21.69 Unpacking libmnl0:amd64 (1.0.4-3) ...
+#22 21.82 Selecting previously unselected package libkrb5support0:amd64.
+#22 21.82 Preparing to unpack .../04-libkrb5support0_1.20.1-2+deb12u5_amd64.deb ...
+#22 21.84 Unpacking libkrb5support0:amd64 (1.20.1-2+deb12u5) ...
+#22 21.99 Selecting previously unselected package libk5crypto3:amd64.
+#22 21.99 Preparing to unpack .../05-libk5crypto3_1.20.1-2+deb12u5_amd64.deb ...
+#22 22.01 Unpacking libk5crypto3:amd64 (1.20.1-2+deb12u5) ...
+#22 22.15 Selecting previously unselected package libkeyutils1:amd64.
+#22 22.15 Preparing to unpack .../06-libkeyutils1_1.6.3-2_amd64.deb ...
+#22 22.16 Unpacking libkeyutils1:amd64 (1.6.3-2) ...
+#22 22.26 Selecting previously unselected package libssl3:amd64.
+#22 22.26 Preparing to unpack .../07-libssl3_3.0.22-1~deb12u1_amd64.deb ...
+#22 22.27 Unpacking libssl3:amd64 (3.0.22-1~deb12u1) ...
+#22 22.42 Selecting previously unselected package libkrb5-3:amd64.
+#22 22.42 Preparing to unpack .../08-libkrb5-3_1.20.1-2+deb12u5_amd64.deb ...
+#22 22.43 Unpacking libkrb5-3:amd64 (1.20.1-2+deb12u5) ...
+#22 22.52 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#22 22.52 Preparing to unpack .../09-libgssapi-krb5-2_1.20.1-2+deb12u5_amd64.deb ...
+#22 22.53 Unpacking libgssapi-krb5-2:amd64 (1.20.1-2+deb12u5) ...
+#22 22.60 Selecting previously unselected package libtirpc-common.
+#22 22.60 Preparing to unpack .../10-libtirpc-common_1.3.3+ds-1_all.deb ...
+#22 22.61 Unpacking libtirpc-common (1.3.3+ds-1) ...
+#22 22.68 Selecting previously unselected package libtirpc3:amd64.
+#22 22.68 Preparing to unpack .../11-libtirpc3_1.3.3+ds-1_amd64.deb ...
+#22 22.69 Unpacking libtirpc3:amd64 (1.3.3+ds-1) ...
+#22 22.77 Selecting previously unselected package libxtables12:amd64.
+#22 22.77 Preparing to unpack .../12-libxtables12_1.8.9-2_amd64.deb ...
+#22 22.78 Unpacking libxtables12:amd64 (1.8.9-2) ...
+#22 22.85 Selecting previously unselected package libcap2-bin.
+#22 22.85 Preparing to unpack .../13-libcap2-bin_1%3a2.66-4+deb12u3+b1_amd64.deb ...
+#22 22.86 Unpacking libcap2-bin (1:2.66-4+deb12u3+b1) ...
+#22 22.98 Selecting previously unselected package iproute2.
+#22 22.98 Preparing to unpack .../14-iproute2_6.1.0-3_amd64.deb ...
+#22 23.00 Unpacking iproute2 (6.1.0-3) ...
+#22 23.15 Selecting previously unselected package libbrotli1:amd64.
+#22 23.15 Preparing to unpack .../15-libbrotli1_1.0.9-2+b6_amd64.deb ...
+#22 23.16 Unpacking libbrotli1:amd64 (1.0.9-2+b6) ...
+#22 23.25 Selecting previously unselected package libsasl2-modules-db:amd64.
+#22 23.25 Preparing to unpack .../16-libsasl2-modules-db_2.1.28+dfsg-10_amd64.deb ...
+#22 23.26 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg-10) ...
+#22 23.35 Selecting previously unselected package libsasl2-2:amd64.
+#22 23.35 Preparing to unpack .../17-libsasl2-2_2.1.28+dfsg-10_amd64.deb ...
+#22 23.36 Unpacking libsasl2-2:amd64 (2.1.28+dfsg-10) ...
+#22 23.47 Selecting previously unselected package libldap-2.5-0:amd64.
+#22 23.47 Preparing to unpack .../18-libldap-2.5-0_2.5.13+dfsg-5_amd64.deb ...
+#22 23.48 Unpacking libldap-2.5-0:amd64 (2.5.13+dfsg-5) ...
+#22 23.61 Selecting previously unselected package libnghttp2-14:amd64.
+#22 23.62 Preparing to unpack .../19-libnghttp2-14_1.52.0-1+deb12u3_amd64.deb ...
+#22 23.63 Unpacking libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+#22 23.73 Selecting previously unselected package libpsl5:amd64.
+#22 23.74 Preparing to unpack .../20-libpsl5_0.21.2-1_amd64.deb ...
+#22 23.75 Unpacking libpsl5:amd64 (0.21.2-1) ...
+#22 23.85 Selecting previously unselected package librtmp1:amd64.
+#22 23.86 Preparing to unpack .../21-librtmp1_2.4+20151223.gitfa8646d.1-2+b2_amd64.deb ...
+#22 23.87 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+#22 23.97 Selecting previously unselected package libssh2-1:amd64.
+#22 23.98 Preparing to unpack .../22-libssh2-1_1.10.0-3+deb12u1_amd64.deb ...
+#22 23.99 Unpacking libssh2-1:amd64 (1.10.0-3+deb12u1) ...
+#22 24.08 Selecting previously unselected package libcurl4:amd64.
+#22 24.08 Preparing to unpack .../23-libcurl4_7.88.1-10+deb12u15_amd64.deb ...
+#22 24.10 Unpacking libcurl4:amd64 (7.88.1-10+deb12u15) ...
+#22 24.20 Selecting previously unselected package curl.
+#22 24.20 Preparing to unpack .../24-curl_7.88.1-10+deb12u15_amd64.deb ...
+#22 24.22 Unpacking curl (7.88.1-10+deb12u15) ...
+#22 24.33 Setting up libkeyutils1:amd64 (1.6.3-2) ...
+#22 24.35 Setting up libpsl5:amd64 (0.21.2-1) ...
+#22 24.38 Setting up libtirpc-common (1.3.3+ds-1) ...
+#22 24.42 Setting up libbrotli1:amd64 (1.0.9-2+b6) ...
+#22 24.45 Setting up libssl3:amd64 (3.0.22-1~deb12u1) ...
+#22 24.48 Setting up libnghttp2-14:amd64 (1.52.0-1+deb12u3) ...
+#22 24.51 Setting up libkrb5support0:amd64 (1.20.1-2+deb12u5) ...
+#22 24.54 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg-10) ...
+#22 24.57 Setting up libcap2-bin (1:2.66-4+deb12u3+b1) ...
+#22 24.60 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2+b2) ...
+#22 24.63 Setting up libmnl0:amd64 (1.0.4-3) ...
+#22 24.66 Setting up libk5crypto3:amd64 (1.20.1-2+deb12u5) ...
+#22 24.69 Setting up libxtables12:amd64 (1.8.9-2) ...
+#22 24.72 Setting up libsasl2-2:amd64 (2.1.28+dfsg-10) ...
+#22 24.75 Setting up libssh2-1:amd64 (1.10.0-3+deb12u1) ...
+#22 24.79 Setting up libkrb5-3:amd64 (1.20.1-2+deb12u5) ...
+#22 24.82 Setting up libbsd0:amd64 (0.11.7-2) ...
+#22 24.85 Setting up libelf1:amd64 (0.188-2.1) ...
+#22 24.88 Setting up libbpf1:amd64 (1:1.1.2-0+deb12u1) ...
+#22 24.91 Setting up libldap-2.5-0:amd64 (2.5.13+dfsg-5) ...
+#22 24.94 Setting up libgssapi-krb5-2:amd64 (1.20.1-2+deb12u5) ...
+#22 24.98 Setting up libcurl4:amd64 (7.88.1-10+deb12u15) ...
+#22 25.01 Setting up curl (7.88.1-10+deb12u15) ...
+#22 25.04 Setting up libtirpc3:amd64 (1.3.3+ds-1) ...
+#22 25.07 Setting up iproute2 (6.1.0-3) ...
+#22 25.25 debconf: unable to initialize frontend: Dialog
+#22 25.25 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#22 25.25 debconf: falling back to frontend: Readline
+#22 25.25 debconf: unable to initialize frontend: Readline
+#22 25.25 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.36.0 /usr/local/share/perl/5.36.0 /usr/lib/x86_64-linux-gnu/perl5/5.36 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.36 /usr/share/perl/5.36 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+#22 25.25 debconf: falling back to frontend: Teletype
+#22 25.30 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+#22 DONE 25.6s
+
+#24 [web build 4/8] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#24 0.485     Updating crates.io index
+#24 3.806  Downloading crates ...
+#24 4.262   Downloaded atomic-waker v1.1.2
+#24 4.423   Downloaded askama_macros v0.16.1
+#24 4.428   Downloaded zmij v1.0.23
+#24 4.433   Downloaded zerofrom-derive v0.1.8
+#24 4.493   Downloaded block-buffer v0.10.4
+#24 4.498   Downloaded form_urlencoded v1.2.2
+#24 4.503   Downloaded mime v0.3.17
+#24 4.516   Downloaded cfg-if v1.0.5
+#24 4.526   Downloaded num-conv v0.2.2
+#24 4.528   Downloaded generic-array v0.14.7
+#24 4.572   Downloaded futures-core v0.3.34
+#24 4.590   Downloaded yoke-derive v0.8.4
+#24 4.591   Downloaded sync_wrapper v1.0.2
+#24 4.592   Downloaded http-body v1.1.0
+#24 4.593   Downloaded rustc-hash v2.1.3
+#24 4.595   Downloaded crypto-common v0.1.7
+#24 4.602   Downloaded powerfmt v0.2.1
+#24 4.618   Downloaded try-lock v0.2.5
+#24 4.620   Downloaded time-core v0.1.9
+#24 4.622   Downloaded utf8_iter v1.0.4
+#24 4.626   Downloaded tokio-macros v2.7.2
+#24 4.657   Downloaded zerovec-derive v0.11.6
+#24 4.662   Downloaded serde_urlencoded v0.7.1
+#24 4.665   Downloaded zerovec v0.11.8
+#24 4.670   Downloaded percent-encoding v2.3.2
+#24 4.671   Downloaded httpdate v1.0.3
+#24 4.671   Downloaded futures-task v0.3.34
+#24 4.672   Downloaded tower-service v0.3.3
+#24 4.673   Downloaded stable_deref_trait v1.2.1
+#24 4.674   Downloaded zerotrie v0.2.5
+#24 4.676   Downloaded idna_adapter v1.2.2
+#24 4.680   Downloaded subtle v2.6.1
+#24 4.691   Downloaded want v0.3.2
+#24 4.691   Downloaded tower-layer v0.3.3
+#24 4.694   Downloaded zerofrom v0.1.8
+#24 4.704   Downloaded potential_utf v0.1.6
+#24 4.713   Downloaded axum-core v0.5.6
+#24 4.716   Downloaded itoa v1.0.18
+#24 4.718   Downloaded ipnet v2.12.2
+#24 4.719   Downloaded cpufeatures v0.2.17
+#24 4.747   Downloaded deranged v0.5.8
+#24 4.750   Downloaded displaydoc v0.2.7
+#24 4.754   Downloaded writeable v0.6.4
+#24 4.756   Downloaded serde_path_to_error v0.1.20
+#24 4.758   Downloaded quote v1.0.47
+#24 4.760   Downloaded synstructure v0.14.0
+#24 4.760   Downloaded digest v0.10.7
+#24 4.762   Downloaded tinystr v0.8.4
+#24 4.763   Downloaded version_check v0.9.5
+#24 4.764   Downloaded slab v0.4.12
+#24 4.764   Downloaded glob v0.3.3
+#24 4.779   Downloaded base64 v0.22.1
+#24 4.784   Downloaded hmac v0.12.1
+#24 4.789   Downloaded litemap v0.8.3
+#24 4.791   Downloaded futures-channel v0.3.34
+#24 4.793   Downloaded pin-project-lite v0.2.17
+#24 4.797   Downloaded smallvec v1.16.2
+#24 4.798   Downloaded once_cell v1.21.4
+#24 4.799   Downloaded sha2 v0.10.9
+#24 4.801   Downloaded matchit v0.8.4
+#24 4.802   Downloaded askama v0.16.1
+#24 4.804   Downloaded yoke v0.8.3
+#24 4.810   Downloaded time-macros v0.2.32
+#24 4.812   Downloaded httparse v1.10.1
+#24 4.813   Downloaded log v0.4.34
+#24 4.815   Downloaded icu_provider v2.3.1
+#24 4.817   Downloaded unicode-ident v1.0.26
+#24 4.819   Downloaded http-body-util v0.1.5
+#24 4.820   Downloaded bitflags v2.13.2
+#24 4.822   Downloaded tracing-core v0.1.36
+#24 4.824   Downloaded ryu v1.0.23
+#24 4.826   Downloaded basic-toml v0.1.10
+#24 4.836   Downloaded serde_core v1.0.229
+#24 4.837   Downloaded proc-macro2 v1.0.107
+#24 4.841   Downloaded bytes v1.12.1
+#24 4.844   Downloaded icu_normalizer_data v2.3.0
+#24 4.846   Downloaded serde_derive v1.0.229
+#24 4.848   Downloaded base64 v0.23.1
+#24 4.850   Downloaded askama_parser v0.16.1
+#24 4.855   Downloaded icu_locale_core v2.3.0
+#24 4.859   Downloaded icu_collections v2.3.0
+#24 4.863   Downloaded url v2.5.8
+#24 4.865   Downloaded socket2 v0.6.5
+#24 4.866   Downloaded serde v1.0.229
+#24 4.875   Downloaded typenum v1.20.1
+#24 4.877   Downloaded icu_properties v2.3.0
+#24 4.880   Downloaded askama_derive v0.16.1
+#24 4.884   Downloaded mio v1.2.4
+#24 4.887   Downloaded memchr v2.8.3
+#24 4.890   Downloaded http v1.5.0
+#24 4.981   Downloaded hyper-util v0.1.21
+#24 4.999   Downloaded idna v1.1.0
+#24 5.003   Downloaded tower-http v0.6.11
+#24 5.009   Downloaded serde_json v1.0.151
+#24 5.013   Downloaded winnow v1.0.4
+#24 5.019   Downloaded icu_properties_data v2.3.0
+#24 5.025   Downloaded hyper v1.12.0
+#24 5.030   Downloaded futures-util v0.3.34
+#24 5.038   Downloaded axum v0.8.9
+#24 5.045   Downloaded tower v0.5.3
+#24 5.051   Downloaded time v0.3.55
+#24 5.060   Downloaded reqwest v0.13.5
+#24 5.064   Downloaded syn v3.0.6
+#24 5.071   Downloaded tracing v0.1.44
+#24 5.081   Downloaded icu_normalizer v2.3.0
+#24 5.088   Downloaded libc v0.2.190
+#24 5.118   Downloaded tokio v1.53.2
+#24 5.174    Compiling proc-macro2 v1.0.107
+#24 5.174    Compiling unicode-ident v1.0.26
+#24 5.174    Compiling quote v1.0.47
+#24 5.174    Compiling stable_deref_trait v1.2.1
+#24 5.174    Compiling itoa v1.0.18
+#24 5.174    Compiling pin-project-lite v0.2.17
+#24 5.177    Compiling libc v0.2.190
+#24 5.178    Compiling futures-core v0.3.34
+#24 5.180    Compiling writeable v0.6.4
+#24 5.180    Compiling bytes v1.12.1
+#24 5.183    Compiling smallvec v1.16.2
+#24 5.183    Compiling litemap v0.8.3
+#24 5.187    Compiling percent-encoding v2.3.2
+#24 5.187    Compiling utf8_iter v1.0.4
+#24 5.187    Compiling icu_normalizer_data v2.3.0
+#24 5.188    Compiling serde_core v1.0.229
+#24 5.192    Compiling version_check v0.9.5
+#24 5.193    Compiling once_cell v1.21.4
+#24 5.196    Compiling icu_properties_data v2.3.0
+#24 5.197    Compiling serde v1.0.229
+#24 5.203    Compiling log v0.4.34
+#24 5.259    Compiling httparse v1.10.1
+#24 5.272    Compiling slab v0.4.12
+#24 5.281    Compiling tower-service v0.3.3
+#24 5.339    Compiling typenum v1.20.1
+#24 5.339    Compiling futures-task v0.3.34
+#24 5.352    Compiling form_urlencoded v1.2.2
+#24 5.356    Compiling sync_wrapper v1.0.2
+#24 5.358    Compiling memchr v2.8.3
+#24 5.362    Compiling tower-layer v0.3.3
+#24 5.410    Compiling tracing-core v0.1.36
+#24 5.421    Compiling try-lock v0.2.5
+#24 5.422    Compiling atomic-waker v1.1.2
+#24 5.437    Compiling zmij v1.0.23
+#24 5.446    Compiling rustc-hash v2.1.3
+#24 5.459    Compiling futures-util v0.3.34
+#24 5.459    Compiling generic-array v0.14.7
+#24 5.473    Compiling httpdate v1.0.3
+#24 5.473    Compiling futures-channel v0.3.34
+#24 5.487    Compiling want v0.3.2
+#24 5.496    Compiling subtle v2.6.1
+#24 5.525    Compiling glob v0.3.3
+#24 5.539    Compiling serde_json v1.0.151
+#24 5.557    Compiling ipnet v2.12.2
+#24 5.599    Compiling base64 v0.23.1
+#24 5.608    Compiling ryu v1.0.23
+#24 5.617    Compiling mime v0.3.17
+#24 5.684    Compiling bitflags v2.13.2
+#24 5.698    Compiling powerfmt v0.2.1
+#24 5.766    Compiling cfg-if v1.0.5
+#24 5.806    Compiling cpufeatures v0.2.17
+#24 5.825    Compiling http v1.5.0
+#24 5.834    Compiling tracing v0.1.44
+#24 5.841    Compiling time-core v0.1.9
+#24 5.845    Compiling num-conv v0.2.2
+#24 5.862    Compiling winnow v1.0.4
+#24 5.919    Compiling matchit v0.8.4
+#24 5.928    Compiling deranged v0.5.8
+#24 5.965    Compiling base64 v0.22.1
+#24 6.055    Compiling syn v3.0.6
+#24 6.363    Compiling crypto-common v0.1.7
+#24 6.363    Compiling block-buffer v0.10.4
+#24 6.407    Compiling digest v0.10.7
+#24 6.497    Compiling hmac v0.12.1
+#24 6.497    Compiling sha2 v0.10.9
+#24 6.569    Compiling socket2 v0.6.5
+#24 6.569    Compiling mio v1.2.4
+#24 6.622    Compiling time v0.3.55
+#24 6.660    Compiling http-body v1.1.0
+#24 6.724    Compiling http-body-util v0.1.5
+#24 6.883    Compiling axum-core v0.5.6
+#24 6.997    Compiling serde_path_to_error v0.1.20
+#24 7.118    Compiling basic-toml v0.1.10
+#24 7.725    Compiling synstructure v0.14.0
+#24 7.915    Compiling zerofrom-derive v0.1.8
+#24 7.915    Compiling yoke-derive v0.8.4
+#24 7.915    Compiling zerovec-derive v0.11.6
+#24 7.915    Compiling displaydoc v0.2.7
+#24 7.915    Compiling serde_derive v1.0.229
+#24 7.915    Compiling tokio-macros v2.7.2
+#24 8.109    Compiling tokio v1.53.2
+#24 8.241    Compiling zerofrom v0.1.8
+#24 8.272    Compiling yoke v0.8.3
+#24 8.332    Compiling zerovec v0.11.8
+#24 8.332    Compiling zerotrie v0.2.5
+#24 8.599    Compiling tinystr v0.8.4
+#24 8.599    Compiling potential_utf v0.1.6
+#24 8.633    Compiling icu_collections v2.3.0
+#24 8.667    Compiling icu_locale_core v2.3.0
+#24 8.849    Compiling askama_parser v0.16.1
+#24 9.076    Compiling serde_urlencoded v0.7.1
+#24 9.095    Compiling icu_provider v2.3.1
+#24 9.206    Compiling icu_normalizer v2.3.0
+#24 9.206    Compiling icu_properties v2.3.0
+#24 9.594    Compiling hyper v1.12.0
+#24 9.594    Compiling tower v0.5.3
+#24 9.641    Compiling idna_adapter v1.2.2
+#24 9.672    Compiling idna v1.1.0
+#24 9.827    Compiling url v2.5.8
+#24 10.08    Compiling tower-http v0.6.11
+#24 10.11    Compiling hyper-util v0.1.21
+#24 10.15    Compiling askama_derive v0.16.1
+#24 10.85    Compiling axum v0.8.9
+#24 10.85    Compiling reqwest v0.13.5
+#24 11.32    Compiling askama_macros v0.16.1
+#24 11.42    Compiling askama v0.16.1
+#24 13.29    Compiling feed-frontend v0.1.0 (/src)
+#24 15.03     Finished `release` profile [optimized] target(s) in 14.57s
+#24 DONE 15.1s
+
+#25 [web build 5/8] COPY templates ./templates
+#25 DONE 0.5s
+
+#26 [web build 6/8] COPY static ./static
+#26 DONE 0.2s
+
+#27 [web build 7/8] COPY src ./src
+#27 DONE 0.2s
+
+#28 [web build 8/8] RUN touch src/main.rs && cargo build --release --locked
+#28 0.440    Compiling feed-frontend v0.1.0 (/src)
+#28 11.26     Finished `release` profile [optimized] target(s) in 10.86s
+#28 DONE 11.3s
+
+#29 [web stage-1 3/3] COPY --from=build /src/target/release/feed-frontend /usr/local/bin/feed-frontend
+#29 DONE 0.2s
+
+#30 [web] exporting to image
+#30 exporting layers 0.1s done
+#30 writing image sha256:f90d18810fa5b4c4a46bb8b17b2f2bd65fd23c70629a633cc6e64fad8885a6bc done
+#30 naming to docker.io/library/perf-sim-web done
+#30 DONE 0.2s
+
+#31 [web] resolving provenance for metadata file
+#31 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 10456 req/s saturated on / -> start at about 85239 users
+== search (start 16000, step 100, cap 16000)
+PASS  16000 users 2m  1331 req/s  med 0ms  p95 0ms  p99 2ms  errors 0%  |  web cpu 18% under load (45% of its vCPU), peak 24%, mem 557 MiB avg / 559 MiB peak  |  api cpu 19% under load (48% of its vCPU), peak 22%, mem 71 MiB avg / 74 MiB peak
+== reached the cap (MAX=16000 users)
+== confirm (5-minute holds, starting at 16000)
+PASS  16000 users 5m  1494 req/s  med 0ms  p95 0ms  p99 2ms  errors 0%  |  web cpu 18% under load (45% of its vCPU), peak 25%, mem 560 MiB avg / 563 MiB peak  |  api cpu 19% under load (46% of its vCPU), peak 22%, mem 72 MiB avg / 75 MiB peak
+SCORE rust-axum-cpu0.4: 16000 users (cap MAX=16000, real limit not reached)
+== 03:20:57 rust-axum search exit 0

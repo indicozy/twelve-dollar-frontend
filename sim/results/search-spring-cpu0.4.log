@@ -1,0 +1,394 @@
+== 01:30:21 building spring 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.26kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/maven:3.10.0-eclipse-temurin-25
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/eclipse-temurin:25.0.4.1_1-jre
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 188B done
+#7 DONE 0.1s
+
+#8 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#8 ...
+
+#9 [web internal] load build context
+#9 transferring context: 29.28kB 0.0s done
+#9 DONE 0.4s
+
+#10 [web stage-1 1/4] FROM docker.io/library/eclipse-temurin:25.0.4.1_1-jre
+#10 DONE 1.2s
+
+#11 [web build 1/6] FROM docker.io/library/maven:3.10.0-eclipse-temurin-25
+#11 ...
+
+#8 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#8 DONE 1.7s
+
+#12 [api internal] load .dockerignore
+#12 transferring context: 107B done
+#12 DONE 0.3s
+
+#13 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#13 ...
+
+#14 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#14 DONE 0.0s
+
+#15 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#15 DONE 0.0s
+
+#11 [web build 1/6] FROM docker.io/library/maven:3.10.0-eclipse-temurin-25
+#11 DONE 1.9s
+
+#13 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#13 0.764 Get:1 http://archive.ubuntu.com/ubuntu resolute InRelease [136 kB]
+#13 ...
+
+#16 [api internal] load build context
+#16 transferring context: 809B done
+#16 DONE 0.2s
+
+#17 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [api build 5/6] COPY src ./src
+#18 CACHED
+
+#19 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#19 CACHED
+
+#20 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#20 CACHED
+
+#21 [api build 2/6] WORKDIR /src
+#21 CACHED
+
+#22 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#22 CACHED
+
+#23 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#23 CACHED
+
+#24 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#24 CACHED
+
+#25 [api] exporting to image
+#25 exporting layers done
+#25 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#25 naming to docker.io/library/perf-sim-api done
+#25 DONE 0.0s
+
+#13 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#13 0.833 Get:2 http://security.ubuntu.com/ubuntu resolute-security InRelease [137 kB]
+#13 ...
+
+#26 [web build 2/6] WORKDIR /app
+#26 DONE 0.3s
+
+#27 [web build 3/6] COPY pom.xml ./
+#27 ...
+
+#28 [api] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#27 [web build 3/6] COPY pom.xml ./
+#27 DONE 0.4s
+
+#29 [web build 4/6] RUN mvn -B -q dependency:go-offline
+#29 ...
+
+#13 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#13 1.178 Get:3 http://archive.ubuntu.com/ubuntu resolute-updates InRelease [137 kB]
+#13 1.334 Get:4 http://archive.ubuntu.com/ubuntu resolute-backports InRelease [137 kB]
+#13 1.481 Get:5 http://archive.ubuntu.com/ubuntu resolute/main amd64 Packages [1,874 kB]
+#13 1.632 Get:6 http://security.ubuntu.com/ubuntu resolute-security/main amd64 Packages [737 kB]
+#13 1.818 Get:7 http://archive.ubuntu.com/ubuntu resolute/universe amd64 Packages [20.1 MB]
+#13 2.618 Get:8 http://security.ubuntu.com/ubuntu resolute-security/universe amd64 Packages [252 kB]
+#13 3.149 Get:9 http://archive.ubuntu.com/ubuntu resolute/multiverse amd64 Packages [352 kB]
+#13 3.149 Get:10 http://archive.ubuntu.com/ubuntu resolute/restricted amd64 Packages [189 kB]
+#13 3.150 Get:11 http://archive.ubuntu.com/ubuntu resolute-updates/universe amd64 Packages [409 kB]
+#13 3.211 Get:12 http://security.ubuntu.com/ubuntu resolute-security/restricted amd64 Packages [609 kB]
+#13 3.214 Get:13 http://security.ubuntu.com/ubuntu resolute-security/multiverse amd64 Packages [24.6 kB]
+#13 3.263 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 Packages [907 kB]
+#13 3.268 Get:15 http://archive.ubuntu.com/ubuntu resolute-updates/restricted amd64 Packages [625 kB]
+#13 3.270 Get:16 http://archive.ubuntu.com/ubuntu resolute-updates/multiverse amd64 Packages [26.1 kB]
+#13 3.270 Get:17 http://archive.ubuntu.com/ubuntu resolute-backports/universe amd64 Packages [3,308 B]
+#13 3.673 Fetched 26.7 MB in 3s (8,359 kB/s)
+#13 3.673 Reading package lists...
+#13 4.084 Reading package lists...
+#13 4.519 Building dependency tree...
+#13 4.611 Reading state information...
+#13 4.633 Solving dependencies...
+#13 4.718 The following additional packages will be installed:
+#13 4.718   libbpf1 libcap2 libcap2-bin libcurl4t64 libelf1t64 libgnutls30t64
+#13 4.718   libgssapi-krb5-2 libhogweed6t64 libidn2-0 libk5crypto3 libkeyutils1
+#13 4.718   libkrb5-3 libkrb5support0 libldap-common libldap2 libmnl0 libnettle8t64
+#13 4.719   libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db
+#13 4.719   libssh2-1t64 libtirpc-common libtirpc3t64 libunistring5 libxtables12
+#13 4.719 Suggested packages:
+#13 4.719   python3:any gnutls-bin krb5-doc krb5-user
+#13 4.719 Recommended packages:
+#13 4.719   bash-completion libpam-cap krb5-locales publicsuffix libsasl2-modules
+#13 4.745 The following NEW packages will be installed:
+#13 4.745   curl iproute2 libbpf1 libcap2 libcap2-bin libcurl4t64 libelf1t64
+#13 4.745   libgnutls30t64 libgssapi-krb5-2 libhogweed6t64 libidn2-0 libk5crypto3
+#13 4.745   libkeyutils1 libkrb5-3 libkrb5support0 libldap-common libldap2 libmnl0
+#13 4.745   libnettle8t64 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#13 4.745   libsasl2-modules-db libssh2-1t64 libtirpc-common libtirpc3t64 libunistring5
+#13 4.745   libxtables12
+#13 4.960 0 upgraded, 29 newly installed, 0 to remove and 2 not upgraded.
+#13 4.960 Need to get 5,710 kB of archives.
+#13 4.960 After this operation, 15.7 MB of additional disk space will be used.
+#13 4.960 Get:1 http://archive.ubuntu.com/ubuntu resolute/main amd64 libelf1t64 amd64 0.194-4 [57.1 kB]
+#13 5.284 Get:2 http://archive.ubuntu.com/ubuntu resolute/main amd64 libbpf1 amd64 1:1.6.3-1ubuntu1 [185 kB]
+#13 5.492 Get:3 http://archive.ubuntu.com/ubuntu resolute/main amd64 libcap2 amd64 1:2.75-10ubuntu2 [29.3 kB]
+#13 5.505 Get:4 http://archive.ubuntu.com/ubuntu resolute/main amd64 libmnl0 amd64 1.0.5-3build1 [12.6 kB]
+#13 5.511 Get:5 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5support0 amd64 1.22.1-2ubuntu4.1 [33.5 kB]
+#13 5.527 Get:6 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libk5crypto3 amd64 1.22.1-2ubuntu4.1 [82.0 kB]
+#13 5.566 Get:7 http://archive.ubuntu.com/ubuntu resolute/main amd64 libkeyutils1 amd64 1.6.3-6ubuntu3 [10.6 kB]
+#13 5.572 Get:8 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libkrb5-3 amd64 1.22.1-2ubuntu4.1 [361 kB]
+#13 5.666 Get:9 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgssapi-krb5-2 amd64 1.22.1-2ubuntu4.1 [147 kB]
+#13 5.690 Get:10 http://archive.ubuntu.com/ubuntu resolute/main amd64 libtirpc-common all 1.3.7-0.1 [7,114 B]
+#13 5.691 Get:11 http://archive.ubuntu.com/ubuntu resolute/main amd64 libtirpc3t64 amd64 1.3.7-0.1 [80.9 kB]
+#13 5.704 Get:12 http://archive.ubuntu.com/ubuntu resolute/main amd64 libxtables12 amd64 1.8.11-2ubuntu3 [36.6 kB]
+#13 5.710 Get:13 http://archive.ubuntu.com/ubuntu resolute/main amd64 libcap2-bin amd64 1:2.75-10ubuntu2 [33.5 kB]
+#13 5.717 Get:14 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 iproute2 amd64 6.19.0-1ubuntu1.1 [1,198 kB]
+#13 5.924 Get:15 http://archive.ubuntu.com/ubuntu resolute/main amd64 libnettle8t64 amd64 3.10.2-1 [185 kB]
+#13 5.924 Get:16 http://archive.ubuntu.com/ubuntu resolute/main amd64 libhogweed6t64 amd64 3.10.2-1 [201 kB]
+#13 5.925 Get:17 http://archive.ubuntu.com/ubuntu resolute/main amd64 libunistring5 amd64 1.3-2build1 [610 kB]
+#13 5.927 Get:18 http://archive.ubuntu.com/ubuntu resolute/main amd64 libidn2-0 amd64 2.3.8-4build1 [67.6 kB]
+#13 5.928 Get:19 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libgnutls30t64 amd64 3.8.12-2ubuntu1.1 [1,029 kB]
+#13 5.951 Get:20 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libnghttp2-14 amd64 1.68.0-2ubuntu0.2 [71.0 kB]
+#13 5.955 Get:21 http://archive.ubuntu.com/ubuntu resolute/main amd64 libpsl5t64 amd64 0.21.2-1.1build2 [59.5 kB]
+#13 5.956 Get:22 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-9ubuntu3 [21.1 kB]
+#13 5.959 Get:23 http://archive.ubuntu.com/ubuntu resolute/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-9ubuntu3 [54.0 kB]
+#13 6.029 Get:24 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap-common all 2.6.10+dfsg-1ubuntu5 [36.0 kB]
+#13 6.127 Get:25 http://archive.ubuntu.com/ubuntu resolute/main amd64 libldap2 amd64 2.6.10+dfsg-1ubuntu5 [204 kB]
+#13 6.135 Get:26 http://archive.ubuntu.com/ubuntu resolute/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-3 [59.0 kB]
+#13 6.138 Get:27 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libssh2-1t64 amd64 1.11.1-1ubuntu0.26.04.4 [138 kB]
+#13 6.143 Get:28 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 libcurl4t64 amd64 8.18.0-1ubuntu2.7 [428 kB]
+#13 6.259 Get:29 http://archive.ubuntu.com/ubuntu resolute-updates/main amd64 curl amd64 8.18.0-1ubuntu2.7 [272 kB]
+#13 6.452 debconf: unable to initialize frontend: Dialog
+#13 6.452 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#13 6.452 debconf: falling back to frontend: Readline
+#13 6.452 debconf: unable to initialize frontend: Readline
+#13 6.452 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8, <STDIN> line 29.)
+#13 6.452 debconf: falling back to frontend: Teletype
+#13 6.458 debconf: unable to initialize frontend: Teletype
+#13 6.458 debconf: (This frontend requires a controlling tty.)
+#13 6.458 debconf: falling back to frontend: Noninteractive
+#13 6.942 Preconfiguring packages ...
+#13 6.983 Fetched 5,710 kB in 2s (3,565 kB/s)
+#13 7.026 Selecting previously unselected package libelf1t64:amd64.
+#13 7.026 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 9799 files and directories currently installed.)
+#13 7.053 Preparing to unpack .../00-libelf1t64_0.194-4_amd64.deb ...
+#13 7.096 Unpacking libelf1t64:amd64 (0.194-4) ...
+#13 7.173 Selecting previously unselected package libbpf1:amd64.
+#13 7.177 Preparing to unpack .../01-libbpf1_1%3a1.6.3-1ubuntu1_amd64.deb ...
+#13 7.188 Unpacking libbpf1:amd64 (1:1.6.3-1ubuntu1) ...
+#13 7.277 Selecting previously unselected package libcap2:amd64.
+#13 7.280 Preparing to unpack .../02-libcap2_1%3a2.75-10ubuntu2_amd64.deb ...
+#13 7.290 Unpacking libcap2:amd64 (1:2.75-10ubuntu2) ...
+#13 7.379 Selecting previously unselected package libmnl0:amd64.
+#13 7.384 Preparing to unpack .../03-libmnl0_1.0.5-3build1_amd64.deb ...
+#13 7.395 Unpacking libmnl0:amd64 (1.0.5-3build1) ...
+#13 7.491 Selecting previously unselected package libkrb5support0:amd64.
+#13 7.495 Preparing to unpack .../04-libkrb5support0_1.22.1-2ubuntu4.1_amd64.deb ...
+#13 7.506 Unpacking libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#13 7.597 Selecting previously unselected package libk5crypto3:amd64.
+#13 7.599 Preparing to unpack .../05-libk5crypto3_1.22.1-2ubuntu4.1_amd64.deb ...
+#13 7.610 Unpacking libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#13 7.684 Selecting previously unselected package libkeyutils1:amd64.
+#13 7.687 Preparing to unpack .../06-libkeyutils1_1.6.3-6ubuntu3_amd64.deb ...
+#13 7.698 Unpacking libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#13 7.791 Selecting previously unselected package libkrb5-3:amd64.
+#13 7.795 Preparing to unpack .../07-libkrb5-3_1.22.1-2ubuntu4.1_amd64.deb ...
+#13 7.806 Unpacking libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#13 7.925 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#13 7.929 Preparing to unpack .../08-libgssapi-krb5-2_1.22.1-2ubuntu4.1_amd64.deb ...
+#13 7.940 Unpacking libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#13 8.016 Selecting previously unselected package libtirpc-common.
+#13 8.019 Preparing to unpack .../09-libtirpc-common_1.3.7-0.1_all.deb ...
+#13 8.030 Unpacking libtirpc-common (1.3.7-0.1) ...
+#13 8.110 Selecting previously unselected package libtirpc3t64:amd64.
+#13 8.113 Preparing to unpack .../10-libtirpc3t64_1.3.7-0.1_amd64.deb ...
+#13 8.127 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3 to /lib/x86_64-linux-gnu/libtirpc.so.3.usr-is-merged by libtirpc3t64'
+#13 8.134 Adding 'diversion of /lib/x86_64-linux-gnu/libtirpc.so.3.0.0 to /lib/x86_64-linux-gnu/libtirpc.so.3.0.0.usr-is-merged by libtirpc3t64'
+#13 8.140 Unpacking libtirpc3t64:amd64 (1.3.7-0.1) ...
+#13 8.211 Selecting previously unselected package libxtables12:amd64.
+#13 8.213 Preparing to unpack .../11-libxtables12_1.8.11-2ubuntu3_amd64.deb ...
+#13 8.223 Unpacking libxtables12:amd64 (1.8.11-2ubuntu3) ...
+#13 8.280 Selecting previously unselected package libcap2-bin.
+#13 8.283 Preparing to unpack .../12-libcap2-bin_1%3a2.75-10ubuntu2_amd64.deb ...
+#13 8.293 Unpacking libcap2-bin (1:2.75-10ubuntu2) ...
+#13 8.400 Selecting previously unselected package iproute2.
+#13 8.404 Preparing to unpack .../13-iproute2_6.19.0-1ubuntu1.1_amd64.deb ...
+#13 8.456 Unpacking iproute2 (6.19.0-1ubuntu1.1) ...
+#13 8.555 Selecting previously unselected package libnettle8t64:amd64.
+#13 8.560 Preparing to unpack .../14-libnettle8t64_3.10.2-1_amd64.deb ...
+#13 8.571 Unpacking libnettle8t64:amd64 (3.10.2-1) ...
+#13 8.659 Selecting previously unselected package libhogweed6t64:amd64.
+#13 8.660 Preparing to unpack .../15-libhogweed6t64_3.10.2-1_amd64.deb ...
+#13 8.670 Unpacking libhogweed6t64:amd64 (3.10.2-1) ...
+#13 8.750 Selecting previously unselected package libunistring5:amd64.
+#13 8.755 Preparing to unpack .../16-libunistring5_1.3-2build1_amd64.deb ...
+#13 8.765 Unpacking libunistring5:amd64 (1.3-2build1) ...
+#13 8.857 Selecting previously unselected package libidn2-0:amd64.
+#13 8.864 Preparing to unpack .../17-libidn2-0_2.3.8-4build1_amd64.deb ...
+#13 8.877 Unpacking libidn2-0:amd64 (2.3.8-4build1) ...
+#13 8.975 Selecting previously unselected package libgnutls30t64:amd64.
+#13 8.980 Preparing to unpack .../18-libgnutls30t64_3.8.12-2ubuntu1.1_amd64.deb ...
+#13 8.992 Unpacking libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#13 9.117 Selecting previously unselected package libnghttp2-14:amd64.
+#13 9.119 Preparing to unpack .../19-libnghttp2-14_1.68.0-2ubuntu0.2_amd64.deb ...
+#13 9.129 Unpacking libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#13 9.202 Selecting previously unselected package libpsl5t64:amd64.
+#13 9.205 Preparing to unpack .../20-libpsl5t64_0.21.2-1.1build2_amd64.deb ...
+#13 9.216 Unpacking libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#13 9.297 Selecting previously unselected package libsasl2-modules-db:amd64.
+#13 9.304 Preparing to unpack .../21-libsasl2-modules-db_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#13 9.316 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#13 9.395 Selecting previously unselected package libsasl2-2:amd64.
+#13 9.398 Preparing to unpack .../22-libsasl2-2_2.1.28+dfsg1-9ubuntu3_amd64.deb ...
+#13 9.408 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#13 9.490 Selecting previously unselected package libldap-common.
+#13 9.497 Preparing to unpack .../23-libldap-common_2.6.10+dfsg-1ubuntu5_all.deb ...
+#13 9.508 Unpacking libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#13 9.583 Selecting previously unselected package libldap2:amd64.
+#13 9.585 Preparing to unpack .../24-libldap2_2.6.10+dfsg-1ubuntu5_amd64.deb ...
+#13 9.595 Unpacking libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#13 9.669 Selecting previously unselected package librtmp1:amd64.
+#13 9.674 Preparing to unpack .../25-librtmp1_2.4+20151223.gitfa8646d.1-3_amd64.deb ...
+#13 9.685 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#13 9.776 Selecting previously unselected package libssh2-1t64:amd64.
+#13 9.781 Preparing to unpack .../26-libssh2-1t64_1.11.1-1ubuntu0.26.04.4_amd64.deb ...
+#13 9.792 Unpacking libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#13 9.868 Selecting previously unselected package libcurl4t64:amd64.
+#13 9.870 Preparing to unpack .../27-libcurl4t64_8.18.0-1ubuntu2.7_amd64.deb ...
+#13 9.880 Unpacking libcurl4t64:amd64 (8.18.0-1ubuntu2.7) ...
+#13 9.960 Selecting previously unselected package curl.
+#13 9.965 Preparing to unpack .../28-curl_8.18.0-1ubuntu2.7_amd64.deb ...
+#13 9.976 Unpacking curl (8.18.0-1ubuntu2.7) ...
+#13 10.08 Setting up libkeyutils1:amd64 (1.6.3-6ubuntu3) ...
+#13 10.11 Setting up libtirpc-common (1.3.7-0.1) ...
+#13 10.16 Setting up libnghttp2-14:amd64 (1.68.0-2ubuntu0.2) ...
+#13 10.19 Setting up libldap-common (2.6.10+dfsg-1ubuntu5) ...
+#13 10.23 Setting up libcap2:amd64 (1:2.75-10ubuntu2) ...
+#13 10.26 Setting up libelf1t64:amd64 (0.194-4) ...
+#13 10.29 Setting up libkrb5support0:amd64 (1.22.1-2ubuntu4.1) ...
+#13 10.32 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#13 10.36 Setting up libcap2-bin (1:2.75-10ubuntu2) ...
+#13 10.39 Setting up libnettle8t64:amd64 (3.10.2-1) ...
+#13 10.42 Setting up libunistring5:amd64 (1.3-2build1) ...
+#13 10.45 Setting up libmnl0:amd64 (1.0.5-3build1) ...
+#13 10.48 Setting up libk5crypto3:amd64 (1.22.1-2ubuntu4.1) ...
+#13 10.51 Setting up libxtables12:amd64 (1.8.11-2ubuntu3) ...
+#13 10.54 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-9ubuntu3) ...
+#13 10.57 Setting up libhogweed6t64:amd64 (3.10.2-1) ...
+#13 10.60 Setting up libkrb5-3:amd64 (1.22.1-2ubuntu4.1) ...
+#13 10.63 Setting up libssh2-1t64:amd64 (1.11.1-1ubuntu0.26.04.4) ...
+#13 10.67 Setting up libldap2:amd64 (2.6.10+dfsg-1ubuntu5) ...
+#13 10.69 Setting up libbpf1:amd64 (1:1.6.3-1ubuntu1) ...
+#13 10.72 Setting up libidn2-0:amd64 (2.3.8-4build1) ...
+#13 10.75 Setting up libgssapi-krb5-2:amd64 (1.22.1-2ubuntu4.1) ...
+#13 10.78 Setting up libgnutls30t64:amd64 (3.8.12-2ubuntu1.1) ...
+#13 10.82 Setting up libtirpc3t64:amd64 (1.3.7-0.1) ...
+#13 10.85 Setting up iproute2 (6.19.0-1ubuntu1.1) ...
+#13 10.92 debconf: unable to initialize frontend: Dialog
+#13 10.92 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#13 10.92 debconf: falling back to frontend: Readline
+#13 10.92 debconf: unable to initialize frontend: Readline
+#13 10.92 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.40.1 /usr/local/share/perl/5.40.1 /usr/lib/x86_64-linux-gnu/perl5/5.40 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.40 /usr/share/perl/5.40 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+#13 10.92 debconf: falling back to frontend: Teletype
+#13 10.92 debconf: unable to initialize frontend: Teletype
+#13 10.92 debconf: (This frontend requires a controlling tty.)
+#13 10.92 debconf: falling back to frontend: Noninteractive
+#13 11.03 Setting up libpsl5t64:amd64 (0.21.2-1.1build2) ...
+#13 11.05 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-3) ...
+#13 11.09 Setting up libcurl4t64:amd64 (8.18.0-1ubuntu2.7) ...
+#13 11.12 Setting up curl (8.18.0-1ubuntu2.7) ...
+#13 11.15 Processing triggers for libc-bin (2.43-2ubuntu2.4) ...
+#13 DONE 11.4s
+
+#29 [web build 4/6] RUN mvn -B -q dependency:go-offline
+#29 ...
+
+#30 [web stage-1 3/4] WORKDIR /app
+#30 DONE 0.2s
+
+#29 [web build 4/6] RUN mvn -B -q dependency:go-offline
+#29 DONE 18.4s
+
+#31 [web build 5/6] COPY src ./src
+#31 DONE 0.2s
+
+#32 [web build 6/6] RUN mvn -B -q -DskipTests package
+#32 DONE 2.8s
+
+#33 [web stage-1 4/4] COPY --from=build /app/target/spring.jar ./app.jar
+#33 DONE 0.2s
+
+#34 [web] exporting to image
+#34 exporting layers
+#34 exporting layers 0.2s done
+#34 writing image sha256:3dd505456b43361e1329f05f7d802b48a591ae925f1f172e3654a0b4d44a7872 done
+#34 naming to docker.io/library/perf-sim-web done
+#34 DONE 0.2s
+
+#35 [web] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 47 req/s saturated on / -> start at about 383 users
+== search (start 300, step 100, cap 16000)
+PASS  300 users 2m  25 req/s  med 4ms  p95 16ms  p99 51ms  errors 0%  |  web cpu 14% under load (35% of its vCPU), peak 32%, mem 175 MiB avg / 184 MiB peak  |  api cpu 2% under load (6% of its vCPU), peak 5%, mem 32 MiB avg / 34 MiB peak
+PASS  400 users 2m  33 req/s  med 4ms  p95 14ms  p99 47ms  errors 0%  |  web cpu 18% under load (45% of its vCPU), peak 37%, mem 179 MiB avg / 186 MiB peak  |  api cpu 2% under load (6% of its vCPU), peak 5%, mem 33 MiB avg / 34 MiB peak
+PASS  500 users 2m  41 req/s  med 3ms  p95 12ms  p99 48ms  errors 0%  |  web cpu 19% under load (48% of its vCPU), peak 35%, mem 183 MiB avg / 188 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 33 MiB avg / 34 MiB peak
+PASS  700 users 2m  58 req/s  med 3ms  p95 18ms  p99 53ms  errors 0%  |  web cpu 23% under load (57% of its vCPU), peak 37%, mem 189 MiB avg / 197 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 6%, mem 33 MiB avg / 34 MiB peak
+PASS  900 users 2m  74 req/s  med 3ms  p95 28ms  p99 62ms  errors 0%  |  web cpu 26% under load (65% of its vCPU), peak 40%, mem 201 MiB avg / 209 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 34 MiB avg / 35 MiB peak
+PASS  1200 users 2m  100 req/s  med 3ms  p95 37ms  p99 64ms  errors 0%  |  web cpu 31% under load (78% of its vCPU), peak 40%, mem 202 MiB avg / 206 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 34 MiB avg / 35 MiB peak
+PASS  1500 users 2m  124 req/s  med 3ms  p95 48ms  p99 71ms  errors 0%  |  web cpu 34% under load (85% of its vCPU), peak 42%, mem 216 MiB avg / 219 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 35 MiB avg / 36 MiB peak
+PASS  1900 users 2m  157 req/s  med 3ms  p95 52ms  p99 74ms  errors 0%  |  web cpu 36% under load (90% of its vCPU), peak 40%, mem 241 MiB avg / 243 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 8%, mem 41 MiB avg / 41 MiB peak
+PASS  2400 users 2m  199 req/s  med 3ms  p95 62ms  p99 81ms  errors 0%  |  web cpu 38% under load (94% of its vCPU), peak 40%, mem 245 MiB avg / 246 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 8%, mem 42 MiB avg / 42 MiB peak
+PASS  3000 users 2m  249 req/s  med 6ms  p95 72ms  p99 93ms  errors 0%  |  web cpu 39% under load (97% of its vCPU), peak 43%, mem 271 MiB avg / 276 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 43 MiB avg / 47 MiB peak
+FAIL  3800 users 2m  277 req/s  med 90ms  p95 5764ms  p99 6513ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 40%, mem 693 MiB avg / 710 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 6%, mem 46 MiB avg / 51 MiB peak
+FAIL  3400 users 2m  256 req/s  med 53ms  p95 4971ms  p99 6414ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 689 MiB avg / 721 MiB peak  |  api cpu 3% under load (8% of its vCPU), peak 7%, mem 45 MiB avg / 50 MiB peak
+FAIL  3200 users 2m  250 req/s  med 43ms  p95 2859ms  p99 3205ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 678 MiB avg / 712 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 8%, mem 45 MiB avg / 50 MiB peak
+FAIL  3100 users 2m  238 req/s  med 44ms  p95 3482ms  p99 4280ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 673 MiB avg / 708 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 8%, mem 49 MiB avg / 53 MiB peak
+== confirm (5-minute holds, starting at 3000)
+FAIL  3000 users 5m  270 req/s  med 4ms  p95 2613ms  p99 4297ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 687 MiB avg / 710 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 9%, mem 47 MiB avg / 51 MiB peak
+PASS  2200 users 5m  205 req/s  med 2ms  p95 40ms  p99 69ms  errors 0%  |  web cpu 37% under load (93% of its vCPU), peak 41%, mem 242 MiB avg / 244 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 8%, mem 43 MiB avg / 46 MiB peak
+PASS  2600 users 5m  243 req/s  med 2ms  p95 47ms  p99 73ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 266 MiB avg / 270 MiB peak  |  api cpu 6% under load (14% of its vCPU), peak 8%, mem 44 MiB avg / 48 MiB peak
+PASS  2800 users 5m  261 req/s  med 3ms  p95 66ms  p99 97ms  errors 0%  |  web cpu 39% under load (99% of its vCPU), peak 41%, mem 272 MiB avg / 274 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 8%, mem 45 MiB avg / 48 MiB peak
+PASS  2900 users 5m  270 req/s  med 3ms  p95 60ms  p99 80ms  errors 0%  |  web cpu 39% under load (99% of its vCPU), peak 41%, mem 270 MiB avg / 272 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 8%, mem 45 MiB avg / 47 MiB peak
+SCORE spring-cpu0.4: 2900 users
+== 03:07:49 spring search exit 0

@@ -1,0 +1,152 @@
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 915B done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 1.3s
+
+#6 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#6 ...
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 131B done
+#7 DONE 0.1s
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim@sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 3.16kB done
+#9 DONE 0.1s
+
+#10 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#10 CACHED
+
+#11 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#11 CACHED
+
+#12 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#12 CACHED
+
+#13 [web stage-1 3/6] WORKDIR /app
+#13 CACHED
+
+#14 [web build 2/7] WORKDIR /app
+#14 CACHED
+
+#15 [web build 3/7] RUN corepack enable
+#15 CACHED
+
+#16 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#16 CACHED
+
+#17 [web build 5/7] RUN pnpm install --frozen-lockfile
+#17 CACHED
+
+#18 [web build 7/7] RUN pnpm build
+#18 CACHED
+
+#19 [web build 6/7] COPY . .
+#19 CACHED
+
+#20 [web stage-1 6/6] COPY --from=build /app/public ./public
+#20 CACHED
+
+#21 [web] exporting to image
+#21 exporting layers done
+#21 writing image sha256:c743a21b7eb2ae92d3ae1ef931865382c6b082792e873ce1207e2a9ae717e9b0 done
+#21 naming to docker.io/library/perf-sim-web done
+#21 DONE 0.0s
+
+#6 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#6 DONE 1.7s
+
+#22 [web] resolving provenance for metadata file
+#22 DONE 0.0s
+
+#23 [api internal] load .dockerignore
+#23 transferring context: 107B done
+#23 DONE 0.1s
+
+#24 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#24 DONE 0.0s
+
+#25 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#25 DONE 0.0s
+
+#26 [api internal] load build context
+#26 transferring context: 809B done
+#26 DONE 0.0s
+
+#27 [api build 2/6] WORKDIR /src
+#27 CACHED
+
+#28 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#28 CACHED
+
+#29 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#29 CACHED
+
+#30 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#30 CACHED
+
+#31 [api build 5/6] COPY src ./src
+#31 CACHED
+
+#32 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#32 CACHED
+
+#33 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#33 CACHED
+
+#34 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#34 CACHED
+
+#35 [api] exporting to image
+#35 exporting layers done
+#35 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#35 naming to docker.io/library/perf-sim-api done
+#35 DONE 0.0s
+
+#36 [api] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Recreate 
+ Container perf-sim-api-1 Recreated 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Starting 
+ Container perf-sim-api-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== warm-up (1000 users, 2m, not scored)
+FAIL  1000 users 2m  62 req/s  med 1520ms  p95 7581ms  p99 8066ms  errors 0.07%  |  web-1 cpu avg 37% peak 41% mem 384.8MiB / 2GiB  api-1 cpu avg 1% peak 4% mem 39.81MiB / 2GiB  
+== search
+FAIL  1000 users 2m  62 req/s  med 2300ms  p95 7418ms  p99 7803ms  errors 0.06%  |  web-1 cpu avg 37% peak 40% mem 389.1MiB / 2GiB  api-1 cpu avg 2% peak 4% mem 33.3MiB / 2GiB  
+PASS  500 users 2m  41 req/s  med 29ms  p95 387ms  p99 678ms  errors 0.04%  |  web-1 cpu avg 33% peak 42% mem 364.6MiB / 2GiB  api-1 cpu avg 1% peak 4% mem 35.77MiB / 2GiB  
+FAIL  700 users 2m  53 req/s  med 406ms  p95 2488ms  p99 2894ms  errors 0.04%  |  web-1 cpu avg 36% peak 42% mem 374.4MiB / 2GiB  api-1 cpu avg 2% peak 6% mem 33.48MiB / 2GiB  
+FAIL  600 users 2m  48 req/s  med 169ms  p95 1176ms  p99 2055ms  errors 0.06%  |  web-1 cpu avg 36% peak 42% mem 372.7MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 32.79MiB / 2GiB  
+== confirm (5m holds from 500)
+PASS  500 users 5m  45 req/s  med 44ms  p95 417ms  p99 617ms  errors 0.02%  |  web-1 cpu avg 35% peak 43% mem 380.8MiB / 2GiB  api-1 cpu avg 2% peak 5% mem 9.258MiB / 2GiB  
+SCORE nextjs-cpu0.4: 500 users

@@ -1,0 +1,77 @@
+# Two "$12 droplets" on one machine: api (Rust + SQLite) and web (SSR frontend), each 1 vCPU / 2 GB / no swap,
+# pinned to different physical cores, on their own network stacks. k6 runs on the remaining cores.
+# Use sim/sim.sh rather than calling compose directly; it sets the knobs below.
+#
+# Knobs (env): CPUS (vCPU quota per server, default 1.0), MEM (default 2g), API_CPU / WEB_CPU (logical CPU to pin),
+#              K6_CPUS (cpuset for the load generator), NET_DELAY (one-way netem delay on each server, e.g. 0.25ms),
+#              FRONTEND (frontends/<name>, default nextjs; nextjs-cached, nextjs-csr).
+name: perf-sim
+
+x-server: &server
+  cpus: ${CPUS:-1.0}
+  mem_limit: ${MEM:-2g}
+  memswap_limit: ${MEM:-2g}     # equal to mem_limit => no swap, like the droplet: OOM means you lose
+  ulimits:
+    nofile: { soft: 65535, hard: 65535 }
+  cap_add: [NET_ADMIN]          # only for the optional NET_DELAY (tc netem)
+  environment:
+    NET_DELAY: ${NET_DELAY:-}
+    JWT_SECRET: twelve-dollar-challenge
+  networks: [lan]
+
+services:
+  api:
+    <<: *server
+    build: ../backend
+    cpuset: "${API_CPU:-2}"
+    volumes:
+      - ../research/ref-repo/seed/feed.db:/seed/feed.db:ro
+      - api-data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://127.0.0.1:4000/health"]
+      interval: 2s
+      retries: 30
+    ports: ["127.0.0.1:4000:4000"]
+
+  web:
+    <<: *server
+    build: ../frontends/${FRONTEND:-nextjs}
+    cpuset: "${WEB_CPU:-4}"
+    environment:
+      NET_DELAY: ${NET_DELAY:-}
+      JWT_SECRET: twelve-dollar-challenge
+      BACKEND_URL: http://api:4000
+    depends_on:
+      api: { condition: service_healthy }
+    # health check lives in each frontend's Dockerfile (Node and nginx images check differently)
+    ports: ["127.0.0.1:3000:3000"]
+
+  k6:
+    image: debian:bookworm-slim
+    profiles: [bench]
+    cpuset: "${K6_CPUS:-6-19}"
+    ulimits:
+      nofile: { soft: 1048576, hard: 1048576 }
+    # Load generator only (the servers are untouched): thousands of VUs share one source IP, and connections that
+    # close (e.g. csr-load.js's parallel asset fetches) sit in TIME_WAIT. With the default ~28k ephemeral ports k6 hit
+    # "connect: cannot assign requested address" at ~8,000 VUs. Real users each have their own IP and ports.
+    sysctls:
+      net.ipv4.ip_local_port_range: "1024 65535"
+      net.ipv4.tcp_tw_reuse: "1"
+    working_dir: /perf/bench
+    entrypoint: ["k6"]
+    volumes:
+      - ../.tools/k6:/usr/local/bin/k6:ro
+      - ../bench:/perf/bench:ro
+      - ../research/ref-repo/bench:/perf/challenge-bench:ro
+      - ../research/ref-repo/seed/tokens.json:/perf/tokens.json:ro
+      - ./results:/results
+    environment:
+      TOKENS: /perf/tokens.json
+    networks: [lan]
+
+volumes:
+  api-data:
+
+networks:
+  lan:

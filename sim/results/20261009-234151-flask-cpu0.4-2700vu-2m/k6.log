@@ -1,0 +1,45 @@
+ Container perf-sim-k6-run-b0d54b6c09fd Creating 
+ Container perf-sim-k6-run-b0d54b6c09fd Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=575.77ms
+    ✓ 'p(99)<1000' p(99)=764.64ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 48537   220.620726/s
+    checks_succeeded...: 100.00% 48537 out of 48537
+    checks_failed......: 0.00%   0 out of 48537
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=162.79ms med=57.96ms p(95)=575.77ms p(99)=764.64ms max=960.98ms
+      { expected_response:true }...: avg=162.79ms med=57.96ms p(95)=575.77ms p(99)=764.64ms max=960.98ms
+    http_req_failed................: 0.00%  0 out of 48537
+    http_reqs......................: 48537  220.620726/s
+
+    EXECUTION
+    iteration_duration.............: avg=21.11s   med=21.1s   p(95)=27.02s   p(99)=28.93s   max=33.53s  
+    iterations.....................: 21035  95.612769/s
+    vus............................: 5      min=5          max=2700
+    vus_max........................: 2700   min=2700       max=2700
+
+    NETWORK
+    data_received..................: 268 MB 1.2 MB/s
+    data_sent......................: 4.5 MB 20 kB/s
+
+
+
+time="2026-10-09T18:45:32Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

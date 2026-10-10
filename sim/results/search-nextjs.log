@@ -1,0 +1,11 @@
+== warm-up (1000 users, 2m, not scored)
+PASS  1000 users 2m  83 req/s  med 10ms  p95 33ms  p99 61ms  errors 0%  |  web-1 cpu avg 46% peak 61% mem 380.4MiB / 2GiB  api-1 cpu avg 2% peak 4% mem 34.09MiB / 2GiB  
+== search
+PASS  2500 users 2m  206 req/s  med 32ms  p95 247ms  p99 454ms  errors 0%  |  web-1 cpu avg 77% peak 99% mem 441MiB / 2GiB  api-1 cpu avg 1% peak 3% mem 41.02MiB / 2GiB  
+FAIL  5000 users 2m  285 req/s  med 1747ms  p95 5969ms  p99 26624ms  errors 8.09%  |  web-1 cpu avg 90% peak 99% mem 484.6MiB / 2GiB  api-1 cpu avg 2% peak 4% mem 50.48MiB / 2GiB  
+FAIL  3750 users 2m  247 req/s  med 713ms  p95 3701ms  p99 9586ms  errors 0.93%  |  web-1 cpu avg 87% peak 99% mem 479.1MiB / 2GiB  api-1 cpu avg 2% peak 4% mem 46.53MiB / 2GiB  
+FAIL  3000 users 2m  234 req/s  med 98ms  p95 2916ms  p99 3534ms  errors 0%  |  web-1 cpu avg 83% peak 98% mem 461.3MiB / 2GiB  api-1 cpu avg 2% peak 3% mem 44.3MiB / 2GiB  
+FAIL  2750 users 2m  225 req/s  med 43ms  p95 461ms  p99 1468ms  errors 0.01%  |  web-1 cpu avg 80% peak 99% mem 463.4MiB / 2GiB  api-1 cpu avg 2% peak 3% mem 40.27MiB / 2GiB  
+== confirm (5m holds from 2500)
+PASS  2500 users 5m  232 req/s  med 27ms  p95 138ms  p99 229ms  errors 0%  |  web-1 cpu avg 81% peak 98% mem 475.3MiB / 2GiB  api-1 cpu avg 2% peak 4% mem 44.06MiB / 2GiB  
+SCORE nextjs: 2500 users

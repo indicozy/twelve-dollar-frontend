@@ -1,0 +1,327 @@
+== 00:00:30 building aspnet 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.31kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for mcr.microsoft.com/dotnet/aspnet:10.0.12
+#6 DONE 0.0s
+
+#7 [web internal] load metadata for mcr.microsoft.com/dotnet/sdk:10.0.401
+#7 DONE 0.0s
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 144B done
+#8 DONE 0.1s
+
+#9 [web stage-1 1/4] FROM mcr.microsoft.com/dotnet/aspnet:10.0.12
+#9 ...
+
+#10 [web internal] load build context
+#10 transferring context: 24.29kB done
+#10 DONE 0.3s
+
+#11 [web build 1/6] FROM mcr.microsoft.com/dotnet/sdk:10.0.401
+#11 ...
+
+#9 [web stage-1 1/4] FROM mcr.microsoft.com/dotnet/aspnet:10.0.12
+#9 DONE 0.7s
+
+#12 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#12 ...
+
+#11 [web build 1/6] FROM mcr.microsoft.com/dotnet/sdk:10.0.401
+#11 DONE 1.2s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.5s
+
+#13 [api internal] load .dockerignore
+#13 transferring context: 107B done
+#13 DONE 0.1s
+
+#14 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#14 DONE 0.0s
+
+#15 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#15 DONE 0.0s
+
+#16 [api internal] load build context
+#16 transferring context: 809B done
+#16 DONE 0.1s
+
+#17 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [api build 2/6] WORKDIR /src
+#18 CACHED
+
+#19 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#19 CACHED
+
+#20 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#20 CACHED
+
+#21 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#21 CACHED
+
+#22 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#22 CACHED
+
+#23 [api build 5/6] COPY src ./src
+#23 CACHED
+
+#24 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#24 CACHED
+
+#25 [web build 2/6] WORKDIR /src
+#25 ...
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:9e24756b8f00c2fe1979fbdcc1e3078b30f78a40493d78d4f8e64497cf1b5c61 done
+#26 naming to docker.io/library/perf-sim-api 0.1s done
+#26 DONE 0.1s
+
+#25 [web build 2/6] WORKDIR /src
+#25 DONE 0.5s
+
+#27 [web build 3/6] COPY Feed.csproj global.json ./
+#27 DONE 0.4s
+
+#28 [api] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#12 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#12 0.840 Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+#12 1.024 Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+#12 1.424 Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+#12 1.568 Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+#12 1.712 Get:5 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+#12 1.755 Get:6 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1546 kB]
+#12 2.052 Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+#12 ...
+
+#29 [web build 4/6] RUN dotnet restore
+#29 0.693   Determining projects to restore...
+#29 0.929   Restored /src/Feed.csproj (in 44 ms).
+#29 DONE 1.0s
+
+#30 [web build 5/6] COPY . .
+#30 DONE 0.2s
+
+#12 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#12 2.865 Get:8 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [61.4 kB]
+#12 2.872 Get:9 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1381 kB]
+#12 3.273 Get:10 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+#12 3.274 Get:11 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]
+#12 3.274 Get:12 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1702 kB]
+#12 3.334 Get:13 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [67.4 kB]
+#12 3.335 Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [2177 kB]
+#12 3.368 Get:15 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2166 kB]
+#12 3.443 Get:16 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [36.0 kB]
+#12 3.444 Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.0 kB]
+#12 3.446 Get:18 http://archive.ubuntu.com/ubuntu noble-backports/multiverse amd64 Packages [671 B]
+#12 3.447 Get:19 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [2069 kB]
+#12 3.964 Fetched 33.5 MB in 3s (9909 kB/s)
+#12 3.964 Reading package lists...
+#12 4.534 Reading package lists...
+#12 5.097 Building dependency tree...
+#12 5.227 Reading state information...
+#12 5.368 The following additional packages will be installed:
+#12 5.368   libbpf1 libbrotli1 libcap2-bin libcurl4t64 libelf1t64 libgssapi-krb5-2
+#12 5.368   libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0 libldap2 libmnl0
+#12 5.368   libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2 libsasl2-modules-db libssh-4
+#12 5.368   libxtables12
+#12 5.369 Suggested packages:
+#12 5.369   iproute2-doc python3:any krb5-doc krb5-user
+#12 5.369 Recommended packages:
+#12 5.369   libatm1t64 libpam-cap krb5-locales libldap-common publicsuffix
+#12 5.369   libsasl2-modules
+#12 5.398 The following NEW packages will be installed:
+#12 5.398   curl iproute2 libbpf1 libbrotli1 libcap2-bin libcurl4t64 libelf1t64
+#12 5.398   libgssapi-krb5-2 libk5crypto3 libkeyutils1 libkrb5-3 libkrb5support0
+#12 5.399   libldap2 libmnl0 libnghttp2-14 libpsl5t64 librtmp1 libsasl2-2
+#12 5.399   libsasl2-modules-db libssh-4 libxtables12
+#12 ...
+
+#31 [web build 6/6] RUN dotnet publish -c Release -o /app --no-restore
+#31 2.783   Feed -> /src/bin/Release/net10.0/Feed.dll
+#31 2.865   Feed -> /app/
+#31 DONE 3.0s
+
+#12 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 curl && rm -rf /var/lib/apt/lists/*
+#12 5.740 0 upgraded, 21 newly installed, 0 to remove and 0 not upgraded.
+#12 5.740 Need to get 3594 kB of archives.
+#12 5.740 After this operation, 10.0 MB of additional disk space will be used.
+#12 5.740 Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libelf1t64 amd64 0.190-1.1ubuntu0.1 [57.8 kB]
+#12 6.252 Get:2 http://archive.ubuntu.com/ubuntu noble/main amd64 libbpf1 amd64 1:1.3.0-2build2 [166 kB]
+#12 6.557 Get:3 http://archive.ubuntu.com/ubuntu noble/main amd64 libmnl0 amd64 1.0.5-2build1 [12.3 kB]
+#12 6.572 Get:4 http://archive.ubuntu.com/ubuntu noble/main amd64 libxtables12 amd64 1.8.10-3ubuntu2 [35.7 kB]
+#12 6.602 Get:5 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.4 [34.1 kB]
+#12 6.627 Get:6 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iproute2 amd64 6.1.0-1ubuntu6.4 [1120 kB]
+#12 7.002 Get:7 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libkrb5support0 amd64 1.20.1-6ubuntu2.10 [34.9 kB]
+#12 7.007 Get:8 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libk5crypto3 amd64 1.20.1-6ubuntu2.10 [81.9 kB]
+#12 7.020 Get:9 http://archive.ubuntu.com/ubuntu noble/main amd64 libkeyutils1 amd64 1.6.3-3build1 [9490 B]
+#12 7.021 Get:10 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libkrb5-3 amd64 1.20.1-6ubuntu2.10 [348 kB]
+#12 7.066 Get:11 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libgssapi-krb5-2 amd64 1.20.1-6ubuntu2.10 [143 kB]
+#12 7.082 Get:12 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libnghttp2-14 amd64 1.59.0-1ubuntu0.4 [74.6 kB]
+#12 7.091 Get:13 http://archive.ubuntu.com/ubuntu noble/main amd64 libpsl5t64 amd64 0.21.2-1.1build1 [57.1 kB]
+#12 7.096 Get:14 http://archive.ubuntu.com/ubuntu noble/main amd64 libbrotli1 amd64 1.1.0-2build2 [331 kB]
+#12 7.129 Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsasl2-modules-db amd64 2.1.28+dfsg1-5ubuntu3.1 [20.4 kB]
+#12 7.160 Get:16 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libsasl2-2 amd64 2.1.28+dfsg1-5ubuntu3.1 [53.2 kB]
+#12 7.401 Get:17 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libldap2 amd64 2.6.10+dfsg-0ubuntu0.24.04.1 [198 kB]
+#12 7.405 Get:18 http://archive.ubuntu.com/ubuntu noble/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-2build7 [56.3 kB]
+#12 7.406 Get:19 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libssh-4 amd64 0.10.6-2ubuntu0.5 [191 kB]
+#12 7.410 Get:20 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcurl4t64 amd64 8.5.0-2ubuntu10.15 [343 kB]
+#12 7.419 Get:21 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 curl amd64 8.5.0-2ubuntu10.15 [227 kB]
+#12 7.495 debconf: delaying package configuration, since apt-utils is not installed
+#12 7.512 Fetched 3594 kB in 2s (1782 kB/s)
+#12 7.548 Selecting previously unselected package libelf1t64:amd64.
+#12 7.548 (Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 6111 files and directories currently installed.)
+#12 7.554 Preparing to unpack .../00-libelf1t64_0.190-1.1ubuntu0.1_amd64.deb ...
+#12 7.582 Unpacking libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+#12 7.650 Selecting previously unselected package libbpf1:amd64.
+#12 7.652 Preparing to unpack .../01-libbpf1_1%3a1.3.0-2build2_amd64.deb ...
+#12 7.661 Unpacking libbpf1:amd64 (1:1.3.0-2build2) ...
+#12 7.730 Selecting previously unselected package libmnl0:amd64.
+#12 7.732 Preparing to unpack .../02-libmnl0_1.0.5-2build1_amd64.deb ...
+#12 7.741 Unpacking libmnl0:amd64 (1.0.5-2build1) ...
+#12 7.808 Selecting previously unselected package libxtables12:amd64.
+#12 7.809 Preparing to unpack .../03-libxtables12_1.8.10-3ubuntu2_amd64.deb ...
+#12 7.824 Unpacking libxtables12:amd64 (1.8.10-3ubuntu2) ...
+#12 7.880 Selecting previously unselected package libcap2-bin.
+#12 7.881 Preparing to unpack .../04-libcap2-bin_1%3a2.66-5ubuntu2.4_amd64.deb ...
+#12 7.891 Unpacking libcap2-bin (1:2.66-5ubuntu2.4) ...
+#12 7.971 Selecting previously unselected package iproute2.
+#12 7.972 Preparing to unpack .../05-iproute2_6.1.0-1ubuntu6.4_amd64.deb ...
+#12 7.982 Unpacking iproute2 (6.1.0-1ubuntu6.4) ...
+#12 8.064 Selecting previously unselected package libkrb5support0:amd64.
+#12 8.065 Preparing to unpack .../06-libkrb5support0_1.20.1-6ubuntu2.10_amd64.deb ...
+#12 8.076 Unpacking libkrb5support0:amd64 (1.20.1-6ubuntu2.10) ...
+#12 8.147 Selecting previously unselected package libk5crypto3:amd64.
+#12 8.148 Preparing to unpack .../07-libk5crypto3_1.20.1-6ubuntu2.10_amd64.deb ...
+#12 8.158 Unpacking libk5crypto3:amd64 (1.20.1-6ubuntu2.10) ...
+#12 8.228 Selecting previously unselected package libkeyutils1:amd64.
+#12 8.229 Preparing to unpack .../08-libkeyutils1_1.6.3-3build1_amd64.deb ...
+#12 8.239 Unpacking libkeyutils1:amd64 (1.6.3-3build1) ...
+#12 8.311 Selecting previously unselected package libkrb5-3:amd64.
+#12 8.312 Preparing to unpack .../09-libkrb5-3_1.20.1-6ubuntu2.10_amd64.deb ...
+#12 8.323 Unpacking libkrb5-3:amd64 (1.20.1-6ubuntu2.10) ...
+#12 8.423 Selecting previously unselected package libgssapi-krb5-2:amd64.
+#12 8.424 Preparing to unpack .../10-libgssapi-krb5-2_1.20.1-6ubuntu2.10_amd64.deb ...
+#12 8.433 Unpacking libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.10) ...
+#12 8.505 Selecting previously unselected package libnghttp2-14:amd64.
+#12 8.506 Preparing to unpack .../11-libnghttp2-14_1.59.0-1ubuntu0.4_amd64.deb ...
+#12 8.516 Unpacking libnghttp2-14:amd64 (1.59.0-1ubuntu0.4) ...
+#12 8.586 Selecting previously unselected package libpsl5t64:amd64.
+#12 8.587 Preparing to unpack .../12-libpsl5t64_0.21.2-1.1build1_amd64.deb ...
+#12 8.596 Unpacking libpsl5t64:amd64 (0.21.2-1.1build1) ...
+#12 8.666 Selecting previously unselected package libbrotli1:amd64.
+#12 8.668 Preparing to unpack .../13-libbrotli1_1.1.0-2build2_amd64.deb ...
+#12 8.677 Unpacking libbrotli1:amd64 (1.1.0-2build2) ...
+#12 8.736 Selecting previously unselected package libsasl2-modules-db:amd64.
+#12 8.738 Preparing to unpack .../14-libsasl2-modules-db_2.1.28+dfsg1-5ubuntu3.1_amd64.deb ...
+#12 8.748 Unpacking libsasl2-modules-db:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+#12 8.811 Selecting previously unselected package libsasl2-2:amd64.
+#12 8.812 Preparing to unpack .../15-libsasl2-2_2.1.28+dfsg1-5ubuntu3.1_amd64.deb ...
+#12 8.822 Unpacking libsasl2-2:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+#12 8.894 Selecting previously unselected package libldap2:amd64.
+#12 8.895 Preparing to unpack .../16-libldap2_2.6.10+dfsg-0ubuntu0.24.04.1_amd64.deb ...
+#12 8.905 Unpacking libldap2:amd64 (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+#12 8.979 Selecting previously unselected package librtmp1:amd64.
+#12 8.980 Preparing to unpack .../17-librtmp1_2.4+20151223.gitfa8646d.1-2build7_amd64.deb ...
+#12 8.989 Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...
+#12 9.059 Selecting previously unselected package libssh-4:amd64.
+#12 9.060 Preparing to unpack .../18-libssh-4_0.10.6-2ubuntu0.5_amd64.deb ...
+#12 9.070 Unpacking libssh-4:amd64 (0.10.6-2ubuntu0.5) ...
+#12 9.143 Selecting previously unselected package libcurl4t64:amd64.
+#12 9.144 Preparing to unpack .../19-libcurl4t64_8.5.0-2ubuntu10.15_amd64.deb ...
+#12 9.154 Unpacking libcurl4t64:amd64 (8.5.0-2ubuntu10.15) ...
+#12 9.212 Selecting previously unselected package curl.
+#12 9.213 Preparing to unpack .../20-curl_8.5.0-2ubuntu10.15_amd64.deb ...
+#12 9.223 Unpacking curl (8.5.0-2ubuntu10.15) ...
+#12 9.287 Setting up libkeyutils1:amd64 (1.6.3-3build1) ...
+#12 9.316 Setting up libbrotli1:amd64 (1.1.0-2build2) ...
+#12 9.348 Setting up libpsl5t64:amd64 (0.21.2-1.1build1) ...
+#12 9.377 Setting up libnghttp2-14:amd64 (1.59.0-1ubuntu0.4) ...
+#12 9.407 Setting up libelf1t64:amd64 (0.190-1.1ubuntu0.1) ...
+#12 9.436 Setting up libkrb5support0:amd64 (1.20.1-6ubuntu2.10) ...
+#12 9.466 Setting up libsasl2-modules-db:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+#12 9.494 Setting up libcap2-bin (1:2.66-5ubuntu2.4) ...
+#12 9.525 Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-2build7) ...
+#12 9.553 Setting up libmnl0:amd64 (1.0.5-2build1) ...
+#12 9.582 Setting up libk5crypto3:amd64 (1.20.1-6ubuntu2.10) ...
+#12 9.610 Setting up libxtables12:amd64 (1.8.10-3ubuntu2) ...
+#12 9.639 Setting up libsasl2-2:amd64 (2.1.28+dfsg1-5ubuntu3.1) ...
+#12 9.668 Setting up libkrb5-3:amd64 (1.20.1-6ubuntu2.10) ...
+#12 9.697 Setting up libldap2:amd64 (2.6.10+dfsg-0ubuntu0.24.04.1) ...
+#12 9.725 Setting up libbpf1:amd64 (1:1.3.0-2build2) ...
+#12 9.754 Setting up iproute2 (6.1.0-1ubuntu6.4) ...
+#12 9.922 debconf: unable to initialize frontend: Dialog
+#12 9.922 debconf: (TERM is not set, so the dialog frontend is not usable.)
+#12 9.922 debconf: falling back to frontend: Readline
+#12 9.922 debconf: unable to initialize frontend: Readline
+#12 9.922 debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+#12 9.922 debconf: falling back to frontend: Teletype
+#12 9.957 Setting up libgssapi-krb5-2:amd64 (1.20.1-6ubuntu2.10) ...
+#12 9.988 Setting up libssh-4:amd64 (0.10.6-2ubuntu0.5) ...
+#12 10.02 Setting up libcurl4t64:amd64 (8.5.0-2ubuntu10.15) ...
+#12 10.05 Setting up curl (8.5.0-2ubuntu10.15) ...
+#12 10.08 Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+#12 DONE 10.3s
+
+#32 [web stage-1 3/4] WORKDIR /app
+#32 DONE 0.2s
+
+#33 [web stage-1 4/4] COPY --from=build /app ./
+#33 DONE 0.2s
+
+#34 [web] exporting to image
+#34 exporting layers
+#34 exporting layers 0.2s done
+#34 writing image sha256:f3754ba7383d67613de9afee06f41dd71c2a2443a6d0fc4ecace2d65e2524a4f done
+#34 naming to docker.io/library/perf-sim-web 0.0s done
+#34 DONE 0.2s
+
+#35 [web] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-web Built 
+ Image perf-sim-api Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 505 req/s saturated on / -> start at about 4116 users
+== search (start 4100, step 100, cap 16000)
+PASS  4100 users 2m  341 req/s  med 0ms  p95 3ms  p99 45ms  errors 0%  |  web cpu 13% under load (33% of its vCPU), peak 40%, mem 143 MiB avg / 152 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 8%, mem 45 MiB avg / 48 MiB peak
+FAIL  5200 users 2m  428 req/s  med 2ms  p95 793ms  p99 1331ms  errors 0%  |  web cpu 39% under load (96% of its vCPU), peak 41%, mem 181 MiB avg / 202 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 7%, mem 60 MiB avg / 62 MiB peak
+PASS  4600 users 2m  381 req/s  med 2ms  p95 71ms  p99 163ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 147 MiB avg / 155 MiB peak  |  api cpu 6% under load (14% of its vCPU), peak 9%, mem 46 MiB avg / 49 MiB peak
+PASS  4900 users 2m  406 req/s  med 2ms  p95 199ms  p99 467ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 157 MiB avg / 170 MiB peak  |  api cpu 6% under load (15% of its vCPU), peak 8%, mem 49 MiB avg / 51 MiB peak
+FAIL  5000 users 2m  409 req/s  med 3ms  p95 1480ms  p99 2058ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 197 MiB avg / 209 MiB peak  |  api cpu 6% under load (14% of its vCPU), peak 9%, mem 59 MiB avg / 62 MiB peak
+== confirm (5-minute holds, starting at 4900)
+PASS  4900 users 5m  456 req/s  med 1ms  p95 80ms  p99 347ms  errors 0%  |  web cpu 38% under load (95% of its vCPU), peak 42%, mem 156 MiB avg / 166 MiB peak  |  api cpu 6% under load (14% of its vCPU), peak 9%, mem 54 MiB avg / 55 MiB peak
+SCORE aspnet-cpu0.4: 4900 users
+== 00:28:16 aspnet search exit 0

@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- ASP.NET Core Razor Pages on .NET 10 (LTS). No NuGet packages: everything used ships in the shared framework. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Feed</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SDK pin for builds, not a runtime file. -->
+    <Content Update="global.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+</Project>
