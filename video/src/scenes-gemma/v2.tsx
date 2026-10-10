@@ -11,11 +11,11 @@ import { c, fonts } from "../theme";
 export function ResultsTable() {
   const f = useCurrentFrame();
   const rows = variants.filter((x) => x.status === "done").sort((a, b) => (b.users ?? 0) - (a.users ?? 0));
-  const rowH = 37, top = 222, trackX = 600, trackW = 860, max = 16000;
+  const rowH = 35, top = 222, trackX = 600, trackW = 860, max = 16000;
   const hl = prog(f, 330, 20);
   return (
     <Paper>
-      <Title text="every way to render the page" sub="21 stacks. Same site, API, 0.4 vCPU, 2 GB" width={1080} x={110} y={30} />
+      <Title text="every way to render the page" sub="22 stacks. Same site, API, 0.4 vCPU, 2 GB" width={1080} x={110} y={30} />
       <div style={{ position: "absolute", left: 110, top: top - 44, width: 1700, fontFamily: fonts.hand, fontSize: 26, color: c.ink3, ...appear(f, 10) }}>
         <span style={{ position: "absolute", left: trackX - 110 }}>held for 5 minutes</span>
         <span style={{ position: "absolute", right: 0 }}>CPU per request</span>
@@ -305,7 +305,7 @@ export function FourWays() {
               <div style={{ fontFamily: fonts.head, fontSize: 34, color: c.ink, whiteSpace: "nowrap" }}>{i + 1}. {l.t}</div>
               <div style={{ fontFamily: fonts.hand, fontSize: 25, color: c.ink2 }}>{l.same}</div>
               <div style={{ fontFamily: fonts.mono, fontWeight: 700, fontSize: 56, color: best ? c.pass : c.ink3, marginTop: 10 }}>
-                {best ? `up to ${Math.round(best / base)}×${bestCapped ? "+" : ""}` : "testing…"}
+                {best ? `up to ${best / base < 10 ? (best / base).toFixed(1) : Math.round(best / base)}×${bestCapped ? "+" : ""}` : "testing…"}
               </div>
               {l.ids.map(([id, name], k) => {
                 const r = byId[id], ok = r && r.status === "done" && r.users;

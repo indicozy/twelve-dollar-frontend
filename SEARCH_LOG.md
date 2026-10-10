@@ -317,6 +317,19 @@ Excluded: 1 run(s) invalidated by a load-generator limit (k6 ran out of local po
 | 5 | 2026-10-09 21:55 | 800 | 2m | ❌ fail | 65 | 88 ms | 650 ms | 1356 ms | 0.02% | 40% (100%) | 379 MiB | 1% (3%) | 34 MiB |
 | 6 | 2026-10-09 21:59 | 700 | 5m | ✅ pass | 64 | 40 ms | 290 ms | 544 ms | 0.02% | 40% (99%) | 389 MiB | 2% (4%) | 37 MiB |
 
+## `nextjs-bun` at 0.4 vCPU
+
+**Score: 700 users**  ·  start chosen by probe: 60 req/s saturated on / -> start at about 489 users
+
+| # | started (UTC+5) | users | run | result | req/s | median | p95 | p99 | errors | web CPU (% of vCPU) | web mem | api CPU | api mem |
+|---:|---|---:|---|---|---:|---:|---:|---:|---:|---|---:|---|---:|
+| 1 | 2026-10-10 20:32 | 400 | 2m | ✅ pass | 32 | 14 ms | 44 ms | 82 ms | 0% | 33% (83%) | 215 MiB | 2% (4%) | 34 MiB |
+| 2 | 2026-10-10 20:36 | 500 | 2m | ✅ pass | 41 | 14 ms | 58 ms | 174 ms | 0% | 36% (91%) | 219 MiB | 2% (4%) | 33 MiB |
+| 3 | 2026-10-10 20:40 | 700 | 2m | ✅ pass | 57 | 22 ms | 345 ms | 748 ms | 0% | 39% (98%) | 273 MiB | 2% (5%) | 33 MiB |
+| 4 | 2026-10-10 20:44 | 900 | 2m | ❌ fail | 70 | 227 ms | 2784 ms | 3900 ms | 0.05% | 40% (100%) | 468 MiB | 2% (4%) | 34 MiB |
+| 5 | 2026-10-10 20:48 | 800 | 2m | ❌ fail | 65 | 47 ms | 840 ms | 1359 ms | 0.01% | 40% (99%) | 308 MiB | 2% (5%) | 34 MiB |
+| 6 | 2026-10-10 20:52 | 700 | 5m | ✅ pass | 65 | 19 ms | 317 ms | 888 ms | 0% | 39% (98%) | 275 MiB | 2% (4%) | 39 MiB |
+
 ## `laravel` at 0.4 vCPU
 
 **Score: 600 users**  ·  start chosen by probe: 91 req/s saturated on / -> start at about 741 users

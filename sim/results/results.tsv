@@ -208,3 +208,8 @@ run	variant	script	cpus_per_server	mem_per_server	users	hold	verdict	req_s	med_m
 20261010-175048-express-nunjucks-cpu0.4-9700vu-5m	express-nunjucks	ssr-load.js	0.4	2g	9700	5m	PASS	891	63	473	625	0.02	40%	42%	100%	384	409	5%	8%	13%	62	65
 20261010-175746-express-nunjucks-cpu0.4-9800vu-5m	express-nunjucks	ssr-load.js	0.4	2g	9800	5m	FAIL	895	128	585	718	0.01	40%	41%	100%	378	403	5%	9%	12%	62	66
 20261010-203228-nextjs-bun-cpu0.4-400vu-2m	nextjs-bun	ssr-load.js	0.4	2g	400	2m	PASS	32	14	44	82	0	33%	38%	83%	176	215	2%	4%	4%	33	34
+20261010-203626-nextjs-bun-cpu0.4-500vu-2m	nextjs-bun	ssr-load.js	0.4	2g	500	2m	PASS	41	14	58	174	0	36%	41%	91%	180	219	2%	4%	4%	31	33
+20261010-204025-nextjs-bun-cpu0.4-700vu-2m	nextjs-bun	ssr-load.js	0.4	2g	700	2m	PASS	57	22	345	748	0	39%	41%	98%	218	273	2%	4%	5%	33	33
+20261010-204423-nextjs-bun-cpu0.4-900vu-2m	nextjs-bun	ssr-load.js	0.4	2g	900	2m	FAIL	70	227	2784	3900	0.05	40%	41%	100%	329	468	2%	4%	4%	33	34
+20261010-204822-nextjs-bun-cpu0.4-800vu-2m	nextjs-bun	ssr-load.js	0.4	2g	800	2m	FAIL	65	47	840	1359	0.01	40%	41%	99%	245	308	2%	4%	5%	33	34
+20261010-205220-nextjs-bun-cpu0.4-700vu-5m	nextjs-bun	ssr-load.js	0.4	2g	700	5m	PASS	65	19	317	888	0	39%	42%	98%	209	275	2%	4%	4%	37	39

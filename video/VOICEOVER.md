@@ -56,8 +56,8 @@ What about no framework at all? Express with a template engine. 7,900 with EJS, 
 ## 18. OtherLangs  (2:55, 11s, 27 words / max 26)
 Outside JavaScript, Rust hit my cap without breaking a sweat, ASP.NET did 4,900, and Laravel landed next to Next.js. PHP boots the whole framework on every request.
 
-## 19. FourWays  (3:06, 14s, 30 words / max 33)
-So you've got four levers: cache, switch framework, switch runtime, or switch language. Each one has a price. And this test can't see architecture or how readable your code is.
+## 19. FourWays  (3:06, 14s, 36 words / max 33)
+So, four levers. Caching got 7 times. A new framework, 19. Moving Next.js to Bun, only 500 to 700. A new language, even more. Each has a price, and this test can't see architecture or readability.
 
 ## 20. AbstractionLadder  (3:19, 14s, 29 words / max 33)
 Line it all up and the pattern is simple. Every layer between your data and the HTML costs CPU on every request. Templates are cheap. Server Components are not.

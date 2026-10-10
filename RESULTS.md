@@ -51,9 +51,13 @@ loop and the same pass thresholds as the video: p95 < 500 ms, p99 < 1 s, errors 
 | `django` | 0.4 | **1,600** | 147 | 421 / 525 ms | 1,700 (p95 788 ms, p99 973 ms, 0% errors) | 40% (100%) / 42% | 143 / 152 MiB | 2% (5%) / 5% | 36 / 40 MiB |
 | `nextjs-cached` | 0.4 | **800** | 73 | 375 / 596 ms | 900 (p95 948 ms, p99 1,247 ms, 0.01% errors) | 39% (99%) / 42% | 494 / 530 MiB | 1% (3%) / 4% | 33 / 35 MiB |
 | `angular` | 0.4 | **700** | 64 | 290 / 544 ms | 800 (p95 650 ms, p99 1,356 ms, 0.02% errors) | 40% (99%) / 42% | 368 / 389 MiB | 2% (4%) / 4% | 35 / 37 MiB |
+| `nextjs-bun` | 0.4 | **700** | 65 | 317 / 888 ms | 800 (p95 840 ms, p99 1,359 ms, 0.01% errors) | 39% (98%) / 42% | 209 / 275 MiB | 2% (4%) / 4% | 37 / 39 MiB |
 | `laravel` | 0.4 | **600** | 55 | 151 / 375 ms | 800 (p95 665 ms, p99 832 ms, 0% errors) | 39% (97%) / 41% | 83 / 97 MiB | 2% (5%) / 4% | 33 / 34 MiB |
 | `nextjs` | 0.4 | **500** | 45 | 417 / 617 ms | 600 (p95 1,176 ms, p99 2,055 ms, 0.06% errors) | 38% (95%) / 43% | 371 / 396 MiB | 2% (5%) / 5% | 34 / 46 MiB |
 | `nextjs` | 1.0 | **2,500** | 232 | 138 / 229 ms | 2,750 (p95 461 ms, p99 1,468 ms, 0.01% errors) | 88% (88%) / 98% | 480 / 497 MiB | 2% (2%) / 4% | 41 / 44 MiB |
+| `hono-jsx-bun` | 0.4 | not run yet | | | | | | | |
+| `hono-jsx-node` | 0.4 | not run yet | | | | | | | |
+| `leptos` | 0.4 | not run yet | | | | | | | |
 
 Search step: 250 users at `CPUS=1.0`, 100 users at `CPUS=0.4`.
 

@@ -1,5 +1,5 @@
 {
- "generated": "20261010-1757",
+ "generated": "20261010-2052",
  "variants": [
   {
    "id": "nextjs",
@@ -74,6 +74,82 @@
      "ok": true,
      "p95": 417,
      "p99": 617
+    }
+   ]
+  },
+  {
+   "id": "nextjs-bun",
+   "name": "Next.js on Bun",
+   "lang": "TypeScript \u00b7 Bun",
+   "group": "hydrate",
+   "feed_kb": 46.6,
+   "version": "Next.js 16.4, React 19.3, Bun 1.4.3",
+   "how": "The same Next.js app and production build as Next.js; only the runtime changes: the standalone server.js runs on Bun instead of Node.",
+   "status": "done",
+   "users": 700,
+   "capped": false,
+   "req_s": 65,
+   "p95": 317,
+   "p99": 888,
+   "errors": 0.0,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 98.0,
+   "web_mem_peak": 275.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 4.0,
+   "api_mem_peak": 39.0,
+   "cpu_ms_per_req": 6.0,
+   "best_2m": 700,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 800,
+    "run": "2m",
+    "p95": 840,
+    "p99": 1359,
+    "errors": 0.01
+   },
+   "steps": [
+    {
+     "users": 400,
+     "run": "2m",
+     "ok": true,
+     "p95": 44,
+     "p99": 82
+    },
+    {
+     "users": 500,
+     "run": "2m",
+     "ok": true,
+     "p95": 58,
+     "p99": 174
+    },
+    {
+     "users": 700,
+     "run": "2m",
+     "ok": true,
+     "p95": 345,
+     "p99": 748
+    },
+    {
+     "users": 900,
+     "run": "2m",
+     "ok": false,
+     "p95": 2784,
+     "p99": 3900
+    },
+    {
+     "users": 800,
+     "run": "2m",
+     "ok": false,
+     "p95": 840,
+     "p99": 1359
+    },
+    {
+     "users": 700,
+     "run": "5m",
+     "ok": true,
+     "p95": 317,
+     "p99": 888
     }
    ]
   },

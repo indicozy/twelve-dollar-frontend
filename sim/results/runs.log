@@ -228,3 +228,9 @@ PASS  9700 users 5m  891 req/s  med 63ms  p95 473ms  p99 625ms  errors 0.02%  | 
 FAIL  9800 users 5m  895 req/s  med 128ms  p95 585ms  p99 718ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 378 MiB avg / 403 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 9%, mem 62 MiB avg / 66 MiB peak
 SCORE express-nunjucks-cpu0.4: 9700 users
 PASS  400 users 2m  32 req/s  med 14ms  p95 44ms  p99 82ms  errors 0%  |  web cpu 33% under load (83% of its vCPU), peak 38%, mem 176 MiB avg / 215 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+PASS  500 users 2m  41 req/s  med 14ms  p95 58ms  p99 174ms  errors 0%  |  web cpu 36% under load (91% of its vCPU), peak 41%, mem 180 MiB avg / 219 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 31 MiB avg / 33 MiB peak
+PASS  700 users 2m  57 req/s  med 22ms  p95 345ms  p99 748ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 218 MiB avg / 273 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 33 MiB avg / 33 MiB peak
+FAIL  900 users 2m  70 req/s  med 227ms  p95 2784ms  p99 3900ms  errors 0.05%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 329 MiB avg / 468 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+FAIL  800 users 2m  65 req/s  med 47ms  p95 840ms  p99 1359ms  errors 0.01%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 245 MiB avg / 308 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 33 MiB avg / 34 MiB peak
+PASS  700 users 5m  65 req/s  med 19ms  p95 317ms  p99 888ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 209 MiB avg / 275 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 37 MiB avg / 39 MiB peak
+SCORE nextjs-bun-cpu0.4: 700 users
