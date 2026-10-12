@@ -68,6 +68,12 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
 .family .meta { font: 400 var(--step--1)/1.4 var(--font-data); color: var(--ink-3); margin-top: 4px }
 .family p { margin: 0 }
 @media (max-width: 600px) { .family { grid-template-columns: 1fr } h1 { font-size: 1.9rem } }
+.five { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 18px 0 }
+.five .card { background: var(--surface); border: 1px solid var(--rule); padding: 14px 14px 10px; min-width: 0 }
+.five .card b { display: block; font: 600 var(--step-2)/1.1 var(--font-data); color: var(--ink) }
+.five .card h4 { margin: 2px 0 8px; font: 600 1rem/1.25 var(--font-display) }
+.five .card div { font: 400 var(--step--1)/1.6 var(--font-data); color: var(--ink-2); display: flex; justify-content: space-between; gap: 8px }
+.five .card div span:first-child { font-family: var(--font-body); overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
 @media (prefers-reduced-motion: no-preference) { .chart .bar { transition: opacity .12s } }
 </style>
 
@@ -76,7 +82,7 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
 <header class="top wrap">
   <span class="eyebrow">Benchmark · 0.4 vCPU · 2 GB · k6</span>
   <h1>How many users can a frontend framework serve on a $12 server?</h1>
-  <p class="lede">Twenty-two stacks rendered the same small feed site against the same Rust + SQLite API. Each got a 1-core-sized box (throttled to 0.4 vCPU) and the same k6 user loop. The server-rendered JS frameworks land between <span class="num" data-k="min-hydrate"></span> and <span class="num" data-k="max-hydrate"></span> users. Plain Express on the same Node runtime holds <span class="num" data-k="express"></span>.</p>
+  <p class="lede"><span class="num" data-k="n-stacks"></span> stacks rendered the same small feed site against the same Rust + SQLite API. Each got a 1-core-sized box (throttled to 0.4 vCPU) and the same k6 user loop. Plain Next.js holds <span class="num" data-k="nextjs"></span> users. The same box serves <span class="num" data-k="nextjs-nginx-cache"></span> with a cache in front of Next.js, <span class="num" data-k="express-bun"></span> with Express on Bun, and 30,000+ with Rust.</p>
   <div class="facts" id="facts"></div>
 </header>
 
@@ -90,7 +96,7 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
     <h3>Users held for 5 minutes</h3>
     <div class="legend" id="legend1"></div>
     <div class="chart" id="c-users" role="img" aria-label="Bar chart of users each stack held for five minutes"></div>
-    <figcaption>Every server-rendered stack ran its web box at 95-100% of its vCPU at its score; the API sat at 3-14% of its vCPU. The static build and Rust Axum were stopped at the 16,000-user cap we set, not at a failure. Hover a bar for latency, CPU and memory.</figcaption>
+    <figcaption>Every server-rendered stack ran its web box at 95-100% of its vCPU at its score; the API sat at 3-14% of its vCPU. The static build and Rust Axum were stopped at the 30,000-user cap we set, not at a failure (estimated limits: about 42,000 and 50,000). Hover a bar for latency, CPU and memory.</figcaption>
   </figure>
 </section>
 
@@ -117,7 +123,7 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
   <p>All the server-rendered variants do the same useful work: one HTTP call to the API, then HTML for 20 posts. The differences come from what each framework does on top of that, on every request.</p>
 
   <h3>1. The work is in the renderer, not the data</h3>
-  <p>The Rust API answers the feed in about a millisecond and serves roughly <span class="num">39,000</span> feeds a second on a full core. At every server-rendered frontend's limit it used <strong>3-14% of its 0.4 vCPU</strong>; only the two stacks that reached the 16,000-user cap pushed it to about 45%. The original video's lesson was that a fast backend moves the bottleneck to the database; here the database and API are cheap, so the bottleneck is the HTML renderer.</p>
+  <p>The Rust API answers the feed in about a millisecond and serves roughly <span class="num">39,000</span> feeds a second on a full core. At every server-rendered frontend's limit it used <strong>3-14% of its 0.4 vCPU</strong>; only the stacks above 15,000 users pushed it to 20-50%. The original video's lesson was that a fast backend moves the bottleneck to the database; here the database and API are cheap, so the bottleneck is the HTML renderer.</p>
 
   <h3>2. The baseline: what Node itself costs</h3>
   <p>Express + EJS runs on the same Node 24 as the JS frameworks. Its templates compile once to plain JavaScript functions and a render is string concatenation: no component tree, no serialized data for hydration, no streaming. It costs about <span class="num" data-k="cpu-express"></span> ms of CPU per request and holds <span class="num" data-k="express"></span> users. <strong>Anything a JS framework spends above that is the framework.</strong></p>
@@ -125,16 +131,17 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
 
   <h3>3. React Server Components cost the most</h3>
   <p>Next.js App Router renders a page twice over: React renders the server components to the RSC payload (a serialized component tree), then renders that payload to HTML, and inlines the payload into the page so the browser can hydrate. The feed page is about <span class="num">46.6 KB</span>, of which about <span class="num">28 KB</span> is that payload, and Next.js gzips every response in Node by default. It used about <span class="num" data-k="cpu-nextjs"></span> ms per request, roughly <span class="num" data-k="ratio-next-express"></span>× Express.</p>
-  <p>React itself isn't the problem: <strong>Remix (React Router 7) and TanStack Start render the same React components in one streaming pass</strong>, embed a 7 KB data blob instead of a component tree, and hold <span class="num" data-k="remix"></span> and <span class="num" data-k="tanstack-start"></span> users, about 5× Next.js. Caching changes that a lot, but not all the way: see section 4.</p>
+  <p>React itself isn't the problem: <strong>Remix (React Router 7) and TanStack Start render the same React components in one streaming pass</strong>, embed a 7 KB data blob instead of a component tree, and hold <span class="num" data-k="remix"></span> and <span class="num" data-k="tanstack-start"></span> users, about 5× Next.js. Profiling Next.js itself showed that rendering proper (RSC, HTML, decoding the payload) is only about a quarter of its CPU; the rest is stream plumbing between web and Node streams (22%), sockets (12%), garbage collection (11%) and per-request orchestration. The section <a href="#five">Five ways to make Next.js serve more</a> puts every lever side by side.</p>
 
-  <h3>4. Caching Next.js: 7× better, then a wall</h3>
-  <p>Three cached builds of the same Next.js app, all measured the same way:</p>
+  <h3>4. Caching Next.js: 7× inside the framework, 24× in front of it</h3>
+  <p>Three cached builds of the same Next.js app, plus one cache outside it, all measured the same way:</p>
   <ul>
     <li><strong>Runtime data cache</strong> (<span class="num" data-k="nextjs-cached"></span> users): post pages stored after their first visit, but the feed page is still rendered on every request. Caching the data saved the API call, which was never the expensive part.</li>
     <li><strong>Full cache</strong> (<span class="num" data-k="nextjs-fullcache"></span>): the whole feed page stored and refreshed every 30 s, post pages stored until edited, nothing forced by likes or new posts.</li>
     <li><strong>Smart cache</strong> (<span class="num" data-k="nextjs-smart"></span>): the same, with the feed refreshed every 15 s and like counts fetched by the browser straight from the API.</li>
+    <li><strong>nginx microcache</strong> (<span class="num" data-k="nextjs-nginx-cache"></span>): the unmodified app behind nginx in the same 0.4-vCPU box. Anonymous feed pages are cached for 1 s and post pages for 5 s; signed-in users, writes and RSC requests go straight through. nginx answers a hit in C without waking Node, so Node renders about one feed a second plus a few new posts. This is the biggest single gain for Next.js, but it only works because pages are the same for every anonymous visitor and may be up to a few seconds stale.</li>
   </ul>
-  <p>Smart and full cache land in the same place, so the live like counts cost the web server nothing: those requests go to the API box. What stops both near 3,500 is not the cached pages themselves. Measured on one core, <strong>serving a stored feed page costs Next.js about 0.40 ms of CPU, the same as Express rendering the page from scratch (0.41 ms)</strong> and about 13 times less than an uncached Next.js render (5.3 ms). At their limits, though, the cached builds spent <span class="num" data-k="cpu-nextjs-smart"></span> and <span class="num" data-k="cpu-nextjs-fullcache"></span> ms per web request, against Express's <span class="num" data-k="cpu-express"></span> ms. The difference comes from the work around the cache hits:</p>
+  <p>Smart and full cache (inside Next.js) land in the same place, so the live like counts cost the web server nothing: those requests go to the API box. What stops both near 3,500 is not the cached pages themselves. Measured on one core, <strong>serving a stored feed page costs Next.js about 0.40 ms of CPU, the same as Express rendering the page from scratch (0.41 ms)</strong> and about 13 times less than an uncached Next.js render (5.3 ms). At their limits, though, the cached builds spent <span class="num" data-k="cpu-nextjs-smart"></span> and <span class="num" data-k="cpu-nextjs-fullcache"></span> ms per web request, against Express's <span class="num" data-k="cpu-express"></span> ms. The difference comes from the work around the cache hits:</p>
   <ul>
     <li><strong>Every new post is a full render.</strong> Users create a few posts a second; each new post's page is rendered the first time someone opens it, and several users often open it at once. The feed page is regenerated in the background on its timer too.</li>
     <li><strong>Writes go through route handlers</strong>, which cost Next.js about 0.56 ms per like against 0.11 ms in Express.</li>
@@ -144,7 +151,12 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
   <p>One more effect applies to every Node server here: CPU per request is not a constant. Requests that arrive sparsely cost 2-4× more CPU each than requests that arrive in a stream, because a busy event loop handles several per wake-up. Express went from 0.95 ms per request at 4,700 users to 0.60 ms at 8,000. The CPU-per-request chart above is taken at each stack's own limit, where that effect is roughly comparable.</p>
 
   <h3>5. Compiled string renderers sit near the top</h3>
-  <p>SolidStart compiles components to string templates with hydration keys and fills in the values; there is no virtual DOM on the server. It is the fastest framework that hydrates, at <span class="num" data-k="solidstart"></span> users. SvelteKit also compiles to string building and held <span class="num" data-k="sveltekit"></span>, but see section 8: it passed <span class="num" data-k="sveltekit-2m"></span> in 2-minute runs.</p>
+  <p>SolidStart compiles components to string templates with hydration keys and fills in the values; there is no virtual DOM on the server. It is the fastest framework that hydrates, at <span class="num" data-k="solidstart"></span> users. SvelteKit also compiles to string building. It first held only <span class="num" data-k="sveltekit"></span>; one moved line (section 8) took it to <span class="num" data-k="sveltekit-tuned"></span>, ahead of SolidStart.</p>
+
+  <h3>5b. Islands: HonoX hydrates only what moves</h3>
+  <p><strong>HonoX</strong> is Hono's metaframework: file-based routes, the same <code>hono/jsx</code> string rendering as plain Hono, and <em>islands</em>, components that hydrate in the browser while the rest of the page stays static HTML. Here the like button is the island; the feed, cards and forms ship no JS. On Bun it held <span class="num" data-k="honox"></span> users at <span class="num" data-k="cpu-honox"></span> ms per request, the best of every stack that hydrates (Leptos in Rust: <span class="num" data-k="leptos"></span>), about 32× Next.js and 5× SolidStart.</p>
+  <p>Against plain Hono JSX on Bun (<span class="num" data-k="hono-jsx-bun"></span> users, <span class="num" data-k="cpu-hono-jsx-bun"></span> ms) it costs about 0.1 ms more per request: each of the 20 cards is wrapped in an island element with its props serialized for the browser (2.9 KB more per feed page), and HonoX's production build puts its app inside a second Hono app, so every request is routed twice and passes through the renderer and middleware layers. That is the price of hydration done narrowly: a third fewer users than no hydration at all on the same runtime. On Node, the React frameworks hold 72-95% fewer users than Express does.</p>
+  <p>One 2-minute run at 10,000 users failed on p99 (4.2 s) with p95 at 36 ms: the server stalled once for a few seconds and its memory jumped from 71 to 280 MiB. The retest at 10,000 and every run up to 16,100 passed with p99 under 160 ms, so the score comes from the retest; above 16,100 it collapsed the same way plain Hono and Express on Bun did past their limits.</p>
 
   <h3>6. Serializing state for the browser is not free</h3>
   <p>Qwik's resumability means the server serializes component state into the page (about 12-13 KB on the feed, a 36 KB page) so the browser never re-runs components. That moves work from the browser to the server: <span class="num" data-k="qwik"></span> users. Nuxt renders Vue to a string and embeds a 4 KB payload, and runs its data fetch through Nitro's in-process API handler: <span class="num" data-k="nuxt"></span>.</p>
@@ -152,22 +164,26 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
   <h3>7. Angular emulates a DOM on the server</h3>
   <p>Angular SSR builds a server-side DOM for each request, then serializes it to HTML, adding hydration annotations, event-replay scripts and the HttpClient transfer cache. Building and walking a document tree is much heavier than appending strings: <span class="num" data-k="angular"></span> users, next to Next.js at the bottom.</p>
 
-  <h3>8. Sustained load: the 2-minute vs 5-minute gap</h3>
-  <p>Most stacks held for 5 minutes what they passed for 2. <strong>SvelteKit didn't: it passed <span class="num" data-k="sveltekit-2m"></span> users for 2 minutes but only held <span class="num" data-k="sveltekit"></span> for 5</strong>, a <span class="num" data-k="sveltekit-drop"></span>% drop, while its memory climbed to about <span class="num" data-k="mem-sveltekit"></span> MiB (Express: <span class="num" data-k="mem-express"></span>). A growing heap means longer garbage-collection pauses on one core, which shows up first in p99. Astro also used about <span class="num" data-k="mem-astro"></span> MiB. Both are worth profiling; this benchmark measured the symptom, not the cause.</p>
+  <h3>8. Profile before you rewrite</h3>
+  <p>Where a stack scored far below stacks doing similar work, we profiled it and shipped one idiomatic fix. The originals stay in the leaderboard next to the fixed versions.</p>
+  <div class="tablewrap"><table id="t-fixes" style="min-width:640px"></table></div>
+  <p>SvelteKit had passed <span class="num" data-k="sveltekit-2m"></span> users for 2 minutes but held only <span class="num" data-k="sveltekit"></span> for 5, with memory climbing to <span class="num" data-k="mem-sveltekit"></span> MiB. The cause was a new <code>Intl.DateTimeFormat</code> for each of the 20 post cards on every page; building one loads ICU locale data. Creating it once per process more than doubled both SvelteKit and Astro. None of these fixes changes what the page does; they remove work nobody asked for, so a profiler is worth running before choosing a new framework.</p>
 
   <h3>9. Server templates in other languages</h3>
   <p>The non-JS stacks render HTML templates and stop: no hydration data at all. Within that group, the spread comes from how templates are executed and how requests are served.</p>
   <ul>
-    <li><strong>Rust Axum + Askama</strong> reached the <span class="num">16,000</span>-user cap using only <span class="num" data-k="cpu-of-rust-axum"></span>% of its vCPU, about <span class="num" data-k="cpu-rust-axum"></span> ms per request. Askama turns templates into Rust code at build time, so a render is writing into one pre-sized buffer. Its real limit is well above the cap.</li>
-    <li><strong>ASP.NET Core Razor</strong> compiles views to C# at build time and held <span class="num" data-k="aspnet"></span> (<span class="num" data-k="cpu-aspnet"></span> ms per request), even with CSRF tokens in every form (4.6 KB of its feed).</li>
-    <li><strong>Spring Boot + Thymeleaf</strong> held <span class="num" data-k="spring"></span> (<span class="num" data-k="cpu-spring"></span> ms). Thymeleaf evaluates its template model on every request, unlike the compiled engines, but the JIT-compiled JVM keeps it competitive.</li>
-    <li><strong>Flask</strong> held <span class="num" data-k="flask"></span> without saturating its CPU (<span class="num" data-k="cpu-of-flask"></span>% of its vCPU): gunicorn's 3 sync workers each block on the API call and close the connection after every response, so concurrency, not CPU, set its limit.</li>
-    <li><strong>Django</strong> ran the same 3 workers but needed <span class="num" data-k="cpu-django"></span> ms per request against Flask's <span class="num" data-k="cpu-flask"></span>: its middleware stack, CSRF cookie on every page and node-tree template engine cost about twice as much. It held <span class="num" data-k="django"></span>.</li>
-    <li><strong>Laravel</strong> held <span class="num" data-k="laravel"></span>, next to Next.js, at <span class="num" data-k="cpu-laravel"></span> ms per request. PHP-FPM boots the framework on every request, and the default web stack writes a session file and encrypts cookies on every page view. The video found the same with Laravel.</li>
+    <li><strong>Rust Axum + Askama</strong> held the 30,000-user cap at only <span class="num" data-k="cpu-of-rust-axum"></span>% of its vCPU, about <span class="num" data-k="cpu-rust-axum"></span> ms per request. Askama turns templates into Rust code at build time, so a render is writing into one pre-sized buffer. Projected from that run, its CPU reaches 95% near 52,000 users, memory (~33 KB per open connection) near 58,000, and the shared API near 56,000: about <strong>50,000</strong>, an estimate, not a measurement.</li>
+    <li><strong>Go html/template</strong> held <span class="num" data-k="go"></span> and failed at 19,500 with its CPU at 100%. Its templates escape values by reflection at run time, so it costs more per request than Askama (<span class="num" data-k="cpu-go"></span> ms), but still less than any JS stack on Node.</li>
+    <li><strong>Leptos</strong> (<span class="num" data-k="leptos"></span>) is the full-stack Rust counterpart to Next.js: it hydrates in the browser via WASM, and still serves 31× Next.js.</li>
+    <li><strong>Phoenix</strong> (<span class="num" data-k="phoenix"></span>) renders HEEx into iodata lists that the VM writes to the socket without building one big string.</li>
+    <li><strong>ASP.NET Core Razor</strong> compiles views to C# at build time and held <span class="num" data-k="aspnet"></span>, <span class="num" data-k="aspnet-tuned"></span> once idle thread-pool spinning was turned off.</li>
+    <li><strong>Spring Boot + Thymeleaf</strong> held <span class="num" data-k="spring"></span>, and <span class="num" data-k="spring-tuned"></span> with the JDK's AOT cache: a fresh container otherwise spends its first minutes JIT-compiling.</li>
+    <li><strong>Flask and Django</strong> run 3 blocking gunicorn workers; Django's middleware, CSRF cookie and template engine cost about twice Flask's CPU. Both lost CPU to the 2-second healthcheck recompiling Python's standard library; precompiling it (and Jinja2 for Django) gave <span class="num" data-k="flask-tuned"></span> and <span class="num" data-k="django-tuned"></span>.</li>
+    <li><strong>Laravel</strong> held <span class="num" data-k="laravel"></span> under PHP-FPM, and only <span class="num" data-k="laravel-octane"></span> under Octane: booting the framework was never the main cost. Profiling found sessions, cookies, Blade components and a new API connection per request; fixing those gave <span class="num" data-k="laravel-tuned"></span>.</li>
   </ul>
 
   <h3>10. Not rendering on the server at all</h3>
-  <p>The static build serves 7 KB HTML shells and JS from nginx, and the browser renders from JSON. Both boxes stayed far below their budget at the 16,000-user cap: the server does almost no work per view. The cost moves to every visitor's device, the first view needs the JS before anything shows, and crawlers get an empty shell. That trade-off, not raw capacity, is the real decision.</p>
+  <p>The static build serves 7 KB HTML shells and JS from nginx, and the browser renders from JSON. We ran it once at 30,000 users instead of searching: p95 was 41 ms with nginx at 67% of its vCPU and the API at 47%, so nginx would reach its limit near 42,000 users and the API near 60,000. The server does almost no work per view. The cost moves to every visitor's device, the first view needs the JS before anything shows, and crawlers get an empty shell. That trade-off, not raw capacity, is the real decision.</p>
 </section>
 
 <section class="wide">
@@ -181,12 +197,31 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
 <section class="wrap" id="ram">
   <h2>Is it RAM? No: it's CPU</h2>
   <p>At their scores the slowest stacks used a fifth to a third of their 2 GB (Next.js about <span class="num" data-k="mem-nextjs"></span> MiB, Angular about <span class="num" data-k="mem-angular"></span> MiB) while their CPU sat at 95-100% of the vCPU. Nothing swapped (the box has no swap), nothing was killed for running out of memory, and failures came from latency, not errors. A memory-bound server shows the opposite pattern: memory near the limit, garbage collection eating CPU, then crashes or errors. Adding RAM to these servers would buy nothing; only more CPU, or a renderer that spends less of it per page, moves the number.</p>
-  <p>The one place memory may play a part is the SvelteKit and Astro processes that grew to 770-860 MiB: a large, growing heap makes each garbage collection longer on a single core, which fits SvelteKit's drop from its 2-minute to its 5-minute result. That is still a CPU cost, paid in GC time.</p>
+  <p>The SvelteKit and Astro processes that grew to 770-860 MiB were a symptom: a date formatter built per post card filled the heap. Fixed, they used under 370 MiB and held more than twice the users. Rust at 30,000 users used about 1 GB, almost all of it per-connection buffers.</p>
 </section>
 
 <section class="wrap" id="runtime">
-  <h2>Does the runtime matter? Next.js on Bun</h2>
-  <p>To isolate the runtime, the Next.js app was built exactly as before (same code, same Node + pnpm production build, standalone output) and only the server process was switched from Node 24 to Bun 1.4.3. It held 700 users instead of 500, and its CPU per request fell from 8.44 ms to 6.0 ms: about 1.4×. The rendering work didn't change, only how fast the runtime executes it, so the gain is real but small next to the other levers: caching Next.js gave up to 7.2×, switching framework on the same Node runtime up to 19× (Express + Nunjucks), and switching language up to 32× and beyond (Rust hit the 16,000-user cap).</p>
+  <h2>Does the runtime matter? It depends on how heavy the framework is</h2>
+  <p>Four apps were run unchanged on Node and on Bun 1.4.3 (Next.js also on Deno 2.9):</p>
+  <div class="tablewrap"><table id="t-runtime" style="min-width:560px"></table></div>
+  <p>Bun's HTTP server, its <code>fetch</code> and its stream handling are native code (Zig), so the time a request spends outside the app's own JavaScript shrinks. For Express and Hono that time was most of the request, because their rendering is cheap string building: they gain about 2.6-2.9×. For Next.js and React Router the render itself dominates, and it is the same JavaScript on either runtime: they gain 1.04-1.4×. Deno runs Next.js through its Node compatibility layer and gained nothing.</p>
+  <p>Bun also reads 90-100% CPU well before its real limit, so for the Bun stacks latency, not the CPU column, told us where the limit was.</p>
+</section>
+
+<section class="wrap" id="five">
+  <h2>Five ways to make Next.js serve more</h2>
+  <p>Take the plain Next.js app (<span class="num" data-k="nextjs"></span> users) as the centre. Every other variant in this benchmark is one of five moves away from it. Best result in each group, as a multiple of plain Next.js:</p>
+</section>
+<section class="wide"><div id="five-grid" class="five"></div></section>
+<section class="wrap">
+  <ol>
+    <li><strong>Tune Next.js itself</strong> (no caching, same App Router). Profiling showed Next 16's <code>cacheComponents</code> also turns on cached navigations, so every request ran a staged render plus a second "prefetch" render, both unused on pages that are all request-time data. Turning it off and sending post cards as props (a Client Component) instead of a rendered tree cut instructions per request by a third and the feed page from 45 to 25 KB. Under full load the CPU per request fell from 8.44 to <span class="num" data-k="cpu-nextjs-tuned"></span> ms and the score rose to <span class="num" data-k="nextjs-tuned"></span> users, 1.6×: more than switching to Bun, from two config lines and one <code>"use client"</code>. At light load the same change saved only ~15% CPU; the work it removes (extra renders, a 28 KB payload, the garbage they create) grows with load. A Pages Router port used about 43% less CPU in private runs; it was not benchmarked.</li>
+    <li><strong>Change the runtime.</strong> Same code on Bun: 1.4×. On Deno: none. The work is React and Next's own JavaScript, which a faster HTTP layer doesn't remove.</li>
+    <li><strong>Cache.</strong> Inside Next.js (<code>use cache</code>, ISR) up to 7×; the rest of each request (new posts, writes, a 39 KB page, GC pauses) sets a ceiling. An nginx microcache in front: 24×, because a hit never reaches Node. It needs pages that are the same for anonymous visitors and can be a second or a few seconds stale.</li>
+    <li><strong>Keep React, change the metaframework.</strong> React Router 7 and TanStack Start render the same components in one pass with a small JSON blob for hydration: about 5×, with the same React skills and components. Moving React Router to Bun added only 4%.</li>
+    <li><strong>Change the framework or the language.</strong> A server-template stack with no hydration: 19× on Node (Express + Nunjucks), 48-50× on Bun (Express, Hono), 38× in Go, 60× or more in Rust. If the page still needs interactive parts, islands keep most of that: HonoX on Bun hydrates only the like button and serves 32×; Leptos hydrates the whole page from Rust and serves 31×. This is the biggest gain and the biggest rewrite: the page no longer ships React to the browser.</li>
+  </ol>
+  <p class="callout">Roughly in order of effort: a config change gives 1.6×, a runtime swap 1.4×, a proxy cache 24× for anonymous traffic, a React metaframework swap 5×, and a rewrite 19-60×. For a Next.js app with mostly anonymous traffic, the proxy cache is the cheapest large win; for logged-in, per-user pages it doesn't apply, and the remaining levers are the framework and the language.</p>
 </section>
 
 <section class="wrap">
@@ -197,7 +232,8 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
   <ul>
     <li><strong>Two simulated $12 droplets</strong> in Docker: the Rust + SQLite API and the frontend, each pinned to its own physical core, throttled to <strong>0.4 vCPU</strong> (a desktop core is much faster than a shared droplet vCPU) with 2 GB and no swap. k6 ran on separate cores.</li>
     <li><strong>Every run starts fresh:</strong> a new copy of the 50k-user, 500k-post, 2M-like database and a recreated web container.</li>
-    <li><strong>Search:</strong> a 20-second throughput probe picks the start, ±25% jumps bracket the limit, 2-minute runs bisect it to 100 users, then a 5-minute hold confirms it; failed holds bisect down.</li>
+    <li><strong>Search:</strong> the first stacks used a 20-second probe, ±25% jumps and a 2-minute bisection to 100 users. Later stacks used a bottleneck-guided search: a 2-minute test run, a jump to where the busiest CPU would reach 95%, then ±10% steps (and a fit of latency against load, <code>sim/predict.py</code>, to jump further), falling back to bisection when a jump overshot. Either way, the score is the most users that pass a <strong>5-minute hold</strong>; a failed hold steps down 10%.</li>
+    <li><strong>Cap:</strong> searches stopped at 16,000 users at first, later 30,000. Stacks still passing at the cap are marked "cap" with an estimate of the real limit from their CPU, memory and the API's headroom.</li>
     <li><strong>Same app everywhere:</strong> feed and post pages, login, likes and posts through forms, JSON routes for the load test; the same markup and stylesheet; no caching except in the variant labelled cached.</li>
     <li><strong>Framework defaults kept:</strong> gzip on in Next.js and Remix, per-request logging in Remix, CSRF tokens in ASP.NET, Django and Laravel, gunicorn's sync workers. These are part of what each stack costs out of the box.</li>
   </ul>
@@ -208,6 +244,7 @@ th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: l
     <li>CPU per request mixes page and write requests, and is derived from 2-second samples.</li>
     <li>The first client-side search was invalid (k6 ran out of local ports) and was rerun with a load-generator fix; the servers were never tuned.</li>
     <li>Two games ran briefly unpinned during the client-side search; the affected runs passed with large margins.</li>
+    <li>Docker's healthcheck runs inside each box's 0.4-vCPU quota every 2 s: about 8-10% of it for Node, Bun and Deno (a fresh <code>node -e fetch</code>), about 3% for curl, 7-21% for Python before the fix. It is the same for every stack in a family, but it shrinks the budget for the cheap stacks most.</li>
   </ul>
 
   <h2>All results</h2>
@@ -239,17 +276,47 @@ const ks = {
   "cpu-of-flask": fmt(byId.flask?.web_cpu_of_vcpu), "cpu-of-rust-axum": fmt(byId["rust-axum"]?.web_cpu_of_vcpu), "mem-nextjs": fmt(byId.nextjs?.web_mem_peak), "mem-angular": fmt(byId.angular?.web_mem_peak),
 };
 for (const v of V) { ks[v.id] = v.status === "done" ? fmt(v.users) : "(pending)"; ks["cpu-" + v.id] = v.cpu_ms_per_req?.toFixed(2) ?? "–"; }
+ks["n-stacks"] = String(done.length);
 const others = ["django", "laravel", "spring", "rust-axum"].map(id => byId[id]).filter(v => v && v.status === "done");
 ks["others-sentence"] = others.length
   ? others.map(v => `${v.name} held ${fmt(v.users)} users (${v.cpu_ms_per_req.toFixed(2)} ms CPU per request).`).join(" ")
   : "";
 document.querySelectorAll("[data-k]").forEach(el => { el.textContent = ks[el.dataset.k] ?? "–"; });
 
+// ---------- five ways (Next.js at the centre), fixes, runtimes
+const NX = byId.nextjs.users;
+const SHORT = { "nextjs-tuned": "tuned config", "nextjs-bun": "Bun", "nextjs-deno": "Deno", "nextjs-nginx-cache": "nginx microcache",
+  "nextjs-smart": "smart cache", "nextjs-fullcache": "full cache", "nextjs-cached": "use cache", "tanstack-start": "TanStack Start",
+  "remix-bun": "React Router, Bun", "remix": "React Router", "rust-axum": "Rust Axum", "express-bun": "Express, Bun",
+  "hono-jsx-bun": "Hono, Bun", "go": "Go", "leptos": "Leptos (Rust)", "honox": "HonoX (islands)", "express-nunjucks": "Express, Node" };
+const FIVE = [["1 · Tune Next.js itself", ["nextjs-tuned"]], ["2 · Another runtime", ["nextjs-bun", "nextjs-deno"]],
+  ["3 · Cache", ["nextjs-nginx-cache", "nextjs-smart", "nextjs-fullcache", "nextjs-cached"]],
+  ["4 · Same React, other metaframework", ["tanstack-start", "remix-bun", "remix"]],
+  ["5 · Other framework or language", ["rust-axum", "express-bun", "hono-jsx-bun", "go", "leptos", "honox", "express-nunjucks"]]];
+document.getElementById("five-grid").innerHTML = FIVE.map(([t, ids]) => {
+  const vs = ids.map(id => byId[id]).filter(v => v?.status === "done");
+  const best = vs.length ? Math.max(...vs.map(v => v.users)) : null;
+  const m = best ? best / NX : null;
+  return `<div class="card"><b>${m ? (m < 10 ? m.toFixed(1) : Math.round(m)) + "×" + (vs.some(v => v.capped && v.users === best) ? "+" : "") : "…"}</b><h4>${t}</h4>${
+    ids.map(id => byId[id]).filter(Boolean).map(v => `<div><span>${SHORT[v.id] || v.name}</span><span>${v.status === "done" ? fmt(v.users) + (v.capped ? "+" : "") : v.status}</span></div>`).join("")}</div>`;
+}).join("");
+const FIXES = [["sveltekit", "sveltekit-tuned", "date formatter built per post card"], ["astro", "astro-tuned", "the same formatter"],
+  ["spring", "spring-tuned", "cold JIT per container → JDK AOT cache"], ["django", "django-tuned", "healthcheck recompiling Python + Jinja2"],
+  ["flask", "flask-tuned", "healthcheck recompiling Python"], ["aspnet", "aspnet-tuned", "idle thread-pool spinning"],
+  ["laravel", "laravel-tuned", "file sessions, cookies, a new API connection per request"], ["nextjs", "nextjs-tuned", "unused staged + prefetch renders, RSC tree per card"]];
+document.getElementById("t-fixes").innerHTML = `<thead><tr><th>Stack</th><th>Cause</th><th>Before</th><th>After</th><th>Gain</th></tr></thead><tbody>${FIXES.map(([a, b, c]) => {
+  const va = byId[a], vb = byId[b]; const ok = vb?.status === "done";
+  return `<tr><td>${va.name}</td><td style="text-align:left;white-space:normal">${c}</td><td>${fmt(va.users)}</td><td>${ok ? fmt(vb.users) : "running"}</td><td>${ok ? (vb.users / va.users + 1e-9).toFixed(1) + "×" : "–"}</td></tr>`; }).join("")}</tbody>`;
+const RT = [["Next.js", "nextjs", "nextjs-bun"], ["React Router 7", "remix", "remix-bun"], ["Express + Nunjucks", "express-nunjucks", "express-bun"], ["Hono JSX", "hono-jsx-node", "hono-jsx-bun"]];
+document.getElementById("t-runtime").innerHTML = `<thead><tr><th>App</th><th>CPU ms/req on Node</th><th>Node</th><th>Bun</th><th>Gain</th></tr></thead><tbody>${RT.map(([n, a, b]) =>
+  `<tr><td>${n}</td><td>${byId[a].cpu_ms_per_req.toFixed(2)}</td><td>${fmt(byId[a].users)}</td><td>${fmt(byId[b].users)}</td><td>${(byId[b].users / byId[a].users).toFixed(2)}×</td></tr>`).join("")}<tr><td>Next.js on Deno</td><td>${byId.nextjs.cpu_ms_per_req.toFixed(2)}</td><td>${fmt(byId.nextjs.users)}</td><td>${fmt(byId["nextjs-deno"].users)} (Deno)</td><td>${(byId["nextjs-deno"].users / byId.nextjs.users).toFixed(2)}×</td></tr></tbody>`;
+
 // ---------- facts row
 const best = done.filter(v => v.group !== "static").sort((a, b) => b.users - a.users)[0];
 const worst = done.filter(v => v.group !== "static").sort((a, b) => a.users - b.users)[0];
 document.getElementById("facts").innerHTML = [
   [`${done.length} / ${V.length}`, "stacks measured"],
+  [`${fmt(byId.nextjs.users)} → ${fmt(byId["nextjs-nginx-cache"].users)}`, "Next.js, plain → behind an nginx cache"],
   [fmt(best.users) + (best.capped ? " cap" : ""), `best server-rendered: ${best.name}`],
   [fmt(worst.users), `lowest: ${worst.name}`],
   [`${Math.round(byId.nextjs.cpu_ms_per_req / byId.express.cpu_ms_per_req)}×`, "CPU per request, Next.js vs Express"],

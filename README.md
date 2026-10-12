@@ -1,108 +1,147 @@
-# perf — SSR frameworks on a $12 server
+# How many users can a frontend framework serve on a $12 server?
+
+The same small Twitter-style site, built with **33 different stacks**, each
+on a box sized like a $12 droplet, against the same fast Rust + SQLite API. The API is never the bottleneck, so the
+number you see is the cost of the frontend's server-side rendering.
 
 Follow-up to [“Which Programming Language Can Handle the Most Users on a $12 Server?”](https://www.youtube.com/watch?v=sQXFhh_PiG4)
-([repo](https://github.com/arjaythedev/twelve-dollar-server-challenge)). That video compared **backends**; this one compares
-**frontend frameworks' server-side rendering** on the same box. The API underneath is a maxed-out Rust + SQLite server, so
-the frontend is the only thing being measured.
+([repo](https://github.com/arjaythedev/twelve-dollar-server-challenge)), which compared backends. This one compares
+frontend frameworks on the same kind of box, with the same user loop and the same pass rule.
+
+**Headline:** plain Next.js held 500 users. Express + Nunjucks on Bun held 24,900, Hono JSX on Bun 24,100, and Rust
+passed the 30,000-user cap at about half its CPU. Every server-rendered stack ran out of CPU, not RAM, so the score is
+close to the CPU budget divided by the CPU each request burns.
+
+- Full write-up with charts: [`report/analysis.html`](report/analysis.html)
+- Slides: [`report/deck.html`](report/deck.html) and [`report/deck.pdf`](report/deck.pdf)
+- Scores, run notes and caveats: [`RESULTS.md`](RESULTS.md), [`ANALYSIS-extra.md`](ANALYSIS-extra.md)
+
+## Leaderboard
+
+A score is the most simulated users a stack held for **5 minutes** with p95 < 500 ms, p99 < 1 s and errors < 1%.
+One user is about 0.09 requests per second. "CPU/req" is web-server CPU time per request at the score.
+
+| Stack | Folder | Users | req/s | CPU/req (ms) |
+|---|---|---:|---:|---:|
+| Rust Axum + Askama | `rust-axum` | 30,000 (cap; est. ~50,000) | 2,803 | 0.08 |
+| Next.js static (CSR) | `nextjs-csr` | 30,000 (cap; est. ~42,000) | 6,003 | 0.04 |
+| Express + Nunjucks on Bun | `express-bun` | 24,900 | 2,318 | 0.17 |
+| Hono JSX on Bun | `hono-jsx-bun` | 24,100 | 2,247 | 0.17 |
+| Go html/template | `go` | 19,000 | 1,761 | 0.22 |
+| HonoX on Bun | `honox` | 16,100 | 1,499 | 0.27 |
+| Leptos SSR | `leptos` | 15,500 | 1,441 | 0.26 |
+| Next.js + nginx microcache | `nextjs-nginx-cache` | 12,100 | 1,125 | 0.35 |
+| Express + Nunjucks | `express-nunjucks` | 9,700 | 891 | 0.45 |
+| Phoenix + HEEx | `phoenix` | 8,500 | 787 | 0.51 |
+| Hono JSX on Node | `hono-jsx-node` | 8,400 | 775 | 0.52 |
+| Express + EJS | `express` | 7,900 | 733 | 0.53 |
+| ASP.NET Core Razor | `aspnet` | 4,900 | 456 | 0.83 |
+| Next.js smart cache | `nextjs-smart` | 3,600 | 641 | 1.2 |
+| Next.js full cache | `nextjs-fullcache` | 3,500 | 326 | 0.98 |
+| SolidStart | `solidstart` | 3,300 | 306 | 1.31 |
+| Spring Boot + Thymeleaf | `spring` | 2,900 | 270 | 1.44 |
+| TanStack Start | `tanstack-start` | 2,700 | 250 | 1.6 |
+| Flask + Jinja2 | `flask` | 2,600 | 241 | 1.41 |
+| React Router 7 on Bun | `remix-bun` | 2,600 | 241 | 1.54 |
+| Remix (React Router 7) | `remix` | 2,500 | 231 | 1.73 |
+| SvelteKit | `sveltekit` | 2,500 | 231 | 1.69 |
+| Astro | `astro` | 2,300 | 213 | 1.88 |
+| Rails + ERB | `rails` | 2,100 | 193 | 2.07 |
+| Nuxt | `nuxt` | 1,900 | 175 | 2.29 |
+| Qwik City | `qwik` | 1,800 | 167 | 2.4 |
+| Django | `django` | 1,600 | 147 | 2.72 |
+| Next.js cached | `nextjs-cached` | 800 | 73 | 5.34 |
+| Next.js on Bun | `nextjs-bun` | 700 | 65 | 6.0 |
+| Angular | `angular` | 700 | 64 | 6.25 |
+| Laravel + Blade | `laravel` | 600 | 55 | 7.09 |
+| Next.js | `nextjs` | 500 | 45 | 8.44 |
+| Next.js on Deno | `nextjs-deno` | 500 | 46 | 8.7 |
+
+Results within about 10% of each other are a tie: one host, one run per user count. The two capped entries were stopped
+at 30,000 users while still passing; their estimates come from CPU, memory and API headroom and are not measurements.
+
+### Fixes found by profiling
+
+Nine more runs keep a stack's app and remove one cost a profiler found. They are shown as before and after, not as
+separate stacks, the same way the video and report show them.
+
+| Fixed variant | Folder | Users | What changed |
+|---|---|---:|---|
+| Next.js (tuned) | `nextjs-tuned` | 500 → 800 | cacheComponents off (no second prefetch render), post cards as a client component |
+| SvelteKit (fixed) | `sveltekit-tuned` | 2,500 → 5,600 | one date formatter per process instead of one per post card |
+| Astro (fixed) | `astro-tuned` | 2,300 → 4,900 | the same date-formatter fix |
+| Laravel Octane | `laravel-octane` | 600 → 700 | Octane keeps the framework booted between requests |
+| Laravel Octane (tuned) | `laravel-tuned` | 600 → 1,900 | Octane, plus cookie sessions instead of files, no XSRF cookie, includes instead of Blade components, and a reused API connection |
+| Spring Boot (AOT cache) | `spring-tuned` | 2,900 → 4,300 | JDK AOT cache, so a fresh container skips minutes of JIT warm-up |
+| Django (tuned) | `django-tuned` | 1,600 → 2,000 | precompiled standard library and Jinja2 (the healthcheck kept recompiling them) |
+| Flask (precompiled stdlib) | `flask-tuned` | 2,600 → 2,900 | precompiled standard library |
+| ASP.NET (tuned) | `aspnet-tuned` | 4,900 → 5,300 | idle thread-pool spinning turned off |
+
+## Repository layout
 
 ```
-research/   local only, not in this repo: ref-repo/ (the challenge, cloned by scripts/setup.sh) and reference material
-backend/    Rust API: the challenge SPEC, passes its 42/42 test suite
-frontends/  SPEC.md (what every framework must render), shared/styles.css, nextjs/ (reference impl),
-            nextjs-cached/ (same app, runtime caching — breaks the no-caching rule on purpose),
-            nextjs-csr/ (client-side only: static export served by nginx, browser fetches JSON),
-            sveltekit/ (SvelteKit 3 / Svelte 5, server-rendered, no caching: the Next.js twin)
-bench/      ssr-load.js (the video's user loop over HTML pages), csr-load.js (same loop as a browser loads a
-            client-rendered app), throughput.js (raw req/s)
-scripts/    setup.sh, fresh-db.sh, start-backend.sh, start-nextjs.sh
-sim/        two simulated $12 droplets in Docker + the video's max-users search (sim.sh)
-RESULTS.md  server names, variant descriptions, scores and caveats (raw rows: sim/results/results.tsv)
+backend/    Rust API (hyper + SQLite) implementing the challenge SPEC; passes its 42/42 test suite
+frontends/  SPEC.md (what every stack must render), shared/styles.css, and one folder per stack
+bench/      k6 scripts: ssr-load.js (the user loop over HTML pages), csr-load.js, smart-load.js, throughput.js
+sim/        the two-droplet simulation in Docker, the max-users search, results and table scripts
+report/     build.py turns sim/results into data.json, analysis.html and deck.html
+scripts/    setup.sh (seed DB, k6, builds), start-backend.sh, start-nextjs.sh, fresh-db.sh
+video/      the Remotion project for the video (scenes, captions, voice-over drafts)
+RESULTS.md  server setup, every variant's description, scores and run notes
 ```
 
-## Quick start
+`research/` and `data/` are local only and not in the repo; `scripts/setup.sh` recreates what the benchmark needs.
+
+## Running it
+
+Requirements: Linux, Docker, Rust (stable), Node 24 with pnpm, Python 3, git and curl, and about 10 GB of disk for images and the seed
+database. Each stack's own toolchain is inside its Docker image.
 
 ```bash
-bash scripts/setup.sh                     # seed DB, sqlite3/k6 if missing, release builds
-bash scripts/start-backend.sh &           # API on :4000 (fresh copy of the seed DB every start)
-bash scripts/start-nextjs.sh &            # Next.js on :3000
-.tools/k6 run -e VUS=2000 bench/ssr-load.js
-.tools/k6 run -e URL=http://127.0.0.1:3000/ bench/throughput.js
-bash research/ref-repo/test/run.sh backend   # challenge conformance tests (42 checks)
-```
-
-## Two-droplet simulation (`sim/`)
-
-Two containers stand in for two $12 droplets, each with **1 vCPU, 2 GB RAM and no swap**:
-`api` (Rust + SQLite) and `web` (the frontend). Each is pinned to its own physical core and has its own
-network stack and IP on a private bridge network. k6 runs in a third container on the remaining cores,
-so the load generator never takes CPU from the servers.
-
-```bash
-bash sim/sim.sh up               # build + start (needs the Docker daemon)
-bash sim/sim.sh run 2000 2m      # one run: fresh DB + fresh frontend, k6 ssr-load.js, CPU/mem sampled
-bash sim/sim.sh search           # the video's procedure (below)
-bash sim/sim.sh throughput /     # raw req/s on one page
-TARGET=api bash sim/sim.sh search   # challenge load.js straight at the Rust API (calibration)
+bash scripts/setup.sh                          # clone the challenge, seed the DB, fetch k6, build the API
+export CPUS=0.4                                # the $12-droplet stand-in (sim.sh alone defaults to a full core)
+FRONTEND=express bash sim/sim.sh up            # build and start the api + web boxes for one stack
+FRONTEND=express bash sim/sim.sh run 2000 2m   # one run: fresh DB, fresh web container, k6 user loop
+bash sim/step-search.sh express                # find the max users, then confirm with 5-minute holds
+python3 sim/scores-table.py                    # scores table from sim/results/results.tsv
+python3 report/build.py                        # rebuild report/data.json and the HTML report
 bash sim/sim.sh down
 ```
 
-`search` repeats the video's method with the same pass thresholds (p95 < 500 ms, p99 < 1 s, errors < 1%).
-It warms up with 1,000 users for 2 minutes, starts at 2,500 users, doubles until a 2-minute run fails, then
-bisects down to 250-user precision. It confirms the result with a 5-minute hold, stepping down 250 users
-until a hold passes. Each run writes `sim/results/<run>/{k6.log,summary.json,stats.csv}` and adds one line
-to `sim/results/runs.log` (req/s, median/p95/p99, errors, average and peak CPU and memory for each server).
+### The simulated droplets
 
-Knobs: `CPUS` (default 1.0), `MEM` (2g), `API_CPU`/`WEB_CPU` (logical CPU to pin, defaults 2 and 4, on
-different physical cores), `K6_CPUS` (6-19), `NET_DELAY` (one-way tc netem delay on each server, e.g.
-`0.25ms` to model a droplet's private network), `FRONTEND` (a folder in `frontends/`), `START`, `RAMP_UP`.
+Two containers stand in for two $12 droplets: `api` (Rust + SQLite) and `web` (the stack under test). Each has its own
+physical core, **0.4 of that core** (about 1.96 GHz of an i7-12700K performance core), 2 GB of RAM and no swap. k6 runs
+in a third container on the remaining cores, so the load generator never takes CPU from the servers. Every run starts
+from a fresh copy of the seed database (50,000 users, 500,000 posts, about 2 million likes) and a new web container.
 
-**Calibration caveat:** one core here is an i7-12700K performance core at about 4.9 GHz. That is much faster
-than a shared 2.3 GHz droplet vCPU, which also loses time to noisy neighbours. Absolute user counts will
-come out higher than on DigitalOcean, while the ranking between frameworks should hold. To get closer,
-lower `CPUS` (for example `CPUS=0.4`). You can tune it by running `TARGET=api` with the challenge
-load.js and comparing against a real droplet.
+Knobs (environment variables): `CPUS` (0.4 for every published score; `step-search.sh` defaults to it, `sim.sh` to 1.0), `MEM` (2g), `API_CPU` / `WEB_CPU` (logical CPUs to pin, default 2
+and 4), `K6_CPUS` (default 6-19), `NET_DELAY` (one-way netem delay, e.g. `0.25ms`), `FRONTEND`, and for the search
+`START`, `LO`, `STEP`, `MAX`. **Change the CPU pinning to match your machine**; the defaults assume a 12700K.
+
+On a different CPU the absolute numbers will move. The ranking should hold. To compare with a real droplet, run the
+challenge's own load test straight at the API (`TARGET=api bash sim/sim.sh search`) on both and scale `CPUS`.
+
+### How a score is found
+
+`sim/step-search.sh` runs a 2-minute test, reads which box is the bottleneck, and jumps to where its CPU would reach
+95%. It then moves in 10% steps (with a latency fit in `sim/predict.py` to jump further, and binary search when a jump
+overshoots) until a pass sits one step below a fail. The score is the highest user count that then passes a 5-minute
+hold; a failed hold steps down 10%. Every run is logged in `sim/results/` (k6 log, summary JSON, CPU and memory
+samples) and as one row of `sim/results/results.tsv`.
 
 ## Backend (Rust + SQLite)
 
-hyper 1 (HTTP/1.1 keep-alive) + rusqlite (bundled SQLite 3.50), mimalloc, fat LTO.
+hyper 1 (HTTP/1.1 keep-alive) + rusqlite (bundled SQLite), mimalloc, fat LTO. One single-threaded runtime per core with
+its own `SO_REUSEPORT` listener and read connection; one writer thread group-commits likes and posts. On one full core
+it serves about 39,400 feeds or 177,600 post lookups a second, far above what any frontend here can consume.
 
-- **Thread-per-core**: one single-threaded tokio runtime per core, each with its own `SO_REUSEPORT`
-  listener and its own SQLite read connection. No pool, no locks, no cross-thread handoff on reads.
-- **Reads inline**: SQLite is in-process with 1 GB `mmap`; the feed query (20 posts + author + like
-  counts via `likes_post_id_idx`) takes microseconds, prepared statements are cached.
-- **Group commit**: one writer thread owns the write connection, drains every queued like/post into a
-  single `BEGIN IMMEDIATE … COMMIT`, and answers each request only after the commit (WAL,
-  `synchronous=NORMAL`, i.e. within the challenge rules).
-- Hand-written JSON output, HS256 verification on every request (no token cache).
-- `THREADS` env overrides the worker count (use `THREADS=1` to mimic the 1-vCPU droplet).
+## Contributing
 
-Why not something faster than SQLite? With an in-process, mmap'd SQLite the API already does ~65k
-feed req/s locally — two orders of magnitude above what any SSR layer can consume — and the challenge
-rules (and comparability with the video) fix SQLite.
+New stacks, fixes to an existing one, and reruns on other hardware are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-## Raw throughput in the simulation (1 vCPU each, 64 connections, 15 s)
+## License
 
-| Target | req/s | p50 | p99 |
-|---|---:|---:|---:|
-| Rust `GET /feed` | 39,400 | 1.6 ms | 2.1 ms |
-| Rust `GET /posts/:id` | 177,600 | 0.3 ms | 1.2 ms |
-| Next.js 16 `GET /` (feed page) | 214 | 263 ms | 1.01 s |
-| Next.js 16 `GET /posts/:id` | 291 | 197 ms | 509 ms |
-
-## First numbers (unconstrained dev box: 20 threads, k6 on the same machine, 64 connections, 15 s)
-
-| Target | req/s | p50 | p99 |
-|---|---:|---:|---:|
-| Rust `GET /feed` (JSON) | 64,600 | 0.8 ms | 2.7 ms |
-| Rust `GET /posts/:id` (JSON) | 253,800 | 0.1 ms | 1.4 ms |
-| Next.js 16 `GET /` (feed page, 48 KB) | 242 | 246 ms | 542 ms |
-| Next.js 16 `GET /posts/:id` (14 KB) | 331 | 184 ms | 349 ms |
-
-Next.js is a single Node process, so it uses one core regardless of machine size. Real numbers belong
-on the 1 vCPU / 2 GB droplet with k6 on a separate machine (see research/NOTES.md for the method).
-
-## Next steps
-
-Add more frameworks under `frontends/` following `frontends/SPEC.md` (Nuxt, SvelteKit, Remix/React Router,
-Astro, SolidStart, Qwik, Angular SSR, TanStack Start, Next on Bun, …), then run the video's search →
-5-minute-hold procedure with `bench/ssr-load.js`.
+MIT, see [LICENSE](LICENSE). The API and load scripts build on the
+[twelve-dollar server challenge](https://github.com/arjaythedev/twelve-dollar-server-challenge), also MIT; see
+[NOTICE.md](NOTICE.md).

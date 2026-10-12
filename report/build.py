@@ -23,6 +23,8 @@ TSV = os.path.join(ROOT, "sim", "results", "results.tsv")
 VARIANTS = {
     "nextjs":         dict(name="Next.js", lang="TypeScript · Node", group="hydrate", feed_kb=46.6, version="Next.js 16.4, React 19.3",
                            how="React Server Components: render to the RSC payload, then render that to HTML; the payload is inlined for hydration; static shell + streamed holes (Partial Prerendering); gzip in Node by default."),
+    "nextjs-tuned":   dict(name="Next.js (tuned)", lang="TypeScript · Node", group="hydrate", feed_kb=25.2, version="Next.js 16.4, React 19.3",
+                           how="Plain Next.js after profiling, still no caching: cacheComponents/Partial Prerendering off (one dynamic render instead of a staged render plus a prefetch render), the post card as a Client Component (props instead of a rendered tree in the RSC payload), V8 heap sized for the container."),
     "nextjs-bun":     dict(name="Next.js on Bun", lang="TypeScript · Bun", group="hydrate", feed_kb=46.6, version="Next.js 16.4, React 19.3, Bun 1.4.3",
                            how="The same Next.js app and production build as Next.js; only the runtime changes: the standalone server.js runs on Bun instead of Node."),
     "nextjs-cached":  dict(name="Next.js cached", lang="TypeScript · Node", group="hydrate", feed_kb=44.7, version="Next.js 16.4, use cache",
@@ -63,8 +65,55 @@ VARIANTS = {
                            how="Thymeleaf evaluates templates per request over Tomcat's thread-per-request model; JVM defaults (SerialGC, 512 MB max heap)."),
     "rust-axum":      dict(name="Rust Axum + Askama", lang="Rust", group="template", feed_kb=10.5, version="Axum 0.8, Askama 0.16",
                            how="Askama compiles templates into Rust code at build time; render = writing into one pre-sized String; Tokio."),
+    "nextjs-deno":    dict(name="Next.js on Deno", lang="TypeScript · Deno", group="hydrate", feed_kb=46.6, version="Next.js 16.4, React 19.3, Deno 2.9.7",
+                           how="The same Next.js app and production build as Next.js; the standalone server.js runs on Deno's Node compatibility layer."),
+    "nextjs-nginx-cache": dict(name="Next.js + nginx microcache", lang="TypeScript · Node + nginx", group="hydrate", feed_kb=46.6, version="Next.js 16.4, nginx 1.22",
+                           how="Plain Next.js behind an nginx proxy_cache in the same box: anonymous feed cached 1 s, post pages 5 s; writes and logged-in users bypass it."),
+    "express-bun":    dict(name="Express + Nunjucks on Bun", lang="JavaScript · Bun", group="template", feed_kb=12.2, version="Express 5.3, Nunjucks 3.2.4, Bun 1.4.3",
+                           how="The same app and dependencies as Express + Nunjucks; only the runtime changes: server.js runs on Bun instead of Node."),
+    "hono-jsx-node":  dict(name="Hono JSX on Node", lang="TypeScript · Node", group="template", feed_kb=11.4, version="Hono 4.13, Node 24",
+                           how="Hono's server-only JSX renders components straight to an HTML string; no client framework, no hydration."),
+    "hono-jsx-bun":   dict(name="Hono JSX on Bun", lang="TypeScript · Bun", group="template", feed_kb=11.4, version="Hono 4.13, Bun 1.4.3",
+                           how="The same Hono JSX app on Bun's native HTTP server."),
+    "honox":          dict(name="HonoX on Bun", lang="TypeScript · Bun", group="hydrate", feed_kb=14.6, version="HonoX 0.1.62, Hono 4.13, Bun 1.4.3",
+                           how="Hono's metaframework: file-based routes, hono/jsx rendered to a string, one island (the like button) hydrated in the browser; Vite build served by Bun."),
+    "go":             dict(name="Go html/template", lang="Go", group="template", feed_kb=10.5, version="Go 1.27, standard library",
+                           how="net/http + html/template parsed once at startup; contextual autoescaping by reflection over the data; GOMAXPROCS 2 (Go's floor)."),
+    "rails":          dict(name="Rails + ERB", lang="Ruby", group="template", feed_kb=14.0, version="Rails 8.1, Ruby 4.0 + YJIT, Puma 8",
+                           how="Rails 8 production defaults: one Puma process with 3 threads, ERB partials, cookie session + per-form CSRF tokens, request logging at info."),
+    "phoenix":        dict(name="Phoenix + HEEx", lang="Elixir", group="template", feed_kb=13.1, version="Phoenix 1.8, Elixir 1.20, OTP 29",
+                           how="Controllers render HEEx function components into iodata (no string concatenation); Bandit; cookie session + CSRF; gzip on by default."),
+    "laravel-octane": dict(name="Laravel Octane", lang="PHP", group="template", feed_kb=12.7, version="Laravel 13.35, Octane 2.21, FrankenPHP 1.13",
+                           how="The same Laravel app kept booted between requests by Octane on FrankenPHP (2 workers); no per-request framework boot, no nginx/FastCGI hop."),
+    "laravel-tuned":  dict(name="Laravel Octane (tuned)", lang="PHP", group="template", feed_kb=12.7, version="Laravel 13.35, Octane 2.21, FrankenPHP 1.13",
+                           how="Laravel Octane after profiling: keep-alive to the API, cookie sessions instead of files, no XSRF cookie, Blade timestamp checks off, fewer Octane listeners, OPcache JIT, post card as an @include."),
+    "leptos":         dict(name="Leptos SSR", lang="Rust · WASM", group="hydrate", feed_kb=15.7, version="Leptos 0.8, Axum",
+                           how="Rust components rendered on the server (async mode) with hydration data for the WASM client; the full-stack Rust counterpart to Next.js."),
+    "sveltekit-tuned": dict(name="SvelteKit (fixed)", lang="TypeScript · Node", group="hydrate", feed_kb=17.0, version="SvelteKit 3.0, Svelte 5.57",
+                           how="SvelteKit with one line moved: the date formatter (Intl.DateTimeFormat) is created once per process instead of once per post card."),
+    "astro-tuned":    dict(name="Astro (fixed)", lang="TypeScript · Node", group="template", feed_kb=14.3, version="Astro 7.3, @astrojs/node 11",
+                           how="Astro with one line moved: the date formatter (Intl.DateTimeFormat) is created once per process instead of once per post card."),
+    "spring-tuned":   dict(name="Spring Boot (AOT cache)", lang="Java", group="template", feed_kb=10.5, version="Spring Boot 4.1, JDK 25 AOT cache",
+                           how="Spring with the JDK 25 AOT cache (Spring Boot's documented recipe), so a fresh container isn't stuck JIT-compiling during its first minute."),
+    "django-tuned":   dict(name="Django (tuned)", lang="Python", group="template", feed_kb=14.0, version="Django 6.1 + Jinja2 backend, Python 3.14",
+                           how="Django with its built-in Jinja2 backend and a precompiled standard library (the 2 s healthcheck was recompiling urllib/email every time)."),
+    "flask-tuned":    dict(name="Flask (precompiled stdlib)", lang="Python", group="template", feed_kb=10.5, version="Flask 3.1, Python 3.14, gunicorn 26",
+                           how="Flask with only a precompiled standard library, so the 2 s healthcheck stops recompiling urllib/email from source (~20% of the CPU budget)."),
+    "aspnet-tuned":   dict(name="ASP.NET (tuned)", lang="C#", group="template", feed_kb=16.4, version=".NET 10, Razor Pages",
+                           how="ASP.NET with thread-pool spinning off, precompiled (ReadyToRun) publish, background GC off and invariant globalization."),
+    "remix-bun":      dict(name="React Router 7 on Bun", lang="TypeScript · Bun", group="hydrate", feed_kb=18.9, version="React Router 7.18, React 19.3, Bun 1.4.3",
+                           how="The same React Router 7 app as remix, served by Bun.serve through react-router's Web Request/Response handler (no Express, no gzip, no request log)."),
     "nextjs-csr":     dict(name="Next.js static (CSR)", lang="TypeScript · nginx", group="static", feed_kb=7.3, version="Next.js 16.4 export + nginx 1.27",
                            how="Static HTML/JS from nginx; the browser fetches JSON through nginx's /api proxy and renders it. The server renders nothing."),
+}
+
+# Capped stacks: a CPU/memory-based projection of the real limit (sim/predict.py and the cap run's numbers), shown as
+# an estimate next to the measured score, never instead of it.
+ESTIMATES = {
+    "rust-axum": dict(users=50000, why="30,000-user hold at 54% web CPU, 51% API CPU, 1,053 MiB: CPU reaches 95% near "
+                      "52,000, memory (~33 KB per connection) runs out near 58,000, the shared API near 56,000"),
+    "nextjs-csr": dict(users=42000, why="one 30,000-user run, p95 41 ms: nginx (the web box) at 67% of its vCPU, the API at "
+                       "47%: nginx reaches 95% near 42,000-43,000, the API near 60,000"),
 }
 
 pct = lambda s: float(s.rstrip("%")) if s else None
@@ -83,7 +132,13 @@ for r in sorted((r for r in all_rows if r.get("mem_per_server", "2g") != "2g"), 
         web_mem_peak=num(x["web_mem_peak_mib"]))
     ram_check.append(dict(id=r["variant"], users=int(r["users"]), run=r["hold"], base=side(b), more=side(r)))
 by = {}
+fixed = {}                                                                     # sim/fixed-load.sh: same 400 users for all
 for r in rows:
+    if r["hold"] == "3m":
+        if r["cpus_per_server"] == "0.4":
+            if r["variant"] not in fixed or r["run"] > fixed[r["variant"]]["run"]:
+                fixed[r["variant"]] = r                                        # latest run wins
+        continue
     by.setdefault((r["variant"], r["cpus_per_server"]), []).append(r)
 
 variants = []
@@ -101,15 +156,16 @@ for key, meta in VARIANTS.items():
     fails = sorted((r for r in rs if r["verdict"] == "FAIL" and int(r["users"]) > users), key=lambda r: int(r["users"]))
     web_cpu = pct(h["web_cpu_load_avg"])
     req_s = int(h["req_s"])
+    capped = users >= 16000 and not fails            # passed the search's cap (16,000, later 30,000) with no failure above
     entry.update(
-        status="done", users=users, capped=users >= 16000, req_s=req_s,
+        status="done", users=users, capped=capped, req_s=req_s, estimate=ESTIMATES.get(key),
         p95=int(h["p95_ms"]), p99=int(h["p99_ms"]), errors=float(h["errors_pct"]),
         web_cpu=web_cpu, web_cpu_of_vcpu=pct(h["web_cpu_of_quota"]), web_mem_peak=num(h["web_mem_peak_mib"]),
         api_cpu=pct(h["api_cpu_load_avg"]), api_cpu_of_vcpu=pct(h["api_cpu_of_quota"]), api_mem_peak=num(h["api_mem_peak_mib"]),
         # CPU time per request at the score (web box): cores used / requests per second, in ms
         # web requests only: smart-load.js sends ~48% of its requests (live like counts) straight to the API box
         cpu_ms_per_req=round(web_cpu / 100 / (req_s * meta.get("web_share", 1.0)) * 1000, 2) if web_cpu and req_s else None,
-        best_2m=best_2m, hold_drop_pct=0 if users >= 16000 else (round((best_2m - users) / best_2m * 100) if best_2m and best_2m > users else 0),
+        best_2m=best_2m, hold_drop_pct=0 if capped else (round((best_2m - users) / best_2m * 100) if best_2m and best_2m > users else 0),
         first_fail=dict(users=int(fails[0]["users"]), run=fails[0]["hold"], p95=int(fails[0]["p95_ms"]),
                         p99=int(fails[0]["p99_ms"]), errors=float(fails[0]["errors_pct"])) if fails else None,
         steps=[dict(users=int(r["users"]), run=r["hold"], ok=r["verdict"] == "PASS", p95=int(r["p95_ms"]), p99=int(r["p99_ms"]))
@@ -125,8 +181,13 @@ data = dict(
     nextjs_one_core=dict(users=int(one_core[-1]["users"]), req_s=int(one_core[-1]["req_s"])) if one_core else None,
     api_throughput=dict(feed_rps=39400, post_rps=177600),
     ram_check=ram_check,
+    # sim/fixed-load.sh: every variant at the same 400 users (3-minute run), for a same-load latency comparison
+    fixed_load={v: dict(users=int(r["users"]), ok=r["verdict"] == "PASS", req_s=int(r["req_s"]), med=int(r["med_ms"]),
+                        p95=int(r["p95_ms"]), p99=int(r["p99_ms"]), errors=float(r["errors_pct"]),
+                        web_cpu_of_vcpu=pct(r["web_cpu_of_quota"]), web_mem=num(r["web_mem_load_avg_mib"]))
+                for v, r in sorted(fixed.items())},
     setup=dict(cpus="0.4 vCPU", mem="2 GB, no swap", thresholds="p95 < 500 ms, p99 < 1 s, errors < 1%",
-               hold="5 minutes", cap=16000, host="Intel i7-12700K performance cores"),
+               hold="5 minutes", cap=30000, host="Intel i7-12700K performance cores"),
 )
 blob = json.dumps(data, separators=(",", ":"))
 for name in ("analysis", "deck"):

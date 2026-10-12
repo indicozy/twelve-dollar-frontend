@@ -44,6 +44,19 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
 .bar .val { position: absolute; top: 50%; transform: translateY(-50%); font: 500 17px var(--font-data); color: var(--ink); white-space: nowrap }
 .bar.hl .name { font-weight: 600 }
 .bars.dense { gap: 3px; flex: none } .bars.dense .bar { font-size: 15px } .bars.dense .track { height: 18px } .bars.dense .val { font-size: 14px }
+.bars.dense.two { grid-template-columns: 1fr 1fr; grid-auto-flow: column; column-gap: 30px } .bars.dense.two .bar { grid-template-columns: 190px 1fr; font-size: 14px }
+.hub { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; margin-top: 6px }
+.hub .box { border-width: 1.5px; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 4px }
+.hub .x { font: 600 46px/1 var(--font-data); letter-spacing: -.02em }
+.hub h3 { font-size: 21px } .hub .r { display: flex; justify-content: space-between; gap: 6px; font: 400 14px/1.5 var(--font-data); color: var(--ink-2) }
+.hub .r span:first-child { font-family: var(--font-body) }
+.hub .c { margin-top: auto; padding-top: 8px; font-size: 14px; line-height: 1.4; color: var(--ink-3) }
+.center { display: inline-block; border: 2px solid var(--ink); padding: 6px 14px; font: 600 20px var(--font-data) }
+table.fx { border-collapse: collapse; font-size: 18px; width: 100% } table.fx td, table.fx th { padding: 7px 10px; border-bottom: 1px solid var(--rule); text-align: right }
+table.fx th { font: 600 15px var(--font-data); color: var(--ink-3); text-transform: uppercase; letter-spacing: .05em }
+table.fx td:first-child, table.fx td:nth-child(2), table.fx th:first-child, table.fx th:nth-child(2) { text-align: left }
+table.fx td { font-family: var(--font-data) } table.fx td:first-child, table.fx td:nth-child(2) { font-family: var(--font-body) }
+.pdf { cursor: pointer; position: fixed; left: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); font: 500 14px var(--font-data); color: var(--ink); background: var(--stage); border: 1px solid var(--rule); padding: 8px 12px; text-decoration: none; z-index: 5 }
 .legend { display: flex; gap: 26px; font-size: 16px; color: var(--ink-2) }
 .legend i { display: inline-block; width: 13px; height: 13px; border-radius: 2px; margin-right: 8px; vertical-align: -1px }
 .steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px }
@@ -61,14 +74,22 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
 .nav { position: fixed; right: 16px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); display: flex; gap: 8px; z-index: 5 }
 .nav button { font: 500 14px var(--font-data); background: var(--stage); color: var(--ink); border: 1px solid var(--rule); padding: 8px 12px; cursor: pointer }
 .nav button:focus-visible { outline: 2px solid var(--hydrate) }
+@page { size: 1280px 720px; margin: 0 }
+@media print {
+  html, body { height: auto; overflow: visible; padding: 0; background: var(--stage) }
+  .viewport { display: block; height: auto } .stage { transform: none !important; box-shadow: none; height: auto; width: 1280px }
+  .slide { display: flex !important; position: relative; box-sizing: border-box; width: 1280px; height: 720px; break-after: page; page-break-after: always }
+  .slide:last-of-type { break-after: auto; page-break-after: auto }
+  .foot, .nav, .pdf { display: none }
+}
 </style>
 
 <div class="viewport"><div class="stage" id="stage">
 
 <section class="slide">
-  <span class="kicker">Benchmark · 22 stacks · 1 small server</span>
+  <span class="kicker">Benchmark · <span data-count></span> stacks · 1 small server</span>
   <h1>How many users can your frontend serve on a $12 server?</h1>
-  <p class="sub">Same site, same API, same tiny box. Only the frontend changes: Next.js, Remix, SvelteKit, Nuxt, Angular and friends, plus Express, Flask, Django, ASP.NET, Laravel, Spring and Rust.</p>
+  <p class="sub">Same site, same API, same tiny box. Only the frontend changes: Next.js, Remix, TanStack, SvelteKit, Nuxt, Angular and friends, plus Express and Hono on Node and Bun, Flask, Django, Rails, Laravel, Spring, ASP.NET, Phoenix, Go and Rust.</p>
 </section>
 
 <section class="slide">
@@ -98,42 +119,49 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
 
 <section class="slide">
   <span class="kicker">Finding the limit</span>
-  <h2>Probe, bisect, then hold for 5 minutes</h2>
-  <p class="note">A 20-second throughput probe guesses a start. 2-minute runs jump ±25% to bracket the limit and bisect it down to 100 users. The score is the most users that pass a <b>5-minute hold</b>. Express, in order:</p>
+  <h2>Read the bottleneck, step 10%, hold 5 minutes</h2>
+  <p class="note">A 2-minute test run shows which CPU is busiest; the search jumps to where it would reach 95%, then moves ±10% per run (bisecting if a jump overshoots). The score is the most users that pass a <b>5-minute hold</b>, stepping down 10% from the best 2-minute pass. React Router on Bun, in order:</p>
   <div class="path" id="path-express"></div>
-  <p class="note">Struck through = failed. Bold = a 5-minute hold. Note 8,000 passed for 2 minutes but not for 5: sustained load is harder.</p>
+  <p class="note">Struck through = failed. Bold = a 5-minute hold. 2,900 passed for 2 minutes but not for 5: sustained load is harder. Searches stop at 30,000 users; above that we estimate.</p>
 </section>
 
 <section class="slide" data-chart="react">
   <span class="kicker">Results · the React family</span>
   <h2 id="react-title">Same React, very different results</h2>
   <div class="legend" data-legend></div>
-  <div class="bars" data-bars="nextjs,nextjs-cached,remix,tanstack-start"></div>
+  <div class="bars" data-bars="nextjs,nextjs-tuned,nextjs-cached,remix,remix-bun,tanstack-start"></div>
   <p class="note">Next.js App Router renders React Server Components to a serialized tree, renders that to HTML, and inlines the tree in the page. Remix and TanStack Start render the same components in one pass.</p>
 </section>
 
 <section class="slide">
+  <span class="kicker">Next.js at the centre · plain Next.js = <span data-v="nextjs:users"></span> users</span>
+  <h2>Five ways to make Next.js serve more</h2>
+  <div class="hub" id="hub"></div>
+  <p class="note">Tuning Next.js itself (1.6×) beats switching runtime (1.4×). A proxy cache gives 24× for anonymous pages, and the big multiples need a different framework or language.</p>
+</section>
+
+<section class="slide">
   <span class="kicker">Caching Next.js</span>
-  <h2>Caching buys 7×, then hits a wall</h2>
+  <h2>Cache inside Next.js: 7×. In front of it: 24×</h2>
   <div class="legend" data-legend></div>
-  <div class="bars" data-bars="nextjs,nextjs-cached,nextjs-fullcache,nextjs-smart,express"></div>
-  <p class="note">A stored page costs Next.js about 0.40 ms of CPU, the same as Express rendering from scratch. What's left: every new post is a full render on first view, writes go through route handlers (5× Express), pages are 3× larger, and background regeneration and GC stall the single thread, so p99 breaks first.</p>
+  <div class="bars" data-bars="nextjs,nextjs-cached,nextjs-fullcache,nextjs-smart,nextjs-nginx-cache,express"></div>
+  <p class="note">Inside Next.js, a stored page is cheap, but new posts, writes through route handlers, 39 KB pages and GC pauses set a ceiling. An nginx microcache (feed 1 s, posts 5 s, anonymous only) answers hits without waking Node at all.</p>
 </section>
 
 <section class="slide">
   <span class="kicker">Switching the runtime</span>
-  <h2>Next.js on Bun: 1.4×, not 19×</h2>
+  <h2>Bun: 1.4× for Next.js, 2.6× for Express</h2>
   <div class="legend" data-legend></div>
-  <div class="bars" data-bars="nextjs,nextjs-bun,remix,express-nunjucks"></div>
-  <p class="note">The same Next.js app and production build, with only the server switched from Node to Bun: 700 users instead of 500, and 6.0 ms of CPU per request instead of 8.44. A faster runtime trims the cost of the same work. It doesn't remove the work: switching framework (Remix 2,500, Express + Nunjucks 9,700) moves the number much further.</p>
+  <div class="bars dense" data-bars="nextjs,nextjs-deno,nextjs-bun,remix,remix-bun,hono-jsx-node,hono-jsx-bun,express-nunjucks,express-bun"></div>
+  <p class="note">Same code, only the runtime changes. Bun's HTTP server and fetch are native code, so it helps most where the app's own work is small: Express and Hono gain 2.6-2.9×. Next.js gains 1.4× and React Router 4%: React's rendering is the same JavaScript on either runtime. Deno: no gain.</p>
 </section>
 
 <section class="slide">
   <span class="kicker">Results · other JS frameworks</span>
   <h2>Compiled string renderers lead</h2>
   <div class="legend" data-legend></div>
-  <div class="bars" data-bars="angular,qwik,nuxt,astro,sveltekit,solidstart"></div>
-  <p class="note">Angular builds a server-side DOM per request. Qwik serializes component state for resumability. Solid and Svelte compile components to string building.</p>
+  <div class="bars" data-bars="angular,qwik,nuxt,astro-tuned,solidstart,sveltekit-tuned,honox"></div>
+  <p class="note">Angular builds a server-side DOM per request. Qwik serializes component state for resumability. Solid and Svelte compile components to string building. SvelteKit and Astro shown after their one-line fix. HonoX (Bun) hydrates only islands: 32× Next.js.</p>
 </section>
 
 <section class="slide">
@@ -150,21 +178,21 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
   <span class="kicker">Results · other languages</span>
   <h2>Server templates in other languages</h2>
   <div class="legend" data-legend></div>
-  <div class="bars" data-bars="flask,django,laravel,spring,aspnet,rust-axum"></div>
-  <p class="note">These render HTML and stop: no data for hydration, zero JS. Rust hit the 16,000 cap at 45% CPU. Laravel boots the framework per request under PHP-FPM; Django pays for middleware that Flask skips; Flask is capped by 3 blocking workers.</p>
+  <div class="bars" data-bars="laravel-tuned,django-tuned,rails,flask-tuned,spring-tuned,aspnet-tuned,phoenix,leptos,go,rust-axum"></div>
+  <p class="note">Tuned versions shown. Go failed at 19,500 at 100% CPU. Rust held the 30,000 cap at 54% CPU; its estimated limit is about 50,000. Leptos hydrates like Next.js and still serves 31×.</p>
 </section>
 
 <section class="slide">
   <span class="kicker">Leaderboard</span>
   <h2>Users held for 5 minutes, 0.4 vCPU</h2>
   <div class="legend" data-legend></div>
-  <div class="bars dense" data-bars="all"></div>
+  <div class="bars dense two" data-bars="all"></div>
 </section>
 
 <section class="slide">
   <span class="kicker">Why</span>
   <h2>Every server ran out of CPU, not memory</h2>
-  <div class="bars dense" data-bars="all" data-key="cpu_ms_per_req"></div>
+  <div class="bars dense two" data-bars="all" data-key="cpu_ms_per_req"></div>
   <p class="note">CPU milliseconds per request at the score. At every server-rendered limit the API used 3-14% of its CPU while the frontend box sat at 95-100%. Score ≈ CPU budget ÷ CPU per request.</p>
 </section>
 
@@ -172,7 +200,7 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
   <span class="kicker">Why · where the CPU goes</span>
   <h2>What each request pays for</h2>
   <div class="cols">
-    <div><h3>Two renders + a payload</h3><p>Next.js: RSC tree, then HTML from the tree, then a ~28 KB inlined payload, then gzip. 46 KB feed page.</p></div>
+    <div><h3>Machinery around React</h3><p>Next.js: stream plumbing 22%, sockets 12%, GC 11%, actual React rendering ~25%. Plus a ~28 KB inlined RSC payload in a 46 KB page.</p></div>
     <div><h3>A DOM on the server</h3><p>Angular builds and serializes a document per request, plus hydration annotations and a transfer cache.</p></div>
     <div><h3>State serialization</h3><p>Qwik writes ~12 KB of component state for resumability; Nuxt, Remix, TanStack and Solid embed 4-7 KB of data.</p></div>
     <div><h3>Strings</h3><p>Solid, Svelte, EJS, Askama, Razor: compiled templates that append strings. The cheapest way to make HTML.</p></div>
@@ -180,22 +208,18 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
 </section>
 
 <section class="slide">
-  <span class="kicker">Sustained load</span>
-  <h2>2 minutes isn't 5 minutes</h2>
-  <div class="row" style="gap:60px;align-items:flex-end">
-    <div><div class="big num" data-v="sveltekit:best_2m"></div><p class="note">SvelteKit users passing a 2-minute run</p></div>
-    <div class="arrow" style="font-size:60px">→</div>
-    <div><div class="big num" style="color:var(--template)" data-v="sveltekit:users"></div><p class="note">users it held for 5 minutes</p></div>
-  </div>
-  <p class="note">Its memory grew to <span class="num" data-v="sveltekit:web_mem_peak"></span> MiB (Express: <span class="num" data-v="express:web_mem_peak"></span>). A large, growing heap means longer garbage collection on one core, which hits p99 first. That's why the video's rule of a 5-minute confirmation matters.</p>
+  <span class="kicker">Odd results</span>
+  <h2>Profile before you rewrite</h2>
+  <table class="fx" id="fixes"></table>
+  <p class="note">Each fix is one idiomatic change a team would ship. SvelteKit and Astro built a date formatter for every post card; moving one line more than doubled both.</p>
 </section>
 
 <section class="slide">
   <span class="kicker">The other option</span>
   <h2>Don't render on the server at all</h2>
   <div class="row" style="gap:60px;align-items:flex-end">
-    <div><div class="big num" style="color:var(--static)">16,000</div><p class="note">users at the cap we set (real limit higher)</p></div>
-    <div style="flex:1;min-width:0"><p class="note">Next.js as a static export behind nginx: the server sends 7 KB shells and JSON, the browser renders. Both boxes stayed far below their budget.</p><p class="note" style="margin-top:12px">The cost moves to every visitor's device, first paint waits for JS, and crawlers see an empty shell.</p></div>
+    <div><div class="big num" style="color:var(--static)">~42k</div><p class="note">users, estimated (30,000 measured: p95 41 ms)</p></div>
+    <div style="flex:1;min-width:0"><p class="note">Next.js as a static export behind nginx: the server sends 7 KB shells and JSON, the browser renders. At 30,000 users nginx used 67% of its vCPU and the API 47%.</p><p class="note" style="margin-top:12px">The cost moves to every visitor's device, first paint waits for JS, and crawlers see an empty shell.</p></div>
   </div>
 </section>
 
@@ -203,15 +227,16 @@ p.note { font-size: 19px; line-height: 1.5; color: var(--ink-2); margin: 0; max-
   <span class="kicker">Takeaways</span>
   <h2>What to take from this</h2>
   <div class="cols">
-    <div><h3>The renderer is the bottleneck</h3><p>With a fast API, the frontend's HTML renderer decides how many users a box can serve. Caching Next.js lifts it from <span class="num" data-v="nextjs:users"></span> to <span class="num" data-v="nextjs-smart:users"></span>, still under half of Express.</p></div>
-    <div><h3>Framework choice is 6× on the same Node</h3><p>From <span class="num" data-v="nextjs:users"></span> (Next.js) to <span class="num" data-v="solidstart:users"></span> (SolidStart), and <span class="num" data-v="express:users"></span> with no framework.</p></div>
-    <div><h3>Defaults matter</h3><p>RSC payloads, gzip in Node, per-request logging, CSRF tokens, sync workers: each shows up in the score.</p></div>
+    <div><h3>The renderer is the bottleneck</h3><p>With a fast API, the HTML renderer decides how many users a box serves: <span class="num" data-v="nextjs:users"></span> for Next.js, <span class="num" data-v="express-bun:users"></span> for Express on Bun, 30,000+ for Rust.</p></div>
+    <div><h3>For Next.js: cache in front, or change framework</h3><p>Tuning gives 1.6×, Bun 1.4×. An nginx microcache gives 24× for anonymous pages; React Router or TanStack 5×; server templates 19-60×.</p></div>
+    <div><h3>Profile first</h3><p>Seven stacks gained 1.1-3× from one fix each: a date formatter, a healthcheck, a JIT warm-up, session files.</p></div>
     <div><h3>Add CPU, not RAM</h3><p>Every server-rendered stack hit 95-100% CPU with most of its 2 GB unused.</p></div>
   </div>
 </section>
 
 <div class="foot"><span id="foot-l">Frontends on a $12 server</span><span id="foot-r"></span></div>
 </div></div>
+<button class="pdf" id="pdf" type="button" hidden>Download PDF</button>
 <div class="nav"><button id="prev" type="button" aria-label="Previous slide">←</button><button id="next" type="button" aria-label="Next slide">→</button></div>
 
 <script>
@@ -234,7 +259,7 @@ document.querySelectorAll("[data-bars]").forEach(el => {
   const items = ids.map(id => byId[id]).filter(Boolean);
   const done = items.filter(v => v.status === "done" && v[key] != null).sort((a, b) => b[key] - a[key]);
   const pending = items.filter(v => v.status !== "done");
-  const max = Math.max(...(el.dataset.bars === "all" ? done : V.filter(v => v.status === "done")).map(v => v[key]));
+  const max = Math.max(...done.map(v => v[key]));
   const val = v => key === "users" ? fmt(v.users) + (v.capped ? " (cap)" : "") : v[key].toFixed(2) + " ms";
   el.innerHTML = done.map(v => {
     const w = Math.max(0.4, v[key] / max * 86);
@@ -242,11 +267,46 @@ document.querySelectorAll("[data-bars]").forEach(el => {
   }).join("") + pending.map(v => `<div class="bar"><span class="name">${v.name}</span><span class="track"><span class="val" style="left:0;color:var(--ink-3)">${v.status}</span></span></div>`).join("");
 });
 
-const ex = byId.express;
+document.querySelectorAll("[data-count]").forEach(el => el.textContent = V.filter(v => v.status === "done").length);
+const NX = byId.nextjs.users;
+const HUB = [["Tune itself", ["nextjs-tuned"], "config: no staged render, props not trees"], ["Runtime", ["nextjs-bun", "nextjs-deno"], "same code on Bun / Deno"],
+  ["Cache", ["nextjs-nginx-cache", "nextjs-smart", "nextjs-cached"], "nginx in front; use cache / ISR inside"],
+  ["Same React, other framework", ["tanstack-start", "remix-bun", "remix"], "one render pass, small data blob"],
+  ["Other framework / language", ["rust-axum", "express-bun", "go", "leptos", "honox", "express-nunjucks"], "server templates; Leptos and HonoX hydrate"]];
+const SH = { "nextjs-tuned": "tuned", "nextjs-bun": "Bun", "nextjs-deno": "Deno", "nextjs-nginx-cache": "nginx cache", "nextjs-smart": "smart cache",
+  "nextjs-cached": "use cache", "tanstack-start": "TanStack", "remix-bun": "RR7 on Bun", "remix": "React Router 7", "rust-axum": "Rust", "express-bun": "Express, Bun",
+  "go": "Go", "leptos": "Leptos", "honox": "HonoX", "express-nunjucks": "Express, Node" };
+document.getElementById("hub").innerHTML = HUB.map(([t, ids, c]) => {
+  const vs = ids.map(id => byId[id]).filter(v => v?.status === "done"); const b = vs.length ? Math.max(...vs.map(v => v.users)) : 0; const m = b / NX;
+  return `<div class="box"><div class="x">${b ? (m < 10 ? m.toFixed(1) : Math.round(m)) + "×" + (vs.some(v => v.capped) ? "+" : "") : "…"}</div><h3>${t}</h3>${ids.map(id => byId[id]).filter(Boolean).map(v => `<div class="r"><span>${SH[v.id]}</span><span>${v.status === "done" ? fmt(v.users) + (v.capped ? "+" : "") : "…"}</span></div>`).join("")}<div class="c">${c}</div></div>`;
+}).join("");
+const FX = [["sveltekit", "sveltekit-tuned", "date formatter per post card"], ["astro", "astro-tuned", "the same formatter"], ["laravel", "laravel-tuned", "file sessions, cookies, API connection per request"],
+  ["spring", "spring-tuned", "cold JIT → JDK AOT cache"], ["django", "django-tuned", "healthcheck recompiling Python, + Jinja2"], ["flask", "flask-tuned", "healthcheck recompiling Python"],
+  ["aspnet", "aspnet-tuned", "idle thread-pool spinning"], ["nextjs", "nextjs-tuned", "unused staged/prefetch renders"]];
+document.getElementById("fixes").innerHTML = `<tr><th>Stack</th><th>Cause</th><th>Before</th><th>After</th><th>Gain</th></tr>` + FX.map(([a, b, c]) => {
+  const ok = byId[b]?.status === "done";
+  return `<tr><td>${byId[a].name}</td><td>${c}</td><td>${fmt(byId[a].users)}</td><td>${ok ? fmt(byId[b].users) : "…"}</td><td>${ok ? (byId[b].users / byId[a].users + 1e-9).toFixed(1) + "×" : ""}</td></tr>`; }).join("");
+document.querySelectorAll(".bars.two").forEach(el => el.style.gridTemplateRows = `repeat(${Math.ceil(el.children.length / 2)}, auto)`);
+
+const ex = byId["remix-bun"];
 document.getElementById("path-express").innerHTML = (ex?.steps || []).map(s => `<span class="${s.ok ? "ok" : "no"} ${s.run === "5m" ? "hold" : ""}">${fmt(s.users)}${s.run === "5m" ? " · 5 min" : ""}</span>`).join("");
 
 const nx = byId.nextjs, rx = byId.remix;
 if (nx?.users && rx?.users) document.getElementById("react-title").textContent = `Same React, ${Math.round(rx.users / nx.users)}× apart`;
+
+// ---------- PDF download (viewer's confirmation; hidden where saves aren't available)
+(async () => {
+  const dl = await window.claude?.use?.("downloads").catch(() => null);
+  const btn = document.getElementById("pdf");
+  if (!dl) return;
+  btn.hidden = false;
+  btn.onclick = async () => {
+    btn.disabled = true;
+    try { const blob = await (await fetch("deck.pdf")).blob(); await dl.save({ filename: "frontends-on-a-12-dollar-server.pdf", data: blob }); }
+    catch (e) { if (e?.code === "unavailable" || e?.code === "not_granted") btn.hidden = true; }
+    finally { btn.disabled = false; }
+  };
+})();
 
 // ---------- navigation and scaling
 const slides = [...document.querySelectorAll(".slide")];
