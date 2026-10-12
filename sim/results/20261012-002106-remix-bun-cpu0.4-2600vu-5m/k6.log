@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-a3dabc3709eb Creating 
+ Container perf-sim-k6-run-a3dabc3709eb Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=188.29ms
+    ✓ 'p(99)<1000' p(99)=463.93ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 96763   241.906065/s
+    checks_succeeded...: 100.00% 96763 out of 96763
+    checks_failed......: 0.00%   0 out of 96763
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=41.91ms med=8.88ms p(95)=188.29ms p(99)=463.93ms max=898.43ms
+      { expected_response:true }...: avg=41.91ms med=8.88ms p(95)=188.29ms p(99)=463.93ms max=898.43ms
+    http_req_failed................: 0.00%  0 out of 96763
+    http_reqs......................: 96763  241.906065/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.71s  med=20.68s p(95)=26.42s   p(99)=28.29s   max=33.04s  
+    iterations.....................: 43257  108.141858/s
+    vus............................: 4      min=4          max=2600
+    vus_max........................: 2600   min=2600       max=2600
+
+    NETWORK
+    data_received..................: 1.1 GB 2.7 MB/s
+    data_sent......................: 8.9 MB 22 kB/s
+
+
+

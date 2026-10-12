@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-afda5e2415d0 Creating 
+ Container perf-sim-k6-run-afda5e2415d0 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=449.69µs
+    ✓ 'p(99)<1000' p(99)=710.56µs
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9749    34.827041/s
+    checks_succeeded...: 100.00% 9749 out of 9749
+    checks_failed......: 0.00%   0 out of 9749
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ create 201
+    ✓ like 200/201
+
+    HTTP
+    http_req_duration..............: avg=290.53µs med=269.87µs p(95)=449.69µs p(99)=710.56µs max=15.08ms
+      { expected_response:true }...: avg=290.53µs med=269.87µs p(95)=449.69µs p(99)=710.56µs max=15.08ms
+    http_req_failed................: 0.00%  0 out of 9749
+    http_reqs......................: 9749   34.827041/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.82s   med=20.86s   p(95)=26.48s   p(99)=28.29s   max=32.82s 
+    iterations.....................: 4322   15.439786/s
+    vus............................: 7      min=7         max=400
+    vus_max........................: 400    min=400       max=400
+
+    NETWORK
+    data_received..................: 55 MB  196 kB/s
+    data_sent......................: 885 kB 3.2 kB/s
+
+
+

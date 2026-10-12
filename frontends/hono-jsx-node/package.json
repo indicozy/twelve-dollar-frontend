@@ -1,0 +1,23 @@
+{
+  "name": "hono-jsx-node",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "NODE_ENV=production node dist/index.js"
+  },
+  "dependencies": {
+    "@hono/node-server": "2.1.4",
+    "hono": "4.13.13"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "7.0.2"
+  },
+  "packageManager": "pnpm@10.8.0",
+  "engines": {
+    "node": ">=24"
+  }
+}

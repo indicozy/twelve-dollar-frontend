@@ -1,0 +1,11 @@
+<%= form_with url: create_post_path, class: "compose" do %>
+<textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+<div>
+<% if @error %><span class="error"><%= @error %></span><% else %><span class="muted">max 500 chars</span><% end %>
+<button type="submit">Post</button>
+</div>
+<% end %>
+<h1>Latest</h1>
+<section class="feed">
+<%= render partial: "posts/post", collection: @posts, as: :post, locals: { link: true } %>
+</section>

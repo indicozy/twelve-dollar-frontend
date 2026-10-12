@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed · Rails</title>
+<meta name="description" content="SSR benchmark app: Ruby on Rails + ERB frontend over a Rust + SQLite feed API">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<header class="top">
+<a href="/" class="brand">feed<span>.</span></a>
+<span class="stack">rails</span>
+<nav><% if current_username %><span class="who">@<%= current_username %></span><% else %><a href="/login">Sign in</a><% end %></nav>
+</header>
+<main>
+<%= yield %>
+</main>
+</body>
+</html>

@@ -1,0 +1,167 @@
+== 13:21:47 building leptos 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.50kB done
+#2 DONE 0.1s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 899B done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/rust:1.90.0-slim-bookworm
+#6 DONE 1.5s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.5s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 148B done
+#7 DONE 0.1s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 107B done
+#8 DONE 0.1s
+
+#9 [api build  1/10] FROM docker.io/library/rust:1.90.0-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#9 DONE 0.0s
+
+#10 [api stage-1 1/6] FROM docker.io/library/debian:bookworm-slim
+#10 DONE 0.0s
+
+#11 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#11 DONE 0.0s
+
+#12 [api internal] load build context
+#12 transferring context: 809B done
+#12 DONE 0.1s
+
+#13 [web internal] load build context
+#13 transferring context: 1.08kB done
+#13 DONE 0.1s
+
+#14 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#14 CACHED
+
+#15 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#15 CACHED
+
+#16 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#16 CACHED
+
+#17 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#17 CACHED
+
+#18 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#18 CACHED
+
+#19 [api build 5/6] COPY src ./src
+#19 CACHED
+
+#20 [api build 2/6] WORKDIR /src
+#20 CACHED
+
+#21 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#21 CACHED
+
+#22 [web build  5/10] RUN rustup show active-toolchain && rustup target add wasm32-unknown-unknown
+#22 CACHED
+
+#23 [web build 10/10] RUN cargo leptos build --release && ls -la target/site target/site/pkg
+#23 CACHED
+
+#24 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 && rm -rf /var/lib/apt/lists/*
+#24 CACHED
+
+#25 [web stage-1 4/6] COPY --from=build /src/target/release/feed-leptos /usr/local/bin/feed-leptos
+#25 CACHED
+
+#26 [web build  2/10] RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates curl && rm -rf /var/lib/apt/lists/*  && curl -fsSL "https://github.com/leptos-rs/cargo-leptos/releases/download/v0.3.11/cargo-leptos-x86_64-unknown-linux-musl.tar.gz"     | tar -xz --strip-components=1 -C /usr/local/cargo/bin cargo-leptos-x86_64-unknown-linux-musl/cargo-leptos
+#26 CACHED
+
+#27 [web build  6/10] COPY Cargo.toml Cargo.lock ./
+#27 CACHED
+
+#28 [web build  3/10] WORKDIR /src
+#28 CACHED
+
+#29 [web stage-1 5/6] COPY --from=build /src/target/site ./site
+#29 CACHED
+
+#30 [web build  9/10] COPY src ./src
+#30 CACHED
+
+#31 [web build  7/10] RUN mkdir src && touch src/lib.rs && echo 'fn main(){}' > src/main.rs && cargo fetch --locked && rm -rf src
+#31 CACHED
+
+#32 [web build  8/10] COPY public ./public
+#32 CACHED
+
+#33 [web stage-1 3/6] WORKDIR /app
+#33 CACHED
+
+#34 [web build  4/10] COPY rust-toolchain.toml ./
+#34 CACHED
+
+#35 [web stage-1 6/6] COPY Cargo.toml ./
+#35 CACHED
+
+#36 [api] exporting to image
+#36 exporting layers done
+#36 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 0.0s done
+#36 naming to docker.io/library/perf-sim-api 0.0s done
+#36 DONE 0.1s
+
+#37 [web] exporting to image
+#37 exporting layers done
+#37 writing image sha256:8d9bc4641c3e36035f773618bee648b375c9de248343108174917c6431d439f8 0.0s done
+#37 naming to docker.io/library/perf-sim-web 0.0s done
+#37 DONE 0.1s
+
+#38 [api] resolving provenance for metadata file
+#38 DONE 0.0s
+
+#39 [web] resolving provenance for metadata file
+#39 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 1604 req/s saturated on / -> start at about 13076 users
+== search (start 13000, step 100, cap 16000)
+PASS  13000 users 2m  1080 req/s  med 1ms  p95 43ms  p99 77ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 399 MiB avg / 402 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 10%, mem 65 MiB avg / 68 MiB peak
+FAIL  16000 users 2m  1315 req/s  med 24ms  p95 580ms  p99 1200ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 555 MiB avg / 557 MiB peak  |  api cpu 7% under load (18% of its vCPU), peak 10%, mem 100 MiB avg / 103 MiB peak
+PASS  14500 users 2m  1206 req/s  med 0ms  p95 53ms  p99 123ms  errors 0%  |  web cpu 38% under load (96% of its vCPU), peak 42%, mem 445 MiB avg / 448 MiB peak  |  api cpu 7% under load (19% of its vCPU), peak 10%, mem 74 MiB avg / 77 MiB peak
+PASS  15200 users 2m  1262 req/s  med 1ms  p95 86ms  p99 199ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 469 MiB avg / 474 MiB peak  |  api cpu 7% under load (19% of its vCPU), peak 11%, mem 74 MiB avg / 77 MiB peak
+PASS  15600 users 2m  1292 req/s  med 21ms  p95 206ms  p99 381ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 493 MiB avg / 496 MiB peak  |  api cpu 8% under load (19% of its vCPU), peak 10%, mem 82 MiB avg / 84 MiB peak
+PASS  15800 users 2m  1309 req/s  med 6ms  p95 173ms  p99 323ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 501 MiB avg / 502 MiB peak  |  api cpu 7% under load (18% of its vCPU), peak 11%, mem 84 MiB avg / 86 MiB peak
+PASS  15900 users 2m  1314 req/s  med 15ms  p95 272ms  p99 479ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 515 MiB avg / 518 MiB peak  |  api cpu 8% under load (19% of its vCPU), peak 10%, mem 86 MiB avg / 89 MiB peak
+== confirm (5-minute holds, starting at 15900)
+FAIL  15900 users 5m  1449 req/s  med 113ms  p95 749ms  p99 1154ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 551 MiB avg / 555 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 10%, mem 101 MiB avg / 104 MiB peak
+PASS  11900 users 5m  1109 req/s  med 1ms  p95 38ms  p99 63ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 365 MiB avg / 370 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 11%, mem 64 MiB avg / 68 MiB peak
+PASS  13900 users 5m  1295 req/s  med 2ms  p95 62ms  p99 120ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 427 MiB avg / 431 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 10%, mem 76 MiB avg / 78 MiB peak
+PASS  14900 users 5m  1386 req/s  med 13ms  p95 136ms  p99 241ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 463 MiB avg / 467 MiB peak  |  api cpu 8% under load (19% of its vCPU), peak 12%, mem 78 MiB avg / 81 MiB peak
+PASS  15400 users 5m  1430 req/s  med 22ms  p95 166ms  p99 277ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 479 MiB avg / 491 MiB peak  |  api cpu 8% under load (19% of its vCPU), peak 11%, mem 79 MiB avg / 84 MiB peak
+FAIL  15600 users 5m  1430 req/s  med 45ms  p95 761ms  p99 1908ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 563 MiB avg / 614 MiB peak  |  api cpu 7% under load (18% of its vCPU), peak 10%, mem 73 MiB avg / 92 MiB peak
+PASS  15500 users 5m  1441 req/s  med 8ms  p95 186ms  p99 423ms  errors 0%  |  web cpu 38% under load (96% of its vCPU), peak 41%, mem 508 MiB avg / 519 MiB peak  |  api cpu 7% under load (17% of its vCPU), peak 10%, mem 89 MiB avg / 93 MiB peak
+SCORE leptos-cpu0.4: 15500 users
+== 14:41:57 leptos search exit 0

@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-dafb04509306 Creating 
+ Container perf-sim-k6-run-dafb04509306 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=173.83ms
+    ✓ 'p(99)<1000' p(99)=323.56ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 288203  1309.839076/s
+    checks_succeeded...: 100.00% 288203 out of 288203
+    checks_failed......: 0.00%   0 out of 288203
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=37.67ms med=6.68ms p(95)=173.83ms p(99)=323.56ms max=944.62ms
+      { expected_response:true }...: avg=37.67ms med=6.68ms p(95)=173.83ms p(99)=323.56ms max=944.62ms
+    http_req_failed................: 0.00%  0 out of 288203
+    http_reqs......................: 288203 1309.839076/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.82s  med=20.79s p(95)=26.66s   p(99)=28.7s    max=33.93s  
+    iterations.....................: 124817 567.2744/s
+    vus............................: 165    min=104         max=15800
+    vus_max........................: 15800  min=15800       max=15800
+
+    NETWORK
+    data_received..................: 2.4 GB 11 MB/s
+    data_sent......................: 27 MB  121 kB/s
+
+
+

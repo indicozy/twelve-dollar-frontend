@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-bde902bb2c22 Creating 
+ Container perf-sim-k6-run-bde902bb2c22 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=47.08ms
+    ✓ 'p(99)<1000' p(99)=109.59ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 215831  980.951666/s
+    checks_succeeded...: 100.00% 215831 out of 215831
+    checks_failed......: 0.00%   0 out of 215831
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=10.5ms med=1.35ms p(95)=47.08ms p(99)=109.59ms max=286.91ms
+      { expected_response:true }...: avg=10.5ms med=1.35ms p(95)=47.08ms p(99)=109.59ms max=286.91ms
+    http_req_failed................: 0.00%  0 out of 215831
+    http_reqs......................: 215831 980.951666/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.77s med=20.72s p(95)=26.62s  p(99)=28.69s   max=34.34s  
+    iterations.....................: 93406  424.530171/s
+    vus............................: 99     min=99          max=11800
+    vus_max........................: 11800  min=11800       max=11800
+
+    NETWORK
+    data_received..................: 1.2 GB 5.4 MB/s
+    data_sent......................: 20 MB  91 kB/s
+
+
+

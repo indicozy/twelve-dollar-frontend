@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-fc732a121ca1 Creating 
+ Container perf-sim-k6-run-fc732a121ca1 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=5.53ms
+    ✓ 'p(99)<1000' p(99)=33.56ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9820    35.071229/s
+    checks_succeeded...: 100.00% 9820 out of 9820
+    checks_failed......: 0.00%   0 out of 9820
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ create 201
+    ✓ like 200/201
+
+    HTTP
+    http_req_duration..............: avg=3.54ms med=2.73ms p(95)=5.53ms p(99)=33.56ms max=73.45ms
+      { expected_response:true }...: avg=3.54ms med=2.73ms p(95)=5.53ms p(99)=33.56ms max=73.45ms
+    http_req_failed................: 0.00%  0 out of 9820
+    http_reqs......................: 9820   35.071229/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.67s med=20.65s p(95)=26.4s  p(99)=28.65s  max=31.45s 
+    iterations.....................: 4336   15.485626/s
+    vus............................: 1      min=1         max=400
+    vus_max........................: 400    min=400       max=400
+
+    NETWORK
+    data_received..................: 56 MB  199 kB/s
+    data_sent......................: 893 kB 3.2 kB/s
+
+
+

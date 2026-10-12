@@ -1,0 +1,288 @@
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.63kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 153B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web stage-2 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#9 CACHED
+
+#10 [web stage-2 3/6] WORKDIR /app
+#10 CACHED
+
+#11 [web internal] load build context
+#11 transferring context: 119.80kB done
+#11 DONE 0.1s
+
+#12 [web build 2/7] WORKDIR /app
+#12 CACHED
+
+#13 [web build 3/7] RUN corepack enable
+#13 CACHED
+
+#14 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#14 DONE 0.2s
+
+#15 [web stage-2 4/6] COPY package.json ./
+#15 DONE 0.3s
+
+#16 [web prod-deps 5/5] RUN pnpm install --frozen-lockfile --prod
+#16 ...
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.0s
+
+#17 [api internal] load .dockerignore
+#17 transferring context: 107B done
+#17 DONE 0.1s
+
+#16 [web prod-deps 5/5] RUN pnpm install --frozen-lockfile --prod
+#16 0.423 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#16 ...
+
+#18 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#18 DONE 0.0s
+
+#19 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#19 DONE 0.0s
+
+#20 [api internal] load build context
+#20 transferring context: 809B done
+#20 DONE 0.1s
+
+#21 [api build 2/6] WORKDIR /src
+#21 CACHED
+
+#22 [api build 5/6] COPY src ./src
+#22 CACHED
+
+#23 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#23 CACHED
+
+#24 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#24 CACHED
+
+#25 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#25 CACHED
+
+#26 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#26 CACHED
+
+#27 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#27 CACHED
+
+#28 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#28 CACHED
+
+#29 [api] exporting to image
+#29 exporting layers done
+#29 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#29 naming to docker.io/library/perf-sim-api done
+#29 DONE 0.0s
+
+#30 [web build 5/7] RUN pnpm install --frozen-lockfile
+#30 0.375 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#30 ...
+
+#31 [api] resolving provenance for metadata file
+#31 DONE 0.0s
+
+#30 [web build 5/7] RUN pnpm install --frozen-lockfile
+#30 1.479 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#30 1.479 (Use `node --trace-deprecation ...` to show where the warning was created)
+#30 1.495 Lockfile is up to date, resolution step is skipped
+#30 1.512 Progress: resolved 1, reused 0, downloaded 0, added 0
+#30 1.543 Packages: +193
+#30 1.543 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#30 2.131 
+#30 2.131    ╭───────────────────────────────────────────────╮
+#30 2.131    │                                               │
+#30 2.131    │      Update available! 10.8.0 → 12.11.2.      │
+#30 2.131    │     Changelog: https://pnpm.io/v/12.11.2      │
+#30 2.131    │   To update, run: corepack use pnpm@12.11.2   │
+#30 2.131    │                                               │
+#30 2.131    ╰───────────────────────────────────────────────╯
+#30 2.131 
+#30 2.512 Progress: resolved 193, reused 0, downloaded 119, added 119
+#30 3.512 Progress: resolved 193, reused 0, downloaded 182, added 182
+#30 ...
+
+#16 [web prod-deps 5/5] RUN pnpm install --frozen-lockfile --prod
+#16 1.522 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#16 1.522 (Use `node --trace-deprecation ...` to show where the warning was created)
+#16 1.553 Lockfile is up to date, resolution step is skipped
+#16 1.567 Progress: resolved 1, reused 0, downloaded 0, added 0
+#16 1.586 Packages: +92
+#16 1.586 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#16 2.222 
+#16 2.222    ╭───────────────────────────────────────────────╮
+#16 2.222    │                                               │
+#16 2.222    │      Update available! 10.8.0 → 12.11.2.      │
+#16 2.222    │     Changelog: https://pnpm.io/v/12.11.2      │
+#16 2.222    │   To update, run: corepack use pnpm@12.11.2   │
+#16 2.222    │                                               │
+#16 2.222    ╰───────────────────────────────────────────────╯
+#16 2.222 
+#16 2.568 Progress: resolved 92, reused 0, downloaded 91, added 91
+#16 3.690 Progress: resolved 92, reused 0, downloaded 92, added 91
+#16 3.730 Progress: resolved 92, reused 0, downloaded 92, added 92, done
+#16 3.782 
+#16 3.782 dependencies:
+#16 3.782 + @react-router/node 7.18.4
+#16 3.782 + @react-router/serve 7.18.4
+#16 3.782 + isbot 5.2.2
+#16 3.782 + react 19.3.0
+#16 3.782 + react-dom 19.3.0
+#16 3.782 + react-router 7.18.4
+#16 3.782 
+#16 3.782 devDependencies: skipped
+#16 3.782 
+#16 3.794 Done in 2.5s using pnpm v10.8.0
+#16 DONE 4.1s
+
+#30 [web build 5/7] RUN pnpm install --frozen-lockfile
+#30 4.513 Progress: resolved 193, reused 0, downloaded 190, added 190
+#30 ...
+
+#32 [web stage-2 5/6] COPY --from=prod-deps /app/node_modules ./node_modules
+#32 DONE 0.3s
+
+#30 [web build 5/7] RUN pnpm install --frozen-lockfile
+#30 4.977 Progress: resolved 193, reused 0, downloaded 193, added 193, done
+#30 5.014 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#30 5.064 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#30 5.128 
+#30 5.128 dependencies:
+#30 5.128 + @react-router/node 7.18.4
+#30 5.128 + @react-router/serve 7.18.4
+#30 5.128 + isbot 5.2.2
+#30 5.128 + react 19.3.0
+#30 5.128 + react-dom 19.3.0
+#30 5.128 + react-router 7.18.4
+#30 5.128 
+#30 5.128 devDependencies:
+#30 5.128 + @react-router/dev 7.18.4
+#30 5.128 + @types/node 24.19.1
+#30 5.128 + @types/react 19.3.0
+#30 5.128 + @types/react-dom 19.3.0
+#30 5.128 + typescript 6.0.3
+#30 5.128 + vite 8.3.4
+#30 5.128 
+#30 5.140 Done in 3.8s using pnpm v10.8.0
+#30 DONE 5.5s
+
+#33 [web build 6/7] COPY . .
+#33 DONE 0.2s
+
+#34 [web build 7/7] RUN pnpm build
+#34 0.464 
+#34 0.464 > remix@ build /app
+#34 0.464 > react-router build
+#34 0.464 
+#34 0.814 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.885 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.913 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.926 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.941 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.952 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.964 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 0.967 vite v8.3.4 building client environment for production...
+#34 0.987 transforming...
+#34 1.150 ✓ 34 modules transformed.
+#34 1.189 rendering chunks...
+#34 1.232 computing gzip size...
+#34 1.237 build/client/.vite/manifest.json                  2.53 kB │ gzip:  0.51 kB
+#34 1.237 build/client/assets/root-ZC6nPY1p.css             3.29 kB │ gzip:  1.26 kB
+#34 1.237 build/client/assets/api.posts-BvRk9kiK.js         0.00 kB │ gzip:  0.02 kB
+#34 1.237 build/client/assets/api.posts.like-BvRk9kiK.js    0.00 kB │ gzip:  0.02 kB
+#34 1.237 build/client/assets/post-Bp_QHEUO.js              0.31 kB │ gzip:  0.24 kB
+#34 1.237 build/client/assets/login-DqQfQ67q.js             0.66 kB │ gzip:  0.38 kB
+#34 1.237 build/client/assets/post-card-CGynKti8.js         0.86 kB │ gzip:  0.45 kB
+#34 1.237 build/client/assets/home-CMtLEr3L.js              1.01 kB │ gzip:  0.59 kB
+#34 1.237 build/client/assets/root-1wqN6Nem.js              1.46 kB │ gzip:  0.66 kB
+#34 1.237 build/client/assets/jsx-runtime-DeiWTDx8.js     130.59 kB │ gzip: 43.09 kB
+#34 1.237 build/client/assets/entry.client-CGGi1YWK.js    214.80 kB │ gzip: 67.21 kB
+#34 1.237 
+#34 1.238 ✓ built in 271ms
+#34 1.243 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 1.248   ⚠️  Future Flag Warning: Route middleware support is changing in React Router v8.
+#34 1.248      You can use the `future.v8_middleware` flag to opt in early.
+#34 1.248      -> https://reactrouter.com/v7/upgrading/future#futurev8_middleware
+#34 1.248   ⚠️  Future Flag Warning: Route module splitting behavior is changing in React Router v8.
+#34 1.248      You can use the `future.v8_splitRouteModules` flag to opt in early.
+#34 1.248      -> https://reactrouter.com/v7/upgrading/future#futurev8_splitroutemodules
+#34 1.248   ⚠️  Future Flag Warning: Vite Environment API usage is changing in React Router v8.
+#34 1.248      You can use the `future.v8_viteEnvironmentApi` flag to opt in early.
+#34 1.248      -> https://reactrouter.com/v7/upgrading/future#futurev8_viteenvironmentapi
+#34 1.248   ⚠️  Future Flag Warning: Request handling behavior is changing in React Router v8.
+#34 1.248      You can use the `future.v8_passThroughRequests` flag to opt in early.
+#34 1.248      -> https://reactrouter.com/v7/upgrading/future#futurev8_passthroughrequests
+#34 1.248   ⚠️  Future Flag Warning: Data request URL formats are changing in React Router v8.
+#34 1.248      You can use the `future.v8_trailingSlashAwareDataRequests` flag to opt in early.
+#34 1.248      -> https://reactrouter.com/v7/upgrading/future#futurev8_trailingslashawaredatarequests
+#34 1.253 The `envFile` option is deprecated, please use `envDir: false` instead.
+#34 1.256 vite v8.3.4 building ssr environment for production...
+#34 1.261 transforming...
+#34 1.287 ✓ 16 modules transformed.
+#34 1.292 rendering chunks...
+#34 1.294 
+#34 1.294 ✓ 1 asset cleaned from React Router server build.
+#34 1.294 build/server/assets/server-build-ZC6nPY1p.css
+#34 1.294 
+#34 1.294 computing gzip size...
+#34 1.295 build/server/.vite/manifest.json                0.22 kB │ gzip: 0.15 kB
+#34 1.295 build/server/assets/server-build-ZC6nPY1p.css   3.29 kB │ gzip: 1.26 kB
+#34 1.295 build/server/index.js                          19.86 kB │ gzip: 5.52 kB
+#34 1.295 
+#34 1.295 ✓ built in 39ms
+#34 DONE 1.4s
+
+#35 [web stage-2 6/6] COPY --from=build /app/build ./build
+#35 DONE 0.2s
+
+#36 [web] exporting to image
+#36 exporting layers
+#36 exporting layers 0.3s done
+#36 writing image sha256:d1b69e0810e5d54ec6cadf708b8b4a0e9b7531f42991994972a10e3b405651b0 done
+#36 naming to docker.io/library/perf-sim-web 0.0s done
+#36 DONE 0.4s
+
+#37 [web] resolving provenance for metadata file
+#37 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

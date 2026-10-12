@@ -1,0 +1,81 @@
+[package]
+name = "feed-leptos"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.90"
+publish = false
+
+# Same layout as the official leptos-rs/start-axum template: one crate, built twice by cargo-leptos
+# (the server binary with `ssr`, the WASM client bundle with `hydrate`).
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+leptos = "=0.8.22"
+leptos_meta = "=0.8.7"
+leptos_router = "=0.8.17"
+serde = { version = "=1.0.229", features = ["derive"] }
+time = { version = "=0.3.55", features = ["parsing"] }
+
+# server only
+leptos_axum = { version = "=0.8.10", optional = true }
+axum = { version = "=0.8.9", optional = true }
+tokio = { version = "=1.53.2", features = ["rt-multi-thread", "macros", "net"], optional = true }
+reqwest = { version = "=0.13.5", default-features = false, optional = true }
+serde_json = { version = "=1.0.151", optional = true }
+hmac = { version = "=0.12.1", optional = true }
+sha2 = { version = "=0.10.9", optional = true }
+base64 = { version = "=0.22.1", optional = true }
+
+# client only
+console_error_panic_hook = { version = "=0.1.7", optional = true }
+wasm-bindgen = { version = "=0.2.129", optional = true }
+
+[features]
+hydrate = ["leptos/hydrate", "dep:console_error_panic_hook", "dep:wasm-bindgen"]
+ssr = [
+    "dep:leptos_axum",
+    "dep:axum",
+    "dep:tokio",
+    "dep:reqwest",
+    "dep:serde_json",
+    "dep:hmac",
+    "dep:sha2",
+    "dep:base64",
+    "leptos/ssr",
+    "leptos_meta/ssr",
+    "leptos_router/ssr",
+]
+
+# Server binary: same release profile as ../rust-axum.
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+debug = false
+
+# WASM client bundle: the template's size-optimized profile.
+[profile.wasm-release]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[package.metadata.leptos]
+output-name = "feed-leptos"
+site-root = "target/site"
+site-pkg-dir = "pkg"
+# shared/styles.css copied verbatim; served as a static file (not run through cargo-leptos' style pipeline,
+# which would minify it).
+assets-dir = "public"
+site-addr = "127.0.0.1:3000"
+reload-port = 3001
+browserquery = "defaults"
+env = "PROD"
+bin-features = ["ssr"]
+bin-default-features = false
+lib-features = ["hydrate"]
+lib-default-features = false
+lib-profile-release = "wasm-release"

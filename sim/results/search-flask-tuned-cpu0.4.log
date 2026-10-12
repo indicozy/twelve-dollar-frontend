@@ -1,0 +1,148 @@
+== 17:00:49 building flask-tuned 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.46kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/python:3.14.8-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 160B done
+#6 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web 1/9] FROM docker.io/library/python:3.14.8-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 18.09kB done
+#9 DONE 0.1s
+
+#10 [web 2/9] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [web 3/9] WORKDIR /app
+#11 CACHED
+
+#12 [web 4/9] COPY requirements.txt ./
+#12 CACHED
+
+#13 [web 5/9] RUN pip install --no-cache-dir -r requirements.txt
+#13 CACHED
+
+#14 [web 6/9] RUN python -m compileall -q /usr/local/lib/python3.14
+#14 ...
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.7s
+
+#15 [api internal] load .dockerignore
+#15 transferring context: 107B done
+#15 DONE 0.0s
+
+#16 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#16 DONE 0.0s
+
+#17 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#17 DONE 0.0s
+
+#18 [api internal] load build context
+#18 transferring context: 809B done
+#18 DONE 0.1s
+
+#14 [web 6/9] RUN python -m compileall -q /usr/local/lib/python3.14
+#14 ...
+
+#19 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#19 CACHED
+
+#20 [api build 5/6] COPY src ./src
+#20 CACHED
+
+#21 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#21 CACHED
+
+#22 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#22 CACHED
+
+#23 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#23 CACHED
+
+#24 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#24 CACHED
+
+#25 [api build 2/6] WORKDIR /src
+#25 CACHED
+
+#26 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#26 CACHED
+
+#27 [api] exporting to image
+#27 exporting layers done
+#27 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#27 naming to docker.io/library/perf-sim-api done
+#27 DONE 0.0s
+
+#28 [api] resolving provenance for metadata file
+#28 DONE 0.0s
+
+#14 [web 6/9] RUN python -m compileall -q /usr/local/lib/python3.14
+#14 DONE 2.5s
+
+#29 [web 7/9] COPY app.py gunicorn.conf.py ./
+#29 DONE 0.2s
+
+#30 [web 8/9] COPY templates ./templates
+#30 DONE 0.2s
+
+#31 [web 9/9] COPY static ./static
+#31 DONE 0.2s
+
+#32 [web] exporting to image
+#32 exporting layers 0.2s done
+#32 writing image sha256:50a995e4ae1df2ad8d442217db60029b710a1c359d3c4b436ed4fc38c84d0695 done
+#32 naming to docker.io/library/perf-sim-web 0.0s done
+#32 DONE 0.3s
+
+#33 [web] resolving provenance for metadata file
+#33 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 276 req/s saturated on / -> start at about 2250 users
+== search (start 2200, step 100, cap 16000)
+PASS  2200 users 2m  182 req/s  med 7ms  p95 84ms  p99 126ms  errors 0%  |  web cpu 38% under load (95% of its vCPU), peak 42%, mem 96 MiB avg / 106 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 39 MiB avg / 40 MiB peak
+PASS  2800 users 2m  231 req/s  med 59ms  p95 257ms  p99 335ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 98 MiB avg / 106 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 40 MiB avg / 44 MiB peak
+FAIL  3500 users 2m  258 req/s  med 1361ms  p95 2416ms  p99 2532ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 101 MiB avg / 108 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 41 MiB avg / 45 MiB peak
+FAIL  3100 users 2m  249 req/s  med 203ms  p95 941ms  p99 1126ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 99 MiB avg / 106 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 40 MiB avg / 45 MiB peak
+PASS  2900 users 2m  238 req/s  med 74ms  p95 311ms  p99 387ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 97 MiB avg / 106 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 40 MiB avg / 44 MiB peak
+FAIL  3000 users 2m  244 req/s  med 141ms  p95 517ms  p99 698ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 41%, mem 98 MiB avg / 106 MiB peak  |  api cpu 3% under load (7% of its vCPU), peak 5%, mem 40 MiB avg / 45 MiB peak
+== confirm (5-minute holds, starting at 2900)
+PASS  2900 users 5m  266 req/s  med 124ms  p95 427ms  p99 551ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 99 MiB avg / 110 MiB peak  |  api cpu 3% under load (6% of its vCPU), peak 5%, mem 46 MiB avg / 48 MiB peak
+SCORE flask-tuned-cpu0.4: 2900 users
+== 17:32:28 flask-tuned search exit 0

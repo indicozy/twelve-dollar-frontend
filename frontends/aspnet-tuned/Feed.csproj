@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <!-- ASP.NET Core Razor Pages on .NET 10 (LTS). No NuGet packages: everything used ships in the shared framework. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Feed</RootNamespace>
+  </PropertyGroup>
+
+  <!-- aspnet-tuned: runtime/publish settings for a 1-vCPU (0.4 quota) container. App code unchanged. -->
+  <PropertyGroup>
+    <!-- Precompile Feed.dll (incl. the Razor views) to native code at publish, like the framework assemblies already
+         are, so a fresh container doesn't spend its first minute JIT-compiling the app at Tier 0. Tiered compilation
+         and dynamic PGO stay on, so hot methods are still re-jitted to Tier 1. -->
+    <RuntimeIdentifier>linux-x64</RuntimeIdentifier>
+    <SelfContained>false</SelfContained>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <!-- With one CPU the runtime already picks workstation GC; also turn off background (concurrent) GC so no extra
+         GC thread competes for the single core. -->
+    <ConcurrentGarbageCollection>false</ConcurrentGarbageCollection>
+    <!-- Every format/parse in the app uses CultureInfo.InvariantCulture already; skip loading ICU. -->
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- SDK pin for builds, not a runtime file. -->
+    <Content Update="global.json" CopyToPublishDirectory="Never" />
+  </ItemGroup>
+
+</Project>

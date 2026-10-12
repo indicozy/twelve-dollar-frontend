@@ -1,0 +1,11 @@
+<.form for={%{}} action={~p"/actions/create"} class="compose">
+<textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+<div>
+<span :if={@error} class="error">{@error}</span><span :if={!@error} class="muted">max 500 chars</span>
+<button type="submit">Post</button>
+</div>
+</.form>
+<h1>Latest</h1>
+<section class="feed">
+<.post :for={post <- @posts} post={post} link />
+</section>

@@ -1,0 +1,245 @@
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.06kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 147B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web build 2/7] WORKDIR /app
+#9 CACHED
+
+#10 [web build 3/7] RUN corepack enable
+#10 CACHED
+
+#11 [web internal] load build context
+#11 transferring context: 100.08kB done
+#11 DONE 0.1s
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+#12 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.1s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 0.323 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#13 ...
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.1s
+
+#15 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#15 DONE 0.0s
+
+#16 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#16 DONE 0.0s
+
+#17 [api internal] load build context
+#17 transferring context: 809B done
+#17 DONE 0.1s
+
+#18 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#18 CACHED
+
+#19 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#19 CACHED
+
+#20 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#20 CACHED
+
+#21 [api build 5/6] COPY src ./src
+#21 CACHED
+
+#22 [api build 2/6] WORKDIR /src
+#22 CACHED
+
+#23 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#23 CACHED
+
+#24 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#24 CACHED
+
+#25 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#26 naming to docker.io/library/perf-sim-api done
+#26 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 1.412 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#13 1.412 (Use `node --trace-deprecation ...` to show where the warning was created)
+#13 1.428 Lockfile is up to date, resolution step is skipped
+#13 1.442 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 1.469 Packages: +178
+#13 1.469 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#13 1.639 
+#13 1.639    ╭───────────────────────────────────────────────╮
+#13 1.639    │                                               │
+#13 1.639    │      Update available! 10.8.0 → 12.11.2.      │
+#13 1.639    │     Changelog: https://pnpm.io/v/12.11.2      │
+#13 1.639    │   To update, run: corepack use pnpm@12.11.2   │
+#13 1.639    │                                               │
+#13 1.639    ╰───────────────────────────────────────────────╯
+#13 1.639 
+#13 2.442 Progress: resolved 178, reused 0, downloaded 133, added 133
+#13 3.442 Progress: resolved 178, reused 0, downloaded 175, added 175
+#13 4.442 Progress: resolved 178, reused 0, downloaded 177, added 177
+#13 4.598 Progress: resolved 178, reused 0, downloaded 178, added 178, done
+#13 4.670 
+#13 4.670 dependencies:
+#13 4.670 + @solidjs/router 1.0.0
+#13 4.670 + @solidjs/start 2.0.6
+#13 4.670 + solid-js 1.9.17
+#13 4.670 
+#13 4.670 devDependencies:
+#13 4.670 + @types/node 24.19.1
+#13 4.670 + nitro 3.0.260903-beta
+#13 4.670 + typescript 7.0.2
+#13 4.670 + vite 8.3.4
+#13 4.670 
+#13 4.683 Done in 3.5s using pnpm v10.8.0
+#13 DONE 5.2s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.456 
+#29 0.456 > solidstart@ build /app
+#29 0.456 > vite build
+#29 0.456 
+#29 0.905 vite v8.3.4 building client environment for production...
+#29 0.919 transforming...
+#29 1.523 ✓ 112 modules transformed.
+#29 1.561 rendering chunks...
+#29 1.588 computing gzip size...
+#29 1.612 .output/public/.vite/manifest.json                        3.17 kB │ gzip:  0.58 kB
+#29 1.612 .output/public/_build/assets/entry-client-CUdJqW-L.css   20.14 kB │ gzip:  4.24 kB
+#29 1.612 .output/public/_build/assets/HttpStatusCode-B-IXHum6.js   0.05 kB │ gzip:  0.07 kB
+#29 1.612 .output/public/_build/assets/_...404_-CjFCF1lq.js         0.07 kB │ gzip:  0.08 kB
+#29 1.612 .output/public/_build/assets/actions-BjJYINc0.js          0.18 kB │ gzip:  0.15 kB
+#29 1.612 .output/public/_build/assets/login-BlrK7Ixx.js            0.52 kB │ gzip:  0.36 kB
+#29 1.612 .output/public/_build/assets/_id_-BsgXsCFz.js             0.54 kB │ gzip:  0.35 kB
+#29 1.612 .output/public/_build/assets/NotFound-DdlCyJO5.js         0.71 kB │ gzip:  0.48 kB
+#29 1.612 .output/public/_build/assets/queries-BFesaHR9.js          0.88 kB │ gzip:  0.47 kB
+#29 1.612 .output/public/_build/assets/index-DxJS5A1p.js            1.08 kB │ gzip:  0.64 kB
+#29 1.612 .output/public/_build/assets/PostCard-DmEfkAXm.js         1.47 kB │ gzip:  0.73 kB
+#29 1.612 .output/public/_build/assets/entry-client-FXQZe9xd.js    15.72 kB │ gzip:  6.03 kB
+#29 1.612 .output/public/_build/assets/web-DCeOJoWG.js             18.99 kB │ gzip:  7.54 kB
+#29 1.612 .output/public/_build/assets/client-l3HY3GVu.js          52.06 kB │ gzip: 16.50 kB
+#29 1.612 
+#29 1.613 ✓ built in 707ms
+#29 1.613 vite v8.3.4 building ssr environment for production...
+#29 1.620 transforming...
+#29 2.911 ✓ 140 modules transformed.
+#29 2.939 rendering chunks...
+#29 2.954 computing gzip size...
+#29 2.957 node_modules/.nitro/vite/services/ssr/.vite/manifest.json                   2.73 kB │ gzip:  0.50 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/index-CUdJqW-L.css     20.14 kB │ gzip:  4.24 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/like-CfNWYXg3.js        0.31 kB │ gzip:  0.23 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/_...404_-CPxE6xPz.js    0.34 kB │ gzip:  0.19 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/NotFound-Cneqmtd2.js    0.45 kB │ gzip:  0.32 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/index-BQMH4ykS.js       0.50 kB │ gzip:  0.31 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/login-Cq6YmEIf.js       0.84 kB │ gzip:  0.49 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/_id_-C4XBO_tl.js        1.07 kB │ gzip:  0.52 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/PostCard-CjW7YQtw.js    1.44 kB │ gzip:  0.63 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/_build/assets/index-iEfYmfJQ.js       1.64 kB │ gzip:  0.79 kB
+#29 2.957 node_modules/.nitro/vite/services/ssr/index.js                            262.26 kB │ gzip: 67.38 kB
+#29 2.957 
+#29 2.958 ✓ built in 1.34s
+#29 2.958 
+#29 2.965 [nitro] ◐ Building [Nitro] (preset: node-server, compatibility: 2026-10-11)
+#29 2.966 [nitro] ✔ Generated public .output/public
+#29 2.966 vite v8.3.4 building nitro environment for production...
+#29 2.968 `output.codeSplitting.groups[0].name` is a function. Set `output.codeSplitting.groups[0].debugName` so the bundler timing report can identify this group.
+#29 2.973 transforming...
+#29 3.370 ✓ 68 modules transformed.
+#29 3.384 rendering chunks...
+#29 3.401 computing gzip size...
+#29 3.411 .output/server/_ssr/like-CfNWYXg3.mjs        0.32 kB │ gzip:  0.25 kB
+#29 3.411 .output/server/_...404_-CPxE6xPz.mjs         0.36 kB │ gzip:  0.24 kB
+#29 3.411 .output/server/_ssr/NotFound-Cneqmtd2.mjs    0.49 kB │ gzip:  0.35 kB
+#29 3.411 .output/server/_ssr/index-BQMH4ykS.mjs       0.51 kB │ gzip:  0.33 kB
+#29 3.411 .output/server/_ssr/login-Cq6YmEIf.mjs       0.86 kB │ gzip:  0.53 kB
+#29 3.411 .output/server/_chunks/ssr-renderer.mjs      1.04 kB │ gzip:  0.51 kB
+#29 3.411 .output/server/_id_-C4XBO_tl.mjs             1.07 kB │ gzip:  0.56 kB
+#29 3.411 .output/server/_libs/hookable.mjs            1.20 kB │ gzip:  0.53 kB
+#29 3.411 .output/server/_ssr/PostCard-CjW7YQtw.mjs    1.50 kB │ gzip:  0.66 kB
+#29 3.411 .output/server/_ssr/index-iEfYmfJQ.mjs       1.64 kB │ gzip:  0.83 kB
+#29 3.411 .output/server/_libs/ufo.mjs                 2.19 kB │ gzip:  0.71 kB
+#29 3.411 .output/server/index.mjs                    13.33 kB │ gzip:  4.21 kB
+#29 3.411 .output/server/_libs/seroval-plugins.mjs    15.50 kB │ gzip:  2.76 kB
+#29 3.411 .output/server/_libs/solid-js.mjs           33.50 kB │ gzip:  9.43 kB
+#29 3.411 .output/server/_libs/seroval.mjs            68.00 kB │ gzip: 14.79 kB
+#29 3.411 .output/server/_libs/h3+rou3+srvx.mjs       72.36 kB │ gzip: 18.87 kB
+#29 3.411 .output/server/_ssr/ssr.mjs                241.58 kB │ gzip: 62.38 kB
+#29 3.411 
+#29 3.412 ✓ built in 445ms
+#29 3.413 ℹ Generated .output/nitro.json
+#29 3.413 
+#29 3.413 [nitro] ✔ You can preview this build using npx vite preview
+#29 DONE 3.6s
+
+#30 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/4] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/4] COPY --from=build /app/.output ./.output
+#32 DONE 0.1s
+
+#33 [web] exporting to image
+#33 exporting layers 0.1s done
+#33 writing image sha256:7aca61323a6e38f907cda846cec1afd9a8898110b29d5ae5dc84a0f087b922f2 done
+#33 naming to docker.io/library/perf-sim-web done
+#33 DONE 0.1s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

@@ -1,0 +1,18 @@
+{% load static %}<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Feed · Django</title>
+    <meta name="description" content="SSR benchmark app: Django frontend over a Rust + SQLite feed API">
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+  </head>
+  <body>
+    <header class="top">
+      <a href="/" class="brand">feed<span>.</span></a>
+      <span class="stack">django</span>
+      <nav>{% if username %}<span class="who">@{{ username }}</span>{% else %}<a href="/login">Sign in</a>{% endif %}</nav>
+    </header>
+    <main>{% block content %}{% endblock %}</main>
+  </body>
+</html>

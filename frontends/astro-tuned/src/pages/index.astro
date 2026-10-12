@@ -1,0 +1,32 @@
+---
+import { actions } from "astro:actions";
+import PostCard from "../components/PostCard.astro";
+import Layout from "../layouts/Layout.astro";
+import { getFeed } from "../lib/server/api";
+
+// Form actions (create, like) have already run when the page renders: redirect (Post/Redirect/Get).
+const like = Astro.getActionResult(actions.like);
+const create = Astro.getActionResult(actions.create);
+if (like?.error?.code === "UNAUTHORIZED" || create?.error?.code === "UNAUTHORIZED") return Astro.redirect("/login", 303);
+if (like || (create && !create.error)) return Astro.redirect("/", 303);
+// A rejected post (e.g. empty or too long) re-renders the feed with the API's error, like the other variants.
+const error = create?.error?.message ?? null;
+if (create?.error) Astro.response.status = create.error.status;
+
+// Rendered on every request from a fresh API call (no caching), like frontends/nextjs.
+const posts = await getFeed();
+---
+
+<Layout>
+  <form method="POST" action={actions.create} class="compose">
+    <textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+    <div>
+      {error ? <span class="error">{error}</span> : <span class="muted">max 500 chars</span>}
+      <button type="submit">Post</button>
+    </div>
+  </form>
+  <h1>Latest</h1>
+  <section class="feed">
+    {posts.map((post) => <PostCard post={post} />)}
+  </section>
+</Layout>

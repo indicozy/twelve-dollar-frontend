@@ -1,0 +1,22 @@
+@{
+    // The signed-in name comes from the `token` cookie, read on every request.
+    var username = Session.CurrentUsername(Context.Request);
+}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feed · ASP.NET Core</title>
+  <meta name="description" content="SSR benchmark app: ASP.NET Core Razor Pages frontend over a Rust + SQLite feed API">
+  <link rel="stylesheet" href="~/styles.css">
+</head>
+<body>
+  <header class="top">
+    <a href="/" class="brand">feed<span>.</span></a>
+    <span class="stack">asp.net core</span>
+    <nav>@if (username is not null) {<span class="who">@@@username</span>} else {<a href="/login">Sign in</a>}</nav>
+  </header>
+  <main>@RenderBody()</main>
+</body>
+</html>

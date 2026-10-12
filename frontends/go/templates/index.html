@@ -1,0 +1,14 @@
+{{define "content" -}}
+<form method="post" action="/actions/create" class="compose">
+<textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+<div>
+{{if .Error}}<span class="error">{{.Error}}</span>{{else}}<span class="muted">max 500 chars</span>{{end}}
+<button type="submit">Post</button>
+</div>
+</form>
+<h1>Latest</h1>
+<section class="feed">
+{{range .Posts}}{{template "post_card" card . true}}
+{{end -}}
+</section>
+{{- end}}

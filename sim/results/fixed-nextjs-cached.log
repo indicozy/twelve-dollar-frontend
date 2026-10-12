@@ -1,0 +1,218 @@
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.04kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.12kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 131B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 61.03kB done
+#9 DONE 0.1s
+
+#10 [web build 2/7] WORKDIR /app
+#10 CACHED
+
+#11 [web build 3/7] RUN corepack enable
+#11 CACHED
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 0.303 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#13 ...
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.1s
+
+#15 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#15 DONE 0.0s
+
+#16 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#16 DONE 0.0s
+
+#17 [api internal] load build context
+#17 transferring context: 809B done
+#17 DONE 0.0s
+
+#18 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#18 CACHED
+
+#19 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#19 CACHED
+
+#20 [api build 5/6] COPY src ./src
+#20 CACHED
+
+#21 [api build 2/6] WORKDIR /src
+#21 CACHED
+
+#22 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#22 CACHED
+
+#23 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#23 CACHED
+
+#24 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#24 CACHED
+
+#25 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#26 naming to docker.io/library/perf-sim-api done
+#26 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 1.348 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#13 1.348 (Use `node --trace-deprecation ...` to show where the warning was created)
+#13 1.359 Lockfile is up to date, resolution step is skipped
+#13 1.368 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 1.376 Packages: +32
+#13 1.376 ++++++++++++++++++++++++++++++++
+#13 1.835 
+#13 1.835    ╭───────────────────────────────────────────────╮
+#13 1.835    │                                               │
+#13 1.835    │      Update available! 10.8.0 → 12.11.2.      │
+#13 1.835    │     Changelog: https://pnpm.io/v/12.11.2      │
+#13 1.835    │   To update, run: corepack use pnpm@12.11.2   │
+#13 1.835    │                                               │
+#13 1.835    ╰───────────────────────────────────────────────╯
+#13 1.835 
+#13 2.368 Progress: resolved 32, reused 0, downloaded 23, added 23
+#13 3.368 Progress: resolved 32, reused 0, downloaded 25, added 25
+#13 4.368 Progress: resolved 32, reused 0, downloaded 28, added 28
+#13 5.382 Progress: resolved 32, reused 0, downloaded 29, added 28
+#13 6.382 Progress: resolved 32, reused 0, downloaded 29, added 29
+#13 7.382 Progress: resolved 32, reused 0, downloaded 31, added 30
+#13 8.130 Progress: resolved 32, reused 0, downloaded 32, added 32, done
+#13 8.167 
+#13 8.167 dependencies:
+#13 8.167 + next 16.4.0
+#13 8.167 + react 19.3.0
+#13 8.167 + react-dom 19.3.0
+#13 8.167 + server-only 0.0.1
+#13 8.167 
+#13 8.167 devDependencies:
+#13 8.167 + @types/node 20.19.43
+#13 8.167 + @types/react 19.3.0
+#13 8.167 + @types/react-dom 19.3.0
+#13 8.167 + typescript 5.9.3
+#13 8.167 
+#13 8.185 Done in 7s using pnpm v10.8.0
+#13 DONE 8.5s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.456 
+#29 0.456 > nextjs-cached@0.1.0 build /app
+#29 0.456 > next build
+#29 0.456 
+#29 0.721 ▲ Next.js 16.4.0 (Turbopack)
+#29 0.766 ✓ Running next.config.ts took 45ms
+#29 0.772 - Cache Components enabled
+#29 0.772 - Partial Prefetching enabled
+#29 0.772 
+#29 0.785   Creating an optimized production build ...
+#29 2.178 ✓ Compiled successfully in 1392ms
+#29 2.180   Running TypeScript ...
+#29 3.141   Finished TypeScript in 961ms ...
+#29 3.142   Collecting page data using 9 workers ...
+#29 3.625   Generating static pages using 9 workers (0/8) ...
+#29 3.944   Generating static pages using 9 workers (2/8) 
+#29 4.025   Generating static pages using 9 workers (4/8) 
+#29 4.030   Generating static pages using 9 workers (6/8) 
+#29 4.132 ✓ Generating static pages using 9 workers (8/8) in 507ms
+#29 4.135   Finalizing page optimization ...
+#29 4.191 
+#29 4.192 Route (app)
+#29 4.192 ┌ ◐ /
+#29 4.192 ├ ○ /_not-found
+#29 4.192 ├ ƒ /api/posts
+#29 4.192 ├ ƒ /api/posts/[id]/like
+#29 4.192 ├ ○ /login
+#29 4.192 └   /posts/[id]
+#29 4.192   ├ ◐ /posts/[id]
+#29 4.192   └ ○ /posts/0
+#29 4.192 
+#29 4.192 
+#29 4.192 ○  (Static)             prerendered as static content
+#29 4.192 ◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+#29 4.192 ƒ  (Dynamic)            server-rendered on demand
+#29 4.192 
+#29 DONE 4.4s
+
+#30 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/6] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#32 DONE 0.3s
+
+#33 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#33 DONE 0.2s
+
+#34 [web stage-1 6/6] COPY --from=build /app/public ./public
+#34 DONE 0.2s
+
+#35 [web] exporting to image
+#35 exporting layers
+#35 exporting layers 0.3s done
+#35 writing image sha256:24922fd07f0ef43540edb0bf63d17e5d0a489e765b4f98d405f544889e0191bf done
+#35 naming to docker.io/library/perf-sim-web 0.0s done
+#35 DONE 0.4s
+
+#36 [web] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

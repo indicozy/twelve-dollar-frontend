@@ -1,0 +1,2 @@
+## Erlang VM flags for the release (mix release copies this template).
+## BEAM defaults are kept: one scheduler per host core it sees (see README). Add e.g. ERL_FLAGS="+S 1" to override.

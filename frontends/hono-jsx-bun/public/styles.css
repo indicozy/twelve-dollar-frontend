@@ -1,0 +1,62 @@
+/* Shared stylesheet: every framework in frontends/ ships this exact file so the HTML/CSS cost is identical. */
+:root {
+  --bg: #f7f5f0;
+  --card: #ffffff;
+  --ink: #1d1b16;
+  --muted: #7a746a;
+  --line: #e6e1d7;
+  --accent: #d9480f;
+  --accent-ink: #ffffff;
+  --radius: 10px;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #14130f; --card: #1d1b16; --ink: #ece7dc; --muted: #9a9284; --line: #2e2b24; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5; }
+a { color: inherit; }
+main { max-width: 640px; margin: 0 auto; padding: 16px; }
+h1 { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin: 24px 0 8px; }
+
+.top { position: sticky; top: 0; z-index: 1; display: flex; align-items: center; gap: 12px;
+  padding: 12px max(16px, calc(50% - 304px)); background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.brand { font-weight: 800; font-size: 1.3rem; text-decoration: none; letter-spacing: -0.03em; }
+.brand span { color: var(--accent); }
+.stack { font: 600 0.7rem ui-monospace, monospace; padding: 2px 8px; border: 1px solid var(--line); border-radius: 99px; color: var(--muted); }
+.top nav { margin-left: auto; font-size: 0.9rem; }
+.who { font-family: ui-monospace, monospace; color: var(--muted); }
+
+.feed { display: grid; gap: 10px; }
+.post { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.post header { display: flex; justify-content: space-between; gap: 8px; font-size: 0.85rem; }
+.post .author { font-weight: 650; }
+.post time, .muted { color: var(--muted); font-size: 0.85rem; }
+.post p { margin: 6px 0 10px; overflow-wrap: anywhere; }
+.post footer { display: flex; align-items: center; justify-content: space-between; font-size: 0.85rem; }
+.post footer a { color: var(--muted); text-decoration: none; font-family: ui-monospace, monospace; }
+.post footer a:hover { color: var(--accent); }
+.post form { margin: 0; }
+.skeleton { height: 112px; background: linear-gradient(90deg, var(--card), var(--line), var(--card)); background-size: 200% 100%;
+  animation: shimmer 1.2s infinite linear; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+button { font: inherit; cursor: pointer; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--ink); padding: 4px 12px; }
+button:hover { border-color: var(--accent); }
+button:disabled { opacity: 0.6; cursor: progress; }
+.like { color: var(--accent); }
+.like span { color: var(--ink); font-variant-numeric: tabular-nums; }
+
+.compose { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; margin-top: 8px; }
+.compose textarea { width: 100%; resize: vertical; border: 0; background: transparent; color: inherit; font: inherit; outline: none; }
+.compose div { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.compose button[type="submit"], .login button { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); font-weight: 600; }
+.error { color: var(--accent); font-size: 0.85rem; }
+
+.login { display: grid; gap: 12px; max-width: 360px; margin: 24px auto; }
+.login label { display: grid; gap: 4px; font-size: 0.9rem; }
+.login input { font: inherit; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--card); color: inherit; }
+.back { display: inline-block; margin: 8px 0 12px; color: var(--muted); text-decoration: none; font-size: 0.9rem; }
+.empty { text-align: center; padding: 48px 0; }

@@ -1,0 +1,7 @@
+time,container,cpu,mem
+1791741049,perf-sim-api-1,0.11%,23.4MiB / 2GiB
+1791741049,perf-sim-web-1,0.20%,19.89MiB / 2GiB
+1791741053,perf-sim-api-1,0.78%,23.39MiB / 2GiB
+1791741053,perf-sim-web-1,7.80%,29.12MiB / 2GiB
+1791741057,perf-sim-api-1,2.21%,25.83MiB / 2GiB
+1791741057,perf-sim-web-1,1.76%,30.64MiB / 2GiB

@@ -1,0 +1,613 @@
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.04kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.11kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 158B done
+#7 DONE 0.2s
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 105.54kB 0.0s done
+#9 DONE 0.2s
+
+#10 [web build 2/7] WORKDIR /app
+#10 CACHED
+
+#11 [web build 3/7] RUN corepack enable
+#11 CACHED
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 ...
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 DONE 0.2s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 0.374 ! Corepack is about to download https://registry.npmjs.org/pnpm/-/pnpm-10.8.0.tgz
+#13 ...
+
+#5 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#5 DONE 1.2s
+
+#14 [api internal] load .dockerignore
+#14 transferring context: 107B done
+#14 DONE 0.1s
+
+#15 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#15 DONE 0.0s
+
+#16 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#16 DONE 0.0s
+
+#17 [api internal] load build context
+#17 transferring context: 809B done
+#17 DONE 0.0s
+
+#18 [api build 5/6] COPY src ./src
+#18 CACHED
+
+#19 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#19 CACHED
+
+#20 [api build 2/6] WORKDIR /src
+#20 CACHED
+
+#21 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#21 CACHED
+
+#22 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#22 CACHED
+
+#23 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#23 CACHED
+
+#24 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#24 CACHED
+
+#25 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#25 CACHED
+
+#26 [api] exporting to image
+#26 exporting layers done
+#26 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#26 naming to docker.io/library/perf-sim-api done
+#26 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 ...
+
+#27 [api] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 1.414 (node:7) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+#13 1.414 (Use `node --trace-deprecation ...` to show where the warning was created)
+#13 1.427 Lockfile is up to date, resolution step is skipped
+#13 1.437 Progress: resolved 1, reused 0, downloaded 0, added 0
+#13 1.459 Packages: +135
+#13 1.459 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#13 1.735 
+#13 1.735    ╭───────────────────────────────────────────────╮
+#13 1.735    │                                               │
+#13 1.735    │      Update available! 10.8.0 → 12.11.2.      │
+#13 1.735    │     Changelog: https://pnpm.io/v/12.11.2      │
+#13 1.735    │   To update, run: corepack use pnpm@12.11.2   │
+#13 1.735    │                                               │
+#13 1.735    ╰───────────────────────────────────────────────╯
+#13 1.735 
+#13 2.437 Progress: resolved 135, reused 0, downloaded 76, added 76
+#13 3.437 Progress: resolved 135, reused 0, downloaded 126, added 126
+#13 4.437 Progress: resolved 135, reused 0, downloaded 133, added 133
+#13 5.438 Progress: resolved 135, reused 0, downloaded 134, added 134
+#13 8.608 Progress: resolved 135, reused 0, downloaded 135, added 134
+#13 8.617 Progress: resolved 135, reused 0, downloaded 135, added 135, done
+#13 8.699 
+#13 8.699 dependencies:
+#13 8.699 + @tanstack/react-query 5.104.1
+#13 8.699 + @tanstack/react-router 1.170.41
+#13 8.699 + @tanstack/react-router-ssr-query 1.167.3
+#13 8.699 + @tanstack/react-start 1.168.60
+#13 8.699 + react 19.3.0
+#13 8.699 + react-dom 19.3.0
+#13 8.699 
+#13 8.699 devDependencies:
+#13 8.699 + @types/node 24.19.1
+#13 8.699 + @types/react 19.3.0
+#13 8.699 + @types/react-dom 19.3.0
+#13 8.699 + @vitejs/plugin-react 6.1.2
+#13 8.699 + nitro 3.0.260903-beta
+#13 8.699 + typescript 7.0.2
+#13 8.699 + vite 8.3.4
+#13 8.699 
+#13 8.712 Done in 7.5s using pnpm v10.8.0
+#13 DONE 9.1s
+
+#28 [web build 6/7] COPY . .
+#28 DONE 0.2s
+
+#29 [web build 7/7] RUN pnpm build
+#29 0.435 
+#29 0.435 > tanstack-start@ build /app
+#29 0.435 > vite build
+#29 0.435 
+#29 1.021 vite v8.3.4 building client environment for production...
+#29 1.042 transforming...
+#29 1.184 ✓ 209 modules transformed.
+#29 1.227 rendering chunks...
+#29 1.289 computing gzip size...
+#29 1.294 .output/public/assets/styles-ZC6nPY1p.css        3.29 kB │ gzip:   1.26 kB
+#29 1.294 .output/public/assets/_id-Xuy9t3cn.js            0.07 kB │ gzip:   0.09 kB
+#29 1.294 .output/public/assets/useServerFn-OxFu46LL.js    0.36 kB │ gzip:   0.26 kB
+#29 1.294 .output/public/assets/_id-BKnSrpbb.js            0.39 kB │ gzip:   0.29 kB
+#29 1.294 .output/public/assets/login-C93j62__.js          0.91 kB │ gzip:   0.53 kB
+#29 1.294 .output/public/assets/routes-CsEGtjyg.js         1.18 kB │ gzip:   0.68 kB
+#29 1.294 .output/public/assets/PostCard-DrYS9cix.js       1.18 kB │ gzip:   0.63 kB
+#29 1.294 .output/public/assets/useRouter-BOAPZDg1.js      8.86 kB │ gzip:   3.36 kB
+#29 1.294 .output/public/assets/index-Ccr7WIyl.js        373.45 kB │ gzip: 119.08 kB
+#29 1.294 
+#29 1.296 ✓ built in 274ms
+#29 1.296 vite v8.3.4 building ssr environment for production...
+#29 1.302 transforming...
+#29 1.451 ✓ 144 modules transformed.
+#29 1.469 rendering chunks...
+#29 1.478 computing gzip size...
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/styles-ZC6nPY1p.css                       3.29 kB │ gzip:  1.26 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/_id-Ca7tQaQ2.js                           0.22 kB │ gzip:  0.15 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/start-C66Me7LY.js                         0.28 kB │ gzip:  0.21 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/empty-plugin-adapters-Bs6v0Ndj.js         0.30 kB │ gzip:  0.20 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/useServerFn-Cv4GQzN6.js                   0.77 kB │ gzip:  0.44 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/_id-BTC1UxYL.js                           0.79 kB │ gzip:  0.44 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/_tanstack-start-manifest_v-BOdm90Zm.js    0.98 kB │ gzip:  0.44 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/api.server-COOYVWyn.js                    1.29 kB │ gzip:  0.60 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/login-pjGgiMw9.js                         1.43 kB │ gzip:  0.67 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/PostCard-C17OMucZ.js                      1.88 kB │ gzip:  0.82 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/routes-ChzIHZNT.js                        2.03 kB │ gzip:  0.90 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/queries-DyhYJ2Gw.js                       2.45 kB │ gzip:  1.14 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/server-fns-DIY1ct_k.js                    5.80 kB │ gzip:  2.15 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/assets/router-CgHK1LDB.js                        6.29 kB │ gzip:  2.08 kB
+#29 1.481 node_modules/.nitro/vite/services/ssr/index.js                                       262.71 kB │ gzip: 61.90 kB
+#29 1.481 
+#29 1.482 ✓ built in 185ms
+#29 1.482 
+#29 1.488 [nitro] ◐ Building [Nitro] (preset: node-server, compatibility: 2026-10-11)
+#29 1.488 [nitro] ✔ Generated public .output/public
+#29 1.489 vite v8.3.4 building nitro environment for production...
+#29 1.490 `output.codeSplitting.groups[0].name` is a function. Set `output.codeSplitting.groups[0].debugName` so the bundler timing report can identify this group.
+#29 1.495 transforming...
+#29 1.578 ✓ 243 modules transformed.
+#29 1.612 rendering chunks...
+#29 1.649 computing gzip size...
+#29 1.664 .output/server/_ssr/start-C66Me7LY.mjs                             0.14 kB │ gzip:   0.13 kB
+#29 1.664 .output/server/_ssr/empty-plugin-adapters-Bs6v0Ndj.mjs             0.23 kB │ gzip:   0.16 kB
+#29 1.664 .output/server/_id-Ca7tQaQ2.mjs                                    0.23 kB │ gzip:   0.17 kB
+#29 1.664 .output/server/_ssr/useServerFn-Cv4GQzN6.mjs                       0.81 kB │ gzip:   0.44 kB
+#29 1.664 .output/server/_id-BTC1UxYL.mjs                                    0.99 kB │ gzip:   0.50 kB
+#29 1.664 .output/server/_tanstack-start-manifest_v-BOdm90Zm.mjs             1.03 kB │ gzip:   0.47 kB
+#29 1.664 .output/server/_chunks/ssr-renderer.mjs                            1.04 kB │ gzip:   0.51 kB
+#29 1.664 .output/server/_libs/hookable.mjs                                  1.20 kB │ gzip:   0.53 kB
+#29 1.664 .output/server/_ssr/api.server-COOYVWyn.mjs                        1.33 kB │ gzip:   0.63 kB
+#29 1.664 .output/server/_runtime.mjs                                        1.56 kB │ gzip:   0.73 kB
+#29 1.664 .output/server/_ssr/login-pjGgiMw9.mjs                             1.69 kB │ gzip:   0.72 kB
+#29 1.664 .output/server/_libs/ufo.mjs                                       2.19 kB │ gzip:   0.71 kB
+#29 1.664 .output/server/_ssr/PostCard-C17OMucZ.mjs                          2.27 kB │ gzip:   0.89 kB
+#29 1.664 .output/server/_ssr/queries-DyhYJ2Gw.mjs                           2.30 kB │ gzip:   1.10 kB
+#29 1.664 .output/server/_ssr/routes-ChzIHZNT.mjs                            2.44 kB │ gzip:   0.98 kB
+#29 1.664 .output/server/_libs/@tanstack/react-router-ssr-query+[...].mjs    4.79 kB │ gzip:   1.47 kB
+#29 1.664 .output/server/_ssr/server-fns-DIY1ct_k.mjs                        5.62 kB │ gzip:   2.09 kB
+#29 1.664 .output/server/_ssr/router-CgHK1LDB.mjs                            6.45 kB │ gzip:   2.08 kB
+#29 1.664 .output/server/_libs/tanstack__history.mjs                        11.85 kB │ gzip:   3.52 kB
+#29 1.664 .output/server/index.mjs                                          11.88 kB │ gzip:   3.89 kB
+#29 1.664 .output/server/_libs/react+tanstack__react-query.mjs              29.58 kB │ gzip:   7.92 kB
+#29 1.664 .output/server/_libs/h3+rou3+srvx.mjs                             72.36 kB │ gzip:  18.87 kB
+#29 1.664 .output/server/_libs/tanstack__query-core.mjs                    112.88 kB │ gzip:  26.96 kB
+#29 1.664 .output/server/_ssr/ssr.mjs                                      254.34 kB │ gzip:  60.89 kB
+#29 1.664 .output/server/_libs/@tanstack/react-router+[...].mjs            692.33 kB │ gzip: 145.35 kB
+#29 1.664 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/index.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/index.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useRouter.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useRouter.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/utils.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/utils.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/RouterProvider.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/ClientOnly.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useNavigate.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useNavigate.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useLocation.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useLocation.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useRouterState.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useRouterState.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Matches.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Matches.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Asset.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Asset.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useMatch.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useMatch.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Match.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Match.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/routerContext.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/routerContext.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useBlocker.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/useBlocker.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.665 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/HeadContent.js" may not be preserved when bundling.
+#29 1.665    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/HeadContent.js:1:1 [38;5;246m][0m
+#29 1.665    [38;5;246m│[0m
+#29 1.665  [38;5;246m1 │[0m "use client";
+#29 1.665  [38;5;240m  │[0m ──────┬──────  
+#29 1.665  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.665  [38;5;240m  │[0m 
+#29 1.665  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.665 [38;5;246m───╯[0m
+#29 1.665 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/CatchBoundary.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/link.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/link.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/nonRouteComponentContext.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/matchContext.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/matchContext.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Transitioner.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-router@1.170.41_react-dom@19.3.0_react@19.3.0__react@19.3.0/node_modules/@tanstack/react-router/dist/esm/Transitioner.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseQueries.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseQueries.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/QueryClientProvider.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/IsRestoringProvider.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/IsRestoringProvider.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/QueryErrorResetBoundary.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/QueryErrorResetBoundary.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/HydrationBoundary.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/HydrationBoundary.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useIsFetching.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useIsFetching.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useQuery.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useQuery.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseQuery.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseQuery.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useMutation.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useMutation.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useQueries.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useQueries.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseInfiniteQuery.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useSuspenseInfiniteQuery.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useInfiniteQuery.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useInfiniteQuery.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/errorBoundaryUtils.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/errorBoundaryUtils.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useMutationState.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useMutationState.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 [33m[MODULE_LEVEL_DIRECTIVE] [0mThe semantics of the module level directive "use client" in "node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useBaseQuery.js" may not be preserved when bundling.
+#29 1.666    [38;5;246m╭[0m[38;5;246m─[0m[38;5;246m[[0m node_modules/.pnpm/@tanstack+react-query@5.104.1_react@19.3.0/node_modules/@tanstack/react-query/build/modern/useBaseQuery.js:1:1 [38;5;246m][0m
+#29 1.666    [38;5;246m│[0m
+#29 1.666  [38;5;246m1 │[0m "use client";
+#29 1.666  [38;5;240m  │[0m ──────┬──────  
+#29 1.666  [38;5;240m  │[0m       ╰──────── module level directive may not be preserved
+#29 1.666  [38;5;240m  │[0m 
+#29 1.666  [38;5;240m  │[0m [38;5;115mHelp[0m: For more information, see https://rolldown.rs/in-depth/directives#other-directives
+#29 1.666 [38;5;246m───╯[0m
+#29 1.666 
+#29 1.666 ✓ built in 177ms
+#29 1.668 ℹ Generated .output/nitro.json
+#29 1.668 
+#29 1.668 [nitro] ✔ You can preview this build using npx vite preview
+#29 DONE 1.8s
+
+#30 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/4] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/4] COPY --from=build /app/.output ./.output
+#32 DONE 0.1s
+
+#33 [web] exporting to image
+#33 exporting layers 0.1s done
+#33 writing image sha256:9ad4f3ae2a7b4d42163904e209df3ebc3c40bf52ea6d36233a2a98c1709439e3 done
+#33 naming to docker.io/library/perf-sim-web done
+#33 DONE 0.1s
+
+#34 [web] resolving provenance for metadata file
+#34 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

@@ -1,0 +1,174 @@
+== 09:52:03 building astro-tuned 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [web internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.36kB done
+#2 DONE 0.1s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 899B done
+#3 DONE 0.1s
+
+#4 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 138B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 10.32kB done
+#9 DONE 0.0s
+
+#10 [web build 2/7] WORKDIR /app
+#10 CACHED
+
+#11 [web build 3/7] RUN corepack enable
+#11 CACHED
+
+#12 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#12 CACHED
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 CACHED
+
+#14 [web build 6/7] COPY . .
+#14 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.2s
+
+#15 [web build 7/7] RUN ALLOWED_HOSTS=localhost,127.0.0.1 pnpm build
+#15 0.492 
+#15 0.492 > astro-feed@0.0.1 build /app
+#15 0.492 > astro build
+#15 0.492 
+#15 ...
+
+#16 [api internal] load .dockerignore
+#16 transferring context: 107B done
+#16 DONE 0.1s
+
+#17 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#17 DONE 0.0s
+
+#18 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#18 DONE 0.0s
+
+#19 [api internal] load build context
+#19 transferring context: 809B done
+#19 DONE 0.1s
+
+#20 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#20 CACHED
+
+#21 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#21 CACHED
+
+#22 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#22 CACHED
+
+#23 [api build 5/6] COPY src ./src
+#23 CACHED
+
+#24 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#24 CACHED
+
+#25 [api build 2/6] WORKDIR /src
+#25 CACHED
+
+#26 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#26 CACHED
+
+#27 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#27 CACHED
+
+#28 [api] exporting to image
+#28 exporting layers done
+#28 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#28 naming to docker.io/library/perf-sim-api done
+#28 DONE 0.0s
+
+#15 [web build 7/7] RUN ALLOWED_HOSTS=localhost,127.0.0.1 pnpm build
+#15 1.142 04:52:05 [@astrojs/node] Enabling sessions with filesystem storage
+#15 ...
+
+#29 [api] resolving provenance for metadata file
+#29 DONE 0.0s
+
+#15 [web build 7/7] RUN ALLOWED_HOSTS=localhost,127.0.0.1 pnpm build
+#15 1.251 04:52:05 [types] Generated 97ms
+#15 1.252 04:52:05 [build] output: "server"
+#15 1.252 04:52:05 [build] mode: "server"
+#15 1.252 04:52:05 [build] directory: /app/dist/
+#15 1.252 04:52:05 [build] adapter: @astrojs/node
+#15 1.252 04:52:05 [build] Collecting build info...
+#15 1.252 04:52:05 [build] ✓ Completed in 117ms.
+#15 1.252 04:52:05 [build] Building server entrypoints...
+#15 1.348 04:52:05 [vite] ✓ built in 84ms
+#15 1.493 04:52:05 [vite] ✓ built in 144ms
+#15 1.508 04:52:05 [vite] ✓ built in 12ms
+#15 1.516 04:52:05 [build] Rearranging server assets...
+#15 1.517 04:52:05 [build] ✓ Completed in 264ms.
+#15 1.517 04:52:05 [build] Server built in 383ms
+#15 1.517 04:52:05 [build] Complete!
+#15 DONE 1.8s
+
+#30 [web stage-1 2/5] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#30 CACHED
+
+#31 [web stage-1 3/5] WORKDIR /app
+#31 CACHED
+
+#32 [web stage-1 4/5] COPY --from=build /app/dist ./dist
+#32 DONE 0.2s
+
+#33 [web stage-1 5/5] COPY --from=build /app/package.json ./
+#33 DONE 0.2s
+
+#34 [web] exporting to image
+#34 exporting layers 0.1s done
+#34 writing image sha256:733bb6f8323b46eb3b2c833fba05388b83271313f3277c0bbf9c847c394ef555 done
+#34 naming to docker.io/library/perf-sim-web 0.0s done
+#34 DONE 0.2s
+
+#35 [web] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 516 req/s saturated on / -> start at about 4206 users
+== search (start 4200, step 100, cap 16000)
+PASS  4200 users 2m  347 req/s  med 15ms  p95 205ms  p99 447ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 318 MiB avg / 334 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 7%, mem 45 MiB avg / 49 MiB peak
+FAIL  5300 users 2m  434 req/s  med 59ms  p95 659ms  p99 1056ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 339 MiB avg / 352 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 48 MiB avg / 51 MiB peak
+PASS  4700 users 2m  388 req/s  med 24ms  p95 279ms  p99 531ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 379 MiB avg / 498 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 46 MiB avg / 49 MiB peak
+FAIL  5000 users 2m  411 req/s  med 39ms  p95 500ms  p99 904ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 331 MiB avg / 348 MiB peak  |  api cpu 4% under load (10% of its vCPU), peak 6%, mem 47 MiB avg / 50 MiB peak
+PASS  4800 users 2m  395 req/s  med 29ms  p95 352ms  p99 815ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 335 MiB avg / 350 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 47 MiB avg / 50 MiB peak
+PASS  4900 users 2m  404 req/s  med 29ms  p95 352ms  p99 891ms  errors 0.01%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 344 MiB avg / 357 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 6%, mem 47 MiB avg / 50 MiB peak
+== confirm (5-minute holds, starting at 4900)
+PASS  4900 users 5m  453 req/s  med 36ms  p95 312ms  p99 487ms  errors 0.02%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 333 MiB avg / 355 MiB peak  |  api cpu 4% under load (9% of its vCPU), peak 8%, mem 52 MiB avg / 54 MiB peak
+SCORE astro-tuned-cpu0.4: 4900 users
+== 10:25:01 astro-tuned search exit 0

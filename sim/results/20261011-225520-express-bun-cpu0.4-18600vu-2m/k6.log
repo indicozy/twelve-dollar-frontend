@@ -1,0 +1,53 @@
+ Container perf-sim-k6-run-59410625de8b Creating 
+ Container perf-sim-k6-run-59410625de8b Created 
+time="2026-10-11T17:55:36Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.6:59712->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:55:38Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/499993/like\": read tcp 192.168.32.6:64268->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:55:49Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.6:11128->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:56:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500331/like\": read tcp 192.168.32.6:57180->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:56:27Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.6:4236->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:56:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500685/like\": read tcp 192.168.32.6:29954->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:56:55Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500942/like\": read tcp 192.168.32.6:15066->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:57:08Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/501132/like\": read tcp 192.168.32.6:49962->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=31.75ms
+    ✓ 'p(99)<1000' p(99)=71.46ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 340466 1547.355941/s
+    checks_succeeded...: 99.99% 340458 out of 340466
+    checks_failed......: 0.00%  8 out of 340466
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 23332 / ✗ 5
+    ✗ create 201
+      ↳  99% — ✓ 3130 / ✗ 3
+
+    HTTP
+    http_req_duration..............: avg=6.55ms med=515.2µs  p(95)=31.75ms p(99)=71.46ms max=280.37ms
+      { expected_response:true }...: avg=6.55ms med=515.17µs p(95)=31.75ms p(99)=71.46ms max=280.37ms
+    http_req_failed................: 0.00%  8 out of 340466
+    http_reqs......................: 340466 1547.355941/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.73s med=20.69s   p(95)=26.58s  p(99)=28.63s  max=34.11s  
+    iterations.....................: 147565 670.65604/s
+    vus............................: 262    min=61          max=18600
+    vus_max........................: 18600  min=18600       max=18600
+
+    NETWORK
+    data_received..................: 1.9 GB 8.7 MB/s
+    data_sent......................: 31 MB  143 kB/s
+
+
+

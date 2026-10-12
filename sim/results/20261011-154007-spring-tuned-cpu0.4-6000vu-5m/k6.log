@@ -1,0 +1,45 @@
+ Container perf-sim-k6-run-2590fc184d49 Creating 
+ Container perf-sim-k6-run-2590fc184d49 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=2.88s
+    ✗ 'p(99)<1000' p(99)=3.89s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 210200  525.487737/s
+    checks_succeeded...: 100.00% 210200 out of 210200
+    checks_failed......: 0.00%   0 out of 210200
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=621.95ms med=236.56ms p(95)=2.88s  p(99)=3.89s  max=5.95s
+      { expected_response:true }...: avg=621.95ms med=236.56ms p(95)=2.88s  p(99)=3.89s  max=5.95s
+    http_req_failed................: 0.00%  0 out of 210200
+    http_reqs......................: 210200 525.487737/s
+
+    EXECUTION
+    iteration_duration.............: avg=22s      med=21.77s   p(95)=29.13s p(99)=33.66s max=43.1s
+    iterations.....................: 93902  234.749522/s
+    vus............................: 29     min=29          max=6000
+    vus_max........................: 6000   min=6000        max=6000
+
+    NETWORK
+    data_received..................: 1.2 GB 2.9 MB/s
+    data_sent......................: 19 MB  48 kB/s
+
+
+
+time="2026-10-11T10:46:48Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

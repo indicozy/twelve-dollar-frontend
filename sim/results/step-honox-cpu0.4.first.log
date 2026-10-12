@@ -1,0 +1,148 @@
+== 03:49:39 honox (step search: start 10000, step 100, cap 30000, target 95%)
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.20kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/oven/bun:1.4.3-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context:
+#6 transferring context: 165B done
+#6 DONE 0.1s
+
+#7 [web build 1/8] FROM docker.io/oven/bun:1.4.3-slim
+#7 DONE 0.0s
+
+#8 [web internal] load build context
+#8 transferring context: 3.48kB done
+#8 DONE 0.1s
+
+#9 [web build 7/8] COPY public ./public
+#9 CACHED
+
+#10 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [web stage-1 3/4] WORKDIR /app/dist
+#11 CACHED
+
+#12 [web build 2/8] WORKDIR /src
+#12 CACHED
+
+#13 [web build 4/8] RUN bun install --frozen-lockfile
+#13 CACHED
+
+#14 [web build 5/8] COPY tsconfig.json vite.config.ts ./
+#14 CACHED
+
+#15 [web build 6/8] COPY app ./app
+#15 CACHED
+
+#16 [web build 3/8] COPY package.json bun.lock bunfig.toml ./
+#16 CACHED
+
+#17 [web build 8/8] RUN bun --bun run build
+#17 CACHED
+
+#18 [web stage-1 4/4] COPY --from=build /src/dist ./
+#18 CACHED
+
+#19 [web] exporting to image
+#19 exporting layers done
+#19 writing image sha256:0cb266b9612b1d752ba31f158769fd7d967415c7db72d3c8dddc7ed0aa6bf0f2 done
+#19 naming to docker.io/library/perf-sim-web 0.0s done
+#19 DONE 0.1s
+
+#20 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#20 ...
+
+#21 [web] resolving provenance for metadata file
+#21 DONE 0.0s
+
+#20 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#20 DONE 2.5s
+
+#22 [api internal] load .dockerignore
+#22 transferring context: 107B done
+#22 DONE 0.1s
+
+#23 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#23 DONE 0.0s
+
+#24 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#24 DONE 0.0s
+
+#25 [api internal] load build context
+#25 transferring context: 809B done
+#25 DONE 0.1s
+
+#26 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#26 CACHED
+
+#27 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#27 CACHED
+
+#28 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#28 CACHED
+
+#29 [api build 2/6] WORKDIR /src
+#29 CACHED
+
+#30 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#30 CACHED
+
+#31 [api build 5/6] COPY src ./src
+#31 CACHED
+
+#32 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#32 CACHED
+
+#33 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#33 CACHED
+
+#34 [api] exporting to image
+#34 exporting layers done
+#34 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#34 naming to docker.io/library/perf-sim-api done
+#34 DONE 0.0s
+
+#35 [api] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-web Built 
+ Image perf-sim-api Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+FAIL  10000 users 2m  821 req/s  med 0ms  p95 36ms  p99 4204ms  errors 0%  |  web cpu 31% under load (78% of its vCPU), peak 41%, mem 103 MiB avg / 280 MiB peak  |  api cpu 7% under load (17% of its vCPU), peak 17%, mem 39 MiB avg / 61 MiB peak
+   bottleneck: web CPU at 78% of its vCPU (web 78%, api 17%), web memory peak 280 MiB of 2048; failed below 85% CPU, so CPU is not what broke it (check k6.log)
+   next: 9000 users
+PASS  9000 users 2m  747 req/s  med 0ms  p95 22ms  p99 36ms  errors 0%  |  web cpu 38% under load (96% of its vCPU), peak 41%, mem 58 MiB avg / 62 MiB peak  |  api cpu 7% under load (17% of its vCPU), peak 9%, mem 57 MiB avg / 59 MiB peak
+   bottleneck: web CPU at 96% of its vCPU (web 96%, api 17%), web memory peak 62 MiB of 2048
+   prediction off (pass 9000, fail 10000): binary search -> 9500 users
+PASS  9500 users 2m  789 req/s  med 1ms  p95 25ms  p99 38ms  errors 0%  |  web cpu 39% under load (99% of its vCPU), peak 41%, mem 59 MiB avg / 62 MiB peak  |  api cpu 8% under load (19% of its vCPU), peak 10%, mem 58 MiB avg / 60 MiB peak
+   bottleneck: web CPU at 99% of its vCPU (web 99%, api 19%), web memory peak 62 MiB of 2048
+== confirm (5-minute holds from 9500, stepping down 10%)
+PASS  9500 users 5m  886 req/s  med 1ms  p95 26ms  p99 38ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 61 MiB avg / 64 MiB peak  |  api cpu 7% under load (18% of its vCPU), peak 10%, mem 60 MiB avg / 63 MiB peak
+SCORE honox-cpu0.4: 9500 users

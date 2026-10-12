@@ -1,0 +1,14 @@
+{% load feed_tags %}<article class="post" data-post-id="{{ post.id }}">
+  <header>
+    <span class="author">@{{ post.author }}</span>
+    <time datetime="{{ post.created_at }}">{{ post.created_at|utc_medium }}</time>
+  </header>
+  <p>{{ post.body }}</p>
+  <footer>
+    <form method="post" action="?like">{% csrf_token %}
+      <input type="hidden" name="id" value="{{ post.id }}">
+      <button type="submit" class="like">♥ <span>{{ post.like_count }}</span></button>
+    </form>
+    {% if link %}<a href="/posts/{{ post.id }}">#{{ post.id }}</a>{% else %}<span class="muted">#{{ post.id }}</span>{% endif %}
+  </footer>
+</article>

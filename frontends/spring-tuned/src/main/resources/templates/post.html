@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+<header th:replace="~{fragments :: top}"></header>
+<main>
+<a href="/" class="back">← back to feed</a>
+<article th:replace="~{fragments :: post(${post}, false)}"></article>
+</main>
+</body>
+</html>

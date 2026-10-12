@@ -1,0 +1,19 @@
+---
+import { actions } from "astro:actions";
+import PostCard from "../../components/PostCard.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getPost } from "../../lib/server/api";
+
+const like = Astro.getActionResult(actions.like);
+if (like?.error?.code === "UNAUTHORIZED") return Astro.redirect("/login", 303);
+if (like) return Astro.redirect(Astro.url.pathname, 303);
+
+// The post is fetched before any HTML is sent, so a missing or invalid id is a real 404 (the 404 page).
+const post = await getPost(Astro.params.id ?? "");
+if (!post) return Astro.rewrite("/404");
+---
+
+<Layout>
+  <a href="/" class="back">← back to feed</a>
+  <PostCard post={post} link={false} />
+</Layout>

@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-eaed4b3218a8 Creating 
+ Container perf-sim-k6-run-eaed4b3218a8 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=35.82ms
+    ✓ 'p(99)<1000' p(99)=70.1ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 47661   216.633246/s
+    checks_succeeded...: 100.00% 47661 out of 47661
+    checks_failed......: 0.00%   0 out of 47661
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=6.43ms med=2.14ms p(95)=35.82ms p(99)=70.1ms max=147.99ms
+      { expected_response:true }...: avg=6.43ms med=2.14ms p(95)=35.82ms p(99)=70.1ms max=147.99ms
+    http_req_failed................: 0.00%  0 out of 47661
+    http_reqs......................: 47661  216.633246/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.76s med=20.72s p(95)=26.61s  p(99)=28.65s max=34.28s  
+    iterations.....................: 20575  93.519419/s
+    vus............................: 4      min=4          max=2600
+    vus_max........................: 2600   min=2600       max=2600
+
+    NETWORK
+    data_received..................: 408 MB 1.9 MB/s
+    data_sent......................: 9.6 MB 44 kB/s
+
+
+

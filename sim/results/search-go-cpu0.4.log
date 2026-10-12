@@ -1,0 +1,149 @@
+== 21:57:37 building go 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.01kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.13kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/golang:1.27.2-bookworm
+#5 ...
+
+#6 [web internal] load metadata for docker.io/library/debian:bookworm-20261005-slim
+#6 DONE 1.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.4s
+
+#5 [web internal] load metadata for docker.io/library/golang:1.27.2-bookworm
+#5 ...
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 107B done
+#8 DONE 0.1s
+
+#9 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#9 DONE 0.0s
+
+#10 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#10 DONE 0.0s
+
+#11 [api internal] load build context
+#11 transferring context: 809B done
+#11 DONE 0.1s
+
+#5 [web internal] load metadata for docker.io/library/golang:1.27.2-bookworm
+#5 DONE 1.6s
+
+#12 [api build 5/6] COPY src ./src
+#12 CACHED
+
+#13 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#13 CACHED
+
+#14 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#14 CACHED
+
+#15 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#15 CACHED
+
+#16 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#16 CACHED
+
+#17 [api build 2/6] WORKDIR /src
+#17 CACHED
+
+#18 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#18 CACHED
+
+#19 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#19 CACHED
+
+#20 [api] exporting to image
+#20 exporting layers done
+#20 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 0.0s done
+#20 naming to docker.io/library/perf-sim-api 0.0s done
+#20 DONE 0.0s
+
+#21 [web internal] load .dockerignore
+#21 transferring context: 123B done
+#21 DONE 0.1s
+
+#22 [web build 1/7] FROM docker.io/library/golang:1.27.2-bookworm@sha256:5cf287a799e6b94384bad13d16b14904c531f51ba65792237e122ce42b392f61
+#22 DONE 0.0s
+
+#23 [web stage-1 1/3] FROM docker.io/library/debian:bookworm-20261005-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587
+#23 DONE 0.0s
+
+#24 [web internal] load build context
+#24 transferring context: 1.22kB done
+#24 DONE 0.1s
+
+#25 [web build 6/7] COPY static ./static
+#25 CACHED
+
+#26 [web build 7/7] RUN CGO_ENABLED=0 go build -trimpath -ldflags='-s -w' -o /out/feed-frontend .
+#26 CACHED
+
+#27 [web build 2/7] WORKDIR /src
+#27 CACHED
+
+#28 [web build 3/7] COPY go.mod ./
+#28 CACHED
+
+#29 [web stage-1 2/3] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 && rm -rf /var/lib/apt/lists/*
+#29 CACHED
+
+#30 [web build 4/7] COPY *.go ./
+#30 CACHED
+
+#31 [web build 5/7] COPY templates ./templates
+#31 CACHED
+
+#32 [web stage-1 3/3] COPY --from=build /out/feed-frontend /usr/local/bin/feed-frontend
+#32 CACHED
+
+#33 [api] resolving provenance for metadata file
+#33 DONE 0.0s
+
+#34 [web] exporting to image
+#34 exporting layers done
+#34 writing image sha256:f2b8d71b7d66323322b371761b605fb556d0c0ab9b91bfc73671c88a717f250c done
+#34 naming to docker.io/library/perf-sim-web 0.0s done
+#34 DONE 0.1s
+
+#35 [web] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== search (start 16000, step 500, cap 30000)
+PASS  16000 users 2m  1330 req/s  med 1ms  p95 142ms  p99 220ms  errors 0%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 657 MiB avg / 677 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 11%, mem 51 MiB avg / 85 MiB peak
+FAIL  20000 users 2m  1613 req/s  med 158ms  p95 1162ms  p99 1509ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 842 MiB avg / 882 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 12%, mem 103 MiB avg / 137 MiB peak
+PASS  18000 users 2m  1491 req/s  med 2ms  p95 213ms  p99 291ms  errors 0%  |  web cpu 39% under load (96% of its vCPU), peak 42%, mem 732 MiB avg / 743 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 12%, mem 87 MiB avg / 89 MiB peak
+PASS  19000 users 2m  1573 req/s  med 4ms  p95 248ms  p99 347ms  errors 0%  |  web cpu 37% under load (92% of its vCPU), peak 42%, mem 764 MiB avg / 795 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 12%, mem 88 MiB avg / 90 MiB peak
+FAIL  19500 users 2m  1604 req/s  med 18ms  p95 372ms  p99 1151ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 811 MiB avg / 852 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 13%, mem 111 MiB avg / 139 MiB peak
+== confirm (5-minute holds, starting at 19000)
+PASS  19000 users 5m  1761 req/s  med 16ms  p95 277ms  p99 362ms  errors 0%  |  web cpu 38% under load (95% of its vCPU), peak 41%, mem 778 MiB avg / 809 MiB peak  |  api cpu 9% under load (21% of its vCPU), peak 12%, mem 100 MiB avg / 106 MiB peak
+SCORE go-cpu0.4: 19000 users
+== 22:24:39 go search exit 0

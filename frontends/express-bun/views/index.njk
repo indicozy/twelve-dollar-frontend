@@ -1,0 +1,17 @@
+{% extends "base.njk" %}
+{% block content %}
+<form method="post" action="/actions/create" class="compose">
+<textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+<div>
+{% if error %}<span class="error">{{ error }}</span>{% else %}<span class="muted">max 500 chars</span>{% endif %}
+<button type="submit">Post</button>
+</div>
+</form>
+<h1>Latest</h1>
+<section class="feed">
+{% set link = true -%}
+{% for post in posts -%}
+{% include "partials/post.njk" %}
+{% endfor -%}
+</section>
+{% endblock %}

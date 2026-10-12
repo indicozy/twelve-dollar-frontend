@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-fb50845da0a2 Creating 
+ Container perf-sim-k6-run-fb50845da0a2 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=27.74ms
+    ✓ 'p(99)<1000' p(99)=52ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 332724  1512.230681/s
+    checks_succeeded...: 100.00% 332724 out of 332724
+    checks_failed......: 0.00%   0 out of 332724
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=5.3ms  med=546.19µs p(95)=27.74ms p(99)=52ms   max=167.59ms
+      { expected_response:true }...: avg=5.3ms  med=546.19µs p(95)=27.74ms p(99)=52ms   max=167.59ms
+    http_req_failed................: 0.00%  0 out of 332724
+    http_reqs......................: 332724 1512.230681/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.76s med=20.73s   p(95)=26.61s  p(99)=28.65s max=34.08s  
+    iterations.....................: 144104 654.952724/s
+    vus............................: 244    min=68          max=18200
+    vus_max........................: 18200  min=18200       max=18200
+
+    NETWORK
+    data_received..................: 1.8 GB 8.2 MB/s
+    data_sent......................: 31 MB  139 kB/s
+
+
+

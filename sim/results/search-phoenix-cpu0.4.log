@@ -1,0 +1,176 @@
+== 10:25:01 building phoenix 
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.90kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/hexpm/elixir:1.20.4-erlang-29.1.1-debian-bookworm-20261005-slim
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/debian:bookworm-20261005-slim
+#6 ...
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.4s
+
+#8 [api internal] load .dockerignore
+#8 transferring context: 107B done
+#8 DONE 0.1s
+
+#6 [web internal] load metadata for docker.io/library/debian:bookworm-20261005-slim
+#6 ...
+
+#9 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#9 DONE 0.0s
+
+#10 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#10 DONE 0.0s
+
+#11 [api internal] load build context
+#11 transferring context: 809B done
+#11 DONE 0.1s
+
+#12 [api build 2/6] WORKDIR /src
+#12 CACHED
+
+#13 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#13 CACHED
+
+#14 [api build 5/6] COPY src ./src
+#14 CACHED
+
+#15 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#15 CACHED
+
+#16 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#16 CACHED
+
+#17 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#17 CACHED
+
+#18 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#18 CACHED
+
+#19 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#19 CACHED
+
+#20 [api] exporting to image
+#20 exporting layers done
+#20 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#20 naming to docker.io/library/perf-sim-api done
+#20 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/debian:bookworm-20261005-slim
+#6 DONE 1.9s
+
+#21 [api] resolving provenance for metadata file
+#21 DONE 0.0s
+
+#22 [web internal] load .dockerignore
+#22 transferring context: 121B done
+#22 DONE 0.2s
+
+#23 [web build  1/13] FROM docker.io/hexpm/elixir:1.20.4-erlang-29.1.1-debian-bookworm-20261005-slim
+#23 DONE 0.0s
+
+#24 [web stage-1 1/5] FROM docker.io/library/debian:bookworm-20261005-slim@sha256:7c7b2c966bc9ee8cedfeef67e0e279108992c77681fa595db4a9d65c06ccc587
+#24 DONE 0.0s
+
+#25 [web internal] load build context
+#25 transferring context: 4.59kB done
+#25 DONE 0.1s
+
+#26 [web build  5/13] COPY mix.exs mix.lock ./
+#26 CACHED
+
+#27 [web build 11/13] COPY rel rel
+#27 CACHED
+
+#28 [web build  7/13] COPY config/config.exs config/prod.exs config/
+#28 CACHED
+
+#29 [web build  2/13] RUN apt-get update && apt-get install -y --no-install-recommends build-essential git && rm -rf /var/lib/apt/lists/*
+#29 CACHED
+
+#30 [web build  3/13] WORKDIR /app
+#30 CACHED
+
+#31 [web build 12/13] COPY config/runtime.exs config/
+#31 CACHED
+
+#32 [web build  6/13] RUN mix deps.get --only prod
+#32 CACHED
+
+#33 [web stage-1 4/5] RUN chown nobody /app
+#33 CACHED
+
+#34 [web build  8/13] RUN mix deps.compile
+#34 CACHED
+
+#35 [web build 13/13] RUN mix compile && mix release
+#35 CACHED
+
+#36 [web build  4/13] RUN mix local.hex --force && mix local.rebar --force
+#36 CACHED
+
+#37 [web stage-1 2/5] RUN apt-get update && apt-get install -y --no-install-recommends libstdc++6 openssl libncurses6 locales ca-certificates       iproute2 curl libsctp1     && rm -rf /var/lib/apt/lists/*     && sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen && locale-gen
+#37 CACHED
+
+#38 [web build  9/13] COPY lib lib
+#38 CACHED
+
+#39 [web build 10/13] COPY priv priv
+#39 CACHED
+
+#40 [web stage-1 3/5] WORKDIR /app
+#40 CACHED
+
+#41 [web stage-1 5/5] COPY --from=build --chown=nobody:root /app/_build/prod/rel/feed ./
+#41 CACHED
+
+#42 [web] exporting to image
+#42 exporting layers done
+#42 writing image sha256:bb2b52fb10ea0fcd429080779398e6cdd9804c1f8733f1057d9ac93e793016f1 done
+#42 naming to docker.io/library/perf-sim-web 0.0s done
+#42 DONE 0.1s
+
+#43 [web] resolving provenance for metadata file
+#43 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 781 req/s saturated on / -> start at about 6366 users
+== search (start 6300, step 100, cap 16000)
+PASS  6300 users 2m  523 req/s  med 4ms  p95 48ms  p99 73ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 1060 MiB avg / 1134 MiB peak  |  api cpu 5% under load (13% of its vCPU), peak 7%, mem 49 MiB avg / 52 MiB peak
+PASS  7900 users 2m  655 req/s  med 18ms  p95 114ms  p99 182ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1254 MiB avg / 1371 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 8%, mem 56 MiB avg / 58 MiB peak
+FAIL  9900 users 2m  748 req/s  med 993ms  p95 2226ms  p99 2657ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1449 MiB avg / 1562 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 7%, mem 59 MiB avg / 62 MiB peak
+FAIL  8900 users 2m  721 req/s  med 89ms  p95 930ms  p99 1402ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1368 MiB avg / 1547 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 8%, mem 58 MiB avg / 60 MiB peak
+PASS  8400 users 2m  694 req/s  med 38ms  p95 286ms  p99 663ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 1310 MiB avg / 1484 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 57 MiB avg / 59 MiB peak
+FAIL  8600 users 2m  705 req/s  med 55ms  p95 611ms  p99 902ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1315 MiB avg / 1433 MiB peak  |  api cpu 4% under load (11% of its vCPU), peak 7%, mem 61 MiB avg / 63 MiB peak
+PASS  8500 users 2m  699 req/s  med 43ms  p95 482ms  p99 870ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1317 MiB avg / 1462 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 8%, mem 57 MiB avg / 59 MiB peak
+== confirm (5-minute holds, starting at 8500)
+PASS  8500 users 5m  787 req/s  med 43ms  p95 283ms  p99 853ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 1275 MiB avg / 1532 MiB peak  |  api cpu 5% under load (12% of its vCPU), peak 7%, mem 59 MiB avg / 62 MiB peak
+SCORE phoenix-cpu0.4: 8500 users
+== 11:01:05 phoenix search exit 0

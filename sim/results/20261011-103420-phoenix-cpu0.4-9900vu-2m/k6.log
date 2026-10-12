@@ -1,0 +1,45 @@
+ Container perf-sim-k6-run-db530ab41762 Creating 
+ Container perf-sim-k6-run-db530ab41762 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✗ 'p(95)<500' p(95)=2.22s
+    ✗ 'p(99)<1000' p(99)=2.65s
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 164599  748.08743/s
+    checks_succeeded...: 100.00% 164599 out of 164599
+    checks_failed......: 0.00%   0 out of 164599
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=976.12ms med=993.61ms p(95)=2.22s  p(99)=2.65s  max=2.96s 
+      { expected_response:true }...: avg=976.12ms med=993.61ms p(95)=2.22s  p(99)=2.65s  max=2.96s 
+    http_req_failed................: 0.00%  0 out of 164599
+    http_reqs......................: 164599 748.08743/s
+
+    EXECUTION
+    iteration_duration.............: avg=22.97s   med=22.95s   p(95)=29.13s p(99)=31.41s max=39.27s
+    iterations.....................: 70686  321.261418/s
+    vus............................: 69     min=69          max=9900
+    vus_max........................: 9900   min=9900        max=9900
+
+    NETWORK
+    data_received..................: 1.2 GB 5.3 MB/s
+    data_sent......................: 28 MB  126 kB/s
+
+
+
+time="2026-10-11T05:38:01Z" level=error msg="thresholds on metrics 'http_req_duration' have been crossed"
+

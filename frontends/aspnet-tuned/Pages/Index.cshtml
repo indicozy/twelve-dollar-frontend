@@ -1,0 +1,23 @@
+@page
+@model IndexModel
+<form method="post" asp-page-handler="Create" class="compose">
+  <textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+  <div>
+    @if (Model.Error is not null)
+    {
+      <span class="error">@Model.Error</span>
+    }
+    else
+    {
+      <span class="muted">max 500 chars</span>
+    }
+    <button type="submit">Post</button>
+  </div>
+</form>
+<h1>Latest</h1>
+<section class="feed">
+  @foreach (var post in Model.Posts)
+  {
+    <partial name="_PostCard" model="new PostCard(post, true)" />
+  }
+</section>

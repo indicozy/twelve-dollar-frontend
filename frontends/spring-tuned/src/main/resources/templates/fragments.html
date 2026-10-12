@@ -1,0 +1,23 @@
+<!-- Shared pieces: the document head, the site header and the post card. -->
+<head th:fragment="head">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed · Spring</title>
+<meta name="description" content="SSR benchmark app: Spring Boot frontend over a Rust + SQLite feed API">
+<link rel="stylesheet" href="/styles.css">
+</head>
+
+<header class="top" th:fragment="top">
+<a href="/" class="brand">feed<span>.</span></a>
+<span class="stack">spring</span>
+<nav><span class="who" th:if="${username}" th:text="'@' + ${username}"></span><a th:unless="${username}" href="/login">Sign in</a></nav>
+</header>
+
+<article class="post" th:fragment="post(post, link)" th:attr="data-post-id=${post.id}">
+<header><span class="author" th:text="'@' + ${post.author}"></span><time th:datetime="${post.createdAt}" th:text="${post.displayDate()}"></time></header>
+<p th:text="${post.body}"></p>
+<footer>
+<form method="POST" action="/actions/like"><input type="hidden" name="id" th:value="${post.id}"><button type="submit" class="like">♥ <span th:text="${post.likeCount}"></span></button></form>
+<a th:if="${link}" th:href="@{/posts/{id}(id=${post.id})}" th:text="'#' + ${post.id}"></a><span th:unless="${link}" class="muted" th:text="'#' + ${post.id}"></span>
+</footer>
+</article>

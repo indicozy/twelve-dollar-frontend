@@ -1,0 +1,16 @@
+{
+  "name": "hono-jsx-bun",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "module": "src/index.tsx",
+  "scripts": {
+    "start": "NODE_ENV=production bun run src/index.tsx"
+  },
+  "dependencies": {
+    "hono": "4.13.13"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.2"
+  }
+}

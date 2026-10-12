@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% from "_post.html" import post_card %}
+{% block content %}
+<a href="/" class="back">← back to feed</a>
+{{ post_card(post, False, csrf_input) }}
+{% endblock %}

@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-dc0531974fca Creating 
+ Container perf-sim-k6-run-dc0531974fca Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=109.07ms
+    ✓ 'p(99)<1000' p(99)=645.08ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 197780  494.462486/s
+    checks_succeeded...: 100.00% 197780 out of 197780
+    checks_failed......: 0.00%   0 out of 197780
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=28.53ms med=2.04ms p(95)=109.07ms p(99)=645.08ms max=1.05s 
+      { expected_response:true }...: avg=28.53ms med=2.04ms p(95)=109.07ms p(99)=645.08ms max=1.05s 
+    http_req_failed................: 0.00%  0 out of 197780
+    http_reqs......................: 197780 494.462486/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.66s  med=20.64s p(95)=26.4s    p(99)=28.25s   max=34.17s
+    iterations.....................: 88329  220.828076/s
+    vus............................: 16     min=16          max=5300
+    vus_max........................: 5300   min=5300        max=5300
+
+    NETWORK
+    data_received..................: 1.7 GB 4.2 MB/s
+    data_sent......................: 40 MB  99 kB/s
+
+
+

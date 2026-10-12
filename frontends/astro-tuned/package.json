@@ -1,0 +1,22 @@
+{
+  "name": "astro-feed",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "node dist/server/entry.mjs",
+    "check": "astro check"
+  },
+  "packageManager": "pnpm@10.8.0",
+  "dependencies": {
+    "@astrojs/node": "11.1.7",
+    "astro": "7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@types/node": "24.5.2",
+    "typescript": "6.0.3"
+  }
+}

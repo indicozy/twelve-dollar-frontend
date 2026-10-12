@@ -1,0 +1,162 @@
+== 04:08:50 honox (step search: start 10000, step 100, cap 30000, target 95%)
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.20kB done
+#3 DONE 0.2s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/oven/bun:1.4.3-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context:
+#6 transferring context: 165B done
+#6 DONE 0.1s
+
+#7 [web build 1/8] FROM docker.io/oven/bun:1.4.3-slim
+#7 DONE 0.0s
+
+#8 [web internal] load build context
+#8 transferring context: 3.48kB done
+#8 DONE 0.1s
+
+#9 [web build 7/8] COPY public ./public
+#9 CACHED
+
+#10 [web stage-1 3/4] WORKDIR /app/dist
+#10 CACHED
+
+#11 [web build 8/8] RUN bun --bun run build
+#11 CACHED
+
+#12 [web build 3/8] COPY package.json bun.lock bunfig.toml ./
+#12 CACHED
+
+#13 [web build 4/8] RUN bun install --frozen-lockfile
+#13 CACHED
+
+#14 [web stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#14 CACHED
+
+#15 [web build 2/8] WORKDIR /src
+#15 CACHED
+
+#16 [web build 5/8] COPY tsconfig.json vite.config.ts ./
+#16 CACHED
+
+#17 [web build 6/8] COPY app ./app
+#17 CACHED
+
+#18 [web stage-1 4/4] COPY --from=build /src/dist ./
+#18 CACHED
+
+#19 [web] exporting to image
+#19 exporting layers done
+#19 writing image sha256:0cb266b9612b1d752ba31f158769fd7d967415c7db72d3c8dddc7ed0aa6bf0f2 done
+#19 naming to docker.io/library/perf-sim-web done
+#19 DONE 0.0s
+
+#20 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#20 ...
+
+#21 [web] resolving provenance for metadata file
+#21 DONE 0.0s
+
+#20 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#20 DONE 2.5s
+
+#22 [api internal] load .dockerignore
+#22 transferring context: 107B done
+#22 DONE 0.1s
+
+#23 [api internal] load build context
+#23 transferring context: 809B done
+#23 DONE 0.1s
+
+#24 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#24 DONE 0.0s
+
+#25 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#25 DONE 0.0s
+
+#26 [api build 5/6] COPY src ./src
+#26 CACHED
+
+#27 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#27 CACHED
+
+#28 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#28 CACHED
+
+#29 [api build 2/6] WORKDIR /src
+#29 CACHED
+
+#30 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#30 CACHED
+
+#31 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#31 CACHED
+
+#32 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#32 CACHED
+
+#33 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#33 CACHED
+
+#34 [api] exporting to image
+#34 exporting layers done
+#34 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#34 naming to docker.io/library/perf-sim-api done
+#34 DONE 0.0s
+
+#35 [api] resolving provenance for metadata file
+#35 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-web-1 Running 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Healthy 
+ Container perf-sim-api-1 Healthy 
+PASS  10000 users 2m  831 req/s  med 1ms  p95 33ms  p99 48ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 62 MiB avg / 65 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 11%, mem 58 MiB avg / 60 MiB peak
+   bottleneck: web CPU at 99% of its vCPU (web 99%, api 20%), web memory peak 65 MiB of 2048
+   next: 11000 users
+PASS  11000 users 2m  913 req/s  med 1ms  p95 35ms  p99 51ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 65 MiB avg / 68 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 11%, mem 60 MiB avg / 63 MiB peak
+   bottleneck: web CPU at 100% of its vCPU (web 100%, api 21%), web memory peak 68 MiB of 2048
+   predict.py: ~10000 users
+   next: 12100 users
+PASS  12100 users 2m  1006 req/s  med 1ms  p95 39ms  p99 62ms  errors 0%  |  web cpu 40% under load (99% of its vCPU), peak 41%, mem 67 MiB avg / 73 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 11%, mem 61 MiB avg / 65 MiB peak
+   bottleneck: web CPU at 99% of its vCPU (web 99%, api 20%), web memory peak 73 MiB of 2048
+   predict.py: ~10000 users
+   next: 13300 users
+PASS  13300 users 2m  1104 req/s  med 2ms  p95 43ms  p99 71ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 73 MiB avg / 77 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 11%, mem 63 MiB avg / 66 MiB peak
+   bottleneck: web CPU at 100% of its vCPU (web 100%, api 21%), web memory peak 77 MiB of 2048
+   predict.py: ~10000 users
+   next: 14600 users
+PASS  14600 users 2m  1213 req/s  med 4ms  p95 52ms  p99 90ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 42%, mem 81 MiB avg / 86 MiB peak  |  api cpu 9% under load (21% of its vCPU), peak 11%, mem 70 MiB avg / 75 MiB peak
+   bottleneck: web CPU at 100% of its vCPU (web 100%, api 21%), web memory peak 86 MiB of 2048
+   predict.py: ~10000 users
+   next: 16100 users
+PASS  16100 users 2m  1334 req/s  med 13ms  p95 91ms  p99 152ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 86 MiB avg / 92 MiB peak  |  api cpu 8% under load (20% of its vCPU), peak 11%, mem 74 MiB avg / 77 MiB peak
+   bottleneck: web CPU at 100% of its vCPU (web 100%, api 20%), web memory peak 92 MiB of 2048
+   predict.py: ~10000 users
+   next: 17700 users
+FAIL  17700 users 2m  943 req/s  med 216ms  p95 25623ms  p99 28308ms  errors 13.61%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 459 MiB avg / 992 MiB peak  |  api cpu 6% under load (14% of its vCPU), peak 15%, mem 77 MiB avg / 80 MiB peak
+   bottleneck: web CPU at 100% of its vCPU (web 100%, api 14%), web memory peak 992 MiB of 2048
+== confirm (5-minute holds from 16100, stepping down 10%)
+PASS  16100 users 5m  1499 req/s  med 13ms  p95 82ms  p99 143ms  errors 0%  |  web cpu 40% under load (100% of its vCPU), peak 41%, mem 85 MiB avg / 97 MiB peak  |  api cpu 8% under load (21% of its vCPU), peak 11%, mem 76 MiB avg / 79 MiB peak
+SCORE honox-cpu0.4: 16100 users

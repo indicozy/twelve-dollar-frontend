@@ -1,0 +1,12 @@
+<article class="post" data-post-id="<%= post["id"] %>">
+<header><span class="author">@<%= post["author"] %></span><time datetime="<%= post["created_at"] %>"><%= post_time(post["created_at"]) %></time></header>
+<p><%= post["body"] %></p>
+<footer>
+<%= form_with url: like_post_path do %><input type="hidden" name="id" value="<%= post["id"] %>"><button type="submit" class="like">♥ <span><%= post["like_count"] %></span></button><% end %>
+<% if link %>
+<%= link_to "##{post["id"]}", post_path(post["id"]) %>
+<% else %>
+<span class="muted">#<%= post["id"] %></span>
+<% end %>
+</footer>
+</article>

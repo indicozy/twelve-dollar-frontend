@@ -1,0 +1,158 @@
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 2.37kB done
+#3 WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "APP_KEY") (line 31)
+#3 WARN: SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "JWT_SECRET") (line 31)
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/php:8.5.11-fpm-trixie
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/library/composer:2.10.3
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 254B done
+#7 DONE 0.0s
+
+#8 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#8 ...
+
+#9 [web vendor 1/6] FROM docker.io/library/composer:2.10.3
+#9 DONE 0.0s
+
+#10 [web stage-1  1/10] FROM docker.io/library/php:8.5.11-fpm-trixie
+#10 DONE 0.0s
+
+#11 [web internal] load build context
+#11 transferring context: 8.49kB done
+#11 DONE 0.0s
+
+#12 [web vendor 6/6] RUN composer dump-autoload --no-dev --optimize
+#12 CACHED
+
+#13 [web stage-1  5/10] COPY docker/php-fpm/www.conf /usr/local/etc/php-fpm.d/www.conf
+#13 CACHED
+
+#14 [web stage-1  6/10] COPY docker/nginx/nginx.conf /etc/nginx/nginx.conf
+#14 CACHED
+
+#15 [web vendor 3/6] COPY composer.json composer.lock ./
+#15 CACHED
+
+#16 [web vendor 5/6] COPY . .
+#16 CACHED
+
+#17 [web stage-1  9/10] COPY --from=vendor /app /var/www/html
+#17 CACHED
+
+#18 [web stage-1  4/10] COPY docker/php/zz-production.ini /usr/local/etc/php/conf.d/zz-production.ini
+#18 CACHED
+
+#19 [web vendor 4/6] RUN composer install --no-dev --no-interaction --prefer-dist --no-scripts --no-autoloader
+#19 CACHED
+
+#20 [web stage-1  2/10] RUN apt-get update  && apt-get install -y --no-install-recommends nginx iproute2 curl  && rm -rf /var/lib/apt/lists/* /etc/nginx/sites-enabled /etc/nginx/conf.d  && mkdir -p /run/php
+#20 CACHED
+
+#21 [web vendor 2/6] WORKDIR /app
+#21 CACHED
+
+#22 [web stage-1  3/10] RUN mv "/usr/local/etc/php/php.ini-production" "/usr/local/etc/php/php.ini" && rm -f /usr/local/etc/php-fpm.d/*.conf
+#22 CACHED
+
+#23 [web stage-1  7/10] COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+#23 CACHED
+
+#24 [web stage-1  8/10] WORKDIR /var/www/html
+#24 CACHED
+
+#25 [web stage-1 10/10] RUN php artisan route:cache && php artisan view:cache && php artisan event:cache  && chown -R www-data:www-data storage bootstrap/cache
+#25 CACHED
+
+#26 [web] exporting to image
+#26 exporting layers done
+#26 writing image sha256:9927013324e2c53ef14e3a73c0866dbf50c4b38ca751ca0740f3d90d445b956d done
+#26 naming to docker.io/library/perf-sim-web 0.0s done
+#26 DONE 0.0s
+
+#8 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#8 ...
+
+#27 [web] resolving provenance for metadata file
+#27 DONE 0.0s
+
+#8 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#8 DONE 1.2s
+
+#28 [api internal] load .dockerignore
+#28 transferring context: 107B done
+#28 DONE 0.1s
+
+#29 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#29 DONE 0.0s
+
+#30 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#30 DONE 0.0s
+
+#31 [api internal] load build context
+#31 transferring context: 809B done
+#31 DONE 0.1s
+
+#32 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#32 CACHED
+
+#33 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#33 CACHED
+
+#34 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#34 CACHED
+
+#35 [api build 5/6] COPY src ./src
+#35 CACHED
+
+#36 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#36 CACHED
+
+#37 [api build 2/6] WORKDIR /src
+#37 CACHED
+
+#38 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#38 CACHED
+
+#39 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#39 CACHED
+
+#40 [api] exporting to image
+#40 exporting layers done
+#40 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#40 naming to docker.io/library/perf-sim-api done
+#40 DONE 0.0s
+
+#41 [api] resolving provenance for metadata file
+#41 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

@@ -37,14 +37,16 @@ for (variant, cpus), rs in groups.items():
     users = int(h["users"])
     above = sorted((r for r in rs if r["hold"] == "2m" and r["verdict"] == "FAIL" and int(r["users"]) > users),
                    key=lambda r: int(r["users"]))
-    if users >= CAP:
-        fail = "none (capped at 16,000)"
+    any_fail_above = any(r["verdict"] == "FAIL" and int(r["users"]) > users for r in rs)
+    capped = users >= CAP and not any_fail_above      # reached the search's cap (16,000, later 30,000)
+    if capped:
+        fail = f"none (capped at {n(users)})"
     elif above:
         f = above[0]
         fail = f"{n(f['users'])} (p95 {n(f['p95_ms'])} ms, p99 {n(f['p99_ms'])} ms, {f['errors_pct']}% errors)"
     else:
         fail = "—"
-    score = f"**{n(users)}**" + (" (cap; real limit higher)" if users >= CAP else "")
+    score = f"**{n(users)}**" + (" (cap; real limit higher)" if capped else "")
     scored.append((float(cpus), -users, variant, "| " + " | ".join([
         f"`{variant}`", cpus, score, n(h["req_s"]), f"{h['p95_ms']} / {h['p99_ms']} ms", fail,
         f"{h['web_cpu_load_avg']} ({h['web_cpu_of_quota']}) / {h['web_cpu_peak']}",

@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-ca734c094b0d Creating 
+ Container perf-sim-k6-run-ca734c094b0d Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=3.43ms
+    ✓ 'p(99)<1000' p(99)=14.3ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9773    34.903484/s
+    checks_succeeded...: 100.00% 9773 out of 9773
+    checks_failed......: 0.00%   0 out of 9773
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=2.24ms med=2.11ms p(95)=3.43ms p(99)=14.3ms max=57.45ms
+      { expected_response:true }...: avg=2.24ms med=2.11ms p(95)=3.43ms p(99)=14.3ms max=57.45ms
+    http_req_failed................: 0.00%  0 out of 9773
+    http_reqs......................: 9773   34.903484/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.76s med=20.77s p(95)=26.51s p(99)=28.44s max=33.05s 
+    iterations.....................: 4313   15.403533/s
+    vus............................: 1      min=1         max=400
+    vus_max........................: 400    min=400       max=400
+
+    NETWORK
+    data_received..................: 105 MB 373 kB/s
+    data_sent......................: 881 kB 3.1 kB/s
+
+
+

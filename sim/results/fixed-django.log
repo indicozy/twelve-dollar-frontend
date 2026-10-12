@@ -1,0 +1,126 @@
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.02kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 ...
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load build definition from Dockerfile
+#5 transferring dockerfile: 968B done
+#5 DONE 0.1s
+
+#6 [web internal] load metadata for docker.io/library/python:3.14.8-slim
+#6 DONE 0.0s
+
+#7 [web internal] load .dockerignore
+#7 transferring context: 171B 0.0s done
+#7 DONE 0.1s
+
+#8 [web 1/7] FROM docker.io/library/python:3.14.8-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 2.67kB done
+#9 DONE 0.1s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 ...
+
+#10 [web 2/7] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#10 CACHED
+
+#11 [web 3/7] WORKDIR /app
+#11 CACHED
+
+#12 [web 4/7] COPY requirements.txt ./
+#12 CACHED
+
+#13 [web 5/7] RUN pip install --no-cache-dir -r requirements.txt
+#13 CACHED
+
+#14 [web 6/7] COPY . .
+#14 CACHED
+
+#15 [web 7/7] RUN python manage.py collectstatic --noinput
+#15 CACHED
+
+#16 [web] exporting to image
+#16 exporting layers done
+#16 writing image sha256:ba05fe8257efd62a798de9d863aad3e1a450d853baeb9b121457d9b27776b75c done
+#16 naming to docker.io/library/perf-sim-web 0.0s done
+#16 DONE 0.0s
+
+#17 [web] resolving provenance for metadata file
+#17 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#3 DONE 1.0s
+
+#18 [api internal] load .dockerignore
+#18 transferring context: 107B done
+#18 DONE 0.1s
+
+#19 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#19 DONE 0.0s
+
+#20 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#20 DONE 0.0s
+
+#21 [api internal] load build context
+#21 transferring context: 809B done
+#21 DONE 0.1s
+
+#22 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#22 CACHED
+
+#23 [api build 5/6] COPY src ./src
+#23 CACHED
+
+#24 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#24 CACHED
+
+#25 [api build 2/6] WORKDIR /src
+#25 CACHED
+
+#26 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#26 CACHED
+
+#27 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#27 CACHED
+
+#28 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#28 CACHED
+
+#29 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#29 CACHED
+
+#30 [api] exporting to image
+#30 exporting layers done
+#30 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#30 naming to docker.io/library/perf-sim-api done
+#30 DONE 0.0s
+
+#31 [api] resolving provenance for metadata file
+#31 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

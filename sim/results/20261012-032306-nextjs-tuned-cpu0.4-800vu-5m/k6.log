@@ -1,0 +1,49 @@
+ Container perf-sim-k6-run-d8d5b826e39c Creating 
+ Container perf-sim-k6-run-d8d5b826e39c Created 
+time="2026-10-11T22:24:40Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500026/like\": read tcp 192.168.32.4:24548->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T22:26:18Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.4:53980->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T22:26:23Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500108/like\": read tcp 192.168.32.4:56190->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T22:28:10Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500182/like\": read tcp 192.168.32.4:62386->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=259ms
+    ✓ 'p(99)<1000' p(99)=460.91ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 29641  74.10904/s
+    checks_succeeded...: 99.98% 29637 out of 29641
+    checks_failed......: 0.01%  4 out of 29641
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 2001 / ✗ 3
+    ✗ create 201
+      ↳  99% — ✓ 274 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=53.44ms med=10.93ms p(95)=259ms    p(99)=460.91ms max=798.35ms
+      { expected_response:true }...: avg=53.44ms med=10.93ms p(95)=259.01ms p(99)=460.93ms max=798.35ms
+    http_req_failed................: 0.01%  4 out of 29641
+    http_reqs......................: 29641  74.10904/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.74s  med=20.7s   p(95)=26.32s   p(99)=28.35s   max=33.32s  
+    iterations.....................: 13287  33.220432/s
+    vus............................: 19     min=13         max=800
+    vus_max........................: 800    min=800        max=800
+
+    NETWORK
+    data_received..................: 480 MB 1.2 MB/s
+    data_sent......................: 2.7 MB 6.8 kB/s
+
+
+

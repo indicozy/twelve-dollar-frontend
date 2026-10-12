@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-7674eb68eadb Creating 
+ Container perf-sim-k6-run-7674eb68eadb Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=52.3ms
+    ✓ 'p(99)<1000' p(99)=90.97ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 266960  1213.372861/s
+    checks_succeeded...: 100.00% 266960 out of 266960
+    checks_failed......: 0.00%   0 out of 266960
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=15.08ms med=4.59ms p(95)=52.3ms p(99)=90.97ms max=215.62ms
+      { expected_response:true }...: avg=15.08ms med=4.59ms p(95)=52.3ms p(99)=90.97ms max=215.62ms
+    http_req_failed................: 0.00%  0 out of 266960
+    http_reqs......................: 266960 1213.372861/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.78s  med=20.74s p(95)=26.65s p(99)=28.67s  max=34.49s  
+    iterations.....................: 115564 525.255549/s
+    vus............................: 137    min=110         max=14600
+    vus_max........................: 14600  min=14600       max=14600
+
+    NETWORK
+    data_received..................: 1.8 GB 8.3 MB/s
+    data_sent......................: 25 MB  112 kB/s
+
+
+

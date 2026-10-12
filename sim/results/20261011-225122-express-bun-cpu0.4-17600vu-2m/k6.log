@@ -1,0 +1,51 @@
+ Container perf-sim-k6-run-f2c676a86abc Creating 
+ Container perf-sim-k6-run-f2c676a86abc Created 
+time="2026-10-11T17:52:19Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500273/like\": read tcp 192.168.32.6:2630->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:52:30Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500394/like\": read tcp 192.168.32.6:17398->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:52:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500599/like\": read tcp 192.168.32.6:16848->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:52:53Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500756/like\": read tcp 192.168.32.6:41980->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:52:54Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500748/like\": read tcp 192.168.32.6:42052->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:53:54Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/501756/like\": read tcp 192.168.32.6:47794->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T17:54:17Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/502163/like\": read tcp 192.168.32.6:8640->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=22.74ms
+    ✓ 'p(99)<1000' p(99)=53.48ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 322088 1463.903153/s
+    checks_succeeded...: 99.99% 322081 out of 322088
+    checks_failed......: 0.00%  7 out of 322088
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 22246 / ✗ 7
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=4.08ms med=464.62µs p(95)=22.74ms p(99)=53.48ms max=526.02ms
+      { expected_response:true }...: avg=4.08ms med=464.6µs  p(95)=22.74ms p(99)=53.48ms max=526.02ms
+    http_req_failed................: 0.00%  7 out of 322088
+    http_reqs......................: 322088 1463.903153/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.75s med=20.7s    p(95)=26.62s  p(99)=28.69s  max=34.65s  
+    iterations.....................: 139456 633.833232/s
+    vus............................: 205    min=107         max=17600
+    vus_max........................: 17600  min=17600       max=17600
+
+    NETWORK
+    data_received..................: 1.8 GB 8.3 MB/s
+    data_sent......................: 30 MB  135 kB/s
+
+
+

@@ -1,0 +1,200 @@
+== 07:37:11 building nextjs-deno 
+ Image perf-sim-api Building 
+ Image perf-sim-web Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.81kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load metadata for docker.io/denoland/deno:debian-2.9.7
+#6 DONE 1.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web internal] load .dockerignore
+#8 transferring context: 131B done
+#8 DONE 0.0s
+
+#9 [web build 1/8] FROM docker.io/library/node:24-bookworm-slim
+#9 DONE 0.0s
+
+#10 [web stage-1 1/6] FROM docker.io/denoland/deno:debian-2.9.7@sha256:fa335acdf6b72106eda2cb6a8cb5f4187e7630e357467489db4b2e7352d5e432
+#10 DONE 0.0s
+
+#11 [web internal] load build context
+#11 transferring context: 4.96kB done
+#11 DONE 0.0s
+
+#12 [web build 2/8] WORKDIR /app
+#12 CACHED
+
+#13 [web build 3/8] RUN corepack enable
+#13 CACHED
+
+#14 [web build 4/8] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#14 CACHED
+
+#15 [web build 5/8] RUN pnpm install --frozen-lockfile
+#15 CACHED
+
+#16 [web build 6/8] COPY . .
+#16 DONE 0.2s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.5s
+
+#17 [api internal] load .dockerignore
+#17 transferring context: 107B done
+#17 DONE 0.1s
+
+#18 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#18 DONE 0.0s
+
+#19 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#19 DONE 0.0s
+
+#20 [api internal] load build context
+#20 transferring context: 809B done
+#20 DONE 0.1s
+
+#21 [web build 7/8] RUN pnpm build
+#21 ...
+
+#22 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#22 CACHED
+
+#23 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#23 CACHED
+
+#24 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#24 CACHED
+
+#25 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#25 CACHED
+
+#26 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#26 CACHED
+
+#27 [api build 2/6] WORKDIR /src
+#27 CACHED
+
+#28 [api build 5/6] COPY src ./src
+#28 CACHED
+
+#29 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#29 CACHED
+
+#30 [api] exporting to image
+#30 exporting layers done
+#30 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#30 naming to docker.io/library/perf-sim-api done
+#30 DONE 0.0s
+
+#21 [web build 7/8] RUN pnpm build
+#21 0.522 
+#21 0.522 > nextjs@0.1.0 build /app
+#21 0.522 > next build
+#21 0.522 
+#21 ...
+
+#31 [api] resolving provenance for metadata file
+#31 DONE 0.0s
+
+#21 [web build 7/8] RUN pnpm build
+#21 0.839 ▲ Next.js 16.4.0 (Turbopack)
+#21 0.876 ✓ Running next.config.ts took 37ms
+#21 0.883 - Cache Components enabled
+#21 0.883 - Partial Prefetching enabled
+#21 0.883 
+#21 0.897   Creating an optimized production build ...
+#21 2.240 ✓ Compiled successfully in 1340ms
+#21 2.246   Running TypeScript ...
+#21 3.245   Finished TypeScript in 1002ms ...
+#21 3.246   Collecting page data using 9 workers ...
+#21 3.776   Generating static pages using 9 workers (0/7) ...
+#21 4.001   Generating static pages using 9 workers (1/7) 
+#21 4.113   Generating static pages using 9 workers (3/7) 
+#21 4.127   Generating static pages using 9 workers (5/7) 
+#21 4.133 ✓ Generating static pages using 9 workers (7/7) in 358ms
+#21 4.136   Finalizing page optimization ...
+#21 4.197 
+#21 4.198 Route (app)
+#21 4.198 ┌ ◐ /
+#21 4.198 ├ ◐ /_not-found
+#21 4.198 ├ ƒ /api/posts
+#21 4.198 ├ ƒ /api/posts/[id]/like
+#21 4.198 ├ ◐ /login
+#21 4.198 └   /posts/[id]
+#21 4.198   └ ◐ /posts/[id]
+#21 4.198 
+#21 4.198 
+#21 4.198 ◐  (Partial Prerender)  prerendered as static HTML with dynamic server-streamed content
+#21 4.198 ƒ  (Dynamic)            server-rendered on demand
+#21 4.198 
+#21 DONE 4.5s
+
+#32 [web build 8/8] RUN node -e "const f='.next/standalone/package.json',fs=require('fs'),p=JSON.parse(fs.readFileSync(f));p.type='commonjs';fs.writeFileSync(f,JSON.stringify(p,null,2))"
+#32 DONE 0.3s
+
+#33 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#33 CACHED
+
+#34 [web stage-1 3/6] WORKDIR /app
+#34 CACHED
+
+#35 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#35 DONE 0.3s
+
+#36 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#36 DONE 0.3s
+
+#37 [web stage-1 6/6] COPY --from=build /app/public ./public
+#37 DONE 0.3s
+
+#38 [web] exporting to image
+#38 exporting layers
+#38 exporting layers 0.4s done
+#38 writing image sha256:ddc00f59167d717d005be131af61ebf83c311b47503fc8d7e73170d4af70eb6f done
+#38 naming to docker.io/library/perf-sim-web 0.0s done
+#38 DONE 0.5s
+
+#39 [web] resolving provenance for metadata file
+#39 DONE 0.0s
+ Image perf-sim-api Built 
+ Image perf-sim-web Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 
+== probe: 41 req/s saturated on / -> start at about 334 users
+== search (start 300, step 100, cap 16000)
+PASS  300 users 2m  25 req/s  med 24ms  p95 122ms  p99 223ms  errors 0%  |  web cpu 33% under load (83% of its vCPU), peak 41%, mem 147 MiB avg / 157 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 33 MiB avg / 35 MiB peak
+PASS  400 users 2m  33 req/s  med 29ms  p95 199ms  p99 307ms  errors 0.01%  |  web cpu 37% under load (93% of its vCPU), peak 40%, mem 149 MiB avg / 161 MiB peak  |  api cpu 1% under load (3% of its vCPU), peak 4%, mem 33 MiB avg / 35 MiB peak
+PASS  500 users 2m  41 req/s  med 58ms  p95 335ms  p99 471ms  errors 0.06%  |  web cpu 39% under load (98% of its vCPU), peak 42%, mem 160 MiB avg / 172 MiB peak  |  api cpu 2% under load (5% of its vCPU), peak 4%, mem 35 MiB avg / 39 MiB peak
+FAIL  700 users 2m  51 req/s  med 1228ms  p95 2993ms  p99 3826ms  errors 0.39%  |  web cpu 40% under load (100% of its vCPU), peak 40%, mem 215 MiB avg / 242 MiB peak  |  api cpu 2% under load (4% of its vCPU), peak 4%, mem 36 MiB avg / 36 MiB peak
+FAIL  600 users 2m  47 req/s  med 287ms  p95 1409ms  p99 1946ms  errors 0.15%  |  web cpu 40% under load (100% of its vCPU), peak 44%, mem 183 MiB avg / 201 MiB peak  |  api cpu 1% under load (4% of its vCPU), peak 4%, mem 36 MiB avg / 36 MiB peak
+== confirm (5-minute holds, starting at 500)
+PASS  500 users 5m  46 req/s  med 66ms  p95 337ms  p99 474ms  errors 0.02%  |  web cpu 40% under load (99% of its vCPU), peak 42%, mem 151 MiB avg / 162 MiB peak  |  api cpu 1% under load (4% of its vCPU), peak 4%, mem 36 MiB avg / 37 MiB peak
+SCORE nextjs-deno-cpu0.4: 500 users
+== 08:04:54 nextjs-deno search exit 0

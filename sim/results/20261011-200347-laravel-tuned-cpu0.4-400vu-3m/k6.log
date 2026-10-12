@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-5c54d10e2717 Creating 
+ Container perf-sim-k6-run-5c54d10e2717 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=14.87ms
+    ✓ 'p(99)<1000' p(99)=21.04ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9884    35.337628/s
+    checks_succeeded...: 100.00% 9884 out of 9884
+    checks_failed......: 0.00%   0 out of 9884
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=8.46ms med=8.06ms p(95)=14.87ms p(99)=21.04ms max=61.71ms
+      { expected_response:true }...: avg=8.46ms med=8.06ms p(95)=14.87ms p(99)=21.04ms max=61.71ms
+    http_req_failed................: 0.00%  0 out of 9884
+    http_reqs......................: 9884   35.337628/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.61s med=20.55s p(95)=26.43s  p(99)=28.48s  max=32.59s 
+    iterations.....................: 4361   15.591602/s
+    vus............................: 6      min=6         max=400
+    vus_max........................: 400    min=400       max=400
+
+    NETWORK
+    data_received..................: 77 MB  277 kB/s
+    data_sent......................: 6.6 MB 24 kB/s
+
+
+

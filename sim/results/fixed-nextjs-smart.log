@@ -1,0 +1,141 @@
+ Image perf-sim-web Building 
+ Image perf-sim-api Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.03kB done
+#1 DONE 0.0s
+
+#2 [api internal] load build definition from Dockerfile
+#2 transferring dockerfile: 899B done
+#2 DONE 0.1s
+
+#3 [web internal] load build definition from Dockerfile
+#3 transferring dockerfile: 1.38kB done
+#3 DONE 0.1s
+
+#4 [api internal] load metadata for docker.io/library/debian:bookworm-slim
+#4 DONE 0.0s
+
+#5 [web internal] load metadata for docker.io/library/node:24-bookworm-slim
+#5 DONE 0.0s
+
+#6 [web internal] load .dockerignore
+#6 transferring context: 131B done
+#6 DONE 0.1s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#8 [web build 1/7] FROM docker.io/library/node:24-bookworm-slim
+#8 DONE 0.0s
+
+#9 [web internal] load build context
+#9 transferring context: 63.84kB done
+#9 DONE 0.1s
+
+#10 [web build 4/7] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+#10 CACHED
+
+#11 [web stage-1 5/6] COPY --from=build /app/.next/static ./.next/static
+#11 CACHED
+
+#12 [web stage-1 3/6] WORKDIR /app
+#12 CACHED
+
+#13 [web build 5/7] RUN pnpm install --frozen-lockfile
+#13 CACHED
+
+#14 [web build 6/7] COPY . .
+#14 CACHED
+
+#15 [web stage-1 4/6] COPY --from=build /app/.next/standalone ./
+#15 CACHED
+
+#16 [web stage-1 2/6] RUN apt-get update && apt-get install -y --no-install-recommends iproute2 && rm -rf /var/lib/apt/lists/*
+#16 CACHED
+
+#17 [web build 3/7] RUN corepack enable
+#17 CACHED
+
+#18 [web build 7/7] RUN NEXT_PUBLIC_API_URL=http://localhost:4000 pnpm build
+#18 CACHED
+
+#19 [web build 2/7] WORKDIR /app
+#19 CACHED
+
+#20 [web stage-1 6/6] COPY --from=build /app/public ./public
+#20 CACHED
+
+#21 [web] exporting to image
+#21 exporting layers done
+#21 writing image sha256:a2b9782cc7425fb591b464fc9cc4ea4682f2cd237387fa74703989dd7a5c8171 done
+#21 naming to docker.io/library/perf-sim-web 0.0s done
+#21 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 ...
+
+#22 [web] resolving provenance for metadata file
+#22 DONE 0.0s
+
+#7 [api internal] load metadata for docker.io/library/rust:1.90-slim-bookworm
+#7 DONE 1.2s
+
+#23 [api internal] load .dockerignore
+#23 transferring context: 107B done
+#23 DONE 0.0s
+
+#24 [api build 1/6] FROM docker.io/library/rust:1.90-slim-bookworm@sha256:64232e656c058f4468e8d024e990acff04f0fd5a5c0a88a574dc37773d7325c9
+#24 DONE 0.0s
+
+#25 [api stage-1 1/4] FROM docker.io/library/debian:bookworm-slim
+#25 DONE 0.0s
+
+#26 [api internal] load build context
+#26 transferring context: 809B done
+#26 DONE 0.0s
+
+#27 [api build 3/6] COPY Cargo.toml Cargo.lock ./
+#27 CACHED
+
+#28 [api build 6/6] RUN touch src/main.rs && RUSTFLAGS="-C target-cpu=native" cargo build --release --locked
+#28 CACHED
+
+#29 [api stage-1 2/4] RUN apt-get update && apt-get install -y --no-install-recommends curl iproute2 ca-certificates && rm -rf /var/lib/apt/lists/*
+#29 CACHED
+
+#30 [api build 4/6] RUN mkdir src && echo 'fn main(){}' > src/main.rs && cargo build --release --locked && rm -rf src
+#30 CACHED
+
+#31 [api build 2/6] WORKDIR /src
+#31 CACHED
+
+#32 [api build 5/6] COPY src ./src
+#32 CACHED
+
+#33 [api stage-1 3/4] COPY --from=build /src/target/release/feed-server /usr/local/bin/feed-server
+#33 CACHED
+
+#34 [api stage-1 4/4] COPY docker-entrypoint.sh /usr/local/bin/
+#34 CACHED
+
+#35 [api] exporting to image
+#35 exporting layers done
+#35 writing image sha256:1766371bf5e2252340817faf261aa9307f9b4f5272836a12f8118c59134a3365 done
+#35 naming to docker.io/library/perf-sim-api done
+#35 DONE 0.0s
+
+#36 [api] resolving provenance for metadata file
+#36 DONE 0.0s
+ Image perf-sim-web Built 
+ Image perf-sim-api Built 
+ Container perf-sim-api-1 Running 
+ Container perf-sim-web-1 Recreate 
+ Container perf-sim-web-1 Recreated 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Starting 
+ Container perf-sim-web-1 Started 
+ Container perf-sim-api-1 Waiting 
+ Container perf-sim-web-1 Waiting 
+ Container perf-sim-api-1 Healthy 
+ Container perf-sim-web-1 Healthy 

@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-fd54facf6429 Creating 
+ Container perf-sim-k6-run-fd54facf6429 Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=346ms
+    ✓ 'p(99)<1000' p(99)=473.26ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 16383   74.490016/s
+    checks_succeeded...: 100.00% 16383 out of 16383
+    checks_failed......: 0.00%   0 out of 16383
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=71.42ms med=21.44ms p(95)=346ms  p(99)=473.26ms max=859.57ms
+      { expected_response:true }...: avg=71.42ms med=21.44ms p(95)=346ms  p(99)=473.26ms max=859.57ms
+    http_req_failed................: 0.00%  0 out of 16383
+    http_reqs......................: 16383  74.490016/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.83s  med=20.78s  p(95)=26.59s p(99)=28.54s   max=33.27s  
+    iterations.....................: 7097   32.268549/s
+    vus............................: 15     min=15         max=900
+    vus_max........................: 900    min=900        max=900
+
+    NETWORK
+    data_received..................: 122 MB 556 kB/s
+    data_sent......................: 7.9 MB 36 kB/s
+
+
+

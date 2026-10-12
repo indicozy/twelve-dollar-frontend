@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feed · Phoenix</title>
+<meta name="description" content="SSR benchmark app: Phoenix + HEEx frontend over a Rust + SQLite feed API">
+<link rel="stylesheet" href={~p"/styles.css"}>
+</head>
+<body>
+<header class="top">
+<a href={~p"/"} class="brand">feed<span>.</span></a>
+<span class="stack">phoenix</span>
+<nav><span :if={@username} class="who">@{@username}</span><a :if={!@username} href={~p"/login"}>Sign in</a></nav>
+</header>
+<main>
+{@inner_content}
+</main>
+</body>
+</html>

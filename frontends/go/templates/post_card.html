@@ -1,0 +1,14 @@
+{{define "post_card" -}}
+<article class="post" data-post-id="{{.Post.ID}}">
+<header><span class="author">@{{.Post.Author}}</span><time datetime="{{.Post.CreatedAt}}">{{.Post.Date}}</time></header>
+<p>{{.Post.Body}}</p>
+<footer>
+<form method="post" action="/actions/like"><input type="hidden" name="id" value="{{.Post.ID}}"><button type="submit" class="like">♥ <span>{{.Post.LikeCount}}</span></button></form>
+{{if .Link -}}
+<a href="/posts/{{.Post.ID}}">#{{.Post.ID}}</a>
+{{- else -}}
+<span class="muted">#{{.Post.ID}}</span>
+{{- end}}
+</footer>
+</article>
+{{- end}}

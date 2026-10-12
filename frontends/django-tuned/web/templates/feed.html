@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<form method="post" action="?create" class="compose">{% csrf_token %}
+  <textarea name="body" maxlength="500" placeholder="What's happening on the $12 server?" required rows="3"></textarea>
+  <div>
+    {% if error %}<span class="error">{{ error }}</span>{% else %}<span class="muted">max 500 chars</span>{% endif %}
+    <button type="submit">Post</button>
+  </div>
+</form>
+<h1>Latest</h1>
+<section class="feed">
+{% for post in posts %}{% include "_post.html" with post=post link=True %}
+{% endfor %}</section>
+{% endblock %}

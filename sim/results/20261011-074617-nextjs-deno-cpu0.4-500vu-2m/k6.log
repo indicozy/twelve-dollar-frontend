@@ -1,0 +1,51 @@
+ Container perf-sim-k6-run-eaf05ce646ab Creating 
+ Container perf-sim-k6-run-eaf05ce646ab Created 
+time="2026-10-11T02:48:26Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500032/like\": read tcp 192.168.32.5:47350->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T02:48:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500030/like\": read tcp 192.168.32.5:29612->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T02:48:42Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts\": read tcp 192.168.32.5:29620->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T02:48:47Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500039/like\": read tcp 192.168.32.5:30182->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T02:48:51Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500043/like\": read tcp 192.168.32.5:38680->192.168.32.3:3000: read: connection reset by peer"
+time="2026-10-11T02:49:21Z" level=warning msg="Request Failed" error="Post \"http://web:3000/api/posts/500038/like\": read tcp 192.168.32.5:7380->192.168.32.3:3000: read: connection reset by peer"
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=335.04ms
+    ✓ 'p(99)<1000' p(99)=471.77ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.06%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 9076   41.26546/s
+    checks_succeeded...: 99.93% 9070 out of 9076
+    checks_failed......: 0.06%  6 out of 9076
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✗ like 200/201
+      ↳  99% — ✓ 652 / ✗ 5
+    ✗ create 201
+      ↳  98% — ✓ 74 / ✗ 1
+
+    HTTP
+    http_req_duration..............: avg=104.21ms med=58.14ms p(95)=335.04ms p(99)=471.77ms max=664.67ms
+      { expected_response:true }...: avg=104.26ms med=58.17ms p(95)=335.11ms p(99)=471.81ms max=664.67ms
+    http_req_failed................: 0.06%  6 out of 9076
+    http_reqs......................: 9076   41.26546/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.98s   med=20.95s  p(95)=26.85s   p(99)=29.12s   max=33.19s  
+    iterations.....................: 3915   17.800163/s
+    vus............................: 10     min=9         max=500
+    vus_max........................: 500    min=500       max=500
+
+    NETWORK
+    data_received..................: 259 MB 1.2 MB/s
+    data_sent......................: 844 kB 3.8 kB/s
+
+
+

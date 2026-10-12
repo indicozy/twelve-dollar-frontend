@@ -1,0 +1,43 @@
+ Container perf-sim-k6-run-c315fa2c00cb Creating 
+ Container perf-sim-k6-run-c315fa2c00cb Created 
+
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<500' p(95)=33.07ms
+    ✓ 'p(99)<1000' p(99)=49.4ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 596952  1492.306368/s
+    checks_succeeded...: 100.00% 596952 out of 596952
+    checks_failed......: 0.00%   0 out of 596952
+
+    ✓ feed page 200 with 20 posts
+    ✓ post page 200
+    ✓ like 200/201
+    ✓ create 201
+
+    HTTP
+    http_req_duration..............: avg=7.87ms med=932.42µs p(95)=33.07ms p(99)=49.4ms max=197.75ms
+      { expected_response:true }...: avg=7.87ms med=932.42µs p(95)=33.07ms p(99)=49.4ms max=197.75ms
+    http_req_failed................: 0.00%  0 out of 596952
+    http_reqs......................: 596952 1492.306368/s
+
+    EXECUTION
+    iteration_duration.............: avg=20.63s med=20.62s   p(95)=26.35s  p(99)=28.18s max=34.02s  
+    iterations.....................: 267042 667.572061/s
+    vus............................: 180    min=88          max=16000
+    vus_max........................: 16000  min=16000       max=16000
+
+    NETWORK
+    data_received..................: 3.2 GB 8.1 MB/s
+    data_sent......................: 55 MB  138 kB/s
+
+
+
