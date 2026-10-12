@@ -1,0 +1,30 @@
+name: Benchmark result
+description: Share a score you measured on your own hardware or a real droplet.
+labels: [result]
+body:
+  - type: input
+    id: stack
+    attributes:
+      label: Stack(s)
+    validations:
+      required: true
+  - type: input
+    id: hardware
+    attributes:
+      label: Hardware
+      description: CPU model, or the droplet/VM type and region.
+    validations:
+      required: true
+  - type: input
+    id: settings
+    attributes:
+      label: Settings
+      description: CPUS, core pinning, MEM, and anything else you changed.
+  - type: textarea
+    id: result
+    attributes:
+      label: Result
+      description: The SCORE line from sim/results/runs.log and the summary.json of the passing 5-minute hold.
+      render: text
+    validations:
+      required: true

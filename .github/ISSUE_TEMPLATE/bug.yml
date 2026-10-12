@@ -1,0 +1,16 @@
+name: Bug or wrong number
+description: Something doesn't build, doesn't run, or a number in the report looks wrong.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you ran, what you expected, and what you got (logs help).
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: OS, Docker version, CPU.

@@ -13,6 +13,10 @@ const byVariant: Record<string, string> = {
   angular: "siAngular", astro: "siAstro", express: "siExpress", "express-nunjucks": "siNunjucks", flask: "siFlask", django: "siDjango",
   aspnet: "siDotnet", laravel: "siLaravel", spring: "siSpringboot", "rust-axum": "siRust",
   leptos: "siLeptos", "nextjs-bun": "siBun", hono: "siHono", bun: "siBun",
+  "nextjs-deno": "siDeno", "nextjs-nginx-cache": "siNginx", "express-bun": "siBun", "hono-jsx-node": "siHono", "hono-jsx-bun": "siHono", "honox": "siHono",
+  go: "siGo", rails: "siRubyonrails", phoenix: "siPhoenixframework", "laravel-octane": "siLaravel", "laravel-tuned": "siLaravel",
+  "sveltekit-tuned": "siSvelte", "astro-tuned": "siAstro", "spring-tuned": "siSpringboot", "django-tuned": "siDjango",
+  "flask-tuned": "siFlask", "aspnet-tuned": "siDotnet", "nextjs-tuned": "siNextdotjs", "nextjs-pages": "siNextdotjs", "remix-bun": "siBun",
   k6: "siK6", sqlite: "siSqlite", node: "siNodedotjs", react: "siReact", ejs: "siEjs",
 };
 

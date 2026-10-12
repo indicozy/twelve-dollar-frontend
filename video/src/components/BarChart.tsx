@@ -1,16 +1,16 @@
 import React from "react";
 import { spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { appear, fmt } from "../anim";
+import { appear } from "../anim";
 import { c, fonts } from "../theme";
-import type { Variant } from "../data";
+import { shown, usersLabel, type Variant } from "../data";
 import { LogoTile } from "./logos";
 
 /**
  * Horizontal bars that grow in one after another and count up.
  * `max` fixes the scale (so several scenes share one ruler); `capAt` hatches bars stopped by the 16,000-user cap.
  */
-export function BarChart({ items, x = 110, y = 300, width = 1500, rowH = 74, start = 10, stagger = 8, max, value = (v) => v.users ?? 0,
-  format = (n, v) => fmt(n) + (v.capped ? "  cap" : ""), labelW = 380, ref, }: {
+export function BarChart({ items, x = 110, y = 300, width = 1500, rowH = 74, start = 10, stagger = 8, max, value = (v) => shown(v),
+  format = (n, v) => usersLabel(v, n), labelW = 380, ref, }: {
   items: Variant[]; x?: number; y?: number; width?: number; rowH?: number; start?: number; stagger?: number; max?: number;
   value?: (v: Variant) => number; format?: (n: number, v: Variant) => string; labelW?: number; ref?: { label: string; value: number };
 }) {

@@ -3,19 +3,20 @@ import { AbsoluteFill, Img, interpolate, spring, staticFile, useCurrentFrame, us
 import { appear, fmt, prog } from "../anim";
 import { Label, Paper, Title, W, H } from "../components/layout";
 import { LogoTile } from "../components/logos";
-import { RoughLine, RoughRect } from "../components/rough";
-import { byId, v, variants } from "../data";
+import { RoughArrow, RoughLine, RoughRect } from "../components/rough";
+import { byId, shown, stacks, usersLabel, v } from "../data";
 import { c, fonts } from "../theme";
 
 /** 3. Every result as one bar chart; the Next.js row lights up at the end. */
 export function ResultsTable() {
   const f = useCurrentFrame();
-  const rows = variants.filter((x) => x.status === "done").sort((a, b) => (b.users ?? 0) - (a.users ?? 0));
-  const rowH = 35, top = 222, trackX = 600, trackW = 860, max = 16000;
+  const rows = [...stacks].sort((a, b) => shown(b) - shown(a));
+  const rowH = Math.min(35, Math.floor(790 / rows.length)), top = 226, trackX = 600, trackW = 860, max = 52000;
+  const fs = Math.min(29, rowH - 3), bar = Math.min(26, rowH - 7);
   const hl = prog(f, 330, 20);
   return (
     <Paper>
-      <Title text="every way to render the page" sub="22 stacks. Same site, API, 0.4 vCPU, 2 GB" width={1080} x={110} y={30} />
+      <Title text="every way to render the page" sub={`${rows.length} stacks. Same site, API, 1.96 GHz, 2 GB`} width={1080} x={110} y={30} />
       <div style={{ position: "absolute", left: 110, top: top - 44, width: 1700, fontFamily: fonts.hand, fontSize: 26, color: c.ink3, ...appear(f, 10) }}>
         <span style={{ position: "absolute", left: trackX - 110 }}>held for 5 minutes</span>
         <span style={{ position: "absolute", right: 0 }}>CPU per request</span>
@@ -23,33 +24,33 @@ export function ResultsTable() {
       {rows.map((r, i) => {
         const isNext = r.id === "nextjs";
         const g = c[r.group];
-        const t0 = 20 + i * 6, grow = prog(f, t0 + 4, 26);
-        const users = r.users ?? 0, w = Math.max(6, (users / max) * trackW) * grow;
+        const t0 = 20 + i * 5, grow = prog(f, t0 + 4, 26);
+        const users = shown(r), w = Math.max(6, (users / max) * trackW) * grow;
         return (
           <div key={r.id} style={{ position: "absolute", left: 96, top: top + i * rowH, width: 1730, height: rowH - 4, display: "flex", alignItems: "center",
             paddingLeft: 14, borderRadius: 8, background: isNext ? `rgba(255,226,122,${hl})` : "transparent", border: isNext ? `2px solid rgba(217,72,63,${hl})` : "2px solid transparent",
             ...appear(f, t0, 10) }}>
-            <div style={{ width: 44, fontFamily: fonts.mono, fontSize: 22, color: c.ink3 }}>{i + 1}</div>
-            <LogoTile id={r.id} size={32} start={t0} style={{ marginRight: 14 }} />
-            <div style={{ width: trackX - 110 - 44 - 46, fontFamily: fonts.hand, fontSize: 29, color: c.ink, whiteSpace: "nowrap" }}>{r.id === "nextjs-cached" ? "Next.js AI cached" : r.name}</div>
-            <div style={{ position: "relative", width: trackW + 140, height: 26 }}>
-              <div style={{ position: "absolute", left: 0, top: 0, height: 26, width: w, borderRadius: 6, background: g.fill, border: `2.5px solid ${g.stroke}`,
+            <div style={{ width: 44, fontFamily: fonts.mono, fontSize: Math.min(22, fs - 2), color: c.ink3 }}>{i + 1}</div>
+            <LogoTile id={r.id} size={rowH - 4} start={t0} style={{ marginRight: 14 }} />
+            <div style={{ width: trackX - 110 - 44 - 46, fontFamily: fonts.hand, fontSize: fs, color: c.ink, whiteSpace: "nowrap" }}>{r.id === "nextjs-cached" ? "Next.js AI cached" : r.name}</div>
+            <div style={{ position: "relative", width: trackW + 140, height: bar }}>
+              <div style={{ position: "absolute", left: 0, top: 0, height: bar, width: w, borderRadius: 6, background: g.fill, border: `2.5px solid ${g.stroke}`,
                 backgroundImage: r.capped ? `repeating-linear-gradient(45deg, transparent 0 8px, ${g.stroke}33 8px 12px)` : undefined }} />
-              <div style={{ position: "absolute", left: w + 12, top: -4, fontFamily: fonts.mono, fontWeight: 700, fontSize: 25, color: c.ink, whiteSpace: "nowrap", opacity: grow }}>
-                {fmt(Math.round(users * grow))}{r.capped ? "+" : ""}
+              <div style={{ position: "absolute", left: w + 12, top: (bar - fs + 2) / 2 - 2, fontFamily: fonts.mono, fontWeight: 700, fontSize: fs - 3, color: c.ink, whiteSpace: "nowrap", opacity: grow }}>
+                {usersLabel(r, users * grow)}
               </div>
             </div>
-            <div style={{ marginLeft: "auto", paddingRight: 14, whiteSpace: "nowrap", fontFamily: fonts.mono, fontSize: 24, color: isNext ? c.fail : c.ink2, fontWeight: isNext ? 700 : 400 }}>{r.cpu_ms_per_req?.toFixed(2)} ms</div>
+            <div style={{ marginLeft: "auto", paddingRight: 14, whiteSpace: "nowrap", fontFamily: fonts.mono, fontSize: fs - 4, color: isNext ? c.fail : c.ink2, fontWeight: isNext ? 700 : 400 }}>{r.cpu_ms_per_req?.toFixed(2)} ms</div>
           </div>
         );
       })}
-      <div style={{ position: "absolute", left: 110, top: top + rows.length * rowH + 8, display: "flex", gap: 28, fontFamily: fonts.hand, fontSize: 24, color: c.ink2, ...appear(f, 200) }}>
+      <div style={{ position: "absolute", left: 110, top: top + rows.length * rowH + 6, display: "flex", gap: 28, fontFamily: fonts.hand, fontSize: 24, color: c.ink2, ...appear(f, 200) }}>
         {(["hydrate", "template", "static"] as const).map((k) => (
           <span key={k} style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ width: 16, height: 16, borderRadius: 4, background: c[k].fill, border: `2px solid ${c[k].stroke}` }} />{typeLabel[k]}
           </span>
         ))}
-        <span>+ = stopped at our 16,000-user cap</span>
+        <span>~ = estimated from our 30,000-user run</span>
       </div>
     </Paper>
   );
@@ -88,7 +89,7 @@ export function AbstractionLadder() {
   const ms = (id: string) => v(id).cpu_ms_per_req ?? 0;
   const range = (ids: string[]) => { const xs = ids.map(ms); return [Math.min(...xs), Math.max(...xs)] as const; };
   const levels: { t: string; d: string; ids: string[] }[] = [
-    { t: "template → strings", d: "Express + EJS / Nunjucks", ids: ["express-nunjucks", "express"] },
+    { t: "template → strings", d: "Express + EJS / Nunjucks, Node and Bun", ids: ["express-bun", "express"] },
     { t: "framework templates", d: "Astro (no hydration)", ids: ["astro"] },
     { t: "components + hydration data", d: "SolidStart · TanStack · SvelteKit · Remix · Nuxt · Qwik", ids: ["solidstart", "tanstack-start", "sveltekit", "remix", "nuxt", "qwik"] },
     { t: "a DOM on the server", d: "Angular", ids: ["angular"] },
@@ -135,10 +136,10 @@ export function TakeawaysV2() {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const lines: [string, string][] = [
-    ["more abstraction = more CPU per render", "string templates 0.5 ms. Server Components 8.4 ms."],
-    ["language and framework matter a lot", "Express + Nunjucks held 9,700. JS is fine for frontend rendering."],
-    ["don't just ask AI to “cache everything”. It won't work.", "AI “caching” only got Next.js up to 800 · proper caching got it to 3,600"],
-    ["AI makes rewrites fast. Only rewrite when needed.", "measure first, then decide"],
+    ["more abstraction = more CPU per render", "string templates 0.17 ms. Server Components 8.4 ms."],
+    ["language and framework matter a lot", "Express + Nunjucks on Bun hit 24,900. JS is plenty fast for rendering."],
+    ["don't just ask AI to “cache everything”. It won't work.", "AI still can't pick the right architecture"],
+    ["AI makes rewrites fast. Only rewrite when needed.", "optimize first. don't switch frameworks unless you have to."],
     ["know your tools", "understand the fundamentals and how your tech stack works"],
   ];
   return (
@@ -202,7 +203,7 @@ export function TheSite() {
   const notes = ["a tiny Twitter clone", "feed: 20 latest posts", "post page: one post", "like and write posts", "same HTML from every stack"];
   return (
     <Paper>
-      <Title text="the site" sub="same pages, 21 ways" width={340} />
+      <Title text="the site" sub={`same pages, ${stacks.length} ways`} width={340} />
       {phone("site-mobile-long.png", 1000, 10, scroll, -3)}
       {phone("site-mobile-post.png", 1420, 30, 0, 3)}
       {notes.map((n, i) => (
@@ -277,14 +278,16 @@ export const stepLabels = ["is it RAM?", "where's the CPU going?", "is it React?
 export function FourWays() {
   const f = useCurrentFrame();
   const base = v("nextjs").users ?? 1;
-  const levers: { t: string; same: string; ids: [string, string?][]; caveat: string }[] = [
-    { t: "cache", same: "same Next.js app", ids: [["nextjs-cached", "AI cached"], ["nextjs-fullcache", "full cache"], ["nextjs-smart", "smart cache"]],
+  const eb = byId["express-bun"], en = byId["express-nunjucks"];
+  const levers: { t: string; same: string; ids: [string, string?][]; caveat: string; note?: string }[] = [
+    { t: "cache", same: "same Next.js app", ids: [["nextjs-cached", "AI cached"], ["nextjs-smart", "smart cache"], ["nextjs-nginx-cache", "nginx microcache"]],
       caveat: "stale pages, invalidation bugs, and misses still cost a full render" },
     { t: "switch framework", same: "same Node runtime", ids: [["remix", "Remix"], ["solidstart", "SolidStart"], ["express-nunjucks", "Express + Nunjucks"]],
       caveat: "a rewrite means losing framework features" },
-    { t: "switch runtime", same: "same Next.js app", ids: [["nextjs", "Next.js on Node"], ["nextjs-bun", "Next.js on Bun"]],
-      caveat: "newer runtimes change how packages and tooling behave" },
-    { t: "switch language", same: "same pages, new stack", ids: [["aspnet", "ASP.NET"], ["rust-axum", "Rust + Askama"]],
+    { t: "switch runtime", same: "same Next.js app", ids: [["nextjs", "Next.js on Node"], ["nextjs-bun", "Next.js on Bun"], ["nextjs-deno", "Next.js on Deno"]],
+      caveat: "newer runtimes change how packages and tooling behave",
+      note: eb?.users ? `Express + Nunjucks on Bun: ${fmt(en.users ?? 0)} → ${fmt(eb.users)}${eb.capped ? "+" : ""}` : undefined },
+    { t: "switch language", same: "same pages, new stack", ids: [["aspnet", "ASP.NET"], ["go", "Go"], ["rust-axum", "Rust + Askama"]],
       caveat: "your team needs to learn it, plus two languages to manage" },
   ];
   const colW = 410, x0 = 110, gap = 20;
@@ -318,6 +321,11 @@ export function FourWays() {
                 );
               })}
             </div>
+            {l.note && (
+              <div style={{ position: "absolute", left: x + 22, top: 640, width: colW - 44, fontFamily: fonts.hand, fontSize: 25, lineHeight: 1.25, color: c.ink2, ...appear(f, st + 70) }}>
+                {l.note}
+              </div>
+            )}
             <div style={{ position: "absolute", left: x + 22, top: 740, width: colW - 44, fontFamily: fonts.hand, fontSize: 24, lineHeight: 1.25, color: c.fail, ...appear(f, st + 90) }}>
               ⚠ {l.caveat}
             </div>
@@ -328,6 +336,124 @@ export function FourWays() {
         fontFamily: fonts.hand, fontSize: 30, color: c.ink, ...appear(f, 260) }}>
         this test ignores <b>architecture</b> (client-side rendering, islands, edge) and <b>code readability</b>. It only measures CPU per page.
       </div>
+    </Paper>
+  );
+}
+
+/** 16c. Weird results we dug into: each stack before and after one small, idiomatic fix. */
+export function FixFirst() {
+  const f = useCurrentFrame();
+  const fixes: [string, string, string][] = [
+    ["sveltekit", "sveltekit-tuned", "date formatter created 21x per page"],
+    ["astro", "astro-tuned", "the same date formatter bug"],
+    ["spring", "spring-tuned", "cold JIT per container, fixed by JDK AOT cache"],
+    ["django", "django-tuned", "health check recompiled Python every 2 s + Jinja2"],
+    ["flask", "flask-tuned", "health check recompiled Python every 2 s"],
+    ["aspnet", "aspnet-tuned", "turned off idle thread-pool spinning"],
+    ["laravel", byId["laravel-tuned"]?.status === "done" ? "laravel-tuned" : "laravel-octane", "one session file per visitor and one API connection per request"],
+  ];
+  const rows = fixes.filter(([a, b]) => byId[a]?.users && byId[b]?.status === "done" && byId[b]?.users);
+  const max = 10000, trackX = 520, trackW = 760, rowH = 92, top = 250;
+  return (
+    <Paper>
+      <Title text="profile before you rewrite" sub="weird results and the small fixes we used" width={1000} />
+      {rows.map(([a, b, why], i) => {
+        const before = byId[a].users!, after = byId[b].users!, st = 20 + i * 22;
+        const g1 = prog(f, st + 4, 18), g2 = prog(f, st + 26, 26);
+        const wb = (Math.min(before, max) / max) * trackW, wa = (Math.min(after, max) / max) * trackW;
+        const gain = after / before;
+        return (
+          <div key={a} style={{ position: "absolute", left: 110, top: top + i * rowH, width: 1700, height: rowH - 12, ...appear(f, st, 10) }}>
+            <LogoTile id={a} size={44} start={st} style={{ position: "absolute", left: 0, top: 4 }} />
+            <div style={{ position: "absolute", left: 62, top: 0, fontFamily: fonts.head, fontSize: 34, color: c.ink, whiteSpace: "nowrap" }}>{byId[a].name.replace(/ \+ .*/, "")}</div>
+            <div style={{ position: "absolute", left: 62, top: 42, width: trackX - 90, fontFamily: fonts.hand, fontSize: 23, lineHeight: 1.1, color: c.ink2 }}>{why}</div>
+            <div style={{ position: "absolute", left: trackX, top: 6, height: 22, width: wb * g1, borderRadius: 5, background: c.dots, border: `2px solid ${c.ink3}` }} />
+            <div style={{ position: "absolute", left: trackX, top: 34, height: 30, width: Math.max(wb, wa * g2), borderRadius: 6, background: c.template.fill, border: `2.5px solid ${c.template.stroke}`, opacity: g2 }} />
+            <div style={{ position: "absolute", left: trackX + Math.max(wb, wa) + 16, top: 12, fontFamily: fonts.mono, fontWeight: 700, fontSize: 30, color: c.ink, whiteSpace: "nowrap", opacity: g2 }}>
+              {fmt(before)} → {fmt(after)}
+              <span style={{ marginLeft: 16, color: gain >= 1.15 ? c.pass : c.ink3 }}>{gain >= 1.05 ? `${gain.toFixed(1)}×` : "≈ same"}</span>
+            </div>
+          </div>
+        );
+      })}
+      <Label x={110} y={top + rows.length * rowH + 40} size={34} font="head" start={200}>moving one line doubled SvelteKit and Astro</Label>
+    </Paper>
+  );
+}
+
+/** 16d. Five ways out of plain Next.js, with Next.js in the middle: each group's best result vs Next.js. */
+export function NextHub() {
+  const f = useCurrentFrame();
+  const base = v("nextjs").users ?? 1;
+  type G = { t: string; same: string; ids: [string, string][]; caveat: string; fill: string; stroke: string };
+  const groups: G[] = [
+    { t: "optimize Next.js itself", same: "same app, less work per request", ids: [["nextjs-tuned", "tuned config"], ["nextjs-csr", "static export (CSR)"]],
+      caveat: "still RSC. still way behind", fill: "#fff", stroke: c.ink3 },
+    { t: "swap the runtime", same: "same code, on Bun or Deno", ids: [["nextjs-bun", "Bun"], ["nextjs-deno", "Deno"]],
+      caveat: "React still does the same amount of work", fill: "#fff", stroke: c.ink3 },
+    { t: "add a cache", same: "inside Next.js or in front", ids: [["nextjs-cached", "AI cached"], ["nextjs-smart", "smart cache"], ["nextjs-nginx-cache", "nginx microcache"]],
+      caveat: "only for anonymous pages that can be a second stale", fill: c.hydrate.fill, stroke: c.hydrate.stroke },
+    { t: "keep React, swap the framework", same: "one render pass, tiny data blob", ids: [["remix", "React Router 7"], ["tanstack-start", "TanStack Start"], ["remix-bun", "React Router 7 on Bun"]],
+      caveat: "you'll rewrite routing and data loading", fill: "#fff", stroke: c.ink3 },
+    { t: "swap framework or language", same: "HTML templates, no React", ids: [["honox", "HonoX (islands)"], ["express-bun", "Express on Bun"], ["go", "Go"], ["rust-axum", "Rust"]],
+      caveat: "full rewrite. no React in the browser", fill: c.template.fill, stroke: c.template.stroke },
+  ];
+  // 3 x 2 grid; Next.js sits in the top middle cell, the five groups around it
+  const cw = 540, ch = 330, gx = 60, gy = 26, x0 = 90, y0 = 250;
+  const cell = (col: number, row: number) => ({ x: x0 + col * (cw + gx), y: y0 + row * (ch + gy) });
+  const slots = [cell(0, 0), cell(2, 0), cell(0, 1), cell(1, 1), cell(2, 1)];
+  const hub = cell(1, 0), hc = { x: hub.x + cw / 2, y: hub.y + ch / 2 };
+  const mult = (u: number) => { const m = u / base; return m < 10 ? m.toFixed(1) : String(Math.round(m)); };
+  return (
+    <Paper>
+      <Title text="5 ways to escape plain Next.js" sub={`best result per group vs plain Next.js (${fmt(base)} users)`} width={900} />
+      <svg width={W} height={H} style={{ position: "absolute", inset: 0 }}>
+        {slots.map((s, i) => {
+          const tx = s.x + cw / 2, ty = s.y + ch / 2;
+          const k = 0.42;                                   // stop the arrow short of both boxes
+          return <RoughArrow key={i} x1={hc.x + (tx - hc.x) * k * 0.6} y1={hc.y + (ty - hc.y) * k * 0.6} x2={tx - (tx - hc.x) * k} y2={ty - (ty - hc.y) * k}
+            stroke={c.ink3} strokeWidth={3} seed={900 + i} draw={prog(f, 30 + i * 30, 16)} />;
+        })}
+        <RoughRect x={hub.x + 60} y={hub.y + 40} w={cw - 120} h={ch - 80} fill={c.fail + "22"} stroke={c.fail} seed={890} draw={prog(f, 4, 18)} />
+        {slots.map((s, i) => (
+          <RoughRect key={i} x={s.x} y={s.y} w={cw} h={ch} fill={groups[i].fill} stroke={groups[i].stroke} seed={910 + i} draw={prog(f, 36 + i * 30, 18)} />
+        ))}
+      </svg>
+      <div style={{ position: "absolute", left: hub.x + 60, top: hub.y + 70, width: cw - 120, textAlign: "center", ...appear(f, 10) }}>
+        <LogoTile id="nextjs" size={64} start={10} style={{ margin: "0 auto" }} />
+        <div style={{ fontFamily: fonts.head, fontSize: 40, color: c.ink, marginTop: 8 }}>Next.js</div>
+        <div style={{ fontFamily: fonts.mono, fontWeight: 700, fontSize: 36, color: c.fail }}>{fmt(base)} users</div>
+      </div>
+      {groups.map((g, i) => {
+        const s = slots[i], st = 46 + i * 30;
+        const done = g.ids.filter(([id]) => id !== "nextjs-csr").map(([id]) => byId[id]).filter((r) => r && r.status === "done" && r.users);
+        const best = done.length ? Math.max(...done.map((r) => shown(r!))) : 0;
+        const bestCapped = done.some((r) => shown(r!) === best && r!.capped);
+        return (
+          <div key={g.t} style={{ position: "absolute", left: s.x + 20, top: s.y + 14, width: cw - 40, ...appear(f, st) }}>
+            <div style={{ fontFamily: fonts.head, fontSize: 32, color: c.ink, whiteSpace: "nowrap" }}>{i + 1}. {g.t}</div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 14 }}>
+              <span style={{ fontFamily: fonts.hand, fontSize: 23, color: c.ink2 }}>{g.same}</span>
+              <span style={{ fontFamily: fonts.mono, fontWeight: 700, fontSize: 30, color: best > base * 1.15 ? c.pass : c.ink3, marginLeft: "auto", whiteSpace: "nowrap" }}>
+                {best ? `${best > base * 1.05 ? "up to " : ""}${bestCapped ? "~" : ""}${mult(best)}×` : "…"}
+              </span>
+            </div>
+            {g.ids.map(([id, name], k) => {
+              const r = byId[id], ok = r && r.status === "done" && r.users;
+              if (!r) return null;
+              return (
+                <div key={id} style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 6, ...appear(f, st + 14 + k * 8) }}>
+                  <LogoTile id={id} size={32} start={st + 14 + k * 8} />
+                  <span style={{ fontFamily: fonts.hand, fontSize: 25, color: c.ink, flex: 1, whiteSpace: "nowrap" }}>{name}</span>
+                  <span style={{ fontFamily: fonts.mono, fontWeight: 700, fontSize: 24, color: ok ? c.ink : c.ink3 }}>{ok ? usersLabel(r) : "…"}</span>
+                </div>
+              );
+            })}
+            <div style={{ position: "absolute", top: ch - 62, width: cw - 40, fontFamily: fonts.hand, fontSize: 22, lineHeight: 1.2, color: c.fail, ...appear(f, st + 50) }}>⚠ {g.caveat}</div>
+          </div>
+        );
+      })}
+      <Label x={x0} y={y0 + 2 * ch + gy + 22} size={30} color={c.ink2} start={240}>bigger rewrites give bigger gains. The cache is the exception.</Label>
     </Paper>
   );
 }

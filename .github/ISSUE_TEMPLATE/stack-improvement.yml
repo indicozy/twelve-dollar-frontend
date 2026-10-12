@@ -1,0 +1,29 @@
+name: Stack improvement
+description: A stack is slower than it should be, or you know a more idiomatic way to build it.
+labels: [stack]
+body:
+  - type: input
+    id: stack
+    attributes:
+      label: Stack
+      description: The folder under frontends/, e.g. nextjs or sveltekit.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What costs too much
+      description: What the stack does that a normal production app wouldn't, and how you found it (profile, docs, experience).
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Proposed change
+      description: Keep it idiomatic and within the rules in CONTRIBUTING.md (same app, no caching, production defaults).
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Pull request
+      options:
+        - label: I'd like to open a pull request for this.

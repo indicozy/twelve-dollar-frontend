@@ -1,0 +1,22 @@
+name: New stack
+description: Propose a framework or language to add.
+labels: [new-stack]
+body:
+  - type: input
+    id: stack
+    attributes:
+      label: Framework and runtime
+      description: e.g. Fresh on Deno, Ktor + kotlinx.html
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why it's interesting
+      description: What it would show that the current stacks don't (a rendering model, a runtime, a language).
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Pull request
+      options:
+        - label: I'd like to build it, following frontends/SPEC.md.

@@ -3,15 +3,15 @@ import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
 import { appear, fmt, prog } from "../anim";
 import { Box, H, Label, Paper, Person, Pill, Title, W } from "../components/layout";
 import { RoughArrow, RoughEllipse, RoughLine, RoughRect } from "../components/rough";
-import { v } from "../data";
+import { stacks, v } from "../data";
 import { c, fonts } from "../theme";
 import { LogoTile } from "../components/logos";
 
-/** 1. Hook: same everything, only the frontend changes; 500 vs 9,700. */
+/** 1. Hook: same everything, only the frontend changes; Next.js vs Hono JSX on Bun. */
 export function Hook() {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const lo = v("nextjs"), hi = v("express-nunjucks");
+  const lo = v("nextjs"), hi = v("hono-jsx-bun");
   const k = (start: number) => spring({ frame: f - start, fps, config: { damping: 30 } });
   const ratio = Math.round((hi.users ?? 0) / (lo.users ?? 1));
   const card = (x: number, id: string, name: string, users: number, col: { fill: string; stroke: string }, start: number, seed: number) => (
@@ -34,7 +34,7 @@ export function Hook() {
       {card(1030, hi.id, hi.name, hi.users ?? 0, c.template, 110, 22)}
       <div style={{ position: "absolute", left: W / 2, top: 600, transform: `translate(-50%,-50%) rotate(${-8 + Math.sin(f / 9) * 1.5}deg) scale(${stamp * (1 + 0.04 * Math.sin(f / 6) * Math.max(0, 1 - (f - 175) / 60))})`, fontFamily: fonts.head, fontSize: 96,
         color: c.fail, background: c.paper, border: `5px solid ${c.fail}`, borderRadius: 18, padding: "0 26px" }}>{ratio}×</div>
-      <Label x={W / 2} y={880} align="center" size={64} font="head" start={200}>why is Next.js {ratio}× slower than Express?</Label>
+      <Label x={W / 2} y={880} align="center" size={64} font="head" start={200}>why is Next.js {ratio}× slower than Hono on Bun?</Label>
     </Paper>
   );
 }
@@ -46,7 +46,7 @@ export function Setup() {
     <Paper>
       <Title text="the setup" sub="two small servers" width={420} />
       <Box x={110} y={430} w={400} h={260} color={c.violet} start={20} seed={31} title="k6" body={<>load generator<br />thousands of users</>} />
-      <Box x={760} y={400} w={460} h={320} color={c.hydrate} start={50} seed={32} title="frontend server" body={<><b>0.4 vCPU · 2 GB</b><br /><br /><br /></>} />
+      <Box x={760} y={400} w={460} h={320} color={c.hydrate} start={50} seed={32} title="frontend server" body={<><b>1.96 GHz · 2 GB</b><br /><br /><br /></>} />
       <Box x={1470} y={430} w={360} h={260} color={c.neutral} start={80} seed={33} title="API" body={<>Rust + SQLite<br />~1 ms per request</>} />
       <svg width={W} height={H} style={{ position: "absolute", inset: 0 }}>
         <RoughArrow x1={520} y1={560} x2={748} y2={560} seed={41} draw={prog(f, 70, 18)} />
@@ -59,7 +59,7 @@ export function Setup() {
       <Packets f={f} />
       <Label x={634} y={472} align="center" size={30} color={c.ink2} start={80}>page views</Label>
       <Label x={1344} y={472} align="center" size={30} color={c.ink2} start={110}>JSON</Label>
-      <Label x={W / 2} y={800} align="center" size={38} start={140}>21 stacks, all rendering on the server</Label>
+      <Label x={W / 2} y={800} align="center" size={38} start={140}>{stacks.length} stacks, all rendering on the server</Label>
       <Label x={W / 2} y={860} align="center" size={30} color={c.ink3} start={170}>fresh DB and dedicated core for every run</Label>
     </Paper>
   );
@@ -132,34 +132,57 @@ export function PassFail() {
 export function SearchPath() {
   const f = useCurrentFrame();
   const e = v("express");
-  const steps = e.steps ?? [];
-  const lo = 4000, hi = 10000, ax0 = 160, ax1 = 1760, ay = 760;
-  const X = (u: number) => ax0 + ((u - lo) / (hi - lo)) * (ax1 - ax0);
+  // The method, drawn cleanly (the real Express log wandered): double until a 2-minute run fails, bisect the gap to
+  // 100 users, then 5-minute holds inside the final pass/fail range. It ends on Express's real numbers.
+  const runs: { u: number; ok: boolean; hold?: boolean }[] = [
+    { u: 1500, ok: true }, { u: 3000, ok: true }, { u: 6000, ok: true }, { u: 12000, ok: false },
+    { u: 9000, ok: false }, { u: 7500, ok: true }, { u: 8300, ok: false }, { u: 7900, ok: true }, { u: 8100, ok: false }, { u: 8000, ok: true },
+    { u: 8000, ok: false, hold: true }, { u: e.users ?? 7900, ok: true, hold: true },
+  ];
+  const x0 = 260, x1 = 1760, y0 = 850, y1 = 400, uhi = 13000;
+  const X = (i: number) => x0 + (i + 0.5) * ((x1 - x0) / runs.length);
+  const Y = (u: number) => y0 - (u / uhi) * (y0 - y1);
+  const per = 15, t0 = 30, at = (i: number) => t0 + i * per;
+  // pass/fail range after each run (shown once the first failure brackets the limit)
+  let lo = 0, hi = 0;
+  const bands = runs.map((r) => { if (!r.hold) { if (r.ok) lo = Math.max(lo, r.u); else hi = hi ? Math.min(hi, r.u) : r.u; } return { lo, hi }; });
+  const phases: [number, number, string][] = [[0, 3, "double until it breaks"], [4, 9, "narrowing the gap"], [10, 11, "5-minute soak tests"]];
+  const dx = (x1 - x0) / runs.length;
   return (
     <Paper>
-      <Title text="finding the limit" sub={`${e.name}: every run in order, 2-minute runs then 5-minute holds`} width={540} />
+      <Title text="finding the limit" sub="the idea on Express: double, halve, then hold" width={540} />
       <svg width={W} height={H} style={{ position: "absolute", inset: 0 }}>
-        <RoughArrow x1={ax0} y1={ay} x2={ax1 + 30} y2={ay} seed={81} draw={prog(f, 10, 20)} />
-        {steps.map((s, i) => {
-          const t = 30 + i * 13, y = ay - 70 - (s.run === "5m" ? 190 : 0) - (i % 2) * 32;
-          const p = prog(f, t, 10);
-          const col = s.ok ? c.pass : c.fail;
+        {[0, 4000, 8000, 12000].map((u) => <line key={u} x1={x0} x2={x1} y1={Y(u)} y2={Y(u)} stroke={c.ink3} strokeOpacity={0.25} strokeDasharray="4 8" />)}
+        {runs.map((r, i) => {
+          const b = bands[i]; if (!b.hi || !b.lo) return null;
+          const p = prog(f, at(i) + 6, 10);
+          return <rect key={`b${i}`} x={X(i) - dx / 2} width={dx} y={Y(b.hi)} height={Y(b.lo) - Y(b.hi)} fill={c.yellow.fill} opacity={0.55 * p} />;
+        })}
+        <polyline fill="none" stroke={c.ink3} strokeWidth={3} strokeDasharray="2 7"
+          points={runs.slice(0, Math.max(1, Math.min(runs.length, Math.floor((f - t0) / per) + 1))).map((r, i) => `${X(i)},${Y(r.u)}`).join(" ")} />
+        {runs.map((r, i) => {
+          const p = prog(f, at(i), 10), col = r.ok ? c.pass : c.fail;
           return (
             <g key={i} opacity={p}>
-              <line x1={X(s.users)} y1={ay} x2={X(s.users)} y2={y + 16} stroke={col} strokeWidth={2} strokeDasharray="4 6" />
-              <circle cx={X(s.users)} cy={y} r={15 * p} fill={col} />
-              <text x={X(s.users)} y={y + 6} textAnchor="middle" fontFamily={fonts.mono} fontSize={14} fontWeight={700} fill="#fff">{i + 1}</text>
+              {r.hold ? <rect x={X(i) - 20} y={Y(r.u) - 20} width={40 * p} height={40} rx={8} fill={col} /> : <circle cx={X(i)} cy={Y(r.u)} r={18 * p} fill={col} />}
+              <text x={X(i)} y={Y(r.u) + 6} textAnchor="middle" fontFamily={fonts.mono} fontSize={16} fontWeight={700} fill="#fff">{i + 1}</text>
+              <text x={X(i)} y={Y(r.u) + (r.ok ? 46 : -30)} textAnchor="middle" fontFamily={fonts.mono} fontSize={20} fontWeight={700} fill={c.ink}>{fmt(r.u)}</text>
             </g>
           );
         })}
+        {phases.map(([a, b], k) => (
+          <line key={k} x1={X(a) - dx / 2 + 8} x2={X(b) + dx / 2 - 8} y1={y1 - 60} y2={y1 - 60} stroke={c.ink2} strokeWidth={3} opacity={prog(f, at(a), 10)} />
+        ))}
       </svg>
-      {[4000, 6000, 8000, 10000].map((u) => <Label key={u} x={X(u)} y={ay + 18} align="center" size={28} font="mono" color={c.ink2} start={14}>{fmt(u)}</Label>)}
-      <Label x={ax0} y={ay - 165} size={30} color={c.ink2} start={40}>2m runs ↓</Label>
-      <Label x={ax0} y={ay - 355} size={30} color={c.ink2} start={40}>5m holds ↓</Label>
+      {phases.map(([a, b, t], k) => (
+        <Label key={t} x={(X(a) + X(b)) / 2} y={y1 - 110} align="center" size={32} font="head" start={at(a)}>{t}</Label>
+      ))}
+      {[0, 4000, 8000, 12000].map((u) => <Label key={u} x={x0 - 20} y={Y(u) - 16} align="right" size={24} font="mono" color={c.ink2} start={14}>{fmt(u)}</Label>)}
       <div style={{ position: "absolute", left: 110, top: 900, display: "flex", gap: 30, ...appear(f, 60) }}>
         <Pill color={{ fill: "#d6f3e4", stroke: c.pass }}>pass</Pill><Pill color={{ fill: "#fbdcd8", stroke: c.fail }}>fail</Pill>
+        <Pill color={c.yellow}>the range between last pass and first fail</Pill>
       </div>
-      <Label x={X(e.users ?? 0)} y={900} align="center" size={52} font="head" start={30 + steps.length * 13 + 10}>score: {fmt(e.users ?? 0)} users</Label>
+      <Label x={1760} y={900} align="right" size={52} font="head" start={at(runs.length - 1) + 12}>score: {fmt(e.users ?? 0)} users</Label>
     </Paper>
   );
 }

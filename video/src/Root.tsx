@@ -10,6 +10,9 @@ import { AbstractionLadder, BigQuestion, FourWays, NextVsRemix, ResultsTable, Ta
 import * as gV2 from "./scenes-gemma/v2";
 import * as gIntro from "./scenes-gemma/intro";
 import * as gResults from "./scenes-gemma/results";
+import { makeVoiced } from "./Voiced";
+import { Thumbnail, thumbnailSchema } from "./Thumbnail";
+import { Still } from "remotion";
 
 const FPS = 30;
 export const shots: [string, React.FC, number][] = [
@@ -52,6 +55,36 @@ export const v2Shots: [string, React.FC, number][] = [
   ["AbstractionLadder", gV2.AbstractionLadder, 14], ["TakeawaysV2", gV2.TakeawaysV2, 18],
 ];
 
+// v3: the v2 cut with the new stacks (Go, Rails, Phoenix, Hono, Leptos, runtimes, nginx cache) and the fixes we found.
+export const v3Shots: [string, React.FC, number][] = [
+  ...v2Shots.slice(0, v2Shots.findIndex(([id]) => id === "FourWays")),
+  ["FixFirst", gV2.FixFirst, 16],
+  ...v2Shots.slice(v2Shots.findIndex(([id]) => id === "FourWays")),
+];
+
+function FullV3() {
+  return <Sequenced list={v3Shots} />;
+}
+
+/** v3b: v3 with the five-ways-out-of-Next.js hub in place of the four-ways slide. */
+export const v3bShots: [string, React.FC, number][] = (() => {
+  // no "where the CPU goes" (same story as Next.js vs Remix); abstraction ladder right after Next.js vs Remix
+  const base = v3Shots.filter(([id]) => id !== "Pipeline" && id !== "AbstractionLadder" && id !== "FourWays");
+  const ladder = v3Shots.find(([id]) => id === "AbstractionLadder")!;
+  const withLadder = (() => { const k = base.findIndex(([id]) => id === "NextVsRemix") + 1; return [...base.slice(0, k), ladder, ...base.slice(k)]; })();
+  const at = withLadder.findIndex(([id]) => id === "TakeawaysV2");
+  const withHub = [...withLadder.slice(0, at), ["NextHub", gV2.NextHub, 18] as [string, React.FC, number], ...withLadder.slice(at)];
+  // the four cache setups as request paths, right after "what if we cache Next.js?"
+  const c = withHub.findIndex(([id]) => id === "Caching") + 1;
+  return [...withHub.slice(0, c), ["CacheModes", gResults.CacheModes, 16] as [string, React.FC, number], ...withHub.slice(c)];
+})();
+function FullV3b() {
+  return <Sequenced list={v3bShots} />;
+}
+
+// v3b over the recorded voice-over; slide start times are editable in the Studio (VOICED_PROPS below).
+const voiced = makeVoiced(v3bShots);
+
 function FullV2() {
   return <Sequenced list={v2Shots} />;
 }
@@ -85,7 +118,45 @@ export function Root() {
       <Composition id="Full" component={Full} durationInFrames={total} fps={FPS} width={1920} height={1080} />
       <Composition id="FullGemma" component={FullGemma} durationInFrames={total} fps={FPS} width={1920} height={1080} />
       <Composition id="FullV2" component={FullV2} durationInFrames={len(v2Shots)} fps={FPS} width={1920} height={1080} />
-      {[["FourWays", FourWays, 14], ["TheSite", TheSite, 9], ["NextVsRemix", NextVsRemix, 16], ["ResultsTable", ResultsTable, 16], ["BigQuestion", BigQuestion, 6], ["AbstractionLadder", AbstractionLadder, 14], ["TakeawaysV2", TakeawaysV2, 18]].map(([id, C, s]) =>
+      <Composition id="FullV3" component={FullV3} durationInFrames={len(v3Shots)} fps={FPS} width={1920} height={1080} />
+      <Composition id="FullV3b" component={FullV3b} durationInFrames={len(v3bShots)} fps={FPS} width={1920} height={1080} />
+      <Still id="Thumbnail" component={Thumbnail} schema={thumbnailSchema} width={1920} height={1080}
+        defaultProps={{ photo: "thumb/me.png", photoHeight: 540, photoX: -110 }} />
+      <Composition id="Voiced" component={voiced.Voiced} schema={voiced.schema} calculateMetadata={voiced.metadata} durationInFrames={1} fps={FPS} width={1920} height={1080}
+        defaultProps={{
+        take: "takes/proga.mp4",
+        audio: "",
+        camera: "circle",
+        cameraZoom: 1.35,
+        ccTip: true,
+        showLabels: false,
+        end: 631.5,
+        slides: [
+          { id: "Hook", start: 0 },
+          { id: "Scope", start: 19.8 },
+          { id: "TheSite", start: 38.6 },
+          { id: "Setup", start: 80.2 },
+          { id: "OneUser", start: 120.1 },
+          { id: "PassFail", start: 141.8 },
+          { id: "SearchPath", start: 161.3 },
+          { id: "ResultsTable", start: 180.8 },
+          { id: "BigQuestion", start: 221.5 },
+          { id: "NotRam", start: 226.1 },
+          { id: "CpuPerRequest", start: 241.3 },
+          { id: "ReactFamily", start: 263.3 },
+          { id: "NextVsRemix", start: 275.9 },
+          { id: "AbstractionLadder", start: 310.0 },
+          { id: "Caching", start: 336.9 },
+          { id: "CacheModes", start: 351.9 },
+          { id: "CacheCosts", start: 371.2 },
+          { id: "NoFramework", start: 398.6 },
+          { id: "OtherLangs", start: 427.7 },
+          { id: "FixFirst", start: 444.0 },
+          { id: "NextHub", start: 504.8 },
+          { id: "TakeawaysV2", start: 561.1 },
+        ],
+      }} />
+      {[["G-SearchPath", g.SearchPath, 10], ["G-Hook", g.Hook, 9], ["G-Setup", g.Setup, 10], ["G-CpuPerRequest", g.CpuPerRequest, 12], ["G-CacheCosts", g.CacheCosts, 12], ["CacheModes", gResults.CacheModes, 16], ["G-NoFramework", g.NoFramework, 11], ["G-Ladder", gV2.AbstractionLadder, 14], ["G-Takeaways", gV2.TakeawaysV2, 18], ["NextHub", gV2.NextHub, 18], ["FixFirst", gV2.FixFirst, 16], ["G-FourWays", gV2.FourWays, 14], ["G-ResultsTable", gV2.ResultsTable, 16], ["G-OtherLangs", gResults.OtherLangs, 11], ["FourWays", FourWays, 14], ["TheSite", TheSite, 9], ["NextVsRemix", NextVsRemix, 16], ["ResultsTable", ResultsTable, 16], ["BigQuestion", BigQuestion, 6], ["AbstractionLadder", AbstractionLadder, 14], ["TakeawaysV2", TakeawaysV2, 18]].map(([id, C, s]) =>
         <Composition key={id as string} id={id as string} component={C as React.FC} durationInFrames={(s as number) * FPS} fps={FPS} width={1920} height={1080} />)}
       {shots.map(([id, C, s]) => <Composition key={id} id={id} component={C} durationInFrames={s * FPS} fps={FPS} width={1920} height={1080} />)}
     </>

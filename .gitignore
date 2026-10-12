@@ -1,11 +1,11 @@
 # Local tools, data and third-party material (scripts/setup.sh recreates what the benchmark needs)
 .tools/
-data/
+data
 research/
 
 # Dependencies and build outputs
-node_modules/
-backend/target/
+node_modules
+backend/target
 frontends/*/.next/
 frontends/*/dist/
 frontends/*/build/
@@ -19,19 +19,36 @@ frontends/*/.react-router/
 frontends/*/.vinxi/
 frontends/*/.venv/
 frontends/*/__pycache__/
-frontends/*/target/
+frontends/*/target
 frontends/*/vendor/
 frontends/aspnet/bin/
 frontends/aspnet/obj/
+frontends/aspnet-tuned/bin/
+frontends/aspnet-tuned/obj/
+frontends/*/_build/
+frontends/*/deps/
+frontends/*/.bundle/
+frontends/*/tmp/
+frontends/*/log/
 __pycache__/
 *.pyc
 
 # Variants that were started and then dropped (not benchmarked)
-frontends/leptos/
-frontends/hono-jsx-bun/
-frontends/hono-jsx-node/
+frontends/nextjs-pages/
 
 # Rendered videos and render logs
 video/out/
+
+# Voice-over recordings and the local speech-to-text environment
+video/recordings/
+video/public/takes/
+video/public/thumb/
+video/.venv-asr/
+
+# Editor and local files
+*.swp
+*~
+.env
+.env.local
 
 .DS_Store

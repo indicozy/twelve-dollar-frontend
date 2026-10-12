@@ -1,5 +1,5 @@
 {
- "generated": "20261010-2052",
+ "generated": "20261012-0437",
  "variants": [
   {
    "id": "nextjs",
@@ -13,6 +13,7 @@
    "users": 500,
    "capped": false,
    "req_s": 45,
+   "estimate": null,
    "p95": 417,
    "p99": 617,
    "errors": 0.02,
@@ -78,6 +79,83 @@
    ]
   },
   {
+   "id": "nextjs-tuned",
+   "name": "Next.js (tuned)",
+   "lang": "TypeScript \u00b7 Node",
+   "group": "hydrate",
+   "feed_kb": 25.2,
+   "version": "Next.js 16.4, React 19.3",
+   "how": "Plain Next.js after profiling, still no caching: cacheComponents/Partial Prerendering off (one dynamic render instead of a staged render plus a prefetch render), the post card as a Client Component (props instead of a rendered tree in the RSC payload), V8 heap sized for the container.",
+   "status": "done",
+   "users": 800,
+   "capped": false,
+   "req_s": 74,
+   "estimate": null,
+   "p95": 259,
+   "p99": 460,
+   "errors": 0.01,
+   "web_cpu": 36.0,
+   "web_cpu_of_vcpu": 90.0,
+   "web_mem_peak": 233.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 4.0,
+   "api_mem_peak": 36.0,
+   "cpu_ms_per_req": 4.86,
+   "best_2m": 800,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 900,
+    "run": "2m",
+    "p95": 374,
+    "p99": 1150,
+    "errors": 0.04
+   },
+   "steps": [
+    {
+     "users": 600,
+     "run": "2m",
+     "ok": true,
+     "p95": 130,
+     "p99": 236
+    },
+    {
+     "users": 800,
+     "run": "2m",
+     "ok": true,
+     "p95": 259,
+     "p99": 494
+    },
+    {
+     "users": 1100,
+     "run": "2m",
+     "ok": false,
+     "p95": 1673,
+     "p99": 2180
+    },
+    {
+     "users": 1000,
+     "run": "2m",
+     "ok": false,
+     "p95": 863,
+     "p99": 1820
+    },
+    {
+     "users": 900,
+     "run": "2m",
+     "ok": false,
+     "p95": 374,
+     "p99": 1150
+    },
+    {
+     "users": 800,
+     "run": "5m",
+     "ok": true,
+     "p95": 259,
+     "p99": 460
+    }
+   ]
+  },
+  {
    "id": "nextjs-bun",
    "name": "Next.js on Bun",
    "lang": "TypeScript \u00b7 Bun",
@@ -89,6 +167,7 @@
    "users": 700,
    "capped": false,
    "req_s": 65,
+   "estimate": null,
    "p95": 317,
    "p99": 888,
    "errors": 0.0,
@@ -165,6 +244,7 @@
    "users": 800,
    "capped": false,
    "req_s": 73,
+   "estimate": null,
    "p95": 375,
    "p99": 596,
    "errors": 0.03,
@@ -249,6 +329,7 @@
    "users": 3600,
    "capped": false,
    "req_s": 641,
+   "estimate": null,
    "p95": 158,
    "p99": 697,
    "errors": 0.01,
@@ -374,6 +455,7 @@
    "users": 3500,
    "capped": false,
    "req_s": 326,
+   "estimate": null,
    "p95": 67,
    "p99": 386,
    "errors": 0.01,
@@ -450,6 +532,7 @@
    "users": 2500,
    "capped": false,
    "req_s": 231,
+   "estimate": null,
    "p95": 287,
    "p99": 565,
    "errors": 0.02,
@@ -533,6 +616,7 @@
    "users": 2700,
    "capped": false,
    "req_s": 250,
+   "estimate": null,
    "p95": 289,
    "p99": 976,
    "errors": 0.01,
@@ -623,6 +707,7 @@
    "users": 2500,
    "capped": false,
    "req_s": 231,
+   "estimate": null,
    "p95": 487,
    "p99": 662,
    "errors": 0.05,
@@ -790,6 +875,7 @@
    "users": 1900,
    "capped": false,
    "req_s": 175,
+   "estimate": null,
    "p95": 350,
    "p99": 555,
    "errors": 0.01,
@@ -880,6 +966,7 @@
    "users": 3300,
    "capped": false,
    "req_s": 306,
+   "estimate": null,
    "p95": 269,
    "p99": 531,
    "errors": 0.02,
@@ -956,6 +1043,7 @@
    "users": 1800,
    "capped": false,
    "req_s": 167,
+   "estimate": null,
    "p95": 325,
    "p99": 742,
    "errors": 0.02,
@@ -1039,6 +1127,7 @@
    "users": 700,
    "capped": false,
    "req_s": 64,
+   "estimate": null,
    "p95": 290,
    "p99": 544,
    "errors": 0.02,
@@ -1115,6 +1204,7 @@
    "users": 2300,
    "capped": false,
    "req_s": 213,
+   "estimate": null,
    "p95": 486,
    "p99": 666,
    "errors": 0.03,
@@ -1198,6 +1288,7 @@
    "users": 7900,
    "capped": false,
    "req_s": 733,
+   "estimate": null,
    "p95": 251,
    "p99": 373,
    "errors": 0.01,
@@ -1337,6 +1428,7 @@
    "users": 9700,
    "capped": false,
    "req_s": 891,
+   "estimate": null,
    "p95": 473,
    "p99": 625,
    "errors": 0.02,
@@ -1476,6 +1568,7 @@
    "users": 2600,
    "capped": false,
    "req_s": 241,
+   "estimate": null,
    "p95": 279,
    "p99": 458,
    "errors": 0.0,
@@ -1559,6 +1652,7 @@
    "users": 1600,
    "capped": false,
    "req_s": 147,
+   "estimate": null,
    "p95": 421,
    "p99": 525,
    "errors": 0.0,
@@ -1635,6 +1729,7 @@
    "users": 4900,
    "capped": false,
    "req_s": 456,
+   "estimate": null,
    "p95": 80,
    "p99": 347,
    "errors": 0.0,
@@ -1711,6 +1806,7 @@
    "users": 600,
    "capped": false,
    "req_s": 55,
+   "estimate": null,
    "p95": 151,
    "p99": 375,
    "errors": 0.0,
@@ -1787,6 +1883,7 @@
    "users": 2900,
    "capped": false,
    "req_s": 270,
+   "estimate": null,
    "p95": 60,
    "p99": 80,
    "errors": 0.0,
@@ -1951,20 +2048,24 @@
    "version": "Axum 0.8, Askama 0.16",
    "how": "Askama compiles templates into Rust code at build time; render = writing into one pre-sized String; Tokio.",
    "status": "done",
-   "users": 16000,
+   "users": 30000,
    "capped": true,
-   "req_s": 1494,
-   "p95": 0,
-   "p99": 2,
+   "req_s": 2803,
+   "estimate": {
+    "users": 50000,
+    "why": "30,000-user hold at 54% web CPU, 51% API CPU, 1,053 MiB: CPU reaches 95% near 52,000, memory (~33 KB per connection) runs out near 58,000, the shared API near 56,000"
+   },
+   "p95": 1,
+   "p99": 3,
    "errors": 0.0,
-   "web_cpu": 18.0,
-   "web_cpu_of_vcpu": 45.0,
-   "web_mem_peak": 563.0,
-   "api_cpu": 19.0,
-   "api_cpu_of_vcpu": 46.0,
-   "api_mem_peak": 75.0,
-   "cpu_ms_per_req": 0.12,
-   "best_2m": 16000,
+   "web_cpu": 22.0,
+   "web_cpu_of_vcpu": 54.0,
+   "web_mem_peak": 1053.0,
+   "api_cpu": 21.0,
+   "api_cpu_of_vcpu": 51.0,
+   "api_mem_peak": 87.0,
+   "cpu_ms_per_req": 0.08,
+   "best_2m": 30000,
    "hold_drop_pct": 0,
    "first_fail": null,
    "steps": [
@@ -1981,6 +2082,1959 @@
      "ok": true,
      "p95": 0,
      "p99": 2
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": true,
+     "p95": 0,
+     "p99": 1
+    },
+    {
+     "users": 20000,
+     "run": "2m",
+     "ok": true,
+     "p95": 1,
+     "p99": 2
+    },
+    {
+     "users": 25000,
+     "run": "2m",
+     "ok": true,
+     "p95": 1,
+     "p99": 2
+    },
+    {
+     "users": 30000,
+     "run": "2m",
+     "ok": true,
+     "p95": 1,
+     "p99": 8
+    },
+    {
+     "users": 30000,
+     "run": "5m",
+     "ok": true,
+     "p95": 1,
+     "p99": 3
+    }
+   ]
+  },
+  {
+   "id": "nextjs-deno",
+   "name": "Next.js on Deno",
+   "lang": "TypeScript \u00b7 Deno",
+   "group": "hydrate",
+   "feed_kb": 46.6,
+   "version": "Next.js 16.4, React 19.3, Deno 2.9.7",
+   "how": "The same Next.js app and production build as Next.js; the standalone server.js runs on Deno's Node compatibility layer.",
+   "status": "done",
+   "users": 500,
+   "capped": false,
+   "req_s": 46,
+   "estimate": null,
+   "p95": 337,
+   "p99": 474,
+   "errors": 0.02,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 99.0,
+   "web_mem_peak": 162.0,
+   "api_cpu": 1.0,
+   "api_cpu_of_vcpu": 4.0,
+   "api_mem_peak": 37.0,
+   "cpu_ms_per_req": 8.7,
+   "best_2m": 500,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 600,
+    "run": "2m",
+    "p95": 1409,
+    "p99": 1946,
+    "errors": 0.15
+   },
+   "steps": [
+    {
+     "users": 300,
+     "run": "2m",
+     "ok": true,
+     "p95": 122,
+     "p99": 223
+    },
+    {
+     "users": 400,
+     "run": "2m",
+     "ok": true,
+     "p95": 199,
+     "p99": 307
+    },
+    {
+     "users": 500,
+     "run": "2m",
+     "ok": true,
+     "p95": 335,
+     "p99": 471
+    },
+    {
+     "users": 700,
+     "run": "2m",
+     "ok": false,
+     "p95": 2993,
+     "p99": 3826
+    },
+    {
+     "users": 600,
+     "run": "2m",
+     "ok": false,
+     "p95": 1409,
+     "p99": 1946
+    },
+    {
+     "users": 500,
+     "run": "5m",
+     "ok": true,
+     "p95": 337,
+     "p99": 474
+    }
+   ]
+  },
+  {
+   "id": "nextjs-nginx-cache",
+   "name": "Next.js + nginx microcache",
+   "lang": "TypeScript \u00b7 Node + nginx",
+   "group": "hydrate",
+   "feed_kb": 46.6,
+   "version": "Next.js 16.4, nginx 1.22",
+   "how": "Plain Next.js behind an nginx proxy_cache in the same box: anonymous feed cached 1 s, post pages 5 s; writes and logged-in users bypass it.",
+   "status": "done",
+   "users": 12100,
+   "capped": false,
+   "req_s": 1125,
+   "estimate": null,
+   "p95": 77,
+   "p99": 571,
+   "errors": 0.01,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 96.0,
+   "web_mem_peak": 470.0,
+   "api_cpu": 3.0,
+   "api_cpu_of_vcpu": 7.0,
+   "api_mem_peak": 66.0,
+   "cpu_ms_per_req": 0.35,
+   "best_2m": 12100,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 12200,
+    "run": "2m",
+    "p95": 500,
+    "p99": 3802,
+    "errors": 0.01
+   },
+   "steps": [
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": false,
+     "p95": 46419,
+     "p99": 60000
+    },
+    {
+     "users": 12800,
+     "run": "2m",
+     "ok": false,
+     "p95": 4184,
+     "p99": 60000
+    },
+    {
+     "users": 10200,
+     "run": "2m",
+     "ok": true,
+     "p95": 58,
+     "p99": 500
+    },
+    {
+     "users": 11500,
+     "run": "2m",
+     "ok": true,
+     "p95": 84,
+     "p99": 681
+    },
+    {
+     "users": 12100,
+     "run": "2m",
+     "ok": true,
+     "p95": 107,
+     "p99": 831
+    },
+    {
+     "users": 12400,
+     "run": "2m",
+     "ok": false,
+     "p95": 247,
+     "p99": 1045
+    },
+    {
+     "users": 12200,
+     "run": "2m",
+     "ok": false,
+     "p95": 500,
+     "p99": 3802
+    },
+    {
+     "users": 12100,
+     "run": "5m",
+     "ok": true,
+     "p95": 77,
+     "p99": 571
+    }
+   ]
+  },
+  {
+   "id": "express-bun",
+   "name": "Express + Nunjucks on Bun",
+   "lang": "JavaScript \u00b7 Bun",
+   "group": "template",
+   "feed_kb": 12.2,
+   "version": "Express 5.3, Nunjucks 3.2.4, Bun 1.4.3",
+   "how": "The same app and dependencies as Express + Nunjucks; only the runtime changes: server.js runs on Bun instead of Node.",
+   "status": "done",
+   "users": 24900,
+   "capped": false,
+   "req_s": 2318,
+   "estimate": null,
+   "p95": 141,
+   "p99": 278,
+   "errors": 0.01,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 98.0,
+   "web_mem_peak": 327.0,
+   "api_cpu": 10.0,
+   "api_cpu_of_vcpu": 25.0,
+   "api_mem_peak": 89.0,
+   "cpu_ms_per_req": 0.17,
+   "best_2m": 24900,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 27400,
+    "run": "2m",
+    "p95": 31283,
+    "p99": 33678,
+    "errors": 0.89
+   },
+   "steps": [
+    {
+     "users": 15800,
+     "run": "2m",
+     "ok": true,
+     "p95": 33,
+     "p99": 63
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": true,
+     "p95": 33,
+     "p99": 57
+    },
+    {
+     "users": 16000,
+     "run": "5m",
+     "ok": true,
+     "p95": 33,
+     "p99": 56
+    },
+    {
+     "users": 2000,
+     "run": "2m",
+     "ok": true,
+     "p95": 6,
+     "p99": 8
+    },
+    {
+     "users": 17600,
+     "run": "2m",
+     "ok": true,
+     "p95": 22,
+     "p99": 53
+    },
+    {
+     "users": 18600,
+     "run": "2m",
+     "ok": true,
+     "p95": 31,
+     "p99": 71
+    },
+    {
+     "users": 20500,
+     "run": "2m",
+     "ok": true,
+     "p95": 40,
+     "p99": 94
+    },
+    {
+     "users": 22600,
+     "run": "2m",
+     "ok": true,
+     "p95": 64,
+     "p99": 140
+    },
+    {
+     "users": 24900,
+     "run": "2m",
+     "ok": true,
+     "p95": 153,
+     "p99": 254
+    },
+    {
+     "users": 27400,
+     "run": "2m",
+     "ok": false,
+     "p95": 31283,
+     "p99": 33678
+    },
+    {
+     "users": 24900,
+     "run": "5m",
+     "ok": true,
+     "p95": 141,
+     "p99": 278
+    }
+   ]
+  },
+  {
+   "id": "hono-jsx-node",
+   "name": "Hono JSX on Node",
+   "lang": "TypeScript \u00b7 Node",
+   "group": "template",
+   "feed_kb": 11.4,
+   "version": "Hono 4.13, Node 24",
+   "how": "Hono's server-only JSX renders components straight to an HTML string; no client framework, no hydration.",
+   "status": "done",
+   "users": 8400,
+   "capped": false,
+   "req_s": 775,
+   "estimate": null,
+   "p95": 404,
+   "p99": 708,
+   "errors": 0.01,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 382.0,
+   "api_cpu": 5.0,
+   "api_cpu_of_vcpu": 12.0,
+   "api_mem_peak": 64.0,
+   "cpu_ms_per_req": 0.52,
+   "best_2m": 8500,
+   "hold_drop_pct": 1,
+   "first_fail": {
+    "users": 8500,
+    "run": "5m",
+    "p95": 638,
+    "p99": 791,
+    "errors": 0.01
+   },
+   "steps": [
+    {
+     "users": 5100,
+     "run": "2m",
+     "ok": true,
+     "p95": 83,
+     "p99": 145
+    },
+    {
+     "users": 6400,
+     "run": "2m",
+     "ok": true,
+     "p95": 142,
+     "p99": 234
+    },
+    {
+     "users": 8000,
+     "run": "2m",
+     "ok": true,
+     "p95": 286,
+     "p99": 418
+    },
+    {
+     "users": 10000,
+     "run": "2m",
+     "ok": false,
+     "p95": 1600,
+     "p99": 7466
+    },
+    {
+     "users": 9000,
+     "run": "2m",
+     "ok": false,
+     "p95": 945,
+     "p99": 1111
+    },
+    {
+     "users": 8500,
+     "run": "2m",
+     "ok": true,
+     "p95": 266,
+     "p99": 372
+    },
+    {
+     "users": 8700,
+     "run": "2m",
+     "ok": false,
+     "p95": 813,
+     "p99": 971
+    },
+    {
+     "users": 8600,
+     "run": "2m",
+     "ok": false,
+     "p95": 531,
+     "p99": 879
+    },
+    {
+     "users": 8500,
+     "run": "5m",
+     "ok": false,
+     "p95": 638,
+     "p99": 791
+    },
+    {
+     "users": 6300,
+     "run": "5m",
+     "ok": true,
+     "p95": 168,
+     "p99": 253
+    },
+    {
+     "users": 7400,
+     "run": "5m",
+     "ok": true,
+     "p95": 204,
+     "p99": 290
+    },
+    {
+     "users": 7900,
+     "run": "5m",
+     "ok": true,
+     "p95": 315,
+     "p99": 594
+    },
+    {
+     "users": 8200,
+     "run": "5m",
+     "ok": true,
+     "p95": 377,
+     "p99": 498
+    },
+    {
+     "users": 8300,
+     "run": "5m",
+     "ok": true,
+     "p95": 483,
+     "p99": 640
+    },
+    {
+     "users": 8400,
+     "run": "5m",
+     "ok": true,
+     "p95": 404,
+     "p99": 708
+    }
+   ]
+  },
+  {
+   "id": "hono-jsx-bun",
+   "name": "Hono JSX on Bun",
+   "lang": "TypeScript \u00b7 Bun",
+   "group": "template",
+   "feed_kb": 11.4,
+   "version": "Hono 4.13, Bun 1.4.3",
+   "how": "The same Hono JSX app on Bun's native HTTP server.",
+   "status": "done",
+   "users": 24100,
+   "capped": false,
+   "req_s": 2247,
+   "estimate": null,
+   "p95": 68,
+   "p99": 140,
+   "errors": 0.0,
+   "web_cpu": 38.0,
+   "web_cpu_of_vcpu": 95.0,
+   "web_mem_peak": 121.0,
+   "api_cpu": 9.0,
+   "api_cpu_of_vcpu": 22.0,
+   "api_mem_peak": 90.0,
+   "cpu_ms_per_req": 0.17,
+   "best_2m": 24100,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 25600,
+    "run": "2m",
+    "p95": 13760,
+    "p99": 18399,
+    "errors": 53.14
+   },
+   "steps": [
+    {
+     "users": 12600,
+     "run": "2m",
+     "ok": true,
+     "p95": 27,
+     "p99": 41
+    },
+    {
+     "users": 15800,
+     "run": "2m",
+     "ok": true,
+     "p95": 33,
+     "p99": 52
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": true,
+     "p95": 32,
+     "p99": 49
+    },
+    {
+     "users": 16000,
+     "run": "5m",
+     "ok": true,
+     "p95": 33,
+     "p99": 49
+    },
+    {
+     "users": 17600,
+     "run": "2m",
+     "ok": true,
+     "p95": 27,
+     "p99": 48
+    },
+    {
+     "users": 18200,
+     "run": "2m",
+     "ok": true,
+     "p95": 27,
+     "p99": 52
+    },
+    {
+     "users": 30000,
+     "run": "2m",
+     "ok": false,
+     "p95": 13407,
+     "p99": 15459
+    },
+    {
+     "users": 24100,
+     "run": "2m",
+     "ok": true,
+     "p95": 57,
+     "p99": 173
+    },
+    {
+     "users": 27100,
+     "run": "2m",
+     "ok": false,
+     "p95": 13436,
+     "p99": 25764
+    },
+    {
+     "users": 25600,
+     "run": "2m",
+     "ok": false,
+     "p95": 13760,
+     "p99": 18399
+    },
+    {
+     "users": 24100,
+     "run": "5m",
+     "ok": true,
+     "p95": 68,
+     "p99": 140
+    }
+   ]
+  },
+  {
+   "id": "honox",
+   "name": "HonoX on Bun",
+   "lang": "TypeScript \u00b7 Bun",
+   "group": "hydrate",
+   "feed_kb": 14.6,
+   "version": "HonoX 0.1.62, Hono 4.13, Bun 1.4.3",
+   "how": "Hono's metaframework: file-based routes, hono/jsx rendered to a string, one island (the like button) hydrated in the browser; Vite build served by Bun.",
+   "status": "done",
+   "users": 16100,
+   "capped": false,
+   "req_s": 1499,
+   "estimate": null,
+   "p95": 82,
+   "p99": 143,
+   "errors": 0.0,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 97.0,
+   "api_cpu": 8.0,
+   "api_cpu_of_vcpu": 21.0,
+   "api_mem_peak": 79.0,
+   "cpu_ms_per_req": 0.27,
+   "best_2m": 16100,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 17700,
+    "run": "2m",
+    "p95": 25623,
+    "p99": 28308,
+    "errors": 13.61
+   },
+   "steps": [
+    {
+     "users": 10000,
+     "run": "2m",
+     "ok": false,
+     "p95": 36,
+     "p99": 4204
+    },
+    {
+     "users": 9000,
+     "run": "2m",
+     "ok": true,
+     "p95": 22,
+     "p99": 36
+    },
+    {
+     "users": 9500,
+     "run": "2m",
+     "ok": true,
+     "p95": 25,
+     "p99": 38
+    },
+    {
+     "users": 9500,
+     "run": "5m",
+     "ok": true,
+     "p95": 26,
+     "p99": 38
+    },
+    {
+     "users": 10000,
+     "run": "2m",
+     "ok": true,
+     "p95": 33,
+     "p99": 48
+    },
+    {
+     "users": 11000,
+     "run": "2m",
+     "ok": true,
+     "p95": 35,
+     "p99": 51
+    },
+    {
+     "users": 12100,
+     "run": "2m",
+     "ok": true,
+     "p95": 39,
+     "p99": 62
+    },
+    {
+     "users": 13300,
+     "run": "2m",
+     "ok": true,
+     "p95": 43,
+     "p99": 71
+    },
+    {
+     "users": 14600,
+     "run": "2m",
+     "ok": true,
+     "p95": 52,
+     "p99": 90
+    },
+    {
+     "users": 16100,
+     "run": "2m",
+     "ok": true,
+     "p95": 91,
+     "p99": 152
+    },
+    {
+     "users": 17700,
+     "run": "2m",
+     "ok": false,
+     "p95": 25623,
+     "p99": 28308
+    },
+    {
+     "users": 16100,
+     "run": "5m",
+     "ok": true,
+     "p95": 82,
+     "p99": 143
+    }
+   ]
+  },
+  {
+   "id": "go",
+   "name": "Go html/template",
+   "lang": "Go",
+   "group": "template",
+   "feed_kb": 10.5,
+   "version": "Go 1.27, standard library",
+   "how": "net/http + html/template parsed once at startup; contextual autoescaping by reflection over the data; GOMAXPROCS 2 (Go's floor).",
+   "status": "done",
+   "users": 19000,
+   "capped": false,
+   "req_s": 1761,
+   "estimate": null,
+   "p95": 277,
+   "p99": 362,
+   "errors": 0.0,
+   "web_cpu": 38.0,
+   "web_cpu_of_vcpu": 95.0,
+   "web_mem_peak": 809.0,
+   "api_cpu": 9.0,
+   "api_cpu_of_vcpu": 21.0,
+   "api_mem_peak": 106.0,
+   "cpu_ms_per_req": 0.22,
+   "best_2m": 19000,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 19500,
+    "run": "2m",
+    "p95": 372,
+    "p99": 1151,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 9400,
+     "run": "2m",
+     "ok": true,
+     "p95": 28,
+     "p99": 60
+    },
+    {
+     "users": 11800,
+     "run": "2m",
+     "ok": true,
+     "p95": 47,
+     "p99": 109
+    },
+    {
+     "users": 14800,
+     "run": "2m",
+     "ok": true,
+     "p95": 96,
+     "p99": 175
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": true,
+     "p95": 68,
+     "p99": 152
+    },
+    {
+     "users": 16000,
+     "run": "5m",
+     "ok": true,
+     "p95": 129,
+     "p99": 223
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": true,
+     "p95": 142,
+     "p99": 220
+    },
+    {
+     "users": 20000,
+     "run": "2m",
+     "ok": false,
+     "p95": 1162,
+     "p99": 1509
+    },
+    {
+     "users": 18000,
+     "run": "2m",
+     "ok": true,
+     "p95": 213,
+     "p99": 291
+    },
+    {
+     "users": 19000,
+     "run": "2m",
+     "ok": true,
+     "p95": 248,
+     "p99": 347
+    },
+    {
+     "users": 19500,
+     "run": "2m",
+     "ok": false,
+     "p95": 372,
+     "p99": 1151
+    },
+    {
+     "users": 19000,
+     "run": "5m",
+     "ok": true,
+     "p95": 277,
+     "p99": 362
+    }
+   ]
+  },
+  {
+   "id": "rails",
+   "name": "Rails + ERB",
+   "lang": "Ruby",
+   "group": "template",
+   "feed_kb": 14.0,
+   "version": "Rails 8.1, Ruby 4.0 + YJIT, Puma 8",
+   "how": "Rails 8 production defaults: one Puma process with 3 threads, ERB partials, cookie session + per-form CSRF tokens, request logging at info.",
+   "status": "done",
+   "users": 2100,
+   "capped": false,
+   "req_s": 193,
+   "estimate": null,
+   "p95": 295,
+   "p99": 392,
+   "errors": 0.0,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 146.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 6.0,
+   "api_mem_peak": 46.0,
+   "cpu_ms_per_req": 2.07,
+   "best_2m": 2100,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 2200,
+    "run": "2m",
+    "p95": 1077,
+    "p99": 1269,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 1300,
+     "run": "2m",
+     "ok": true,
+     "p95": 47,
+     "p99": 74
+    },
+    {
+     "users": 1700,
+     "run": "2m",
+     "ok": true,
+     "p95": 89,
+     "p99": 154
+    },
+    {
+     "users": 2200,
+     "run": "2m",
+     "ok": false,
+     "p95": 1077,
+     "p99": 1269
+    },
+    {
+     "users": 1900,
+     "run": "2m",
+     "ok": true,
+     "p95": 159,
+     "p99": 199
+    },
+    {
+     "users": 2000,
+     "run": "2m",
+     "ok": true,
+     "p95": 192,
+     "p99": 278
+    },
+    {
+     "users": 2100,
+     "run": "2m",
+     "ok": true,
+     "p95": 491,
+     "p99": 591
+    },
+    {
+     "users": 2100,
+     "run": "5m",
+     "ok": true,
+     "p95": 295,
+     "p99": 392
+    }
+   ]
+  },
+  {
+   "id": "phoenix",
+   "name": "Phoenix + HEEx",
+   "lang": "Elixir",
+   "group": "template",
+   "feed_kb": 13.1,
+   "version": "Phoenix 1.8, Elixir 1.20, OTP 29",
+   "how": "Controllers render HEEx function components into iodata (no string concatenation); Bandit; cookie session + CSRF; gzip on by default.",
+   "status": "done",
+   "users": 8500,
+   "capped": false,
+   "req_s": 787,
+   "estimate": null,
+   "p95": 283,
+   "p99": 853,
+   "errors": 0.0,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 1532.0,
+   "api_cpu": 5.0,
+   "api_cpu_of_vcpu": 12.0,
+   "api_mem_peak": 62.0,
+   "cpu_ms_per_req": 0.51,
+   "best_2m": 8500,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 8600,
+    "run": "2m",
+    "p95": 611,
+    "p99": 902,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 6300,
+     "run": "2m",
+     "ok": true,
+     "p95": 48,
+     "p99": 73
+    },
+    {
+     "users": 7900,
+     "run": "2m",
+     "ok": true,
+     "p95": 114,
+     "p99": 182
+    },
+    {
+     "users": 9900,
+     "run": "2m",
+     "ok": false,
+     "p95": 2226,
+     "p99": 2657
+    },
+    {
+     "users": 8900,
+     "run": "2m",
+     "ok": false,
+     "p95": 930,
+     "p99": 1402
+    },
+    {
+     "users": 8400,
+     "run": "2m",
+     "ok": true,
+     "p95": 286,
+     "p99": 663
+    },
+    {
+     "users": 8600,
+     "run": "2m",
+     "ok": false,
+     "p95": 611,
+     "p99": 902
+    },
+    {
+     "users": 8500,
+     "run": "2m",
+     "ok": true,
+     "p95": 482,
+     "p99": 870
+    },
+    {
+     "users": 8500,
+     "run": "5m",
+     "ok": true,
+     "p95": 283,
+     "p99": 853
+    }
+   ]
+  },
+  {
+   "id": "laravel-octane",
+   "name": "Laravel Octane",
+   "lang": "PHP",
+   "group": "template",
+   "feed_kb": 12.7,
+   "version": "Laravel 13.35, Octane 2.21, FrankenPHP 1.13",
+   "how": "The same Laravel app kept booted between requests by Octane on FrankenPHP (2 workers); no per-request framework boot, no nginx/FastCGI hop.",
+   "status": "done",
+   "users": 700,
+   "capped": false,
+   "req_s": 65,
+   "estimate": null,
+   "p95": 285,
+   "p99": 485,
+   "errors": 0.0,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 96.0,
+   "web_mem_peak": 153.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 5.0,
+   "api_mem_peak": 34.0,
+   "cpu_ms_per_req": 6.0,
+   "best_2m": 900,
+   "hold_drop_pct": 22,
+   "first_fail": {
+    "users": 800,
+    "run": "5m",
+    "p95": 956,
+    "p99": 1786,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 1000,
+     "run": "2m",
+     "ok": false,
+     "p95": 1139,
+     "p99": 1478
+    },
+    {
+     "users": 800,
+     "run": "2m",
+     "ok": true,
+     "p95": 118,
+     "p99": 239
+    },
+    {
+     "users": 900,
+     "run": "2m",
+     "ok": true,
+     "p95": 346,
+     "p99": 473
+    },
+    {
+     "users": 900,
+     "run": "5m",
+     "ok": false,
+     "p95": 2214,
+     "p99": 2596
+    },
+    {
+     "users": 600,
+     "run": "5m",
+     "ok": true,
+     "p95": 90,
+     "p99": 254
+    },
+    {
+     "users": 700,
+     "run": "5m",
+     "ok": true,
+     "p95": 285,
+     "p99": 485
+    },
+    {
+     "users": 800,
+     "run": "5m",
+     "ok": false,
+     "p95": 956,
+     "p99": 1786
+    }
+   ]
+  },
+  {
+   "id": "laravel-tuned",
+   "name": "Laravel Octane (tuned)",
+   "lang": "PHP",
+   "group": "template",
+   "feed_kb": 12.7,
+   "version": "Laravel 13.35, Octane 2.21, FrankenPHP 1.13",
+   "how": "Laravel Octane after profiling: keep-alive to the API, cookie sessions instead of files, no XSRF cookie, Blade timestamp checks off, fewer Octane listeners, OPcache JIT, post card as an @include.",
+   "status": "done",
+   "users": 1900,
+   "capped": false,
+   "req_s": 176,
+   "estimate": null,
+   "p95": 171,
+   "p99": 208,
+   "errors": 0.0,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 98.0,
+   "web_mem_peak": 180.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 6.0,
+   "api_mem_peak": 45.0,
+   "cpu_ms_per_req": 2.22,
+   "best_2m": 1900,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 2000,
+    "run": "2m",
+    "p95": 504,
+    "p99": 625,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 1600,
+     "run": "2m",
+     "ok": true,
+     "p95": 75,
+     "p99": 128
+    },
+    {
+     "users": 2000,
+     "run": "2m",
+     "ok": false,
+     "p95": 504,
+     "p99": 625
+    },
+    {
+     "users": 1800,
+     "run": "2m",
+     "ok": true,
+     "p95": 140,
+     "p99": 197
+    },
+    {
+     "users": 1900,
+     "run": "2m",
+     "ok": true,
+     "p95": 225,
+     "p99": 320
+    },
+    {
+     "users": 1900,
+     "run": "5m",
+     "ok": true,
+     "p95": 171,
+     "p99": 208
+    }
+   ]
+  },
+  {
+   "id": "leptos",
+   "name": "Leptos SSR",
+   "lang": "Rust \u00b7 WASM",
+   "group": "hydrate",
+   "feed_kb": 15.7,
+   "version": "Leptos 0.8, Axum",
+   "how": "Rust components rendered on the server (async mode) with hydration data for the WASM client; the full-stack Rust counterpart to Next.js.",
+   "status": "done",
+   "users": 15500,
+   "capped": false,
+   "req_s": 1441,
+   "estimate": null,
+   "p95": 186,
+   "p99": 423,
+   "errors": 0.0,
+   "web_cpu": 38.0,
+   "web_cpu_of_vcpu": 96.0,
+   "web_mem_peak": 519.0,
+   "api_cpu": 7.0,
+   "api_cpu_of_vcpu": 17.0,
+   "api_mem_peak": 93.0,
+   "cpu_ms_per_req": 0.26,
+   "best_2m": 15900,
+   "hold_drop_pct": 3,
+   "first_fail": {
+    "users": 15600,
+    "run": "5m",
+    "p95": 761,
+    "p99": 1908,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 13000,
+     "run": "2m",
+     "ok": true,
+     "p95": 43,
+     "p99": 77
+    },
+    {
+     "users": 16000,
+     "run": "2m",
+     "ok": false,
+     "p95": 580,
+     "p99": 1200
+    },
+    {
+     "users": 14500,
+     "run": "2m",
+     "ok": true,
+     "p95": 53,
+     "p99": 123
+    },
+    {
+     "users": 15200,
+     "run": "2m",
+     "ok": true,
+     "p95": 86,
+     "p99": 199
+    },
+    {
+     "users": 15600,
+     "run": "2m",
+     "ok": true,
+     "p95": 206,
+     "p99": 381
+    },
+    {
+     "users": 15800,
+     "run": "2m",
+     "ok": true,
+     "p95": 173,
+     "p99": 323
+    },
+    {
+     "users": 15900,
+     "run": "2m",
+     "ok": true,
+     "p95": 272,
+     "p99": 479
+    },
+    {
+     "users": 15900,
+     "run": "5m",
+     "ok": false,
+     "p95": 749,
+     "p99": 1154
+    },
+    {
+     "users": 11900,
+     "run": "5m",
+     "ok": true,
+     "p95": 38,
+     "p99": 63
+    },
+    {
+     "users": 13900,
+     "run": "5m",
+     "ok": true,
+     "p95": 62,
+     "p99": 120
+    },
+    {
+     "users": 14900,
+     "run": "5m",
+     "ok": true,
+     "p95": 136,
+     "p99": 241
+    },
+    {
+     "users": 15400,
+     "run": "5m",
+     "ok": true,
+     "p95": 166,
+     "p99": 277
+    },
+    {
+     "users": 15600,
+     "run": "5m",
+     "ok": false,
+     "p95": 761,
+     "p99": 1908
+    },
+    {
+     "users": 15500,
+     "run": "5m",
+     "ok": true,
+     "p95": 186,
+     "p99": 423
+    }
+   ]
+  },
+  {
+   "id": "sveltekit-tuned",
+   "name": "SvelteKit (fixed)",
+   "lang": "TypeScript \u00b7 Node",
+   "group": "hydrate",
+   "feed_kb": 17.0,
+   "version": "SvelteKit 3.0, Svelte 5.57",
+   "how": "SvelteKit with one line moved: the date formatter (Intl.DateTimeFormat) is created once per process instead of once per post card.",
+   "status": "done",
+   "users": 5600,
+   "capped": false,
+   "req_s": 515,
+   "estimate": null,
+   "p95": 444,
+   "p99": 872,
+   "errors": 0.01,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 364.0,
+   "api_cpu": 4.0,
+   "api_cpu_of_vcpu": 9.0,
+   "api_mem_peak": 54.0,
+   "cpu_ms_per_req": 0.78,
+   "best_2m": 5600,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 5700,
+    "run": "2m",
+    "p95": 608,
+    "p99": 866,
+    "errors": 0.01
+   },
+   "steps": [
+    {
+     "users": 3500,
+     "run": "2m",
+     "ok": true,
+     "p95": 105,
+     "p99": 198
+    },
+    {
+     "users": 4400,
+     "run": "2m",
+     "ok": true,
+     "p95": 196,
+     "p99": 352
+    },
+    {
+     "users": 5500,
+     "run": "2m",
+     "ok": true,
+     "p95": 493,
+     "p99": 808
+    },
+    {
+     "users": 6900,
+     "run": "2m",
+     "ok": false,
+     "p95": 1736,
+     "p99": 2848
+    },
+    {
+     "users": 6200,
+     "run": "2m",
+     "ok": false,
+     "p95": 1294,
+     "p99": 1576
+    },
+    {
+     "users": 5800,
+     "run": "2m",
+     "ok": false,
+     "p95": 750,
+     "p99": 1044
+    },
+    {
+     "users": 5600,
+     "run": "2m",
+     "ok": true,
+     "p95": 495,
+     "p99": 828
+    },
+    {
+     "users": 5700,
+     "run": "2m",
+     "ok": false,
+     "p95": 608,
+     "p99": 866
+    },
+    {
+     "users": 5600,
+     "run": "5m",
+     "ok": true,
+     "p95": 444,
+     "p99": 872
+    }
+   ]
+  },
+  {
+   "id": "astro-tuned",
+   "name": "Astro (fixed)",
+   "lang": "TypeScript \u00b7 Node",
+   "group": "template",
+   "feed_kb": 14.3,
+   "version": "Astro 7.3, @astrojs/node 11",
+   "how": "Astro with one line moved: the date formatter (Intl.DateTimeFormat) is created once per process instead of once per post card.",
+   "status": "done",
+   "users": 4900,
+   "capped": false,
+   "req_s": 453,
+   "estimate": null,
+   "p95": 312,
+   "p99": 487,
+   "errors": 0.02,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 355.0,
+   "api_cpu": 4.0,
+   "api_cpu_of_vcpu": 9.0,
+   "api_mem_peak": 54.0,
+   "cpu_ms_per_req": 0.88,
+   "best_2m": 4900,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 5000,
+    "run": "2m",
+    "p95": 500,
+    "p99": 904,
+    "errors": 0.02
+   },
+   "steps": [
+    {
+     "users": 4200,
+     "run": "2m",
+     "ok": true,
+     "p95": 205,
+     "p99": 447
+    },
+    {
+     "users": 5300,
+     "run": "2m",
+     "ok": false,
+     "p95": 659,
+     "p99": 1056
+    },
+    {
+     "users": 4700,
+     "run": "2m",
+     "ok": true,
+     "p95": 279,
+     "p99": 531
+    },
+    {
+     "users": 5000,
+     "run": "2m",
+     "ok": false,
+     "p95": 500,
+     "p99": 904
+    },
+    {
+     "users": 4800,
+     "run": "2m",
+     "ok": true,
+     "p95": 352,
+     "p99": 815
+    },
+    {
+     "users": 4900,
+     "run": "2m",
+     "ok": true,
+     "p95": 352,
+     "p99": 891
+    },
+    {
+     "users": 4900,
+     "run": "5m",
+     "ok": true,
+     "p95": 312,
+     "p99": 487
+    }
+   ]
+  },
+  {
+   "id": "spring-tuned",
+   "name": "Spring Boot (AOT cache)",
+   "lang": "Java",
+   "group": "template",
+   "feed_kb": 10.5,
+   "version": "Spring Boot 4.1, JDK 25 AOT cache",
+   "how": "Spring with the JDK 25 AOT cache (Spring Boot's documented recipe), so a fresh container isn't stuck JIT-compiling during its first minute.",
+   "status": "done",
+   "users": 4300,
+   "capped": false,
+   "req_s": 401,
+   "estimate": null,
+   "p95": 71,
+   "p99": 125,
+   "errors": 0.0,
+   "web_cpu": 39.0,
+   "web_cpu_of_vcpu": 97.0,
+   "web_mem_peak": 672.0,
+   "api_cpu": 5.0,
+   "api_cpu_of_vcpu": 12.0,
+   "api_mem_peak": 50.0,
+   "cpu_ms_per_req": 0.97,
+   "best_2m": 6000,
+   "hold_drop_pct": 28,
+   "first_fail": {
+    "users": 4400,
+    "run": "5m",
+    "p95": 473,
+    "p99": 1445,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 700,
+     "run": "2m",
+     "ok": true,
+     "p95": 13,
+     "p99": 52
+    },
+    {
+     "users": 900,
+     "run": "2m",
+     "ok": true,
+     "p95": 6,
+     "p99": 40
+    },
+    {
+     "users": 1200,
+     "run": "2m",
+     "ok": true,
+     "p95": 6,
+     "p99": 50
+    },
+    {
+     "users": 1500,
+     "run": "2m",
+     "ok": true,
+     "p95": 7,
+     "p99": 50
+    },
+    {
+     "users": 1900,
+     "run": "2m",
+     "ok": true,
+     "p95": 14,
+     "p99": 54
+    },
+    {
+     "users": 2400,
+     "run": "2m",
+     "ok": true,
+     "p95": 18,
+     "p99": 56
+    },
+    {
+     "users": 3000,
+     "run": "2m",
+     "ok": true,
+     "p95": 28,
+     "p99": 60
+    },
+    {
+     "users": 3800,
+     "run": "2m",
+     "ok": true,
+     "p95": 31,
+     "p99": 61
+    },
+    {
+     "users": 4800,
+     "run": "2m",
+     "ok": true,
+     "p95": 49,
+     "p99": 69
+    },
+    {
+     "users": 6000,
+     "run": "2m",
+     "ok": true,
+     "p95": 65,
+     "p99": 120
+    },
+    {
+     "users": 7500,
+     "run": "2m",
+     "ok": false,
+     "p95": 1880,
+     "p99": 2770
+    },
+    {
+     "users": 6700,
+     "run": "2m",
+     "ok": false,
+     "p95": 1792,
+     "p99": 2572
+    },
+    {
+     "users": 6300,
+     "run": "2m",
+     "ok": false,
+     "p95": 1221,
+     "p99": 1797
+    },
+    {
+     "users": 6100,
+     "run": "2m",
+     "ok": false,
+     "p95": 4106,
+     "p99": 4885
+    },
+    {
+     "users": 6000,
+     "run": "5m",
+     "ok": false,
+     "p95": 2884,
+     "p99": 3891
+    },
+    {
+     "users": 4500,
+     "run": "5m",
+     "ok": false,
+     "p95": 535,
+     "p99": 1604
+    },
+    {
+     "users": 3300,
+     "run": "5m",
+     "ok": true,
+     "p95": 49,
+     "p99": 73
+    },
+    {
+     "users": 3900,
+     "run": "5m",
+     "ok": true,
+     "p95": 61,
+     "p99": 83
+    },
+    {
+     "users": 4200,
+     "run": "5m",
+     "ok": true,
+     "p95": 71,
+     "p99": 378
+    },
+    {
+     "users": 4300,
+     "run": "5m",
+     "ok": true,
+     "p95": 71,
+     "p99": 125
+    },
+    {
+     "users": 4400,
+     "run": "5m",
+     "ok": false,
+     "p95": 473,
+     "p99": 1445
+    }
+   ]
+  },
+  {
+   "id": "django-tuned",
+   "name": "Django (tuned)",
+   "lang": "Python",
+   "group": "template",
+   "feed_kb": 14.0,
+   "version": "Django 6.1 + Jinja2 backend, Python 3.14",
+   "how": "Django with its built-in Jinja2 backend and a precompiled standard library (the 2 s healthcheck was recompiling urllib/email every time).",
+   "status": "done",
+   "users": 2000,
+   "capped": false,
+   "req_s": 184,
+   "estimate": null,
+   "p95": 335,
+   "p99": 441,
+   "errors": 0.0,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 99.0,
+   "web_mem_peak": 132.0,
+   "api_cpu": 2.0,
+   "api_cpu_of_vcpu": 5.0,
+   "api_mem_peak": 45.0,
+   "cpu_ms_per_req": 2.17,
+   "best_2m": 2000,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 2100,
+    "run": "2m",
+    "p95": 573,
+    "p99": 708,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 1300,
+     "run": "2m",
+     "ok": true,
+     "p95": 54,
+     "p99": 81
+    },
+    {
+     "users": 1700,
+     "run": "2m",
+     "ok": true,
+     "p95": 128,
+     "p99": 175
+    },
+    {
+     "users": 2200,
+     "run": "2m",
+     "ok": false,
+     "p95": 788,
+     "p99": 923
+    },
+    {
+     "users": 1900,
+     "run": "2m",
+     "ok": true,
+     "p95": 187,
+     "p99": 257
+    },
+    {
+     "users": 2000,
+     "run": "2m",
+     "ok": true,
+     "p95": 346,
+     "p99": 462
+    },
+    {
+     "users": 2100,
+     "run": "2m",
+     "ok": false,
+     "p95": 573,
+     "p99": 708
+    },
+    {
+     "users": 2000,
+     "run": "5m",
+     "ok": true,
+     "p95": 335,
+     "p99": 441
+    }
+   ]
+  },
+  {
+   "id": "flask-tuned",
+   "name": "Flask (precompiled stdlib)",
+   "lang": "Python",
+   "group": "template",
+   "feed_kb": 10.5,
+   "version": "Flask 3.1, Python 3.14, gunicorn 26",
+   "how": "Flask with only a precompiled standard library, so the 2 s healthcheck stops recompiling urllib/email from source (~20% of the CPU budget).",
+   "status": "done",
+   "users": 2900,
+   "capped": false,
+   "req_s": 266,
+   "estimate": null,
+   "p95": 427,
+   "p99": 551,
+   "errors": 0.0,
+   "web_cpu": 40.0,
+   "web_cpu_of_vcpu": 100.0,
+   "web_mem_peak": 110.0,
+   "api_cpu": 3.0,
+   "api_cpu_of_vcpu": 6.0,
+   "api_mem_peak": 48.0,
+   "cpu_ms_per_req": 1.5,
+   "best_2m": 2900,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 3000,
+    "run": "2m",
+    "p95": 517,
+    "p99": 698,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 2200,
+     "run": "2m",
+     "ok": true,
+     "p95": 84,
+     "p99": 126
+    },
+    {
+     "users": 2800,
+     "run": "2m",
+     "ok": true,
+     "p95": 257,
+     "p99": 335
+    },
+    {
+     "users": 3500,
+     "run": "2m",
+     "ok": false,
+     "p95": 2416,
+     "p99": 2532
+    },
+    {
+     "users": 3100,
+     "run": "2m",
+     "ok": false,
+     "p95": 941,
+     "p99": 1126
+    },
+    {
+     "users": 2900,
+     "run": "2m",
+     "ok": true,
+     "p95": 311,
+     "p99": 387
+    },
+    {
+     "users": 3000,
+     "run": "2m",
+     "ok": false,
+     "p95": 517,
+     "p99": 698
+    },
+    {
+     "users": 2900,
+     "run": "5m",
+     "ok": true,
+     "p95": 427,
+     "p99": 551
+    }
+   ]
+  },
+  {
+   "id": "aspnet-tuned",
+   "name": "ASP.NET (tuned)",
+   "lang": "C#",
+   "group": "template",
+   "feed_kb": 16.4,
+   "version": ".NET 10, Razor Pages",
+   "how": "ASP.NET with thread-pool spinning off, precompiled (ReadyToRun) publish, background GC off and invariant globalization.",
+   "status": "done",
+   "users": 5300,
+   "capped": false,
+   "req_s": 494,
+   "estimate": null,
+   "p95": 109,
+   "p99": 645,
+   "errors": 0.0,
+   "web_cpu": 37.0,
+   "web_cpu_of_vcpu": 92.0,
+   "web_mem_peak": 241.0,
+   "api_cpu": 6.0,
+   "api_cpu_of_vcpu": 16.0,
+   "api_mem_peak": 58.0,
+   "cpu_ms_per_req": 0.75,
+   "best_2m": 5300,
+   "hold_drop_pct": 0,
+   "first_fail": {
+    "users": 5400,
+    "run": "2m",
+    "p95": 1939,
+    "p99": 2710,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 2600,
+     "run": "2m",
+     "ok": true,
+     "p95": 35,
+     "p99": 70
+    },
+    {
+     "users": 3300,
+     "run": "2m",
+     "ok": true,
+     "p95": 36,
+     "p99": 73
+    },
+    {
+     "users": 4200,
+     "run": "2m",
+     "ok": true,
+     "p95": 56,
+     "p99": 142
+    },
+    {
+     "users": 5300,
+     "run": "2m",
+     "ok": true,
+     "p95": 174,
+     "p99": 355
+    },
+    {
+     "users": 6700,
+     "run": "2m",
+     "ok": false,
+     "p95": 5199,
+     "p99": 7525
+    },
+    {
+     "users": 6000,
+     "run": "2m",
+     "ok": false,
+     "p95": 1701,
+     "p99": 2822
+    },
+    {
+     "users": 5600,
+     "run": "2m",
+     "ok": false,
+     "p95": 1928,
+     "p99": 2913
+    },
+    {
+     "users": 5400,
+     "run": "2m",
+     "ok": false,
+     "p95": 1939,
+     "p99": 2710
+    },
+    {
+     "users": 5300,
+     "run": "5m",
+     "ok": true,
+     "p95": 109,
+     "p99": 645
+    }
+   ]
+  },
+  {
+   "id": "remix-bun",
+   "name": "React Router 7 on Bun",
+   "lang": "TypeScript \u00b7 Bun",
+   "group": "hydrate",
+   "feed_kb": 18.9,
+   "version": "React Router 7.18, React 19.3, Bun 1.4.3",
+   "how": "The same React Router 7 app as remix, served by Bun.serve through react-router's Web Request/Response handler (no Express, no gzip, no request log).",
+   "status": "done",
+   "users": 2600,
+   "capped": false,
+   "req_s": 241,
+   "estimate": null,
+   "p95": 188,
+   "p99": 463,
+   "errors": 0.0,
+   "web_cpu": 37.0,
+   "web_cpu_of_vcpu": 93.0,
+   "web_mem_peak": 94.0,
+   "api_cpu": 3.0,
+   "api_cpu_of_vcpu": 6.0,
+   "api_mem_peak": 50.0,
+   "cpu_ms_per_req": 1.54,
+   "best_2m": 2900,
+   "hold_drop_pct": 10,
+   "first_fail": {
+    "users": 2900,
+    "run": "5m",
+    "p95": 601,
+    "p99": 874,
+    "errors": 0.0
+   },
+   "steps": [
+    {
+     "users": 3100,
+     "run": "2m",
+     "ok": false,
+     "p95": 818,
+     "p99": 1187
+    },
+    {
+     "users": 2900,
+     "run": "2m",
+     "ok": true,
+     "p95": 249,
+     "p99": 413
+    },
+    {
+     "users": 2900,
+     "run": "5m",
+     "ok": false,
+     "p95": 601,
+     "p99": 874
+    },
+    {
+     "users": 2600,
+     "run": "5m",
+     "ok": true,
+     "p95": 188,
+     "p99": 463
     }
    ]
   },
@@ -1993,19 +4047,23 @@
    "version": "Next.js 16.4 export + nginx 1.27",
    "how": "Static HTML/JS from nginx; the browser fetches JSON through nginx's /api proxy and renders it. The server renders nothing.",
    "status": "done",
-   "users": 16000,
+   "users": 30000,
    "capped": true,
-   "req_s": 3228,
-   "p95": 0,
-   "p99": 2,
+   "req_s": 6003,
+   "estimate": {
+    "users": 42000,
+    "why": "one 30,000-user run, p95 41 ms: nginx (the web box) at 67% of its vCPU, the API at 47%: nginx reaches 95% near 42,000-43,000, the API near 60,000"
+   },
+   "p95": 41,
+   "p99": 205,
    "errors": 0.0,
-   "web_cpu": 22.0,
-   "web_cpu_of_vcpu": 56.0,
-   "web_mem_peak": 78.0,
-   "api_cpu": 17.0,
-   "api_cpu_of_vcpu": 44.0,
-   "api_mem_peak": 75.0,
-   "cpu_ms_per_req": 0.07,
+   "web_cpu": 27.0,
+   "web_cpu_of_vcpu": 67.0,
+   "web_mem_peak": 87.0,
+   "api_cpu": 19.0,
+   "api_cpu_of_vcpu": 47.0,
+   "api_mem_peak": 86.0,
+   "cpu_ms_per_req": 0.04,
    "best_2m": 32000,
    "hold_drop_pct": 0,
    "first_fail": null,
@@ -2079,6 +4137,13 @@
      "ok": true,
      "p95": 0,
      "p99": 2
+    },
+    {
+     "users": 30000,
+     "run": "5m",
+     "ok": true,
+     "p95": 41,
+     "p99": 205
     }
    ]
   }
@@ -2092,12 +4157,443 @@
   "post_rps": 177600
  },
  "ram_check": [],
+ "fixed_load": {
+  "angular": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 8,
+   "p95": 73,
+   "p99": 153,
+   "errors": 0.02,
+   "web_cpu_of_vcpu": 69.0,
+   "web_mem": 341.0
+  },
+  "aspnet": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 2,
+   "p95": 5,
+   "p99": 42,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 20.0,
+   "web_mem": 77.0
+  },
+  "aspnet-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 2,
+   "p95": 4,
+   "p99": 36,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 20.0,
+   "web_mem": 79.0
+  },
+  "astro": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 5,
+   "p95": 15,
+   "p99": 68,
+   "errors": 0.02,
+   "web_cpu_of_vcpu": 56.0,
+   "web_mem": 612.0
+  },
+  "astro-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 3,
+   "p95": 7,
+   "p99": 49,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 38.0,
+   "web_mem": 226.0
+  },
+  "django": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 7,
+   "p95": 59,
+   "p99": 74,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 72.0,
+   "web_mem": 137.0
+  },
+  "django-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 6,
+   "p95": 16,
+   "p99": 52,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 61.0,
+   "web_mem": 121.0
+  },
+  "express": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 2,
+   "p95": 5,
+   "p99": 33,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 36.0,
+   "web_mem": 181.0
+  },
+  "express-bun": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 3,
+   "p99": 5,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 17.0,
+   "web_mem": 39.0
+  },
+  "express-nunjucks": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 2,
+   "p95": 4,
+   "p99": 34,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 28.0,
+   "web_mem": 199.0
+  },
+  "flask": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 5,
+   "p95": 53,
+   "p99": 70,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 58.0,
+   "web_mem": 110.0
+  },
+  "flask-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 5,
+   "p95": 10,
+   "p99": 39,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 51.0,
+   "web_mem": 96.0
+  },
+  "go": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 2,
+   "p99": 3,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 14.0,
+   "web_mem": 23.0
+  },
+  "hono-jsx-bun": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 2,
+   "p99": 4,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 13.0,
+   "web_mem": 18.0
+  },
+  "hono-jsx-node": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 2,
+   "p95": 5,
+   "p99": 37,
+   "errors": 0.02,
+   "web_cpu_of_vcpu": 30.0,
+   "web_mem": 176.0
+  },
+  "laravel": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 11,
+   "p95": 33,
+   "p99": 58,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 80.0,
+   "web_mem": 73.0
+  },
+  "laravel-octane": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 9,
+   "p95": 23,
+   "p99": 47,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 70.0,
+   "web_mem": 110.0
+  },
+  "laravel-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 8,
+   "p95": 14,
+   "p99": 21,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 64.0,
+   "web_mem": 112.0
+  },
+  "leptos": {
+   "users": 400,
+   "ok": true,
+   "req_s": 34,
+   "med": 1,
+   "p95": 2,
+   "p99": 3,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 15.0,
+   "web_mem": 16.0
+  },
+  "nextjs": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 21,
+   "p95": 202,
+   "p99": 323,
+   "errors": 0.02,
+   "web_cpu_of_vcpu": 91.0,
+   "web_mem": 353.0
+  },
+  "nextjs-bun": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 14,
+   "p95": 48,
+   "p99": 154,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 81.0,
+   "web_mem": 171.0
+  },
+  "nextjs-cached": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 5,
+   "p95": 34,
+   "p99": 88,
+   "errors": 0.01,
+   "web_cpu_of_vcpu": 49.0,
+   "web_mem": 376.0
+  },
+  "nextjs-csr": {
+   "users": 400,
+   "ok": true,
+   "req_s": 80,
+   "med": 0,
+   "p95": 0,
+   "p99": 0,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 4.0,
+   "web_mem": 15.0
+  },
+  "nextjs-deno": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 13,
+   "p95": 65,
+   "p99": 117,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 70.0,
+   "web_mem": 145.0
+  },
+  "nextjs-fullcache": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 6,
+   "p99": 29,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 32.0,
+   "web_mem": 203.0
+  },
+  "nextjs-nginx-cache": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 0,
+   "p95": 20,
+   "p99": 56,
+   "errors": 0.03,
+   "web_cpu_of_vcpu": 36.0,
+   "web_mem": 216.0
+  },
+  "nextjs-smart": {
+   "users": 400,
+   "ok": true,
+   "req_s": 67,
+   "med": 0,
+   "p95": 6,
+   "p99": 29,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 38.0,
+   "web_mem": 217.0
+  },
+  "nuxt": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 3,
+   "p95": 14,
+   "p99": 47,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 41.0,
+   "web_mem": 250.0
+  },
+  "phoenix": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 0,
+   "p95": 1,
+   "p99": 1,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 10.0,
+   "web_mem": 205.0
+  },
+  "qwik": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 16,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 27.0,
+   "web_mem": 244.0
+  },
+  "rails": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 7,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 21.0,
+   "web_mem": 94.0
+  },
+  "remix": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 3,
+   "p99": 10,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 23.0,
+   "web_mem": 252.0
+  },
+  "rust-axum": {
+   "users": 400,
+   "ok": true,
+   "req_s": 34,
+   "med": 0,
+   "p95": 0,
+   "p99": 0,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 3.0,
+   "web_mem": 18.0
+  },
+  "solidstart": {
+   "users": 400,
+   "ok": true,
+   "req_s": 34,
+   "med": 2,
+   "p95": 3,
+   "p99": 14,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 21.0,
+   "web_mem": 220.0
+  },
+  "spring": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 22,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 20.0,
+   "web_mem": 182.0
+  },
+  "spring-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 15,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 16.0,
+   "web_mem": 178.0
+  },
+  "sveltekit": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 20,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 26.0,
+   "web_mem": 522.0
+  },
+  "sveltekit-tuned": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 1,
+   "p95": 4,
+   "p99": 22,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 26.0,
+   "web_mem": 205.0
+  },
+  "tanstack-start": {
+   "users": 400,
+   "ok": true,
+   "req_s": 35,
+   "med": 4,
+   "p95": 12,
+   "p99": 50,
+   "errors": 0.0,
+   "web_cpu_of_vcpu": 50.0,
+   "web_mem": 234.0
+  }
+ },
  "setup": {
   "cpus": "0.4 vCPU",
   "mem": "2 GB, no swap",
   "thresholds": "p95 < 500 ms, p99 < 1 s, errors < 1%",
   "hold": "5 minutes",
-  "cap": 16000,
+  "cap": 30000,
   "host": "Intel i7-12700K performance cores"
  }
 }
