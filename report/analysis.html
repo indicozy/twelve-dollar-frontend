@@ -347,7 +347,7 @@ function niceMax(m) { const p = 10 ** Math.floor(Math.log10(m)); return Math.cei
 function hbar(id, key, opts = {}) {
   const items = V.filter(v => v.status === "done" && v[key] != null).sort((a, b) => b[key] - a[key]);
   const pending = opts.showPending ? V.filter(v => v.status !== "done") : [];
-  const W = 900, L = 190, R = 70, row = 26, top = 22;
+  const W = 900, L = 190, R = 95, row = 26, top = 22;
   const H = top + (items.length + pending.length) * row + 8;
   const max = niceMax(Math.max(...items.map(v => v[key])));
   const svg = S("svg", { viewBox: `0 0 ${W} ${H}` });
@@ -363,7 +363,7 @@ function hbar(id, key, opts = {}) {
     const w = Math.max(2, x(v[key]) - L);
     const b = S("rect", { x: L, y: y + 4, width: w, height: row - 9, rx: 3, fill: color(v.group), class: "bar", tabindex: 0 }, svg);
     if (v.capped && key === "users") {
-      const pat = `hatch-${id}`;
+      const pat = `hatch-${id}-${v.group}`;
       const defs = svg.querySelector("defs") || S("defs", {}, svg);
       if (!defs.querySelector("#" + pat)) {
         const p = S("pattern", { id: pat, width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
