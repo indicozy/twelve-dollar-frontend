@@ -4,7 +4,7 @@ import { appear, fmt, prog } from "../anim";
 import { BarChart, GroupLegend } from "../components/BarChart";
 import { Box, H, Label, Paper, Pill, Title, W } from "../components/layout";
 import { RoughArrow, RoughRect } from "../components/rough";
-import { stacks, v, variants } from "../data";
+import { shown, stacks, v, variants } from "../data";
 import { c, fonts } from "../theme";
 import { LogoTile } from "../components/logos";
 
@@ -263,6 +263,18 @@ export function CacheModes() {
         );
       })}
       <Label x={1830} y={226} size={28} color={c.ink3} align="right" start={20}>users</Label>
+    </Paper>
+  );
+}
+
+/** Every stack tested, as one tall image (render the last frame as a still). */
+export function AllStacks() {
+  const items = variants.filter((x) => x.status === "done").sort((a, b) => shown(b) - shown(a));
+  return (
+    <Paper>
+      <Title text={`all ${items.length} stacks tested`} sub="most users held for 5 minutes · 0.4 vCPU (2 GHz) · 2 GB RAM · $12 server" width={760} x={110} y={40} />
+      <GroupLegend x={1120} y={70} start={10} />
+      <BarChart items={items} y={240} rowH={48} max={62000} start={24} stagger={2} labelW={460} width={1700} />
     </Paper>
   );
 }

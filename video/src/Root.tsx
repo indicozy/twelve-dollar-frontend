@@ -120,6 +120,7 @@ export function Root() {
       <Composition id="FullV2" component={FullV2} durationInFrames={len(v2Shots)} fps={FPS} width={1920} height={1080} />
       <Composition id="FullV3" component={FullV3} durationInFrames={len(v3Shots)} fps={FPS} width={1920} height={1080} />
       <Composition id="FullV3b" component={FullV3b} durationInFrames={len(v3bShots)} fps={FPS} width={1920} height={1080} />
+      <Composition id="AllStacks" component={gResults.AllStacks} durationInFrames={240} fps={FPS} width={1920} height={2320} />
       <Still id="Thumbnail" component={Thumbnail} schema={thumbnailSchema} width={1920} height={1080}
         defaultProps={{ photo: "thumb/me.png", photoHeight: 540, photoX: -110 }} />
       <Composition id="Voiced" component={voiced.Voiced} schema={voiced.schema} calculateMetadata={voiced.metadata} durationInFrames={1} fps={FPS} width={1920} height={1080}
